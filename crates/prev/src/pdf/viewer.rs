@@ -448,7 +448,10 @@ impl PdfViewer {
                 {
                     self.current = page;
                 }
-                if resized && !matches!(self.fit, Fit::Zoom(_)) {
+                // A fit takes the new size; a zoom stays as it is, but the
+                // pages are laid out again in the new width, or a window
+                // leaving fullscreen keeps the fullscreen's wide margins.
+                if resized {
                     self.keep_position(|viewer| viewer.relayout());
                 }
                 self.schedule()
@@ -773,7 +776,10 @@ impl PdfViewer {
         }
         let point = point.unwrap_or_default();
         if let Some((x, y)) = self.layout.to_document(page, point) {
-            let x = if point.x > 0.0 {
+            // Across, only as far as needed to show the target: an outline
+            // entry's left edge leaves a page already in view where it is.
+            let in_view = x >= self.view.x && x <= self.view.x + self.view.width;
+            let x = if point.x > 0.0 && !in_view {
                 x - layout::MARGIN
             } else {
                 self.view.x
