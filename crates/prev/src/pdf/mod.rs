@@ -7,6 +7,7 @@ pub mod history;
 pub mod layout;
 pub mod markup;
 pub mod overlay;
+pub mod rich_editor;
 pub mod signature;
 pub mod signature_pad;
 pub mod viewer;

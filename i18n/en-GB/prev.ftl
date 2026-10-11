@@ -68,3 +68,4 @@ image-meta-color-space = Colour space
 menu-adjust-color = Adjust Colour…
 
 menu-minimize = Minimise
+markup-text-box-color = Box colour

@@ -42,6 +42,9 @@ pub struct TextEdit {
     pub page: usize,
     pub annotation: Annotation,
     pub content: text_editor::Content,
+    /// The text's styled runs, kept in step with the editor's text; empty
+    /// while the box is in its own style throughout.
+    pub runs: Vec<prev_pdf::annotation::TextRun>,
     /// Created just now, so an empty result removes it.
     pub fresh: bool,
 }
@@ -342,6 +345,9 @@ pub enum EditMessage {
     Undo,
     Redo,
     TextAction(text_editor::Action),
+    /// Bold, italic or a color for the selected text of the box being
+    /// typed in.
+    TextRun(prev_pdf::rich::RunChange),
     CommitText,
     FieldInput(String),
     CommitField,
@@ -1469,6 +1475,7 @@ impl PdfViewer {
             page,
             annotation: annotation.clone(),
             content: text_editor::Content::with_text(&annotation.contents),
+            runs: annotation.runs.clone(),
             fresh: false,
         });
         true
@@ -1485,10 +1492,19 @@ impl PdfViewer {
             self.edit.selected = None;
             return self.remove(edit.page, before);
         }
-        if text == before.contents {
+        // The editor kept the runs in step; the trimmed end goes from
+        // them as from the text.
+        let runs = prev_pdf::rich::retext(&edit.runs, &text);
+        let runs = if prev_pdf::rich::is_styled(&runs) {
+            runs
+        } else {
+            Vec::new()
+        };
+        if text == before.contents && runs == before.runs {
             return Task::none();
         }
         let mut after = before.clone();
+        after.runs = runs;
         after.contents = text;
         if after.kind == Kind::FreeText {
             after.rect = fit_text(&after);
@@ -1982,7 +1998,20 @@ impl PdfViewer {
             }
             EditMessage::TextAction(action) => {
                 if let Some(edit) = self.edit.text.as_mut() {
+                    let edits = action.is_edit();
                     edit.content.perform(action);
+                    if edits {
+                        edit.runs = prev_pdf::rich::retext(&edit.runs, &edit.content.text());
+                    }
+                }
+                Task::none()
+            }
+            EditMessage::TextRun(change) => {
+                if let Some(edit) = self.edit.text.as_mut()
+                    && let Some(range) = crate::pdf::rich_editor::selection(&edit.content)
+                {
+                    edit.runs =
+                        prev_pdf::rich::restyle(&edit.runs, &edit.content.text(), range, change);
                 }
                 Task::none()
             }

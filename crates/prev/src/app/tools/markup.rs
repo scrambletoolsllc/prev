@@ -807,6 +807,7 @@ fn edit_annotation(app: &mut Prev, input: EditAnnotation, answer: &Answer) -> Ta
                 None => before.clone(),
             };
             if let Some(text) = text {
+                after.runs = prev_pdf::rich::retext(&before.runs, &text);
                 after.contents = text;
                 if after.kind == AnnotationKind::FreeText && new_area.is_none() {
                     after.rect = editing::fit_text(&after);

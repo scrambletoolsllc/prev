@@ -10,6 +10,7 @@ use iced::widget::{container, image, pin, space, stack, text, text_editor, text_
 use iced::{Center, Color, Element, Fill, Length, Task, Theme};
 use prev_pdf::annotation::{Align, Annotation, FieldKind, Font, Kind, Rgb, TextMarkup};
 use prev_pdf::engine::Bitmap;
+use prev_pdf::rich::RunChange;
 use prev_store::signatures::{Signature, SignatureStore};
 
 use super::{Bar, Message, PdfWindow, Sidebar, State};
@@ -169,6 +170,59 @@ fn swatch(color: Option<Rgb>, selected: bool, message: Message) -> Swatch<Messag
         selected,
         message,
     }
+}
+
+/// The height of the bar over a text box being typed in.
+const TEXT_RUN_BAR_HEIGHT: f32 = 40.0;
+
+/// Bold, italic and colors for the selected text of the box being typed
+/// in; a swatch without a color gives the text back the box's own.
+fn text_run_bar<'a>() -> Element<'a, Message> {
+    let change = |change| edit(EditMessage::TextRun(change));
+    // Tooltips go above: below, they would cover the text.
+    let tool = |glyph, label, message| {
+        component::tip_above(ui::icon_button(glyph).on_press(message), label)
+    };
+    let mut bar = row![
+        tool(
+            Icon::FormatBold,
+            crate::fl!("markup-text-bold"),
+            change(RunChange::Bold)
+        ),
+        tool(
+            Icon::FormatItalic,
+            crate::fl!("markup-text-italic"),
+            change(RunChange::Italic)
+        ),
+        component::toolbar_divider(),
+        component::tip_above(
+            component::swatch(None, false, change(RunChange::Color(None))),
+            crate::fl!("markup-text-box-color"),
+        ),
+    ]
+    .spacing(2)
+    .align_y(Center);
+    for (color, _) in SWATCHES.iter().take(8) {
+        bar = bar.push(component::swatch(
+            Some(to_color(*color)),
+            false,
+            change(RunChange::Color(Some(*color))),
+        ));
+    }
+    container(bar)
+        .height(TEXT_RUN_BAR_HEIGHT)
+        .padding([0, 4])
+        .align_y(Center)
+        .style(|theme: &Theme| {
+            let scheme = Scheme::of(theme);
+            iced::widget::container::Style {
+                background: Some(scheme.chrome.into()),
+                border: iced::border::rounded(shape::LARGE),
+                shadow: crate::ui::elevation::shadow(&scheme, 2),
+                ..Default::default()
+            }
+        })
+        .into()
 }
 
 fn edit(message: EditMessage) -> Message {
@@ -959,7 +1013,32 @@ impl PdfWindow {
                     Font::Courier => iced::Font::MONOSPACE,
                 };
                 let text_color = to_color(annotation.style.text_color);
-                container(
+                let lines = crate::pdf::rich_editor::Lines::new(&edit.runs, font);
+                let editor = editor
+                    .key_binding(|press| {
+                        // Ctrl+B and Ctrl+I style the selection, as in a
+                        // word processor; other keys do what they always do.
+                        let change = match press.key.as_ref() {
+                            iced::keyboard::Key::Character("b") if press.modifiers.command() => {
+                                Some(RunChange::Bold)
+                            }
+                            iced::keyboard::Key::Character("i") if press.modifiers.command() => {
+                                Some(RunChange::Italic)
+                            }
+                            _ => None,
+                        };
+                        match change {
+                            Some(change) => Some(iced::widget::text_editor::Binding::Custom(
+                                Message::Edit(EditMessage::TextRun(change)),
+                            )),
+                            None => iced::widget::text_editor::Binding::from_key_press(press),
+                        }
+                    })
+                    .highlight_with::<crate::pdf::rich_editor::RunHighlighter>(
+                        lines,
+                        crate::pdf::rich_editor::format,
+                    );
+                let field = container(
                     editor
                         .font(font)
                         .size(annotation.style.font_size * scale)
@@ -980,15 +1059,16 @@ impl PdfWindow {
                             }
                         }),
                 )
-                .width((annotation.rect.width() * scale).max(120.0))
-                .into()
+                .width((annotation.rect.width() * scale).max(120.0));
+                column![text_run_bar(), field].spacing(4).into()
             } else {
                 note_card(editor, edit.page, annotation)
             };
             let position = if annotation.kind == Kind::Note {
                 (origin.0 + annotation.rect.width() * scale + 8.0, origin.1)
             } else {
-                origin
+                // The style bar sits above the box, which stays in place.
+                (origin.0, origin.1 - TEXT_RUN_BAR_HEIGHT - 4.0)
             };
             return Some(placed(element, position));
         }
