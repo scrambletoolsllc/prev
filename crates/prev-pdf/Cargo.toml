@@ -12,7 +12,8 @@ workspace = true
 [dependencies]
 futures-channel = "0.3"
 image = { version = "0.25", default-features = false, features = ["jpeg"] }
-mupdf = { version = "0.8", default-features = false, features = ["base14-fonts", "brotli", "system-fonts"] }
+mupdf = { version = "0.8", default-features = false, features = ["base14-fonts", "brotli", "html", "system-fonts"] }
+roxmltree = "0.20"
 
 [dev-dependencies]
 futures = "0.3"

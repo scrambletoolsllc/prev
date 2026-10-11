@@ -9,5 +9,6 @@ mod mupdf_pages;
 
 pub use mupdf_pages::{image_document, image_page_document};
 pub mod pages;
+pub mod rich;
 pub mod text;
 pub mod worker;

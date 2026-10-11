@@ -7,7 +7,7 @@ use std::path::Path;
 use std::sync::Arc;
 
 use prev_pdf::annotation::{
-    Annotation, Field, FieldKind, Kind, LineEnd, Rgb, StampContent, TextMarkup, new_id,
+    Annotation, Field, FieldKind, Kind, LineEnd, Rgb, StampContent, TextMarkup, TextRun, new_id,
 };
 use prev_pdf::engine::{Bitmap, Document, Engine};
 use prev_pdf::geometry::{PixelRect, Point, Quad, Rect};
@@ -473,4 +473,116 @@ fn saving_appends_to_the_original() {
     assert!(document.has_changes());
     let bytes = document.save().unwrap();
     assert!(bytes.starts_with(&original));
+}
+
+/// Counts the pixels of `area`, rendered at 1x, that `matches` picks.
+fn count_pixels(
+    document: &dyn Document,
+    area: PixelRect,
+    matches: impl Fn([u8; 4]) -> bool,
+) -> usize {
+    let display = document.display(0).unwrap();
+    let bitmap = display.render(1.0, area).unwrap();
+    bitmap
+        .pixels
+        .as_chunks::<4>()
+        .0
+        .iter()
+        .filter(|pixel| matches(**pixel))
+        .count()
+}
+
+fn reddish(pixel: [u8; 4]) -> bool {
+    pixel[0] > 180 && pixel[1] < 90 && pixel[2] < 90
+}
+
+fn blackish(pixel: [u8; 4]) -> bool {
+    pixel[0] < 70 && pixel[1] < 70 && pixel[2] < 70
+}
+
+#[test]
+fn rich_text_boxes_keep_and_draw_their_runs() {
+    let (_dir, mut document) = open(&common::form_fixture());
+    let mut text = Annotation::new(
+        new_id(),
+        Kind::FreeText,
+        Rect::new(72.0, 400.0, 540.0, 470.0),
+    );
+    text.style.color = None;
+    text.style.font_size = 36.0;
+    text.runs = vec![
+        TextRun {
+            text: "Black ".into(),
+            ..TextRun::default()
+        },
+        TextRun {
+            text: "RED".into(),
+            bold: true,
+            color: Some(RED),
+            ..TextRun::default()
+        },
+    ];
+    text.contents = prev_pdf::rich::plain(&text.runs);
+    document.add_annotation(0, &text, None).unwrap();
+    let (_dir, reopened, bytes) = reopen(&mut document);
+    let read = reopened.annotations(0).unwrap();
+    let found = read
+        .iter()
+        .find(|annotation| annotation.id == text.id)
+        .unwrap();
+    assert_eq!(found.contents, "Black RED");
+    assert_eq!(found.runs, text.runs);
+
+    let area = PixelRect {
+        x: 72,
+        y: 400,
+        width: 468,
+        height: 70,
+    };
+    let red = count_pixels(reopened.as_ref(), area, reddish);
+    let black = count_pixels(reopened.as_ref(), area, blackish);
+    assert!(red > 100, "red pixels: {red}");
+    assert!(black > 100, "black pixels: {black}");
+
+    if let Some(page) = poppler_render(&bytes) {
+        let red = (400..470)
+            .flat_map(|y| (72..540).map(move |x| (x, y)))
+            .filter(|&(x, y)| {
+                let [r, g, b] = page.at(x, y);
+                r > 180 && g < 90 && b < 90
+            })
+            .count();
+        assert!(red > 100, "red pixels in Poppler: {red}");
+    }
+}
+
+#[test]
+fn plain_text_boxes_drop_old_rich_text() {
+    let (_dir, mut document) = open(&common::form_fixture());
+    let mut text = Annotation::new(
+        new_id(),
+        Kind::FreeText,
+        Rect::new(72.0, 400.0, 540.0, 470.0),
+    );
+    text.runs = vec![TextRun {
+        text: "Styled".into(),
+        italic: true,
+        ..TextRun::default()
+    }];
+    text.contents = "Styled".into();
+    document.add_annotation(0, &text, None).unwrap();
+    // The runs taken away: the box is plain text again.
+    let mut plain = text.clone();
+    plain.runs.clear();
+    plain.contents = "Plain now".into();
+    document.update_annotation(0, &plain, None).unwrap();
+    let (_dir, reopened, _) = reopen(&mut document);
+    let found = reopened
+        .annotations(0)
+        .unwrap()
+        .into_iter()
+        .find(|annotation| annotation.id == text.id)
+        .unwrap();
+    assert_eq!(found.contents, "Plain now");
+    assert!(found.runs.is_empty());
 }

@@ -13,6 +13,7 @@ use crate::annotation::{
 };
 use crate::engine::{Error, Result};
 use crate::geometry::{Point, Quad, Rect};
+use crate::rich;
 
 fn engine_error(error: mupdf::Error) -> Error {
     Error::Engine(error.to_string())
@@ -243,17 +244,38 @@ fn read_annotation(
         };
     }
     let object = annot.object();
+    let contents = annot
+        .contents()
+        .ok()
+        .flatten()
+        .unwrap_or_default()
+        .to_owned();
+    // Rich text only counts when it styles some of the text; its text
+    // then stands, as the one Acrobat shows.
+    let runs = if kind == Kind::FreeText {
+        object
+            .get_dict("RC")
+            .ok()
+            .flatten()
+            .and_then(|value| value.as_bytes().ok())
+            .and_then(|bytes| rich::from_xhtml(&rich::decode_text_string(&bytes)))
+            .filter(|runs| rich::is_styled(runs))
+            .unwrap_or_default()
+    } else {
+        Vec::new()
+    };
+    let contents = if runs.is_empty() {
+        contents
+    } else {
+        rich::plain(&runs)
+    };
     Ok(Annotation {
         id: annotation_id(annot),
         kind,
         rect,
         style,
-        contents: annot
-            .contents()
-            .ok()
-            .flatten()
-            .unwrap_or_default()
-            .to_owned(),
+        contents,
+        runs,
         subject: string_entry(&object, "Subj"),
         author: annot
             .author()
@@ -492,6 +514,33 @@ fn write_properties(
                 Align::Right => AnnotationTextAlign::Right,
             })
             .map_err(engine_error)?;
+        write_rich_text(annot, annotation)?;
+    }
+    Ok(())
+}
+
+/// A text box's runs as `/RC` and its style as `/DS`. Written last:
+/// setting the contents or the default appearance drops both.
+fn write_rich_text(annot: &mut PdfAnnotation, annotation: &Annotation) -> Result<()> {
+    let mut object = annot.object();
+    if rich::is_styled(&annotation.runs) {
+        object
+            .dict_put(
+                "RC",
+                PdfObject::new_string(&rich::to_xhtml(&annotation.runs)).map_err(engine_error)?,
+            )
+            .map_err(engine_error)?;
+        object
+            .dict_put(
+                "DS",
+                PdfObject::new_string(&rich::default_style(&annotation.style))
+                    .map_err(engine_error)?,
+            )
+            .map_err(engine_error)?;
+    } else {
+        // Without runs, a /DS left behind would have MuPDF lay the
+        // plain text out in an old style.
+        object.dict_delete("DS").map_err(engine_error)?;
     }
     Ok(())
 }

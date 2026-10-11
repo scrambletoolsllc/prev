@@ -161,6 +161,17 @@ impl Default for Style {
     }
 }
 
+/// Part of a text box's text in its own style, on top of the box's.
+#[derive(Debug, Clone, PartialEq, Default)]
+pub struct TextRun {
+    pub text: String,
+    pub bold: bool,
+    pub italic: bool,
+    pub underline: bool,
+    /// Its own color, or the box's text color.
+    pub color: Option<Rgb>,
+}
+
 #[derive(Debug, Clone, PartialEq)]
 pub struct Annotation {
     /// Unique within the document; stored as the PDF `/NM` entry.
@@ -169,6 +180,10 @@ pub struct Annotation {
     pub rect: Rect,
     pub style: Style,
     pub contents: String,
+    /// A text box's text in runs of their own style, stored as PDF rich
+    /// text; their text together is `contents`. Empty when the box's own
+    /// style is the whole text's.
+    pub runs: Vec<TextRun>,
     /// Stored as `/Subj`; prev names its shapes there ("Star",
     /// "Signature") so they read back as what the user drew.
     pub subject: Option<String>,
@@ -183,6 +198,7 @@ impl Annotation {
             rect,
             style: Style::default(),
             contents: String::new(),
+            runs: Vec::new(),
             subject: None,
             author: None,
         }
