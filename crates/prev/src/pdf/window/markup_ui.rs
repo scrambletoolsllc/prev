@@ -172,6 +172,59 @@ fn swatch(color: Option<Rgb>, selected: bool, message: Message) -> Swatch<Messag
     }
 }
 
+/// Room between the editor's frame and its text, in pixels: more than the
+/// frame is wide, so the frame stays clear of the text.
+const EDITOR_PAD: f32 = 3.0;
+
+/// The spacing of a text box's lines, in sizes, as MuPDF lays them out.
+const LINE_HEIGHT: f32 = 1.2;
+
+/// Where MuPDF puts a plain text box's first baseline, in sizes below the
+/// top of its text.
+const MUPDF_PLAIN_BASELINE: f32 = 0.8;
+
+/// The ascent of MuPDF's own Helvetica, URW's Nimbus Sans, in sizes: the
+/// first baseline of the rich text it lays out as HTML.
+const MUPDF_SANS_ASCENT: f32 = 0.729;
+
+/// The system font a text box is typed in, matching the one the page is
+/// drawn in, and its ascent in sizes: the editor puts its first baseline
+/// that far below the top, with the rest of the line below it.
+struct Face {
+    font: iced::Font,
+    ascent: f32,
+}
+
+/// The page fonts' look-alikes each system has: URW's, as MuPDF draws
+/// with, on Linux; Arial and its kin on Windows; the originals on macOS.
+fn page_face(font: Font) -> Face {
+    let (name, ascent) = if cfg!(windows) {
+        match font {
+            Font::Helvetica => ("Arial", 0.905),
+            Font::Times => ("Times New Roman", 0.891),
+            Font::Courier => ("Courier New", 0.833),
+        }
+    } else if cfg!(target_os = "macos") {
+        // Measured on macOS 26 against MuPDF's drawing: the editor's first
+        // baseline falls 0.11 sizes above the fonts' ascents there.
+        match font {
+            Font::Helvetica => ("Helvetica", 0.66),
+            Font::Times => ("Times", 0.64),
+            Font::Courier => ("Courier", 0.644),
+        }
+    } else {
+        match font {
+            Font::Helvetica => ("Nimbus Sans", 0.729),
+            Font::Times => ("Nimbus Roman", 0.683),
+            Font::Courier => ("Nimbus Mono PS", 0.603),
+        }
+    };
+    Face {
+        font: iced::Font::with_name(name),
+        ascent,
+    }
+}
+
 /// The height of the bar over a text box being typed in.
 const TEXT_RUN_BAR_HEIGHT: f32 = 40.0;
 
@@ -1003,15 +1056,10 @@ impl PdfWindow {
             let editor = text_editor(&edit.content)
                 .id(self.text_editor_id.clone())
                 .on_action(|action| Message::Edit(EditMessage::TextAction(action)));
+            let mut editor_shift = (0.0, 0.0);
             let element: Element<'a, Message> = if annotation.kind == Kind::FreeText {
-                let font = match annotation.style.font {
-                    Font::Helvetica => iced::Font::DEFAULT,
-                    Font::Times => iced::Font {
-                        family: iced::font::Family::Serif,
-                        ..iced::Font::DEFAULT
-                    },
-                    Font::Courier => iced::Font::MONOSPACE,
-                };
+                let face = page_face(annotation.style.font);
+                let font = face.font;
                 let text_color = to_color(annotation.style.text_color);
                 let lines = crate::pdf::rich_editor::Lines::new(&edit.runs, font);
                 let editor = editor
@@ -1038,11 +1086,32 @@ impl PdfWindow {
                         lines,
                         crate::pdf::rich_editor::format,
                     );
+                // The editor's text sits where the page draws it: inside
+                // twice the border, as MuPDF insets it, with its lines 1.2
+                // sizes apart and its first baseline where MuPDF's falls.
+                let size = annotation.style.font_size * scale;
+                let border = if annotation.style.color.is_some() {
+                    annotation.style.line_width
+                } else {
+                    0.0
+                };
+                let inset = 2.0 * border * scale;
+                // Rich text is laid out as HTML, which places its first
+                // line as the editor does, by the font's ascent; plain
+                // text at a fixed 0.8 sizes. (Measured: the box and its
+                // editor then fall within a pixel of each other.)
+                let page_baseline = if prev_pdf::rich::is_styled(&edit.runs) {
+                    MUPDF_SANS_ASCENT
+                } else {
+                    MUPDF_PLAIN_BASELINE
+                };
+                let drop = (page_baseline - face.ascent) * size;
                 let field = container(
                     editor
                         .font(font)
-                        .size(annotation.style.font_size * scale)
-                        .padding(2.0 * scale)
+                        .size(size)
+                        .line_height(iced::widget::text::LineHeight::Relative(LINE_HEIGHT))
+                        .padding(EDITOR_PAD)
                         .height(Length::Shrink)
                         .style(move |theme: &Theme, _status| {
                             let scheme = Scheme::of(theme);
@@ -1059,7 +1128,8 @@ impl PdfWindow {
                             }
                         }),
                 )
-                .width((annotation.rect.width() * scale).max(120.0));
+                .width((annotation.rect.width() * scale - 2.0 * inset).max(0.0) + 2.0 * EDITOR_PAD);
+                editor_shift = (inset - EDITOR_PAD, inset - EDITOR_PAD + drop);
                 column![text_run_bar(), field].spacing(4).into()
             } else {
                 note_card(editor, edit.page, annotation)
@@ -1068,7 +1138,10 @@ impl PdfWindow {
                 (origin.0 + annotation.rect.width() * scale + 8.0, origin.1)
             } else {
                 // The style bar sits above the box, which stays in place.
-                (origin.0, origin.1 - TEXT_RUN_BAR_HEIGHT - 4.0)
+                (
+                    origin.0 + editor_shift.0,
+                    origin.1 + editor_shift.1 - TEXT_RUN_BAR_HEIGHT - 4.0,
+                )
             };
             return Some(placed(element, position));
         }
