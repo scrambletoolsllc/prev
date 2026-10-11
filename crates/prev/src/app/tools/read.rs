@@ -192,6 +192,123 @@ pub(super) enum Shown<'a> {
     Markdown(&'a MarkdownWindow),
 }
 
+/// The kinds of window the tools tell apart.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub(super) enum Shows {
+    Start,
+    Pdf,
+    Image,
+    Markdown,
+}
+
+pub(super) fn shows(app: &Prev, id: window::Id) -> Shows {
+    match app.shown(Some(number(id))) {
+        Ok((_, Shown::Pdf(_))) => Shows::Pdf,
+        Ok((_, Shown::Image(_))) => Shows::Image,
+        Ok((_, Shown::Markdown(_))) => Shows::Markdown,
+        Ok((_, Shown::Start)) | Err(_) => Shows::Start,
+    }
+}
+
+/// The most outline entries, and the longest text, a summary gives.
+const SUMMARY_OUTLINE: usize = 12;
+const SUMMARY_TEXT: usize = 500;
+
+/// Facts about window `id` that stay put while a chat goes on: a PDF's
+/// pages and the top of its outline, an image's size, a Markdown file's
+/// length.
+pub(super) fn summary(app: &Prev, id: window::Id) -> Option<String> {
+    let (_, shown) = app.shown(Some(number(id))).ok()?;
+    match shown {
+        Shown::Start => None,
+        Shown::Pdf(viewer) => {
+            let mut summary = format!("It has {} pages.", viewer.page_count());
+            let outline: Vec<String> = viewer
+                .info
+                .outline
+                .iter()
+                .take(SUMMARY_OUTLINE)
+                .filter_map(|item| {
+                    let page = match item.target {
+                        Some(LinkTarget::Page { index, .. }) => {
+                            format!(" (page {})", index + 1)
+                        }
+                        _ => String::new(),
+                    };
+                    let title = shortened(item.title.trim(), 60);
+                    (!title.is_empty()).then(|| format!("{title}{page}"))
+                })
+                .collect();
+            if !outline.is_empty() {
+                let more = if viewer.info.outline.len() > SUMMARY_OUTLINE {
+                    "; more in document_info"
+                } else {
+                    ""
+                };
+                summary.push_str(&format!(
+                    " Its outline: {}{more}. The outline is enough to say where most \
+                     topics are; search for the rest.",
+                    outline.join("; ")
+                ));
+            }
+            Some(summary)
+        }
+        Shown::Image(images) => {
+            let image = images.shown_image()?;
+            let mut summary = format!("It is {} by {} pixels", image.width, image.height);
+            if image.count > 1 {
+                summary.push_str(&format!(", one of {} images in the window", image.count));
+            }
+            summary.push('.');
+            Some(summary)
+        }
+        Shown::Markdown(markdown) => {
+            let (words, lines) = markdown.counts();
+            Some(format!("It has {words} words on {lines} lines."))
+        }
+    }
+}
+
+/// What the user sees in window `id` now: a PDF's page in view and any
+/// text they selected, an image's place among the window's images.
+pub(super) fn view_note(app: &Prev, id: window::Id) -> Option<String> {
+    let (_, shown) = app.shown(Some(number(id))).ok()?;
+    match shown {
+        Shown::Pdf(viewer) => {
+            let page = viewer
+                .layout
+                .current_page(&viewer.view)
+                .unwrap_or(viewer.current);
+            let mut note = format!("Page {} of {} is in view.", page + 1, viewer.page_count());
+            if let Some(text) = viewer
+                .selected_text()
+                .filter(|text| !text.trim().is_empty())
+            {
+                note.push_str(&format!(
+                    " Selected: \"{}\".",
+                    shortened(text.trim(), SUMMARY_TEXT)
+                ));
+            }
+            Some(note)
+        }
+        Shown::Image(images) => {
+            let image = images.shown_image()?;
+            (image.count > 1)
+                .then(|| format!("Image {} of {} is shown.", image.index + 1, image.count))
+        }
+        Shown::Markdown(_) | Shown::Start => None,
+    }
+}
+
+/// `text` cut to `most` characters, with an ellipsis when cut.
+fn shortened(text: &str, most: usize) -> String {
+    if text.chars().count() <= most {
+        return text.to_owned();
+    }
+    let cut: String = text.chars().take(most).collect();
+    format!("{}…", cut.trim_end())
+}
+
 pub(super) fn invalid(message: impl Into<String>) -> Error {
     Error::new(code::INVALID_PARAMS, message)
 }

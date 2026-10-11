@@ -228,10 +228,14 @@ impl Prev {
                 }
                 super::super::Content::Start => None,
             });
+        let summary = tools::summary(self, id)
+            .map(|summary| format!(" {summary}"))
+            .unwrap_or_default();
         match file {
             Some(file) => format!(
                 "The user's window is number {number} and shows {file}; the user means it unless \
-                 they say otherwise."
+                 they say otherwise.{summary} A message from the user may start with what they see, in \
+                 brackets."
             ),
             None => format!("The user's window is number {number}, with no file open yet."),
         }
@@ -279,6 +283,13 @@ impl Prev {
                 panel.input.clear();
                 panel.entries.push(Entry::User(said.clone()));
                 panel.busy = true;
+                // What the user sees as they write goes with the message,
+                // so the model knows the page and selection they mean
+                // without asking; the chat shows the message alone.
+                let said = match tools::view_note(self, id) {
+                    Some(note) => format!("[{note}]\n\n{said}"),
+                    None => said,
+                };
                 if let Some(chat) = &panel.chat {
                     chat.say(said);
                     return Task::none();
@@ -323,8 +334,9 @@ impl Prev {
                         key,
                         format!("{INSTRUCTIONS} {}", self.window_context(id)),
                         // The user asks for what the assistant does, so no
-                        // tool asks again.
-                        tools::specs(&prev_store::settings::AskBefore::never()),
+                        // tool asks again; only the tools that work on the
+                        // window's file come along.
+                        tools::assistant_specs(self, id),
                         move |event| {
                             crate::post(External::Assistant(id, Heard::Chat(number, event)));
                         },

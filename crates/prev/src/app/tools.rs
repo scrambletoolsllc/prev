@@ -358,6 +358,86 @@ pub(super) fn specs(ask: &settings::AskBefore) -> Vec<prev_assist::ToolSpec> {
         .collect()
 }
 
+/// The tools the assistant gets in window `id`: those that work on what
+/// it shows, so a model reads fewer tool definitions on every turn, and
+/// the window tools only when there are windows to choose between.
+pub(super) fn assistant_specs(app: &Prev, id: window::Id) -> Vec<prev_assist::ToolSpec> {
+    let shows = read::shows(app, id);
+    let several = app.windows.len() > 1;
+    specs(&settings::AskBefore::never())
+        .into_iter()
+        .filter(|tool| fits(&tool.name, shows, several))
+        .collect()
+}
+
+/// Whether the tool named `name` works on a window showing `shows`.
+fn fits(name: &str, shows: read::Shows, several: bool) -> bool {
+    use read::Shows;
+    // The window tools: always to open, close or size the user's window,
+    // and to choose between windows when there are more than one.
+    if matches!(name, "list_windows" | "focus_window") {
+        return several;
+    }
+    let image_only = [
+        "render_image",
+        "get_image",
+        "crop",
+        "rotate",
+        "resize",
+        "adjust_color",
+        "replace_image",
+    ];
+    let pdf_only = [
+        "page_text",
+        "search",
+        "form_fields",
+        "fill_field",
+        "render_page",
+        "highlight",
+        "set_view_mode",
+        "scroll_to",
+        "apply_redactions",
+        "rotate_pages",
+        "delete_pages",
+        "move_pages",
+        "insert_blank_page",
+        "crop_pages",
+    ];
+    let markdown = [
+        "document_info",
+        "page_text",
+        "search",
+        "current_view",
+        "set_zoom",
+        "point_at",
+        "show_panel",
+        "hide_panel",
+        "export",
+        "open_file",
+        "set_window",
+        "close_window",
+    ];
+    match shows {
+        // A window without a file yet may open any kind.
+        Shows::Start => true,
+        Shows::Pdf => !image_only.contains(&name),
+        Shows::Image => !pdf_only.contains(&name),
+        Shows::Markdown => markdown.contains(&name),
+    }
+}
+
+/// What window `id` is, for the assistant's instructions: facts that stay
+/// put while a chat goes on, so it need not ask for them first.
+pub(super) fn summary(app: &Prev, id: window::Id) -> Option<String> {
+    read::summary(app, id)
+}
+
+/// What the user sees in window `id` as they write, sent with each of
+/// their messages, as it changes while they read.
+pub(super) fn view_note(app: &Prev, id: window::Id) -> Option<String> {
+    read::view_note(app, id)
+}
+
 /// Whether the tool named `name` takes a window number.
 pub(super) fn takes_window(name: &str) -> bool {
     find(name).is_some_and(|tool| !(tool.schema)()["properties"]["window"].is_null())
@@ -513,6 +593,34 @@ impl Prev {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn each_window_gets_the_tools_for_its_file() {
+        use read::Shows;
+        let names: Vec<String> = specs(&settings::AskBefore::never())
+            .into_iter()
+            .map(|tool| tool.name)
+            .collect();
+        let kept = |shows, several| -> Vec<&str> {
+            names
+                .iter()
+                .filter(|name| fits(name, shows, several))
+                .map(String::as_str)
+                .collect()
+        };
+        let pdf = kept(Shows::Pdf, false);
+        assert!(pdf.contains(&"page_text") && pdf.contains(&"highlight"));
+        assert!(!pdf.contains(&"adjust_color") && !pdf.contains(&"list_windows"));
+        let image = kept(Shows::Image, false);
+        assert!(image.contains(&"adjust_color") && image.contains(&"add_shape"));
+        assert!(!image.contains(&"page_text") && !image.contains(&"delete_pages"));
+        let markdown = kept(Shows::Markdown, false);
+        assert!(markdown.contains(&"search") && !markdown.contains(&"add_shape"));
+        // More windows bring the tools to choose between them.
+        assert!(kept(Shows::Pdf, true).contains(&"list_windows"));
+        // A window without a file yet keeps all but the window tools.
+        assert_eq!(kept(Shows::Start, false).len(), names.len() - 2);
+    }
 
     #[test]
     fn names_are_unique_and_snake_case() {
