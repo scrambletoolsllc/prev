@@ -199,10 +199,12 @@ struct Face {
 /// with, on Linux; Arial and its kin on Windows; the originals on macOS.
 fn page_face(font: Font) -> Face {
     let (name, ascent) = if cfg!(windows) {
+        // Measured on Windows 11 against MuPDF's drawing: the editor's
+        // first baseline falls 0.145 sizes above the fonts' ascents there.
         match font {
-            Font::Helvetica => ("Arial", 0.905),
-            Font::Times => ("Times New Roman", 0.891),
-            Font::Courier => ("Courier New", 0.833),
+            Font::Helvetica => ("Arial", 0.76),
+            Font::Times => ("Times New Roman", 0.746),
+            Font::Courier => ("Courier New", 0.688),
         }
     } else if cfg!(target_os = "macos") {
         // Measured on macOS 26 against MuPDF's drawing: the editor's first
