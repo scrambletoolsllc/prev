@@ -30,7 +30,8 @@ pub(super) fn tools() -> Vec<Tool> {
             Kind::Markup,
             "Highlights, underlines, strikes out or squiggles text on one PDF page: every \
              place the given text appears there (or one of them, or only whole words), or the \
-             text inside a box. Gives the new annotation's id.",
+             text inside a box. It finds the text itself, so no search is needed first. Gives \
+             the new annotation's id.",
             highlight,
         ),
         tool(

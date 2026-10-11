@@ -230,6 +230,7 @@ fn tool<I: DeserializeOwned + JsonSchema + 'static>(
                 // there are none.
                 schema.entry("properties").or_insert_with(|| json!({}));
             }
+            compact(&mut schema);
             schema
         },
         run: Box::new(
@@ -244,6 +245,83 @@ fn tool<I: DeserializeOwned + JsonSchema + 'static>(
                 }
             },
         ),
+    }
+}
+
+/// Leaves out what a schema says only for a validator, since every agent
+/// reads the schemas on every turn and prev checks the input itself: the
+/// number formats and their bounds, `null` beside optional fields' types,
+/// shared definitions (written where they are used instead) and the
+/// line breaks of descriptions.
+fn compact(schema: &mut Value) {
+    let definitions = schema
+        .as_object_mut()
+        .and_then(|schema| schema.remove("$defs"))
+        .unwrap_or_default();
+    schema
+        .as_object_mut()
+        .map(|schema| schema.remove("additionalProperties"));
+    tidy(schema, &definitions);
+}
+
+fn tidy(value: &mut Value, definitions: &Value) {
+    match value {
+        Value::Object(object) => {
+            // An optional field is one of a type or null: the type alone.
+            if let Some(Value::Array(any)) = object.get("anyOf")
+                && any.len() == 2
+                && let Some(other) = any.iter().find(|one| one["type"] != "null")
+                && any.iter().any(|one| one["type"] == "null")
+            {
+                let other = other.clone();
+                object.remove("anyOf");
+                if let Some(Value::Object(other)) = Some(other) {
+                    for (key, value) in other {
+                        object.entry(key).or_insert(value);
+                    }
+                }
+            }
+            if let Some(name) = object
+                .get("$ref")
+                .and_then(Value::as_str)
+                .and_then(|reference| reference.strip_prefix("#/$defs/"))
+                && let Some(Value::Object(definition)) = definitions.get(name).cloned()
+            {
+                object.remove("$ref");
+                for (key, value) in definition {
+                    object.entry(key).or_insert(value);
+                }
+            }
+            if let Some(Value::Array(types)) = object.get("type")
+                && types.len() == 2
+                && let Some(only) = types.iter().find(|one| *one != "null").cloned()
+            {
+                object.insert("type".into(), only);
+            }
+            if let Some(format) = object.remove("format")
+                && format
+                    .as_str()
+                    .is_some_and(|format| format.starts_with("uint"))
+            {
+                if object.get("minimum") == Some(&json!(0)) {
+                    object.remove("minimum");
+                }
+                if format == "uint8" && object.get("maximum") == Some(&json!(255)) {
+                    object.remove("maximum");
+                }
+            }
+            if let Some(Value::String(description)) = object.get_mut("description") {
+                *description = description.replace('\n', " ");
+            }
+            for (key, value) in object.iter_mut() {
+                // Field names are not schemas, but their values are.
+                if key != "enum" && key != "required" {
+                    tidy(value, definitions);
+                }
+            }
+        }
+        Value::Array(values) => values.iter_mut().for_each(|value| tidy(value, definitions)),
+        _ => {}
     }
 }
 
@@ -367,6 +445,13 @@ pub(super) fn assistant_specs(app: &Prev, id: window::Id) -> Vec<prev_assist::To
     specs(&settings::AskBefore::never())
         .into_iter()
         .filter(|tool| fits(&tool.name, shows, several))
+        .map(|mut tool| {
+            // With one window, the chat fills in its number itself.
+            if !several && let Some(properties) = tool.schema["properties"].as_object_mut() {
+                properties.remove("window");
+            }
+            tool
+        })
         .collect()
 }
 
@@ -593,6 +678,32 @@ impl Prev {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn schemas_leave_out_what_only_a_validator_needs() {
+        for tool in TOOLS.iter() {
+            let schema = (tool.schema)();
+            let text = schema.to_string();
+            for left_out in [
+                "\"$defs\"",
+                "\"$ref\"",
+                "\"anyOf\"",
+                "\"format\"",
+                "\"null\"",
+                "\\n",
+            ] {
+                assert!(
+                    !text.contains(left_out),
+                    "{}: {left_out} in {text}",
+                    tool.name
+                );
+            }
+        }
+        // An optional enum keeps its choices where it is used.
+        let highlight = (find("highlight").expect("highlight").schema)();
+        assert_eq!(highlight["properties"]["style"]["enum"][0], "highlight");
+        assert_eq!(highlight["properties"]["page"]["type"], "integer");
+    }
 
     #[test]
     fn each_window_gets_the_tools_for_its_file() {
