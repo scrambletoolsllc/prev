@@ -126,6 +126,18 @@ impl ModelChoice {
         (self.provider == Provider::Anthropic && known.is_none()).then_some(ANTHROPIC_REPLY)
     }
 
+    /// The model's context in tokens, where prev knows it: the one Settings
+    /// gives, or the one prev gives a local server's model. A cloud
+    /// model's is not known, as it differs from model to model, and is
+    /// often far more than a chat needs.
+    fn context(&self) -> Option<u64> {
+        let default = match self.provider {
+            Provider::Ollama | Provider::OpenAiCompatible => Some(DEFAULT_CONTEXT),
+            _ => None,
+        };
+        self.context.or(default).map(u64::from)
+    }
+
     /// What the provider needs in each request besides the messages.
     fn request_params(&self) -> Option<Value> {
         match self.provider {
@@ -290,6 +302,14 @@ pub enum Event {
     Done,
     /// The turn failed; the chat can go on.
     Failed(Problem),
+    /// The conversation is near the end of the model's context, so the
+    /// model is summarizing its earlier part before it answers.
+    Compacting,
+    /// The earlier part of the conversation was replaced by its summary.
+    Compacted,
+    /// The conversation did not fit the model's context, so the long tool
+    /// results of its earlier part were left out.
+    Shortened,
     /// The user stopped the turn.
     Stopped,
 }
@@ -436,6 +456,8 @@ impl Chat {
                     max_tokens: choice.max_tokens(),
                     vision: choice.vision != Some(false),
                     pictures_in_results: choice.provider != Provider::Ollama,
+                    context: choice.context(),
+                    last_input: 0,
                     instructions,
                     tools: tools
                         .into_iter()
@@ -526,6 +548,10 @@ struct Conversation {
     /// Whether pictures can go in a tool result, which Ollama refuses; there
     /// they follow the results in the same message.
     pictures_in_results: bool,
+    /// The model's context, where known, and how much of it the last
+    /// request took.
+    context: Option<u64>,
+    last_input: u64,
     instructions: String,
     tools: Vec<ToolDefinition>,
     history: Vec<Message>,
@@ -544,6 +570,17 @@ impl Conversation {
             match command {
                 Command::Say(text) => {
                     self.answer_waiting();
+                    if self.nearly_full() {
+                        let stopped = tokio::select! {
+                            () = self.compact(&on_event) => false,
+                            () = stop.notified() => true,
+                        };
+                        if stopped {
+                            self.history.push(Message::user(text));
+                            on_event(Event::Stopped);
+                            continue;
+                        }
+                    }
                     self.history.push(Message::user(text));
                 }
                 Command::Stop => {
@@ -558,6 +595,7 @@ impl Conversation {
                             self.max_tokens = choice.max_tokens();
                             self.vision = choice.vision != Some(false);
                             self.pictures_in_results = choice.provider != Provider::Ollama;
+                            self.context = choice.context();
                             self.forget_reasoning();
                         }
                         Err(error) => on_event(Event::Failed(Problem::Other(error))),
@@ -635,12 +673,14 @@ impl Conversation {
     /// With `PREV_ASSIST_LOG` naming a file, adds a line of JSON to it for
     /// each request: what went in, the tokens it took and how many came
     /// from the provider's cache, how long it took and the tools it called,
-    /// to compare one change to the assistant with another.
+    /// or whether it was for a summary, to compare one change to the
+    /// assistant with another.
     fn log(
         &self,
         usage: &rig_core::completion::Usage,
         took: std::time::Duration,
         calls: &[rig_core::completion::message::ToolCall],
+        summary: bool,
     ) {
         use std::io::Write;
         let Some(path) = std::env::var_os("PREV_ASSIST_LOG") else {
@@ -656,6 +696,7 @@ impl Conversation {
             "output_tokens": usage.output_tokens,
             "seconds": (took.as_secs_f64() * 10.0).round() / 10.0,
             "calls": calls.iter().map(|call| call.function.name.to_string()).collect::<Vec<_>>(),
+            "summary": summary,
         });
         if let Ok(mut file) = std::fs::OpenOptions::new()
             .create(true)
@@ -680,8 +721,29 @@ impl Conversation {
 
     /// Asks the model to go on from the history, telling prev what it says.
     async fn turn(&mut self, on_event: &impl Fn(Event)) {
+        let mut shortened = false;
+        loop {
+            match self.attempt(on_event).await {
+                Ok(()) => return,
+                // Once, with the old results left out, if there are any.
+                Err(Problem::ContextTooSmall)
+                    if !shortened && shorten_old_results(&mut self.history, 1) =>
+                {
+                    shortened = true;
+                    on_event(Event::Shortened);
+                }
+                Err(problem) => {
+                    on_event(Event::Failed(problem));
+                    return;
+                }
+            }
+        }
+    }
+
+    /// One request for the turn, telling prev what the model says.
+    async fn attempt(&mut self, on_event: &impl Fn(Event)) -> Result<(), Problem> {
         let Some((last, earlier)) = self.history.split_last() else {
-            return;
+            return Ok(());
         };
         let mut request = CompletionRequest::new(last.clone())
             .messages(earlier.to_vec())
@@ -694,43 +756,31 @@ impl Conversation {
             request = request.max_tokens(tokens);
         }
         let started = std::time::Instant::now();
-        let mut stream = match self.model.stream(request) {
-            Ok(stream) => stream,
-            Err(error) => {
-                on_event(Event::Failed(Problem::of(&error)));
-                return;
-            }
-        };
+        let mut stream = self
+            .model
+            .stream(request)
+            .map_err(|error| Problem::of(&error))?;
         while let Some(item) = stream.next().await {
-            match item {
-                Ok(Item::Event(StreamEvent::Text { text, .. })) => on_event(Event::Text(text)),
-                Ok(Item::Event(StreamEvent::Reasoning { text, .. })) => {
+            match item.map_err(|error| Problem::of(&error))? {
+                Item::Event(StreamEvent::Text { text, .. }) => on_event(Event::Text(text)),
+                Item::Event(StreamEvent::Reasoning { text, .. }) => {
                     on_event(Event::Reasoning(text));
                 }
-                Ok(_) => {}
-                Err(error) => {
-                    on_event(Event::Failed(Problem::of(&error)));
-                    return;
-                }
+                _ => {}
             }
         }
-        let response = match stream.finish().await {
-            Ok(response) => response,
-            Err(error) => {
-                on_event(Event::Failed(Problem::of(&error)));
-                return;
-            }
-        };
+        let response = stream.finish().await.map_err(|error| Problem::of(&error))?;
         let calls: Vec<rig_core::completion::message::ToolCall> =
             response.tool_calls().cloned().collect();
-        self.log(&response.usage, started.elapsed(), &calls);
+        self.log(&response.usage, started.elapsed(), &calls, false);
+        self.last_input = response.usage.input_tokens.unwrap_or(0);
         self.history.push(Message::Assistant {
             id: None,
             content: response.choice.clone(),
         });
         if calls.is_empty() {
             on_event(Event::Done);
-            return;
+            return Ok(());
         }
         let asked = calls
             .into_iter()
@@ -747,10 +797,153 @@ impl Conversation {
             })
             .collect();
         on_event(Event::ToolCalls(asked));
+        Ok(())
+    }
+
+    /// Whether the last request took more than [`COMPACT_AT`] of the
+    /// model's context, where it is known.
+    fn nearly_full(&self) -> bool {
+        self.context
+            .is_some_and(|context| self.last_input as f64 > context as f64 * COMPACT_AT)
+    }
+
+    /// Has the model summarize the conversation before its last turn, and
+    /// puts the summary in its place, so the chat goes on within the
+    /// model's context; the last turn stays whole, for what the user says
+    /// next to follow from it. Leaves out the old long results instead if
+    /// no summary comes.
+    async fn compact(&mut self, on_event: &impl Fn(Event)) {
+        let Some(boundary) = turn_starts(&self.history)
+            .last()
+            .copied()
+            .filter(|&at| at > 0)
+        else {
+            return;
+        };
+        on_event(Event::Compacting);
+        // The same tools and instructions, and the conversation as it was,
+        // so the provider reads them from its cache.
+        let mut request = CompletionRequest::new(Message::user(COMPACT_PROMPT))
+            .messages(self.history[..boundary].to_vec())
+            .preamble(self.instructions.clone())
+            .tools(self.tools.clone());
+        if let Some(params) = &self.params {
+            request = request.additional_params(params.clone());
+        }
+        if let Some(tokens) = self.max_tokens {
+            request = request.max_tokens(tokens);
+        }
+        let started = std::time::Instant::now();
+        let summary = match self.model.call(request).await {
+            Ok(response) => {
+                self.log(&response.usage, started.elapsed(), &[], true);
+                text_of(&response.choice)
+            }
+            Err(_) => String::new(),
+        };
+        if summary.trim().is_empty() {
+            if shorten_old_results(&mut self.history, 1) {
+                on_event(Event::Shortened);
+            }
+            return;
+        }
+        let mut kept = self.history.split_off(boundary);
+        if let Some(Message::User { content }) = kept.first_mut() {
+            content.insert(
+                0,
+                UserContent::text(format!(
+                    "(Our conversation before this was too long to keep, so here is your \
+                     summary of it.)\n\n{}",
+                    summary.trim()
+                )),
+            );
+        }
+        self.history = kept;
+        // Not known again until the next request.
+        self.last_input = 0;
+        on_event(Event::Compacted);
     }
 }
 
-/// A tool's result as rig sends it on.
+/// The share of the model's context the conversation may take before it
+/// is summarized.
+const COMPACT_AT: f64 = 0.8;
+
+/// What the model is asked for when the conversation is summarized.
+const COMPACT_PROMPT: &str = "Our conversation is getting too long for you to read at once, so \
+    it will be replaced by your summary of it. Write that summary now, for yourself to go on \
+    from: what I asked and what you answered, the pages, figures and short quotes you found, \
+    the ids of the annotations you made and what they are, and anything left to do. Leave out \
+    tool output that can be read again, and say where it came from instead. Reply with the \
+    summary alone, and call no tools.";
+
+/// Where each turn starts: each thing the user said, rather than tool
+/// results.
+fn turn_starts(history: &[Message]) -> Vec<usize> {
+    (0..history.len())
+        .filter(|&index| {
+            matches!(&history[index], Message::User { content }
+                if !content.iter().any(|part| matches!(part, UserContent::ToolResult(_))))
+        })
+        .collect()
+}
+
+/// Leaves out the long tool results and pictures from before the last
+/// `keep` turns, so the chat fits the model's context: the model can ask
+/// for them again. Returns whether anything was left out.
+fn shorten_old_results(history: &mut [Message], keep: usize) -> bool {
+    let starts = turn_starts(history);
+    let Some(&boundary) = starts
+        .len()
+        .checked_sub(keep)
+        .and_then(|first| starts.get(first))
+    else {
+        return false;
+    };
+    let mut shortened = false;
+    for message in &mut history[..boundary] {
+        let Message::User { content } = message else {
+            continue;
+        };
+        for part in content.iter_mut() {
+            match part {
+                UserContent::ToolResult(result) if long(&result.content) => {
+                    result.content = vec![ToolResultContent::text(format!(
+                        "(This {} result was left out to make room; call the tool again if \
+                         it is needed.)",
+                        result.name
+                    ))];
+                    shortened = true;
+                }
+                UserContent::Image(_) => {
+                    *part = UserContent::text("(A picture, left out to make room.)");
+                    shortened = true;
+                }
+                _ => {}
+            }
+        }
+    }
+    shortened
+}
+
+/// The longest tool result, in bytes of text, kept when old ones are left
+/// out: ids, counts and short answers stay.
+const OLD_RESULT_LIMIT: usize = 600;
+
+/// Whether a tool result is worth leaving out once it is old: a picture,
+/// or more text than [`OLD_RESULT_LIMIT`].
+fn long(content: &[ToolResultContent]) -> bool {
+    let mut length = 0;
+    for part in content {
+        match part {
+            ToolResultContent::Text(text) => length += text.text().len(),
+            ToolResultContent::Image(_) => return true,
+            other => length += serde_json::to_string(other).map_or(0, |json| json.len()),
+        }
+    }
+    length > OLD_RESULT_LIMIT
+}
+
 /// A PNG as rig sends it on.
 fn png_image(png: Vec<u8>) -> Image {
     Image {
@@ -761,6 +954,7 @@ fn png_image(png: Vec<u8>) -> Image {
     }
 }
 
+/// A tool's result as rig sends it on.
 fn tool_content(result: ToolResult, vision: bool) -> Vec<ToolResultContent> {
     let mut content: Vec<ToolResultContent> = result
         .content
@@ -784,8 +978,7 @@ fn tool_content(result: ToolResult, vision: bool) -> Vec<ToolResultContent> {
     content
 }
 
-/// Assistant content that is plain text, for tests and logs.
-#[allow(dead_code)]
+/// Assistant content that is plain text.
 fn text_of(content: &[AssistantContent]) -> String {
     content
         .iter()
@@ -901,6 +1094,74 @@ mod tests {
             reply(400, "plain words"),
             Problem::Other("plain words".to_owned())
         );
+    }
+
+    #[test]
+    fn old_long_results_are_left_out() {
+        let result = |text: &str| {
+            UserContent::tool_result(
+                rig_core::completion::message::LocalCallId::new().into(),
+                "page_text".try_into().expect("a tool name"),
+                vec![ToolResultContent::text(text)],
+            )
+        };
+        let long_text = "word ".repeat(200);
+        let mut history = vec![
+            Message::user("What is on page 3?"),
+            Message::User {
+                content: vec![result(&long_text), result("Done.")],
+            },
+            Message::user("And page 4?"),
+            Message::User {
+                content: vec![result(&long_text)],
+            },
+        ];
+        assert_eq!(turn_starts(&history), vec![0, 2]);
+        // With both turns kept, nothing goes.
+        let whole = format!("{history:?}");
+        assert!(!shorten_old_results(&mut history, 2));
+        assert_eq!(format!("{history:?}"), whole);
+        assert!(shorten_old_results(&mut history, 1));
+        let texts: Vec<String> = history
+            .iter()
+            .flat_map(|message| match message {
+                Message::User { content } => content
+                    .iter()
+                    .filter_map(|part| match part {
+                        UserContent::ToolResult(result) => match &result.content[0] {
+                            ToolResultContent::Text(text) => Some(text.text().to_owned()),
+                            _ => None,
+                        },
+                        _ => None,
+                    })
+                    .collect::<Vec<_>>(),
+                _ => Vec::new(),
+            })
+            .collect();
+        // The first turn's long result goes, its short one stays, and the
+        // last turn's is kept whole.
+        assert!(texts[0].starts_with("(This page_text result was left out"));
+        assert_eq!(texts[1], "Done.");
+        assert_eq!(texts[2], long_text);
+        // Nothing is left to leave out the second time.
+        assert!(!shorten_old_results(&mut history, 1));
+    }
+
+    #[test]
+    fn only_a_known_context_is_counted() {
+        let choice = |provider, context| ModelChoice {
+            provider,
+            model: "m".to_owned(),
+            address: None,
+            context,
+            vision: None,
+        };
+        assert_eq!(
+            choice(Provider::Ollama, None).context(),
+            Some(u64::from(DEFAULT_CONTEXT))
+        );
+        assert_eq!(choice(Provider::Anthropic, None).context(), None);
+        assert_eq!(choice(Provider::OpenAi, Some(9_000)).context(), Some(9_000));
     }
 
     #[test]

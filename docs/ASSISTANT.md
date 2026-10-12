@@ -51,6 +51,16 @@ describes both for users; this document covers how they work.
   themselves. Leaving out old tool results as a chat goes on was tried
   and dropped: it broke the cache and made the model read the pages
   again, so it cost more than it saved.
+- **Long chats.** Where prev knows the model's context (a local
+  server's, or one Settings gives), a chat whose last request took more
+  than 80% of it is compacted before the next answer: the model
+  summarizes the chat before its last turn, which stays whole, and the
+  summary takes its place. The panel shows the summary running as a row
+  of its own and says what happened, while it keeps the whole chat in
+  view. A request turned down as too long anyway goes again once with
+  the old long tool results and pictures left out, which the panel also
+  says. A cloud model's context is not counted, as it differs from model
+  to model and is mostly far more than a chat needs.
 - **Tests.** The tools are tested against sample PDFs and images without
   a model, and a scripted MCP session tests the server end to end.
   `prev-assist` plays back each provider's streaming format from a local

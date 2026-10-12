@@ -90,6 +90,9 @@ enum Entry {
     Problem(String),
 }
 
+/// The id of the row that shows the chat being summarized.
+const COMPACTING: &str = "compacting";
+
 enum ToolState {
     Waiting,
     Running,
@@ -514,6 +517,37 @@ impl Prev {
                 return self.next_call(id, panel);
             }
             Event::Done | Event::Stopped => panel.busy = false,
+            // The summary runs as a row of its own, as a tool call does,
+            // so the user sees why the answer waits.
+            Event::Compacting => panel.entries.push(Entry::Tool {
+                id: COMPACTING.to_owned(),
+                title: prev::fl!("assistant-compacting"),
+                state: ToolState::Running,
+                picture: None,
+            }),
+            Event::Compacted | Event::Shortened => {
+                // The summary's row is done either way: a summary that
+                // did not come leaves old results out instead.
+                for entry in &mut panel.entries {
+                    if let Entry::Tool { id, state, .. } = entry
+                        && id == COMPACTING
+                        && matches!(state, ToolState::Running)
+                    {
+                        *state = ToolState::Done;
+                    }
+                }
+                let model = self
+                    .panel_model(panel)
+                    .map(super::shown_name)
+                    .unwrap_or_default();
+                panel
+                    .entries
+                    .push(Entry::Note(if matches!(event, Event::Compacted) {
+                        prev::fl!("assistant-compacted", model = model)
+                    } else {
+                        prev::fl!("assistant-shortened", model = model)
+                    }));
+            }
             Event::Failed(problem) => {
                 panel.busy = false;
                 let text = match self
@@ -953,9 +987,11 @@ fn entry_view<'a>(
             }
             container(line).max_width(PICTURE_WIDTH + 24.0).into()
         }
-        Entry::Note(note) => {
-            ui::aligned(ui::styled(note.as_str(), Type::BodySmall).style(style::on_surface_variant))
-        }
+        Entry::Note(note) => ui::aligned(
+            ui::styled(note.as_str(), Type::BodySmall)
+                .style(style::on_surface_variant)
+                .wrapping(text::Wrapping::WordOrGlyph),
+        ),
         Entry::Problem(problem) => ui::aligned(
             ui::styled(problem.as_str(), Type::BodyMedium)
                 .style(style::error_text)

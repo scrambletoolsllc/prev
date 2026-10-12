@@ -174,6 +174,10 @@ fn chat(provider: Provider, model: &str, replies: Vec<Reply>) -> Heard {
             Event::Done => break,
             Event::Failed(problem) => panic!("{problem:?}"),
             Event::Stopped => panic!("stopped"),
+            // A chat this short is never near the end of the context.
+            event @ (Event::Compacting | Event::Compacted | Event::Shortened) => {
+                panic!("{event:?}")
+            }
         }
     }
     heard.requests = requests.lock().unwrap().clone();

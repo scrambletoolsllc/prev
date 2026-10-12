@@ -125,6 +125,10 @@ fn a_gemini_model_calls_a_tool_and_answers() {
             Event::Done => break,
             Event::Failed(problem) => panic!("{problem:?}"),
             Event::Stopped => panic!("nothing stopped the chat"),
+            // A chat this short is never near the end of the context.
+            event @ (Event::Compacting | Event::Compacted | Event::Shortened) => {
+                panic!("{event:?}")
+            }
         }
     }
     assert!(called, "the model answered without the tool: {reply}");

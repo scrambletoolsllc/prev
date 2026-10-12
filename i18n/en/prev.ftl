@@ -964,6 +964,10 @@ assistant-thinking = Thinking…
 assistant-thoughts = Thoughts
 assistant-running = Running…
 assistant-stopped = Stopped.
+assistant-compacting = Summarizing the earlier chat
+# $model is the model's name, as in assistant-problem-context.
+assistant-compacted = The chat was getting too long for { $model } to read at once, so its earlier part was summarized. The assistant may read some pages again.
+assistant-shortened = The chat was too long for { $model } to read at once, so earlier tool results were left out. The assistant may read some pages again.
 assistant-no-model = Add a model in Settings first.
 assistant-add-model = The assistant needs a model: a cloud model with its API key, or a local model.
 assistant-open-settings = Add a model

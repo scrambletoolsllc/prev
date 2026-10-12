@@ -69,3 +69,5 @@ menu-adjust-color = Adjust Colour…
 
 menu-minimize = Minimise
 markup-text-box-color = Box colour
+assistant-compacting = Summarising the earlier chat
+assistant-compacted = The chat was getting too long for { $model } to read at once, so its earlier part was summarised. The assistant may read some pages again.
