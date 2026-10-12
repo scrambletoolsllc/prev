@@ -160,7 +160,13 @@ impl ModelChoice {
                 if let Some(address) = address {
                     config.base_url = address;
                 }
-                config.client().completion(model).erase()
+                // Each request starts with the same tools and instructions
+                // and the conversation so far, so Anthropic reads most of it
+                // from its cache, which it does only when asked. The other
+                // providers cache a prefix they have seen on their own.
+                let mut model = config.client().completion(model);
+                model.wire = model.wire.with_automatic_caching();
+                model.erase()
             }
             Provider::OpenAi => {
                 let mut config = openai::OpenAIConfig::new(key);
@@ -626,6 +632,40 @@ impl Conversation {
         self.history.push(Message::User { content });
     }
 
+    /// With `PREV_ASSIST_LOG` naming a file, adds a line of JSON to it for
+    /// each request: what went in, the tokens it took and how many came
+    /// from the provider's cache, how long it took and the tools it called,
+    /// to compare one change to the assistant with another.
+    fn log(
+        &self,
+        usage: &rig_core::completion::Usage,
+        took: std::time::Duration,
+        calls: &[rig_core::completion::message::ToolCall],
+    ) {
+        use std::io::Write;
+        let Some(path) = std::env::var_os("PREV_ASSIST_LOG") else {
+            return;
+        };
+        let line = serde_json::json!({
+            "instructions": self.instructions.len(),
+            "tools": serde_json::to_string(&self.tools).map_or(0, |tools| tools.len()),
+            "messages": self.history.len(),
+            "input_tokens": usage.input_tokens,
+            "cached_tokens": usage.cached_input_tokens,
+            "cache_written_tokens": usage.cache_creation_input_tokens,
+            "output_tokens": usage.output_tokens,
+            "seconds": (took.as_secs_f64() * 10.0).round() / 10.0,
+            "calls": calls.iter().map(|call| call.function.name.to_string()).collect::<Vec<_>>(),
+        });
+        if let Ok(mut file) = std::fs::OpenOptions::new()
+            .create(true)
+            .append(true)
+            .open(path)
+        {
+            let _ = writeln!(file, "{line}");
+        }
+    }
+
     /// Drops the last model's reasoning, which only it can read, when
     /// another model takes over.
     fn forget_reasoning(&mut self) {
@@ -653,6 +693,7 @@ impl Conversation {
         if let Some(tokens) = self.max_tokens {
             request = request.max_tokens(tokens);
         }
+        let started = std::time::Instant::now();
         let mut stream = match self.model.stream(request) {
             Ok(stream) => stream,
             Err(error) => {
@@ -682,6 +723,7 @@ impl Conversation {
         };
         let calls: Vec<rig_core::completion::message::ToolCall> =
             response.tool_calls().cloned().collect();
+        self.log(&response.usage, started.elapsed(), &calls);
         self.history.push(Message::Assistant {
             id: None,
             content: response.choice.clone(),

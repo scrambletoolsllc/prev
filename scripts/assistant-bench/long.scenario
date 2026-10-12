@@ -1,0 +1,27 @@
+# One chat that goes on, so the tool results of its first questions are
+# old by its last, and the last needs one of them again. The places are
+# for the annual report report.scenario uses.
+
+field 1390 897
+newchat 1524 120
+
+click 907 48
+sleep 1.5
+# A Letter from the Chair, page 3.
+click 105 201
+sleep 1.5
+ask What is this page about?
+
+# 1.1 Weather and Watering.
+click 139 273
+sleep 1.5
+ask And this page?
+
+# 4.1 Income.
+click 89 633
+sleep 1.5
+ask Summarize this page.
+
+ask What did the first page I asked about say about water rates?
+
+ask What was the total income?

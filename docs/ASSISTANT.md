@@ -39,12 +39,29 @@ describes both for users; this document covers how they work.
   models get a context size, 32K tokens unless set, as Ollama's own 4096
   is too small for prev's tools. A model that cannot see pictures gets
   the render tools' text without them.
+- **Keeping requests small.** Every request carries the tools, the
+  instructions and the chat so far, so the panel sends what the window
+  needs: only the tools that work on its file, schemas without what only
+  a validator reads, and no window number while one window is open. The
+  instructions give the file's pages and the top of its outline, and
+  each message starts with the page in view and the selected text, so
+  the model need not ask. A chat only grows, so the start of each
+  request is the same as the last one's and the provider reads it from
+  its cache; Anthropic is asked to cache, the others do it by
+  themselves. Leaving out old tool results as a chat goes on was tried
+  and dropped: it broke the cache and made the model read the pages
+  again, so it cost more than it saved.
 - **Tests.** The tools are tested against sample PDFs and images without
   a model, and a scripted MCP session tests the server end to end.
   `prev-assist` plays back each provider's streaming format from a local
   server (`tests/recorded.rs`), so CI covers them without keys; a live
   test talks to a local Ollama, and one checks the keychain, both run by
-  hand.
+  hand. With `PREV_ASSIST_LOG` naming a file, the panel adds a line of
+  JSON to it for each request: its sizes, its tokens and how many came
+  from the cache, its time and the tools it called.
+  `scripts/assistant-bench/bench.sh` asks a build the questions of a
+  scenario on a headless sway of its own and compares the logs, to see
+  what a change does to them.
 
 ## Use cases
 

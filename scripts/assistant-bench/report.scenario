@@ -1,0 +1,31 @@
+# Four common questions about a PDF report, each in a new chat. The
+# places are for prev's window in the bench's 1600x1000 desktop, with the
+# outline showing, and for a report whose outline's second entry opens a
+# page of prose (page 3 of the garden association's annual report).
+#
+# Steps: field X Y (where `ask` types), newchat X Y (the new chat
+# button), click X Y, drag X1 Y1 X2 Y2, sleep S, ask QUESTION (types it,
+# sends it and waits for the answer), new (starts a new chat).
+
+field 1390 897
+newchat 1524 120
+
+# Open the assistant, then go to the page.
+click 907 48
+sleep 1.5
+click 105 201
+sleep 1.5
+ask What is this page about?
+
+new
+# A sentence on the page.
+drag 813 300 515 328
+ask Explain the selected text.
+
+new
+ask Which page covers the budget?
+
+new
+click 105 201
+sleep 1
+ask Highlight 'water' on this page.
