@@ -1,0 +1,2102 @@
+{
+ "ce50bcdb5c27": {
+  "page": "index.html",
+  "text": "prev: a fast PDF and image viewer for Linux, Windows and macOS"
+ },
+ "f68484cfc038": {
+  "page": "index.html",
+  "text": "<img1>prev"
+ },
+ "fc338f87a058": {
+  "page": "index.html",
+  "text": "Features"
+ },
+ "a479c9c34e87": {
+  "page": "index.html",
+  "text": "Download"
+ },
+ "cd9e8f38bcfe": {
+  "page": "index.html",
+  "text": "Tour"
+ },
+ "7b4379a60050": {
+  "page": "index.html",
+  "text": "Specs"
+ },
+ "c60f2f817f12": {
+  "page": "index.html",
+  "text": "Source on GitHub"
+ },
+ "859d455b8ebd": {
+  "page": "index.html",
+  "text": "prev"
+ },
+ "fc1737e6fa71": {
+  "page": "index.html",
+  "text": "<span1>Fast, open, elegant document and image preview.</span1> <span2>Any PDF, including forms, annotations and encryption. Markdown files, most image formats, including RAW and SVG. Review, annotate, sign and redact by yourself, or using your favorite AI model or agent&nbsp;tools.</span2>"
+ },
+ "3b5261e8800c": {
+  "page": "index.html",
+  "text": "<a1>Download prev {v}</a1> <a2>Source on GitHub</a2>"
+ },
+ "fac8990ef697": {
+  "page": "index.html",
+  "text": "Free and open source under AGPL 3 on Linux, Windows and macOS. In 38 languages, including right-to-left."
+ },
+ "2da60eb1bb24": {
+  "page": "index.html",
+  "text": "What prev does"
+ },
+ "968171945b29": {
+  "page": "index.html",
+  "text": "PDFs, fast"
+ },
+ "9c5338cfc39b": {
+  "page": "index.html",
+  "text": "Pages render in tiles as you scroll, with thumbnails, the table of contents, bookmarks, search that highlights every match, text selection, links, full screen, slideshow and printing."
+ },
+ "1b11a2cab993": {
+  "page": "index.html",
+  "text": "Markup and forms"
+ },
+ "e028128862fb": {
+  "page": "index.html",
+  "text": "Highlight, underline, draw, add shapes, arrows, text boxes and notes, and fill in forms. All saved as standard PDF annotations."
+ },
+ "1ebd45fcbe28": {
+  "page": "index.html",
+  "text": "Signing"
+ },
+ "9b1ad859c2b9": {
+  "page": "index.html",
+  "text": "Draw your signature with a mouse, pen or touchpad, type it in a handwriting font, or bring in a scan with the paper made transparent. Keep as many as you like in the Sign menu, and place one on a PDF or a photo with a click."
+ },
+ "b022be560b9a": {
+  "page": "index.html",
+  "text": "Page editing"
+ },
+ "23de17bdaa48": {
+  "page": "index.html",
+  "text": "Reorder, rotate, delete, crop and insert pages, drag them between documents or out as a PDF, and export pages as images or a smaller, encrypted or flattened PDF."
+ },
+ "5a9ae81a43ce": {
+  "page": "index.html",
+  "text": "Redaction"
+ },
+ "cec3f33c8de9": {
+  "page": "index.html",
+  "text": "Mark text or areas and apply: what was underneath is removed from the file for good, not just covered, and no earlier revision keeps it."
+ },
+ "c8b2e864eccb": {
+  "page": "index.html",
+  "text": "Photos"
+ },
+ "6d94e49a3888": {
+  "page": "index.html",
+  "text": "PNG, JPEG, WebP, AVIF, HEIC, TIFF, camera RAW and more. Crop, rotate, resize and adjust color with undo, mark up, and export to nine formats. Edits keep EXIF and color profiles."
+ },
+ "289e4f62f180": {
+  "page": "index.html",
+  "text": "SVG and Markdown"
+ },
+ "48b4f73dbe29": {
+  "page": "index.html",
+  "text": "SVG drawings stay sharp at any zoom. Markdown shows with tables, task lists and highlighted code, reloads as you edit, and exports as a picture."
+ },
+ "e14b1f697a7d": {
+  "page": "index.html",
+  "text": "An assistant beside the page"
+ },
+ "6da872b18755": {
+  "page": "index.html",
+  "text": "Ask about a document in a chat panel, and the assistant reads what it needs, points things out and marks up, edits or fills it in for you, with Undo. Use a local model that stays on your computer, or a cloud model from Anthropic, OpenAI or Google with your own key."
+ },
+ "2b51b10f6585": {
+  "page": "index.html",
+  "text": "AI agents"
+ },
+ "5402e34714e4": {
+  "page": "index.html",
+  "text": "Agents such as Claude Code control the prev you are using over MCP, in your own windows, only once you allow them, and asking before the steps you choose."
+ },
+ "39e54d916f69": {
+  "page": "index.html",
+  "text": "Table of contents and bookmarks"
+ },
+ "931992e8ec87": {
+  "page": "index.html",
+  "text": "Markup on photos too"
+ },
+ "078004a5a581": {
+  "page": "index.html",
+  "text": "Drag pages to reorder"
+ },
+ "74aadb8dd217": {
+  "page": "index.html",
+  "text": "Redaction that removes the content"
+ },
+ "32abcc3e3ff2": {
+  "page": "index.html",
+  "text": "Pick a saved signature to place it"
+ },
+ "0c2430cf02e4": {
+  "page": "index.html",
+  "text": "Draw, type or import a signature"
+ },
+ "dd4dafd023ae": {
+  "page": "index.html",
+  "text": "Drag pictures, text and files in from other apps, such as a photo from a web page, and pages and pictures out"
+ },
+ "45125edb09d4": {
+  "page": "index.html",
+  "text": "prev in your language"
+ },
+ "d6c29acb480c": {
+  "page": "index.html",
+  "text": "The interface comes in 38 languages and follows your system, laid out right to left for Arabic, Hebrew, Persian and Urdu. Here is the same annual report in six of them."
+ },
+ "649df08a448e": {
+  "page": "index.html",
+  "text": "English"
+ },
+ "93659150d0e5": {
+  "page": "index.html",
+  "text": "简体中文"
+ },
+ "c12140a0ffb4": {
+  "page": "index.html",
+  "text": "日本語"
+ },
+ "9970632f55af": {
+  "page": "index.html",
+  "text": "العربية"
+ },
+ "6e254acf6408": {
+  "page": "index.html",
+  "text": "עברית"
+ },
+ "5537fc8e69d7": {
+  "page": "index.html",
+  "text": "Русский"
+ },
+ "d75531af49e4": {
+  "page": "index.html",
+  "text": "At home on each system"
+ },
+ "dff10b54582c": {
+  "page": "index.html",
+  "text": "The same app on Linux, Windows and macOS, with each system's own window, shortcuts and, on the Mac, the menu bar."
+ },
+ "dcd80dfc79ef": {
+  "page": "index.html",
+  "text": "Filling in and signing a form on Windows"
+ },
+ "fff90cd79db6": {
+  "page": "index.html",
+  "text": "Marking up a photo on Windows"
+ },
+ "e4ae12e07eb4": {
+  "page": "index.html",
+  "text": "The same form on macOS"
+ },
+ "d8a4bac72474": {
+  "page": "index.html",
+  "text": "The same photo on macOS"
+ },
+ "b6638583de12": {
+  "page": "index.html",
+  "text": "prev {v} for Linux and Windows on x86_64 and ARM64, Linux on RISC-V, and macOS on Apple Silicon. Every file is on the <a1>release page</a1>, with checksums."
+ },
+ "bc0792d8dc81": {
+  "page": "index.html",
+  "text": "System"
+ },
+ "fd6c3ebf7bef": {
+  "page": "index.html",
+  "text": "Install"
+ },
+ "de89bebd80f9": {
+  "page": "index.html",
+  "text": "Windows 10 and 11"
+ },
+ "304ebb08851b": {
+  "page": "index.html",
+  "text": "Installer (.msi): <a1>x64</a1> · <a2>ARM64</a2>"
+ },
+ "266dca3640a2": {
+  "page": "index.html",
+  "text": "Open it: it installs for you alone, with no administrator prompt"
+ },
+ "5ab7761535e2": {
+  "page": "index.html",
+  "text": "Windows, portable"
+ },
+ "c6562b548a86": {
+  "page": "index.html",
+  "text": ".zip: <a1>x64</a1> · <a2>ARM64</a2>"
+ },
+ "15ed64ecaf37": {
+  "page": "index.html",
+  "text": "Unpack it anywhere and run <code>prev.exe</code>"
+ },
+ "04f864a554e0": {
+  "page": "index.html",
+  "text": "macOS 11 and later, Apple Silicon"
+ },
+ "ba0e180a5701": {
+  "page": "index.html",
+  "text": "Disk image (.dmg): <a1>Apple Silicon</a1>"
+ },
+ "37820ce70d0c": {
+  "page": "index.html",
+  "text": "Open it and drag prev to Applications. Until the app is notarized, choose Open Anyway in System Settings, Privacy &amp; Security the first time"
+ },
+ "2d9dceb94637": {
+  "page": "index.html",
+  "text": "Debian, Ubuntu"
+ },
+ "d2d0a2426b0f": {
+  "page": "index.html",
+  "text": ".deb: <a1>x86_64</a1> · <a2>ARM64</a2> · <a3>RISC-V</a3>"
+ },
+ "8d302eb83a9f": {
+  "page": "index.html",
+  "text": "<code>sudo apt install ./prev_{v}-1_*.deb</code>"
+ },
+ "bc5fc74a0c92": {
+  "page": "index.html",
+  "text": "Fedora"
+ },
+ "c5cb99e1826e": {
+  "page": "index.html",
+  "text": ".rpm: <a1>x86_64</a1> · <a2>ARM64</a2> · <a3>RISC-V</a3>"
+ },
+ "244e2efe390a": {
+  "page": "index.html",
+  "text": "<code>sudo dnf install ./prev-{v}-1.*.rpm</code>"
+ },
+ "f96ddf323d80": {
+  "page": "index.html",
+  "text": "Arch"
+ },
+ "fcc22e18802c": {
+  "page": "index.html",
+  "text": "<a1>PKGBUILD</a1> and <a2>prev.install</a2>"
+ },
+ "70a4bfafdc84": {
+  "page": "index.html",
+  "text": "<code>makepkg -si</code> in a folder with both"
+ },
+ "89e71efde082": {
+  "page": "index.html",
+  "text": "Flatpak"
+ },
+ "83ebc7ef6e57": {
+  "page": "index.html",
+  "text": "<a1>x86_64</a1> · <a2>ARM64</a2>"
+ },
+ "5e0fdc04c86e": {
+  "page": "index.html",
+  "text": "<code>flatpak install --user prev-*.flatpak</code>"
+ },
+ "edce668491b6": {
+  "page": "index.html",
+  "text": "Any distribution"
+ },
+ "73100a56499e": {
+  "page": "index.html",
+  "text": "AppImage: <a1>x86_64</a1> · <a2>ARM64</a2>"
+ },
+ "c9e7912d2b61": {
+  "page": "index.html",
+  "text": "Make it executable, then run it"
+ },
+ "1702595f8b41": {
+  "page": "index.html",
+  "text": ".tar.gz: <a1>x86_64</a1> · <a2>ARM64</a2> · <a3>RISC-V</a3>"
+ },
+ "4eb39eb63bd1": {
+  "page": "index.html",
+  "text": "Unpack under <code>/usr</code> or <code>~/.local</code>"
+ },
+ "5ab57da97fa9": {
+  "page": "index.html",
+  "text": "With mise"
+ },
+ "5e0714ad90ed": {
+  "page": "index.html",
+  "text": "<code>mise use -g github:scrambletools/prev</code>"
+ },
+ "480b7f1f3bf9": {
+  "page": "index.html",
+  "text": "The Windows installer and <code>prev.exe</code> are signed by Scramble Tools LLC. See the <a1>install notes</a1> for what differs between packages."
+ },
+ "321062598d1b": {
+  "page": "index.html",
+  "text": "Code signing policy"
+ },
+ "3b3cbe19be5a": {
+  "page": "index.html",
+  "text": "Windows releases of prev, since {v}, are signed by Scramble Tools LLC with <a1>Microsoft Azure Artifact Signing</a1>."
+ },
+ "85c947a86f3a": {
+  "page": "index.html",
+  "text": "<strong>What is signed:</strong> only programs built from this project's own <a1>source code</a1> by its GitHub Actions release workflow: <code>prev.exe</code> and the prev installer. Open source components prev bundles unchanged, such as libheif, libde265 and aom, are not signed with this certificate."
+ },
+ "840981ec0887": {
+  "page": "index.html",
+  "text": "<strong>Committers and reviewers:</strong> the members of the <a1>scrambletoolsllc</a1> GitHub organization, who review every outside contribution before it is merged."
+ },
+ "6263ca064f9a": {
+  "page": "index.html",
+  "text": "<strong>Approvers:</strong> the owner of the <a1>scrambletoolsllc</a1> GitHub organization, who alone can publish a release, and with it a signing."
+ },
+ "2d89c53bf0a2": {
+  "page": "index.html",
+  "text": "Signing runs only in the release workflow, which signs in to Azure without a stored secret. Everyone on the team signs in to GitHub and Azure with two-factor authentication."
+ },
+ "cf01481f626d": {
+  "page": "index.html",
+  "text": "Privacy"
+ },
+ "176bc3d0b039": {
+  "page": "index.html",
+  "text": "This program will not transfer any information to other networked systems unless specifically requested by the user or the person installing or operating it. prev goes online only to fetch a picture you drop onto it as a web address, to open links you click, and, when you use the assistant with a model you added, to send that model your messages and what it asks to read from the file you are working on: to the provider you chose for a cloud model, or to the server you gave for a local model. API keys stay in your system's keychain. prev has no accounts and sends no telemetry. This website sets no cookies and loads nothing from other sites."
+ },
+ "fa65e35be3b4": {
+  "page": "index.html",
+  "text": "prev is free software under the <a1>GNU AGPL-3.0</a1>. Made by <a2>Scramble Tools</a2>. <a3>Code signing policy</a3> · <a4>Privacy</a4>"
+ },
+ "8eda4a08f9a8": {
+  "page": "index.html",
+  "text": "prev is a free, open source viewer and editor for PDFs, images, SVG drawings and Markdown, similar to macOS Preview, with a built-in AI assistant and an MCP server for agents such as Claude Code.",
+  "attribute": true
+ },
+ "ee36725d3d0b": {
+  "page": "index.html",
+  "text": "The prev icon: a signed document with a beach photo on it",
+  "attribute": true
+ },
+ "da4170bef8a9": {
+  "page": "index.html",
+  "text": "prev in dark mode with a bank statement open and the assistant on the right: asked to redact all mentions of the account number, a local model found three and redacted them",
+  "attribute": true
+ },
+ "2bc878bcb07b": {
+  "page": "index.html",
+  "text": "A PDF with its table of contents in the sidebar",
+  "attribute": true
+ },
+ "5c09f29ed1ee": {
+  "page": "index.html",
+  "text": "A landscape photo marked up with an oval around the moon, an arrow and the word Moonrise",
+  "attribute": true
+ },
+ "3c5df1642910": {
+  "page": "index.html",
+  "text": "Page 7 of an annual report being dragged above page 6 in the page thumbnails, with a line showing where it will go, then dropped so it becomes page 6",
+  "attribute": true
+ },
+ "eae503bafe51": {
+  "page": "index.html",
+  "text": "An annual report's contacts page after redaction, with black boxes where three phone numbers and email addresses were, and a notice that six redactions were applied",
+  "attribute": true
+ },
+ "2cce2a555fdd": {
+  "page": "index.html",
+  "text": "The Sign menu open over a garden plot application, listing a drawn and a typed signature and Create Signature",
+  "attribute": true
+ },
+ "54740e883168": {
+  "page": "index.html",
+  "text": "Signing Jordan Example in blue ink in the Create Signature dialog, then typing the description",
+  "attribute": true
+ },
+ "54bd7bfc6546": {
+  "page": "index.html",
+  "text": "Dragging a photo of Saturn from a Wikimedia Commons page in a browser into the empty photo space of a newsletter PDF open in prev, where it lands as a picture above its caption",
+  "attribute": true
+ },
+ "26b45b33e2d9": {
+  "page": "index.html",
+  "text": "prev in English, showing the annual report of a community garden with its table of contents",
+  "attribute": true
+ },
+ "c9d7948b8b48": {
+  "page": "index.html",
+  "text": "prev in Simplified Chinese, showing the annual report in Chinese",
+  "attribute": true
+ },
+ "238a04a34fb0": {
+  "page": "index.html",
+  "text": "prev in Japanese, showing the annual report in Japanese",
+  "attribute": true
+ },
+ "b6d00b71aed4": {
+  "page": "index.html",
+  "text": "prev in Arabic, laid out right to left, showing the annual report in Arabic",
+  "attribute": true
+ },
+ "9ee4b1290dad": {
+  "page": "index.html",
+  "text": "prev in Hebrew, laid out right to left, showing the annual report in Hebrew",
+  "attribute": true
+ },
+ "88bfc226ddc3": {
+  "page": "index.html",
+  "text": "prev in Russian, showing the annual report in Russian",
+  "attribute": true
+ },
+ "b7077d065d41": {
+  "page": "index.html",
+  "text": "prev on Windows 11 with a garden plot application filled in, highlighted, circled, noted and signed",
+  "attribute": true
+ },
+ "01df83d43dd9": {
+  "page": "index.html",
+  "text": "prev on Windows 11 with a landscape photo marked up with an oval, an arrow and the word Moonrise",
+  "attribute": true
+ },
+ "66105ec7d639": {
+  "page": "index.html",
+  "text": "prev on macOS, below its menu bar, with the garden plot application filled in and signed",
+  "attribute": true
+ },
+ "211cd5461a2b": {
+  "page": "index.html",
+  "text": "prev on macOS, below its menu bar, with the landscape photo marked up",
+  "attribute": true
+ },
+ "bd2e910ba59c": {
+  "page": "guide.html",
+  "text": "A tour of prev"
+ },
+ "9b25d5aa5c89": {
+  "page": "guide.html",
+  "text": "<a1>Opening files</a1>"
+ },
+ "a2c598e77c05": {
+  "page": "guide.html",
+  "text": "<a1>Reading PDFs</a1>"
+ },
+ "2e8e9357819d": {
+  "page": "guide.html",
+  "text": "<a1>Marking up</a1>"
+ },
+ "dfdd791c3893": {
+  "page": "guide.html",
+  "text": "<a1>Editing pages</a1>"
+ },
+ "58f1b85eef43": {
+  "page": "guide.html",
+  "text": "<a1>Redacting</a1>"
+ },
+ "a92544229c4f": {
+  "page": "guide.html",
+  "text": "<a1>Exporting</a1>"
+ },
+ "95720fe773c9": {
+  "page": "guide.html",
+  "text": "<a1>Images</a1>"
+ },
+ "31e173cf710c": {
+  "page": "guide.html",
+  "text": "<a1>SVG and Markdown</a1>"
+ },
+ "9e24965d94e5": {
+  "page": "guide.html",
+  "text": "<a1>Inspector</a1>"
+ },
+ "ce425fe4d9ce": {
+  "page": "guide.html",
+  "text": "<a1>Drag and drop</a1>"
+ },
+ "f45e0a5be3ce": {
+  "page": "guide.html",
+  "text": "<a1>The assistant</a1>"
+ },
+ "53b1a59d6794": {
+  "page": "guide.html",
+  "text": "<a1>Working with AI agents</a1>"
+ },
+ "d0725a140a45": {
+  "page": "guide.html",
+  "text": "<a1>Saving and versions</a1>"
+ },
+ "0183b04870f6": {
+  "page": "guide.html",
+  "text": "<a1>Settings</a1>"
+ },
+ "2c9fb2c41916": {
+  "page": "guide.html",
+  "text": "<a1>Looks</a1>"
+ },
+ "13b62aca9f12": {
+  "page": "guide.html",
+  "text": "This guide walks through what prev does, in the order you are likely to meet it. Keyboard shortcuts are listed in the <a1>README</a1>; on macOS, use ⌘ where this guide says Ctrl and ⌥ (Option) where it says Alt, and the menu bar lists each shortcut. Shortcuts can be changed; see <a2>Settings</a2>."
+ },
+ "45d4e0d70b76": {
+  "page": "guide.html",
+  "text": "Documents shown: a sample form, a sample annual report, a sample account statement, a newsletter and a landscape image, all fictional and made for prev."
+ },
+ "a535bff5bb48": {
+  "page": "guide.html",
+  "text": "Opening files"
+ },
+ "b1d551c31eb4": {
+  "page": "guide.html",
+  "text": "Open files with Ctrl+O, from the file manager's \"Open With\", from the command line (<code>prev report.pdf photo.jpg</code>), or by dropping them on a prev window (see <a1>Drag and drop</a1> for drops that do more than open files). Each document gets its own window; images opened together share one window with a thumbnail strip. prev keeps a single running instance, so opening another file from the launcher adds a window instead of starting over. On macOS, files opened from Finder or dropped on prev's icon in the Dock go to the running prev the same way."
+ },
+ "12dd4abb5640": {
+  "page": "guide.html",
+  "text": "Reading PDFs"
+ },
+ "fbf19a33972a": {
+  "page": "guide.html",
+  "text": "The toolbar holds the page number, zoom, fit to page or width, actual size, and the view mode: continuous scroll, single page or two pages side by side. Image windows share its layout: what is shown and the view on the left, editing, the panels and Export on the right. Ctrl+scroll zooms in and out around the pointer, and pages stay sharp at any zoom because they render in tiles on background threads. Ctrl+drag pans around a zoomed-in view whatever tool is chosen, and in image windows a plain drag on the picture does too (unless the selection tool or markup is in use). The middle mouse button scrolls as in a browser."
+ },
+ "4ff9ae863599": {
+  "page": "guide.html",
+  "text": "The sidebar (the button at the far left, or Ctrl+Alt+2 to 5) has four tabs: page thumbnails, the table of contents, highlights and notes, and bookmarks (Ctrl+D bookmarks the current page). Drag the sidebar's edge to make it wider; the thumbnails grow with it."
+ },
+ "62f64d4b4dc5": {
+  "page": "guide.html",
+  "text": "In two-page mode pages sit in pairs, 1 and 2, 3 and 4, and the arrow keys move a pair at a time."
+ },
+ "b6458982a7d8": {
+  "page": "guide.html",
+  "text": "Search (Ctrl+F) highlights every match and counts them as it goes; Ctrl+G and Ctrl+Shift+G step through them. Text can be selected and copied across pages; double-click selects a word and triple-click a line. Links inside the document and to the web work, and Ctrl+Shift+F starts a full-screen slideshow. F11 makes the window full screen; on macOS the View menu's Enter Full Screen does too. The <a1>inspector</a1> (Ctrl+I) shows the file and the document's details."
+ },
+ "dbe90d055493": {
+  "page": "guide.html",
+  "text": "Print (Ctrl+P) opens the system's print dialog: the desktop's, through its portal, on Linux; Windows' print dialog; and on macOS the print panel, whose preview shows the pages as prev draws them."
+ },
+ "0db3465628bf": {
+  "page": "guide.html",
+  "text": "Marking up"
+ },
+ "1e46b2aa3cca": {
+  "page": "guide.html",
+  "text": "The markup toolbar (the pen button on the right, or Ctrl+Shift+A) follows Preview's:"
+ },
+ "577db003ab50": {
+  "page": "guide.html",
+  "text": "<strong>Select</strong> moves, resizes and restyles annotations; Delete removes the selected one."
+ },
+ "7173a9331f33": {
+  "page": "guide.html",
+  "text": "<strong>Rectangular selection</strong> chooses an area to copy as an image, or to crop the page to (Ctrl+K)."
+ },
+ "d49141919eed": {
+  "page": "guide.html",
+  "text": "<strong>Sketch</strong> turns strokes that look like a rectangle, oval or line into that shape; <strong>Draw</strong> keeps them as drawn."
+ },
+ "b8a5dc9e4e1a": {
+  "page": "guide.html",
+  "text": "<strong>Shapes</strong>: rectangle, rounded rectangle, oval, line, arrow, star, polygon, speech bubble, a loupe that magnifies the page under it, and a mask that dims everything but a hole."
+ },
+ "7ad0054d9a9c": {
+  "page": "guide.html",
+  "text": "<strong>Text box</strong> and <strong>Note</strong>, with fonts, sizes, colors and alignment."
+ },
+ "3d014d05326a": {
+  "page": "guide.html",
+  "text": "<strong>Highlight</strong>, underline and strikethrough over selected text, in five colors."
+ },
+ "4a0cff4fe457": {
+  "page": "guide.html",
+  "text": "<strong>Sign</strong> and <strong>Redact</strong>, described below."
+ },
+ "05fe1d0ecdfd": {
+  "page": "guide.html",
+  "text": "Border color, fill color, line width and dashes for shapes."
+ },
+ "db1a7e11649d": {
+  "page": "guide.html",
+  "text": "Paste (Ctrl+V) puts an image or text from the clipboard on the current page, whatever tool is chosen: an image at its own size (smaller if it doesn't fit), text as a text box. An image file copied in the file manager (or Finder) pastes as the image; on Linux, pasting images needs wl-clipboard. Pages copied in prev paste as pages instead, after the selected one, when they are the latest thing copied."
+ },
+ "35d048f43e33": {
+  "page": "guide.html",
+  "text": "Everything is saved as standard PDF annotations that other viewers show and edit. Undo and redo (Ctrl+Z, Ctrl+Shift+Z) cover every change, markup and page edits alike. Their buttons are on the toolbar, and move to the markup bar while it is open."
+ },
+ "4bec9575721b": {
+  "page": "guide.html",
+  "text": "Forms"
+ },
+ "deb9f3d893e9": {
+  "page": "guide.html",
+  "text": "Click into text fields and type; checkboxes, radio buttons and drop-down menus work as they do in other viewers. Values are saved into the form so other apps read them."
+ },
+ "e4cf03922960": {
+  "page": "guide.html",
+  "text": "Signatures"
+ },
+ "f7785478637f": {
+  "page": "guide.html",
+  "text": "The Sign menu keeps as many signatures as you like. Click one to place it on the current page, then drag and resize it like any annotation."
+ },
+ "55dbb619fdbd": {
+  "page": "guide.html",
+  "text": "Create Signature offers three ways in:"
+ },
+ "b5cc1a2bb26c": {
+  "page": "guide.html",
+  "text": "<strong>Draw</strong> with the mouse, a pen or the touchpad. Choose the ink color and the pen's thickness under the pad; changing them redraws what you signed."
+ },
+ "f1e50508b538": {
+  "page": "guide.html",
+  "text": "<strong>Type</strong> your name, shown in a handwriting font in the ink you choose."
+ },
+ "ad081437807d": {
+  "page": "guide.html",
+  "text": "<strong>Image</strong> takes a photo or scan of a signature on paper and makes the paper transparent."
+ },
+ "239f9440c7bf": {
+  "page": "guide.html",
+  "text": "Editing pages"
+ },
+ "748db2081ca0": {
+  "page": "guide.html",
+  "text": "In the page thumbnails, click a page to select it, Ctrl+click to add pages and Shift+click to select a range. Then:"
+ },
+ "549e1619d02a": {
+  "page": "guide.html",
+  "text": "Drag the selection to reorder; a line shows where it will go."
+ },
+ "c656c2f93618": {
+  "page": "guide.html",
+  "text": "Rotate with the toolbar buttons (Ctrl+L, Ctrl+R)."
+ },
+ "8afbc27623be": {
+  "page": "guide.html",
+  "text": "Delete with the Delete key."
+ },
+ "deb25a15bbb8": {
+  "page": "guide.html",
+  "text": "Copy with Ctrl+C and paste with Ctrl+V after the selected page, in the same window or another document's. Pasted pages keep their annotations and form fields."
+ },
+ "1979d25ba232": {
+  "page": "guide.html",
+  "text": "Drop PDF files on the thumbnails to insert their pages where you let go."
+ },
+ "308d29031925": {
+  "page": "guide.html",
+  "text": "Drag thumbnails out of the window to copy the pages into another prev window, where they go where you drop them, or into the file manager as a PDF. Hold Shift while dropping to move them instead. See <a1>Drag and drop</a1>."
+ },
+ "a8ca4b1c08b5": {
+  "page": "guide.html",
+  "text": "The Pages menu (the stacked-pages button, beside the rotate buttons) has Insert Blank Page, Insert from File, Copy and Paste, Crop to Selection, Select All Pages and Delete. Every page edit can be undone."
+ },
+ "eaabde013d2d": {
+  "page": "guide.html",
+  "text": "Redacting"
+ },
+ "9430f20f8b6a": {
+  "page": "guide.html",
+  "text": "The Redact tool marks what should go: drag a box over it, or select text first and then pick the tool. Marks are ordinary annotations until you press <strong>Apply</strong> and confirm. Applying removes the text, image pixels and drawings under each mark from the file and draws black boxes in their place. The next save rewrites the whole file, so no earlier revision keeps the content, and prev deletes the earlier versions of the file it kept. This cannot be undone."
+ },
+ "c37343fbc2a7": {
+  "page": "guide.html",
+  "text": "Exporting"
+ },
+ "2cd9bfc73394": {
+  "page": "guide.html",
+  "text": "Export (the export button, a page with an arrow near the right of the toolbar, or Ctrl+Shift+S) writes a new file:"
+ },
+ "987925f7b975": {
+  "page": "guide.html",
+  "text": "<strong>PDF</strong>, optionally:"
+ },
+ "cd78d5dca587": {
+  "page": "guide.html",
+  "text": "<strong>Reduce file size</strong>: images are downsampled to 150 dpi and saved as JPEG."
+ },
+ "3b6ab13f5db8": {
+  "page": "guide.html",
+  "text": "<strong>Flatten annotations and form fields</strong>: markup and filled-in fields are drawn into the pages and can no longer be edited. Redaction marks not yet applied are left out."
+ },
+ "1a68eebf158d": {
+  "page": "guide.html",
+  "text": "<strong>Encrypt with a password</strong> (AES-256): the password is needed to open the file."
+ },
+ "d5b273a1340d": {
+  "page": "guide.html",
+  "text": "<strong>PNG, JPEG, TIFF, WebP or OpenEXR</strong> at 72 to 600 dpi, with a quality choice for JPEG. TIFF puts every page in one file; the others save a file per page, numbered after the name you choose."
+ },
+ "dc31dcd7e937": {
+  "page": "guide.html",
+  "text": "Tick \"Only the selected pages\" to export just the pages chosen in the sidebar."
+ },
+ "09e871c98fef": {
+  "page": "guide.html",
+  "text": "Images"
+ },
+ "f7b2dc834f59": {
+  "page": "guide.html",
+  "text": "prev opens PNG, JPEG, GIF (animated too), WebP, AVIF, HEIC, TIFF, BMP, ICO, TGA, PNM, QOI, JPEG 2000, OpenEXR, Radiance HDR and camera RAW. RAW photos open looking like the JPEG the camera would have made: prev compares the RAW with the small JPEG preview the camera stores in the file and gives it the same brightness, contrast and color balance. The toolbar rotates, flips, crops and resizes (Adjust Size). Adjust Color (Ctrl+Shift+C) has exposure, contrast, saturation, temperature, tint, sepia, sharpness and levels. Undo and redo are on the toolbar. The <a1>inspector</a1> (Ctrl+I) shows the file and camera details and can remove location info and edit keywords and a description. Export asks for the format (PNG, JPEG, WebP, TIFF, BMP, TGA, QOI, PPM or OpenEXR) and, for JPEG, the quality, then where to save; the choices are kept for the next export from the window. Drop more image files on the window to add them to its thumbnail sidebar."
+ },
+ "7f0b4404f7cb": {
+  "page": "guide.html",
+  "text": "Images take markup too: the Markup button (Ctrl+Shift+A) brings up the same markup bar as PDFs, with Sketch, Draw, shapes, text boxes, notes and signatures. Markup stays while the window is open and can be moved, restyled and undone; rotating, cropping and color changes wait until it is gone. Paste works on images too, and starts the markup if there is none yet. Export draws it into the pixels of the copy you save, at the image's full resolution. Closing the window, or quitting, with markup you haven't exported asks first, with a button to export."
+ },
+ "19902eef980a": {
+  "page": "guide.html",
+  "text": "SVG drawings open sharp at any zoom, in the image window. They can't be edited, so the tools that change pixels are greyed out, but Export saves the drawing as a picture in any of the image formats, at its actual size or two or four times larger (Size in the Export dialog, which shows the picture's size in pixels)."
+ },
+ "1f4ce983b6c4": {
+  "page": "guide.html",
+  "text": "Markdown files show with tables, task lists, syntax highlighted code and images, and reload when the file changes on disk. The toolbar makes the text larger or smaller (Ctrl+= and Ctrl+-, Ctrl+0 for the normal size), searches the document (Ctrl+F, then Enter or the arrows for the next and previous match) and opens the <a1>inspector</a1> with the file's details and word count. Code is colored to suit the light or dark look, and pictures show at their own size, shrunk only to fit the page. Export saves the whole document as one picture, in any of the image formats, at its actual size or twice as sharp; very long documents are scaled down to fit the 16,383 pixel height some formats allow."
+ },
+ "8222c902ae07": {
+  "page": "guide.html",
+  "text": "Inspector"
+ },
+ "47098c3dc3bf": {
+  "page": "guide.html",
+  "text": "The inspector (the info button on the toolbar, or Ctrl+I) opens a panel on the right with what prev knows about the file. Close it with its close button or Ctrl+I again. Every inspector starts with the file itself: its name, the folder it is in, its size and when it was last changed."
+ },
+ "762332927e28": {
+  "page": "guide.html",
+  "text": "<strong>PDFs</strong> add the document's own details, where the file has them: title, author, subject, keywords, when it was created and last changed, the application that made it and the PDF producer, the PDF version and whether it is encrypted, and with what. Under Pages come the number of pages and the current page's size, in millimeters and inches."
+ },
+ "5df5bd747f61": {
+  "page": "guide.html",
+  "text": "<strong>Images</strong> add the format and size in pixels, then what the camera recorded: make, model and lens, exposure time, f-number, ISO and focal length, and when the photo was taken. Where the photo says where it was taken, Location shows the coordinates, and Remove Location Info takes them out of the file. Keywords and a description can be added and saved into JPEG, PNG and WebP files. Revert To lists the earlier versions prev kept, with their dates and sizes, and puts one back."
+ },
+ "9069f462b541": {
+  "page": "guide.html",
+  "text": "<strong>Markdown</strong> adds the number of words."
+ },
+ "f5e1911f3477": {
+  "page": "guide.html",
+  "text": "Drag and drop"
+ },
+ "4c5a0abfd961": {
+  "page": "guide.html",
+  "text": "Saturn: NASA/JPL/Space Science Institute, public domain, shown on Wikimedia Commons. The newsletter is a sample made for prev."
+ },
+ "7a4b28b97cfd": {
+  "page": "guide.html",
+  "text": "Drag and drop works both ways: things dragged into prev land where you let go, and pages, text, areas and images drag out of prev to other prev windows, the file manager and other apps. While a drag that prev can take is over a window, the window is highlighted; over the page thumbnails, a line shows where the pages would go."
+ },
+ "9bb7d65ed8d2": {
+  "page": "guide.html",
+  "text": "Things dropped on the page view land on the page; things dropped on the sidebar (a document's page thumbnails, an image window's images) go there. Hold Ctrl (Control on macOS, not ⌘) while dropping on the page view to send the drop to the sidebar instead, without aiming for it."
+ },
+ "d7358034dddf": {
+  "page": "guide.html",
+  "text": "Dropping into a document"
+ },
+ "dbd9acbd7ed3": {
+  "page": "guide.html",
+  "text": "What you drop"
+ },
+ "62c6d7871bf0": {
+  "page": "guide.html",
+  "text": "On a page"
+ },
+ "d5493805d575": {
+  "page": "guide.html",
+  "text": "On the page thumbnails, or anywhere with Ctrl"
+ },
+ "c07ebd2cd57a": {
+  "page": "guide.html",
+  "text": "An image file"
+ },
+ "260a2eb0e0e1": {
+  "page": "guide.html",
+  "text": "It goes on the page as an image, centered where you let go, at its own size (96 pixels to the inch), made smaller if it is larger than 80% of the page. Several image files open together in an image window"
+ },
+ "52bcdea84978": {
+  "page": "guide.html",
+  "text": "A new page at the line, the size of the page before it, with the image as large as fits, centered"
+ },
+ "e94440d24772": {
+  "page": "guide.html",
+  "text": "An image from another app (a web page, a screenshot tool, an area dragged from prev)"
+ },
+ "8fd8dab6e0a5": {
+  "page": "guide.html",
+  "text": "As an image file: on the page where you let go"
+ },
+ "a74c2e8f3c2e": {
+  "page": "guide.html",
+  "text": "A new page at the line, as an image file"
+ },
+ "b3ca0a1b6541": {
+  "page": "guide.html",
+  "text": "A PDF file from the file manager"
+ },
+ "b4952185ff7c": {
+  "page": "guide.html",
+  "text": "prev asks whether to add it to the end of the document or open it in its own window"
+ },
+ "6729a512e79a": {
+  "page": "guide.html",
+  "text": "Its pages are inserted at the line; with Ctrl over the page view, at the end"
+ },
+ "674a6e4182b0": {
+  "page": "guide.html",
+  "text": "Pages dragged from another prev window, or a PDF dragged from a web page"
+ },
+ "71ef4073f467": {
+  "page": "guide.html",
+  "text": "Inserted after the selected page"
+ },
+ "e138da1aaea4": {
+  "page": "guide.html",
+  "text": "Inserted at the line; with Ctrl over the page view, at the end"
+ },
+ "dafa9ec8b8f8": {
+  "page": "guide.html",
+  "text": "Text (from another app, or selected text dragged from prev)"
+ },
+ "8fc67b601a96": {
+  "page": "guide.html",
+  "text": "A text box with that text, sized to fit it, where you let go"
+ },
+ "b41fd5f1a168": {
+  "page": "guide.html",
+  "text": "A text box in the middle of what is visible of the current page"
+ },
+ "783847ddedd0": {
+  "page": "guide.html",
+  "text": "Any other files"
+ },
+ "0412651f069f": {
+  "page": "guide.html",
+  "text": "Each opens in its own window"
+ },
+ "5e468f93b07e": {
+  "page": "guide.html",
+  "text": "Whatever tool is chosen, dropped images and text become annotations the select tool can move, and Undo takes them back. An image annotation dragged from a page onto the thumbnails becomes a new page there too: it is copied, and stays on its page unless you hold Shift (or Command on macOS), which moves it."
+ },
+ "b418c6d5fed8": {
+  "page": "guide.html",
+  "text": "Dropping into an image window"
+ },
+ "42fd5d1b032b": {
+  "page": "guide.html",
+  "text": "On the picture"
+ },
+ "70299be3fd52": {
+  "page": "guide.html",
+  "text": "On the sidebar, or anywhere with Ctrl"
+ },
+ "527a85f8f7a4": {
+  "page": "guide.html",
+  "text": "Image files"
+ },
+ "7e4ea35b9e87": {
+  "page": "guide.html",
+  "text": "They join the window, after its images, in the thumbnail sidebar, which opens; the first of them is shown. Images the window has already are skipped. With the markup bar open, one image file goes on the markup instead"
+ },
+ "4671c8675802": {
+  "page": "guide.html",
+  "text": "They join the window, as on the picture"
+ },
+ "cb8070ee4cf1": {
+  "page": "guide.html",
+  "text": "An image from another app"
+ },
+ "fd923f651896": {
+  "page": "guide.html",
+  "text": "It goes on the markup where you let go. If the image had no markup yet, the markup opens and it goes in the middle. Remember to export: markup lasts only while the window is open"
+ },
+ "37f2c58fb24a": {
+  "page": "guide.html",
+  "text": "It is saved to your Downloads folder (the one your desktop's user folders name, or <code>~/Downloads</code>), under its own name, numbered if a file has that name already, and joins the window"
+ },
+ "c3328c39b0e2": {
+  "page": "guide.html",
+  "text": "Text"
+ },
+ "93981d158c08": {
+  "page": "guide.html",
+  "text": "It goes on the markup, as an image from another app does on the picture"
+ },
+ "565dfbc8d28d": {
+  "page": "guide.html",
+  "text": "Other files, such as PDFs"
+ },
+ "600584c2d5cc": {
+  "page": "guide.html",
+  "text": "Pages"
+ },
+ "e85ec6f712d9": {
+  "page": "guide.html",
+  "text": "Nothing: prev says to drop them on a document"
+ },
+ "6a32438b5a34": {
+  "page": "guide.html",
+  "text": "An image annotation dragged from the markup onto the sidebar is saved to Downloads as <code>Image.png</code> and joins the window; Shift (or Command on macOS) also takes it off the markup."
+ },
+ "f4f81290b915": {
+  "page": "guide.html",
+  "text": "Dragging out of prev"
+ },
+ "97211a888812": {
+  "page": "guide.html",
+  "text": "What"
+ },
+ "329e07bd696c": {
+  "page": "guide.html",
+  "text": "How to drag it"
+ },
+ "b8894c811fd5": {
+  "page": "guide.html",
+  "text": "What it carries"
+ },
+ "7bb2287ff531": {
+  "page": "guide.html",
+  "text": "Selected text"
+ },
+ "731af5184496": {
+  "page": "guide.html",
+  "text": "With the Select tool, press on the selected text and drag"
+ },
+ "7e539e8cb5f0": {
+  "page": "guide.html",
+  "text": "The text, for any app that takes text"
+ },
+ "bbeb934ce50c": {
+  "page": "guide.html",
+  "text": "An area"
+ },
+ "ebb18ce3fd6d": {
+  "page": "guide.html",
+  "text": "With the rectangular selection tool, choose an area, then press inside it and drag"
+ },
+ "3337f1fe031d": {
+  "page": "guide.html",
+  "text": "A PNG image of the area at twice the screen's resolution"
+ },
+ "fa60a229c4ef": {
+  "page": "guide.html",
+  "text": "Drag thumbnails out of the window (inside the window, dragging reorders them)"
+ },
+ "21541deb82d9": {
+  "page": "guide.html",
+  "text": "The pages: another prev window inserts them; the file manager saves them as a PDF named after the document and pages, such as <code>Report (pages 2–4).pdf</code>"
+ },
+ "533a057a2e0c": {
+  "page": "guide.html",
+  "text": "An image in an image window"
+ },
+ "d25e5de49051": {
+  "page": "guide.html",
+  "text": "Drag it out of the thumbnail sidebar"
+ },
+ "1eda065d5646": {
+  "page": "guide.html",
+  "text": "The file itself, which the file manager copies and other apps open"
+ },
+ "d060334e0ea6": {
+  "page": "guide.html",
+  "text": "On Linux and macOS, a small picture of the pages, area or image follows the pointer while it is dragged; Windows shows its own drag cursor. Dragged images and text are copied. Pages are copied unless you hold Shift (or Command on macOS) when you let go, which moves them: they are removed from the document they came from. A page dragged out and dropped back on the same window moves there with Shift, or is copied there without it. An image dragged out of the sidebar and dropped back on its own window is left alone."
+ },
+ "4e8fe5af79ea": {
+  "page": "guide.html",
+  "text": "For pages going to the file manager, prev writes the PDF to a <code>drag</code> folder in its cache (<code>~/.cache/prev</code>, <code>~/Library/Caches/prev</code> on macOS, or <code>%LOCALAPPDATA%\\prev\\cache</code> on Windows); it is removed when the next drag starts and when prev quits."
+ },
+ "67d0abcd3d30": {
+  "page": "guide.html",
+  "text": "Browsers and other apps"
+ },
+ "6be02110a05b": {
+  "page": "guide.html",
+  "text": "Chromium hands over the picture itself, so it arrives at full size. Browsers that give only the picture's web address have it downloaded (with curl, within 20 seconds and 64 MB); on Linux without curl installed, the address arrives as text instead. Windows includes curl."
+ },
+ "5e7f8e6702d9": {
+  "page": "guide.html",
+  "text": "Links to anything other than a picture or a PDF arrive as their address, as text; prev does not fetch them."
+ },
+ "c10ff988b054": {
+  "page": "guide.html",
+  "text": "On Linux, drag and drop does not need wl-clipboard; copying and pasting images does."
+ },
+ "0553c511fe5b": {
+  "page": "guide.html",
+  "text": "On Windows and macOS, these keys work for drags from any app."
+ },
+ "86dc858b646e": {
+  "page": "guide.html",
+  "text": "Wayland tells the window under a drag nothing about the keys held. prev sees Shift and Ctrl during drags from other apps because Hyprland moves the keyboard focus with the pointer; under compositors that do not, they work only for drags that start in prev. Hyprland also never reports whether a drop copied or moved, so prev goes by Shift at both ends."
+ },
+ "8de95fd5b412": {
+  "page": "guide.html",
+  "text": "Not yet"
+ },
+ "f358c9fc0541": {
+  "page": "guide.html",
+  "text": "Annotations cannot be dragged out of a window, nor from one document to another; copy an area instead. Image annotations can go to their own window's sidebar, as above."
+ },
+ "d6f789bd8457": {
+  "page": "guide.html",
+  "text": "Images dropped on an image window's sidebar join it after its images, not where they are let go."
+ },
+ "bb035be82b3b": {
+  "page": "guide.html",
+  "text": "An image window showing a single image has no sidebar to drag it from; drag it from the file manager instead."
+ },
+ "0a207286869b": {
+  "page": "guide.html",
+  "text": "The page thumbnails do not scroll by themselves while dragging near their top or bottom; the scroll wheel scrolls them during a drag."
+ },
+ "882f80e586dd": {
+  "page": "guide.html",
+  "text": "The assistant"
+ },
+ "28f86d312931": {
+  "page": "guide.html",
+  "text": "The assistant is a chat beside your document: ask about the file and it reads what it needs, shows you where things are, and works in the file for you with the same tools as an <a1>AI agent</a1>. The robot head on the toolbar, before the markup button, opens it on the right. Each window has its own chat, kept while the panel is closed; New Chat starts over, and Stop ends an answer under way."
+ },
+ "c52aa23e60f2": {
+  "page": "guide.html",
+  "text": "The model gets only what it asks for through the tools, never the whole file up front. With a local model nothing leaves your computer; with a cloud model, what it reads goes to the provider, so use one you trust with those files."
+ },
+ "a24634e6e042": {
+  "page": "guide.html",
+  "text": "Adding a model"
+ },
+ "ed654e3b7891": {
+  "page": "guide.html",
+  "text": "Open Settings, the Assistant tab, and pick a provider under Add a model:"
+ },
+ "7172634fb50e": {
+  "page": "guide.html",
+  "text": "<strong>Ollama</strong>, or another server on your computer that speaks OpenAI's API, such as LM Studio or llama.cpp's: prev finds the running server and lists its models, with whether each can use tools, which the assistant needs, and whether it sees pictures. For Ollama, Context sets how much the model reads at once: more lets it take in more of a file, but takes more memory and can answer more slowly. Use another address reaches a server on another computer. With no server running, prev says so and links to its download."
+ },
+ "43395983c664": {
+  "page": "guide.html",
+  "text": "<strong>Anthropic, OpenAI or Google Gemini</strong>: a cloud model needs an API key from the provider; Get an API key opens the page that makes one. Paste it and Continue, and prev lists the provider's chat models, the recommended one first. The key is kept in the system's keychain (the Keychain on macOS, the Credential Manager on Windows, the Secret Service on Linux), never in prev's settings file, and once for all that provider's models; Change key replaces it. A new OpenAI or Anthropic account needs some credit bought before its key works."
+ },
+ "a6e3ab01a168": {
+  "page": "guide.html",
+  "text": "Add sends the model one short message, and adds it once it answers; if it does not, the reason shows under it, with a link to the page that fixes it where there is one, such as billing. A model the list leaves out can be added by its name. The Assistant tab lists the models added, with the one in use; the panel's menu under the field switches model at any time, even mid-chat, grouped by provider."
+ },
+ "c39dc2a94b80": {
+  "page": "guide.html",
+  "text": "Chatting"
+ },
+ "91a84bd0464a": {
+  "page": "guide.html",
+  "text": "Type in the field and press Enter. The answer streams in as Markdown, with each tool the model uses as a line of its own, and a small picture for the tools that look at a page. Models that think before they answer show their reasoning faintly as it comes, folded under Thoughts once they answer. The assistant does what you ask it without asking again: the switches that make prev ask before an agent acts are for outside agents. A change it makes is one step of Undo, as yours are; signing and applying redactions cannot be undone, so it does them only when asked. A model that cannot see pictures gets the page's text instead."
+ },
+ "cc297c508457": {
+  "page": "guide.html",
+  "text": "Working with AI agents"
+ },
+ "e7973217e146": {
+  "page": "guide.html",
+  "text": "An AI agent, such as Claude Code or a local model in an MCP client, can work in prev for you: read a document, show you something in it, mark it up, fill a form, sign, redact, rearrange pages, edit an image and export. prev runs an MCP server, <code>prev --mcp</code>, which the agent starts and talks to over standard input and output. It passes the agent's requests to the prev you are using, starting prev if it is not running, so you can watch the agent work in your own windows. Nothing listens on the network, and prev bundles no model: what the agent reads goes to the model the agent uses, so use one you trust with those files."
+ },
+ "a056fd9ccb94": {
+  "page": "guide.html",
+  "text": "Setting up an agent"
+ },
+ "bfde825dfd67": {
+  "page": "guide.html",
+  "text": "There is nothing to set up in prev. Add it to the agent as an MCP server that runs <code>prev --mcp</code>. For Claude Code:"
+ },
+ "e45f36e0b27d": {
+  "page": "guide.html",
+  "text": "Where <code>prev</code> is not on the path, give the whole path: <code>/Applications/prev.app/Contents/MacOS/prev</code> on macOS, <code>%LOCALAPPDATA%\\Programs\\prev\\prev.exe</code> on Windows, and <code>flatpak run io.github.scrambletools.prev</code> for the Flatpak. For a local model, use an MCP client that works with it and add prev the same way; most take a file like this:"
+ },
+ "b627d8959511": {
+  "page": "guide.html",
+  "text": "The first time an agent connects, prev asks whether to let it control prev, in the window in front. Allow is remembered; Don't Allow lasts until prev quits. Settings lists the agents you allowed, with Forget to be asked again, and <strong>Allow outside control</strong> turns all of it off."
+ },
+ "3ff3a4bdbdcb": {
+  "page": "guide.html",
+  "text": "Asking before an agent acts"
+ },
+ "c2d9a2ab49fa": {
+  "page": "guide.html",
+  "text": "Settings has a switch for each kind of thing an agent can do: read a file, change the view or a window, mark up, edit, sign, apply redactions, and export. With a switch on, prev shows what the agent asks to do in the window it acts on, with Allow and Don't Allow, and the agent waits for your answer. Signing and applying redactions ask at first, as Undo cannot take them back; the others start off. The agent is told which tools ask, so it can tell you to look at prev. The switches are for outside agents; prev's own assistant acts on what you ask it without asking again."
+ },
+ "b91c43fae1d8": {
+  "page": "guide.html",
+  "text": "What agents can do"
+ },
+ "502151c16da7": {
+  "page": "guide.html",
+  "text": "<strong>Read</strong>: the windows open, a document's pages, text with its positions, search, annotations, form fields, saved signatures, pictures of pages and images, and Markdown files."
+ },
+ "4ca77485ebbb": {
+  "page": "guide.html",
+  "text": "<strong>Show you</strong>: go to a page or a place on it, zoom, change the view mode, outline an area or some text for a few seconds, open and close the sidebar, inspector and other panels, and size, place, focus and close windows. On Wayland a window cannot place itself, so there only its size changes."
+ },
+ "8bde6f209e42": {
+  "page": "guide.html",
+  "text": "<strong>Mark up</strong>: highlights, notes, text boxes, shapes, arrows and redaction marks, on PDFs and on images."
+ },
+ "915e861e0332": {
+  "page": "guide.html",
+  "text": "<strong>Edit</strong>: rotate, delete, move, insert and crop pages, fill form fields, place pictures, and crop, rotate, resize and adjust the color of images. A model that changes an image, such as to remove its background, takes it from prev and hands back the changed one, and prev keeps the image as it was among its versions."
+ },
+ "69c3bfab6597": {
+  "page": "guide.html",
+  "text": "<strong>Sign, redact and export</strong>: place one of your saved signatures, apply redaction marks, and export to a new file."
+ },
+ "5946181c36e9": {
+  "page": "guide.html",
+  "text": "An agent showing you the largest expense as it tells you about it."
+ },
+ "5ef0d2792040": {
+  "page": "guide.html",
+  "text": "Agents work as you do: each change saves by itself and is one step of Undo, so you can take back what an agent did."
+ },
+ "5e67cc484f29": {
+  "page": "guide.html",
+  "text": "Saving and versions"
+ },
+ "a3cfcfefaf3d": {
+  "page": "guide.html",
+  "text": "There is no Save command: edits to PDFs and images are written in place a moment after you stop, and when a window closes. Before the first write, prev keeps the original as a version in the version history folder (<code>~/.local/share/prev/versions</code>; <code>%APPDATA%\\prev\\versions</code> on Windows; <code>~/Library/Application Support/prev/versions</code> on macOS), unless the settings say otherwise. For images, the inspector's Revert To list puts an earlier version back; Revert To for PDFs is still to come."
+ },
+ "c7f73bb54d92": {
+  "page": "guide.html",
+  "text": "Settings"
+ },
+ "fa337edf900c": {
+  "page": "guide.html",
+  "text": "Settings opens over the current window, from the gear button at the end of the toolbar or Ctrl+,. Close it with its close button, Escape or a click outside it. Changes apply to every window at once. Its five tabs are General, with the languages and the default app; Appearance, with light or dark, colors and how windows look; Assistant, with the models for <a1>the assistant</a1>; Agents, for <a2>AI agents</a2>; and Storage, with where prev keeps your files:"
+ },
+ "04846aae4f2e": {
+  "page": "guide.html",
+  "text": "<strong>Appearance</strong>: follow the system's light or dark setting, or choose one."
+ },
+ "883465c007ac": {
+  "page": "guide.html",
+  "text": "<strong>Language</strong>: follow the system's language (the default), or choose one of the languages prev has been translated into, each listed by its own name."
+ },
+ "348d00693e12": {
+  "page": "guide.html",
+  "text": "Hebrew"
+ },
+ "9239c22d1d1c": {
+  "page": "guide.html",
+  "text": "Japanese"
+ },
+ "3e68ce34870c": {
+  "page": "guide.html",
+  "text": "<strong>Input language</strong>: the language you type in, which sets the side an empty text field starts on: the right for Arabic, Hebrew, Persian, Urdu and the other right to left languages. By default it follows the keyboard layout in use (on Windows, the input language; on macOS, the input source in the menu bar), so switching layouts moves the cursor of an empty field. Text you type keeps its own direction whichever you choose."
+ },
+ "20d3b64ec5ff": {
+  "page": "guide.html",
+  "text": "<strong>Use the system accent color</strong>: colors are built from the system's accent color: the desktop theme's on Linux, and the one set in Windows' or macOS's settings. Off, or where the system has none, a row of colors below it picks the color instead; prev's blue is the first."
+ },
+ "b38ed57e89ca": {
+  "page": "guide.html",
+  "text": "<strong>Hide the toolbar when the pointer leaves</strong>: see below."
+ },
+ "0c2d8dd9bea5": {
+  "page": "guide.html",
+  "text": "<strong>Animations</strong>: off at first, so bars, panels and dialogs appear at once; on, they move into place. prev also stops moving things when the system asks for reduced motion."
+ },
+ "192e3a42905f": {
+  "page": "guide.html",
+  "text": "<strong>Overlay transparency</strong>: lets the page show through the floating toolbar, 0 to 90%, 25% at first; its buttons stay solid."
+ },
+ "852e44551d45": {
+  "page": "guide.html",
+  "text": "<strong>Corner radius</strong>: rounds dialogs and the floating toolbar, from square corners at 0 to a full pill at 32; 20 at first."
+ },
+ "22aa4835e89b": {
+  "page": "guide.html",
+  "text": "On Linux it sets prev for all 41 types in <code>~/.config/mimeapps.list</code>. That needs prev's desktop entry, which the packages and <code>scripts/install.sh</code> install."
+ },
+ "59176b31c8ed": {
+  "page": "guide.html",
+  "text": "On macOS it asks for PDF, PNG, JPEG, HEIC, GIF, TIFF, WebP and AVIF, and macOS asks you to confirm each. For other types, such as camera RAW, use Get Info on a file in Finder, then Open with and Change All. prev must run from prev.app."
+ },
+ "e268401005fa": {
+  "page": "guide.html",
+  "text": "Windows lets only you choose default apps, so there the button opens prev's page in Settings, Apps, Default apps."
+ },
+ "c57d4c742553": {
+  "page": "guide.html",
+  "text": "<strong>Assistant</strong>: the models the assistant can talk to, and adding one; see <a1>Adding a model</a1>."
+ },
+ "6326232cbc22": {
+  "page": "guide.html",
+  "text": "<strong>Outside control</strong>: whether AI agents may control prev, the agents you allowed, and what prev asks you about before an agent acts; see <a1>Working with AI agents</a1>."
+ },
+ "29fcd7cf8c67": {
+  "page": "guide.html",
+  "text": "<strong>Storage</strong>: where prev keeps signatures, version history and bookmarks."
+ },
+ "17ae090c70f1": {
+  "page": "guide.html",
+  "text": "None, some and all of prev's file types opening with prev."
+ },
+ "15160fdb0506": {
+  "page": "guide.html",
+  "text": "Keyboard shortcuts can be changed in the <code>[keys]</code> table of the settings file, <code>prev.toml</code>; the Settings dialog has no place for them. The <a1>README</a1> lists the actions and how to write a shortcut. Menus on macOS and the hints prev shows name the shortcuts in effect."
+ },
+ "cef4dfdd1a38": {
+  "page": "guide.html",
+  "text": "The floating toolbar"
+ },
+ "36e1c0ab3963": {
+  "page": "guide.html",
+  "text": "With \"Hide the toolbar when the pointer leaves\" on (or the top-panel button at the end of the toolbar), the toolbar floats over the document as a rounded bar, and the markup bar floats along the bottom. They slide in while the pointer is over the window and go away when it leaves, so the whole window shows the page. Sidebars and panels stay clear of them."
+ },
+ "e33d87bb774b": {
+  "page": "guide.html",
+  "text": "Where files go"
+ },
+ "f7f2d3b3348a": {
+  "page": "guide.html",
+  "text": "Settings are kept in <code>prev.toml</code>, which lists every setting, including where prev keeps your files:"
+ },
+ "81fef7ff25d7": {
+  "page": "guide.html",
+  "text": "Signatures, versions and bookmarks"
+ },
+ "83ad8510bbd3": {
+  "page": "guide.html",
+  "text": "Linux"
+ },
+ "bcedda3e5b5b": {
+  "page": "guide.html",
+  "text": "<code>~/.config/prev.toml</code>"
+ },
+ "0721a5f82e04": {
+  "page": "guide.html",
+  "text": "<code>~/.local/share/prev</code>"
+ },
+ "26d9c28d789c": {
+  "page": "guide.html",
+  "text": "Windows"
+ },
+ "e45310a3687f": {
+  "page": "guide.html",
+  "text": "<code>%APPDATA%\\prev\\prev.toml</code>"
+ },
+ "6524ee88a55d": {
+  "page": "guide.html",
+  "text": "<code>%APPDATA%\\prev</code>"
+ },
+ "cd6fdcbf5a86": {
+  "page": "guide.html",
+  "text": "macOS"
+ },
+ "7c68c0779bfa": {
+  "page": "guide.html",
+  "text": "<code>~/Library/Application Support/prev/prev.toml</code>"
+ },
+ "d24d91916ad7": {
+  "page": "guide.html",
+  "text": "<code>~/Library/Application Support/prev</code>"
+ },
+ "754c537851a0": {
+  "page": "guide.html",
+  "text": "On Linux, for example:"
+ },
+ "df9fbc4ff42d": {
+  "page": "guide.html",
+  "text": "The Flatpak keeps its own under <code>~/.var/app/io.github.scrambletools.prev</code>."
+ },
+ "a3efa8fd56ff": {
+  "page": "guide.html",
+  "text": "Change them in the Storage section: type a path (<code>~</code> works) and press Enter or Apply, or pick a folder with Choose. prev checks that the folder exists and can be written, uses the new place at once and saves it to the file. Files already at the old place stay there; move them over to keep using them. The paths are filled in when the file is first made and then stay as they are."
+ },
+ "cd941cc66ca0": {
+  "page": "guide.html",
+  "text": "Looks"
+ },
+ "acbdb47af4de": {
+  "page": "guide.html",
+  "text": "prev follows the system's light or dark setting and reduced motion setting, and its accent color. It looks the same on Windows and macOS, in each system's own window; on the Mac its menus are in the menu bar, and its shortcuts use ⌘ instead of Ctrl. In narrow windows, toolbar groups that don't fit move into a More menu, which closes as soon as you choose something from it (a button that opens its own menu, such as Pages, keeps it open under that menu). The search field grows into whatever room the toolbar has left."
+ },
+ "e21ecfd28ed8": {
+  "page": "guide.html",
+  "text": "A walkthrough of everything prev does: reading and marking up PDFs, forms and signatures, page editing, redaction, images, drag and drop, AI agents and settings.",
+  "attribute": true
+ },
+ "f5cbdf6bfb51": {
+  "page": "guide.html",
+  "text": "Contents",
+  "attribute": true
+ },
+ "15de33a38893": {
+  "page": "guide.html",
+  "text": "Two pages side by side",
+  "attribute": true
+ },
+ "b2a9f7de5e9b": {
+  "page": "guide.html",
+  "text": "Searching a PDF, with matches highlighted and page thumbnails in the sidebar",
+  "attribute": true
+ },
+ "0a9ea579696d": {
+  "page": "guide.html",
+  "text": "A form filled in, marked up with a highlight, shapes, a text box and a note, and signed",
+  "attribute": true
+ },
+ "a67c614afe69": {
+  "page": "guide.html",
+  "text": "The Sign menu open over a garden plot application, listing a drawn and a typed signature",
+  "attribute": true
+ },
+ "2e1da27379ec": {
+  "page": "guide.html",
+  "text": "Signing &quot;Jordan Example&quot; in blue ink in the Create Signature dialog, then typing the description",
+  "attribute": true
+ },
+ "3a61f7f17c38": {
+  "page": "guide.html",
+  "text": "A statement with the name and address, account and routing numbers and tax ID marked for redaction, and Apply in the markup bar",
+  "attribute": true
+ },
+ "82c4439be4b6": {
+  "page": "guide.html",
+  "text": "The same statement after applying: black boxes where the marked details were",
+  "attribute": true
+ },
+ "9b3ee442b3c9": {
+  "page": "guide.html",
+  "text": "The export dialog with reduce file size and flatten chosen",
+  "attribute": true
+ },
+ "d28357d29bc2": {
+  "page": "guide.html",
+  "text": "A photo open with the Adjust Color panel",
+  "attribute": true
+ },
+ "0578216ed437": {
+  "page": "guide.html",
+  "text": "A PDF with the inspector open on the right, listing its file name, folder, size and date, its title, author, subject, keywords, producing application, PDF version and security, and its page count and page size",
+  "attribute": true
+ },
+ "820d100fb56d": {
+  "page": "guide.html",
+  "text": "A landscape photo with the inspector open, showing the file, the camera make, model and lens, the exposure time, f-number, ISO and focal length, the date taken, the camera's software and the location's coordinates",
+  "attribute": true
+ },
+ "17f6a881a60c": {
+  "page": "guide.html",
+  "text": "Dragging a photo of Saturn from a Wikimedia Commons page in a browser into the empty photo space of a newsletter PDF open in prev, where it lands as a picture, selected, above its caption",
+  "attribute": true
+ },
+ "0199da1c8c4a": {
+  "page": "guide.html",
+  "text": "The Assistant tab of Settings, listing a cloud model and a local model, with Ollama found running and its models ready to add",
+  "attribute": true
+ },
+ "b06ac2524eb0": {
+  "page": "guide.html",
+  "text": "prev asking: Allow Claude Code to control prev?, with Don't allow and Allow, over the annual report",
+  "attribute": true
+ },
+ "e6144a460f77": {
+  "page": "guide.html",
+  "text": "prev asking: Let Claude Code sign this file?, adding that Undo cannot take this back, over a filled-in membership form",
+  "attribute": true
+ },
+ "7d7a03434b8f": {
+  "page": "guide.html",
+  "text": "The Agents tab of Settings: Allow outside control on, Claude Code allowed, and the Ask before an agent switches, with signing and applying redactions on",
+  "attribute": true
+ },
+ "e33a7cf2935c": {
+  "page": "guide.html",
+  "text": "An agent pointing out the largest expense: the drip irrigation row of the budget's expenses table, outlined in the accent color",
+  "attribute": true
+ },
+ "80e5b3da05ba": {
+  "page": "guide.html",
+  "text": "The Appearance tab of Settings: light or dark, the accent color, and how windows look",
+  "attribute": true
+ },
+ "1a5d7cd7b1e7": {
+  "page": "guide.html",
+  "text": "prev in Hebrew, laid out right to left",
+  "attribute": true
+ },
+ "13abaf8b5b34": {
+  "page": "guide.html",
+  "text": "prev in Japanese",
+  "attribute": true
+ },
+ "19082e3a931d": {
+  "page": "guide.html",
+  "text": "The General tab of Settings, with the languages and Default app: a green dot beside Make Default and the line 41 of 41 file types open with prev",
+  "attribute": true
+ },
+ "9350b9c5b839": {
+  "page": "guide.html",
+  "text": "The Default app row three times: a red dot with 0 of 41 file types, an amber dot with 3 of 41, and a green dot with 41 of 41",
+  "attribute": true
+ },
+ "ccc645e1c69b": {
+  "page": "guide.html",
+  "text": "The toolbar and markup bar floating over the document",
+  "attribute": true
+ },
+ "d8048382b949": {
+  "page": "guide.html",
+  "text": "prev on Windows 11 with the garden plot application filled in and signed",
+  "attribute": true
+ },
+ "132c8e59c5d7": {
+  "page": "guide.html",
+  "text": "prev on macOS, below its menu bar, with a landscape photo marked up",
+  "attribute": true
+ },
+ "e06644976107": {
+  "page": "specs.html",
+  "text": "prev specifications"
+ },
+ "0c709f9886c3": {
+  "page": "specs.html",
+  "text": "Specifications"
+ },
+ "d91c8c987153": {
+  "page": "specs.html",
+  "text": "prev {v}, a document and image viewer and editor. For what each feature does, see the <a1>tour</a1>."
+ },
+ "77df58244ee6": {
+  "page": "specs.html",
+  "text": "<a1>Systems</a1>"
+ },
+ "8211755b63d6": {
+  "page": "specs.html",
+  "text": "<a1>File formats</a1>"
+ },
+ "27a5541dc368": {
+  "page": "specs.html",
+  "text": "<a1>PDF features</a1>"
+ },
+ "4a8e4a99ccc3": {
+  "page": "specs.html",
+  "text": "<a1>Languages</a1>"
+ },
+ "cb800d221665": {
+  "page": "specs.html",
+  "text": "<a1>Input</a1>"
+ },
+ "bed4d4462465": {
+  "page": "specs.html",
+  "text": "<a1>Assistant and agents</a1>"
+ },
+ "0e3d994d9865": {
+  "page": "specs.html",
+  "text": "<a1>Technology</a1>"
+ },
+ "b014d1c44be3": {
+  "page": "specs.html",
+  "text": "<a1>Performance</a1>"
+ },
+ "47da9a90205a": {
+  "page": "specs.html",
+  "text": "<a1>Settings and data</a1>"
+ },
+ "ca9f059b4152": {
+  "page": "specs.html",
+  "text": "<a1>License and privacy</a1>"
+ },
+ "1413f8bb4824": {
+  "page": "specs.html",
+  "text": "Systems and processors"
+ },
+ "a239107ef28f": {
+  "page": "specs.html",
+  "text": "Versions"
+ },
+ "2aee1b9d4885": {
+  "page": "specs.html",
+  "text": "Processors"
+ },
+ "0a999012ffb8": {
+  "page": "specs.html",
+  "text": "Packages"
+ },
+ "8e313416f3d4": {
+  "page": "specs.html",
+  "text": "Wayland (Hyprland first), X11; glibc 2.35 or newer for the .deb, .rpm and AppImage"
+ },
+ "ae5ba4af13a1": {
+  "page": "specs.html",
+  "text": "x86_64, ARM64, RISC-V"
+ },
+ "807e8765dc1f": {
+  "page": "specs.html",
+  "text": ".deb, .rpm, AppImage, Flatpak, tarball, PKGBUILD for Arch; mise. No AppImage or Flatpak on RISC-V"
+ },
+ "0346c8a43cf8": {
+  "page": "specs.html",
+  "text": "x64, ARM64"
+ },
+ "3950472118c0": {
+  "page": "specs.html",
+  "text": "Per-user installer (.msi), portable .zip"
+ },
+ "d6adcf4d46ee": {
+  "page": "specs.html",
+  "text": "macOS 11 or later"
+ },
+ "5b7657e40c32": {
+  "page": "specs.html",
+  "text": "Apple Silicon"
+ },
+ "ac2ad4386ae4": {
+  "page": "specs.html",
+  "text": "Disk image (.dmg), not yet notarized"
+ },
+ "ab255c27aec8": {
+  "page": "specs.html",
+  "text": "Graphics"
+ },
+ "92a99f7559b8": {
+  "page": "specs.html",
+  "text": "The GPU through Vulkan on Linux, DirectX 12 or Vulkan on Windows, and Metal on macOS; the CPU when no GPU backend starts"
+ },
+ "86d67413e7f1": {
+  "page": "specs.html",
+  "text": "Instances"
+ },
+ "717e957495a8": {
+  "page": "specs.html",
+  "text": "One running prev per user; opening more files adds windows to it"
+ },
+ "b8db515e7ae6": {
+  "page": "specs.html",
+  "text": "Look"
+ },
+ "c9283a58313e": {
+  "page": "specs.html",
+  "text": "Material Design 3, light or dark and the accent color from the system"
+ },
+ "05a91092a66e": {
+  "page": "specs.html",
+  "text": "File formats"
+ },
+ "687c82861c95": {
+  "page": "specs.html",
+  "text": "Documents"
+ },
+ "4048e2f715a8": {
+  "page": "specs.html",
+  "text": "PDF, including password-protected files"
+ },
+ "31630b4faa5b": {
+  "page": "specs.html",
+  "text": "PNG, JPEG, GIF and animated GIF, WebP, AVIF, HEIC and HEIF, TIFF, BMP, ICO, TGA, PNM (PBM, PGM, PPM), QOI, JPEG 2000, OpenEXR, Radiance HDR"
+ },
+ "82cf6f7679d0": {
+  "page": "specs.html",
+  "text": "Camera RAW"
+ },
+ "e7a818daf5a1": {
+  "page": "specs.html",
+  "text": "DNG and the RAW formats of the cameras rawler supports, among them Canon CR2, CR3 and CRW, Nikon NEF and NRW, Sony ARW, SR2 and SRF, Fujifilm RAF, Olympus ORF, Panasonic RW2, Pentax PEF, Samsung SRW, Sigma X3F and Hasselblad 3FR"
+ },
+ "d80a665c4b08": {
+  "page": "specs.html",
+  "text": "Drawings"
+ },
+ "a51eb28c3bbd": {
+  "page": "specs.html",
+  "text": "SVG and compressed SVG (.svgz)"
+ },
+ "705f98605807": {
+  "page": "specs.html",
+  "text": "Markdown (.md, .markdown), with tables, task lists and syntax-highlighted code"
+ },
+ "120678235e9b": {
+  "page": "specs.html",
+  "text": "PDF export"
+ },
+ "9ac47d3fec8a": {
+  "page": "specs.html",
+  "text": "PDF, optionally flattened, encrypted with AES-256 or with images reduced to 150 dpi; or each page as PNG, JPEG, WebP or OpenEXR, or all pages as one TIFF, at 72 to 600 dpi"
+ },
+ "4a4f76ea85cc": {
+  "page": "specs.html",
+  "text": "Image export"
+ },
+ "c807a65613c4": {
+  "page": "specs.html",
+  "text": "PNG, JPEG, WebP, TIFF, BMP, TGA, QOI, PPM, OpenEXR; SVG and Markdown export as pictures in the same formats"
+ },
+ "251edc0eb5a8": {
+  "page": "specs.html",
+  "text": "Metadata"
+ },
+ "81b71dc9405b": {
+  "page": "specs.html",
+  "text": "EXIF, ICC color profiles and XMP kept through edits in JPEG, PNG, WebP and TIFF; keywords and descriptions saved to JPEG, PNG and WebP; location removable"
+ },
+ "bbfa2e63586f": {
+  "page": "specs.html",
+  "text": "Never written"
+ },
+ "17d5836459c7": {
+  "page": "specs.html",
+  "text": "HEIC, AVIF and camera RAW open only; edits to them are exported to another format"
+ },
+ "c391024cfe5c": {
+  "page": "specs.html",
+  "text": "PDF features"
+ },
+ "24be61285e09": {
+  "page": "specs.html",
+  "text": "Views"
+ },
+ "22ddd7a70036": {
+  "page": "specs.html",
+  "text": "Continuous, single page, two pages side by side; fit page, fit width, actual size, zoom from 10% to 1,600%"
+ },
+ "cf03cf2e9cdf": {
+  "page": "specs.html",
+  "text": "Navigation"
+ },
+ "4e76125fd488": {
+  "page": "specs.html",
+  "text": "Page thumbnails, table of contents, highlights and notes, bookmarks, search with every match highlighted, links, slideshow"
+ },
+ "3d221e822859": {
+  "page": "specs.html",
+  "text": "Markup"
+ },
+ "68296d319760": {
+  "page": "specs.html",
+  "text": "Highlight, underline, strikethrough; sketch, draw; rectangle, rounded rectangle, oval, line, arrow, star, polygon, speech bubble, loupe, mask; text boxes and notes. Saved as standard PDF annotations"
+ },
+ "da81c7ed7935": {
+  "page": "specs.html",
+  "text": "Text fields, checkboxes, radio buttons, drop-down menus"
+ },
+ "bedc5a9d866d": {
+  "page": "specs.html",
+  "text": "Drawn, typed in a handwriting font, or imported from a photo or scan; kept in a library and placed as images"
+ },
+ "a8267cec0f7a": {
+  "page": "specs.html",
+  "text": "Reorder, rotate, delete, crop, insert blank pages or other PDFs, copy and paste between documents with their annotations and form fields"
+ },
+ "56e3092204a3": {
+  "page": "specs.html",
+  "text": "Removes the text, image pixels and drawings under each mark and rewrites the file, so no earlier revision keeps them"
+ },
+ "369c534df344": {
+  "page": "specs.html",
+  "text": "Saving"
+ },
+ "ce2ff23d1ac8": {
+  "page": "specs.html",
+  "text": "Automatic, in place, with the original kept as a version; annotations saved incrementally"
+ },
+ "f16eadab2a72": {
+  "page": "specs.html",
+  "text": "Printing"
+ },
+ "e50512ad7d75": {
+  "page": "specs.html",
+  "text": "The desktop's print dialog on Linux, Windows' print dialog, the macOS print panel"
+ },
+ "db07be184479": {
+  "page": "specs.html",
+  "text": "Languages"
+ },
+ "7b4db7ef1fa2": {
+  "page": "specs.html",
+  "text": "Interface"
+ },
+ "bac8259c4599": {
+  "page": "specs.html",
+  "text": "38 languages: Arabic, Bengali, Catalan, Chinese (Simplified and Traditional), Czech, Danish, Dutch, English (US and UK), Finnish, French, German, Greek, Hebrew, Hindi, Hungarian, Indonesian, Italian, Japanese, Korean, Malay, Norwegian (Bokmål), Persian, Polish, Portuguese (Brazil and Portugal), Romanian, Russian, Spanish, Swahili, Swedish, Tamil, Thai, Turkish, Ukrainian, Urdu, Vietnamese"
+ },
+ "da502a644e54": {
+  "page": "specs.html",
+  "text": "Right to left"
+ },
+ "80a118a8824b": {
+  "page": "specs.html",
+  "text": "Arabic, Hebrew, Persian and Urdu lay out right to left inside panels, dialogs and menus"
+ },
+ "27d0b935919a": {
+  "page": "specs.html",
+  "text": "Choosing"
+ },
+ "7205038d73d8": {
+  "page": "specs.html",
+  "text": "Follows the system's language, or the one chosen in Settings"
+ },
+ "8ad8302d110b": {
+  "page": "specs.html",
+  "text": "Translations"
+ },
+ "cb07bf8d6578": {
+  "page": "specs.html",
+  "text": "One Fluent file per language; the translations other than English are first drafts open to further review"
+ },
+ "b568d47f2e24": {
+  "page": "specs.html",
+  "text": "Input"
+ },
+ "6662c40bac78": {
+  "page": "specs.html",
+  "text": "Keyboard"
+ },
+ "804c35a71128": {
+  "page": "specs.html",
+  "text": "Shortcuts for every main action, with ⌘ on macOS and Ctrl elsewhere; changeable in the settings file, for every system or for one"
+ },
+ "5614fd83d7c1": {
+  "page": "specs.html",
+  "text": "Typing"
+ },
+ "2bf2b97c6ce7": {
+  "page": "specs.html",
+  "text": "Text fields follow the system's keyboard layout and input methods; an empty field starts on the side the input language reads from, taken from the keyboard layout on Linux, the input language on Windows and the input source on macOS"
+ },
+ "bc5de071a8ad": {
+  "page": "specs.html",
+  "text": "Pointer"
+ },
+ "f36bd4e81ddf": {
+  "page": "specs.html",
+  "text": "Mouse and touchpad: smooth scrolling, Ctrl+scroll (⌘+scroll on macOS) to zoom around the pointer, dragging to pan, select and draw"
+ },
+ "6c67ef54c80d": {
+  "page": "specs.html",
+  "text": "Mouse, touchpad, pen or touch in the signature pad"
+ },
+ "df78776ba01e": {
+  "page": "specs.html",
+  "text": "Both ways on Linux (Wayland), Windows and macOS: pictures, text, files and pages in, with Ctrl (Control on macOS) sending a drop to the sidebar; text, areas, pages and images out, with Shift (or Command) to move pages"
+ },
+ "5efe0c9323a4": {
+  "page": "specs.html",
+  "text": "Clipboard"
+ },
+ "b3aa3acae7b3": {
+  "page": "specs.html",
+  "text": "Text, images, files copied in the file manager, and pages between prev windows; wl-clipboard on Linux"
+ },
+ "d660049bc1f2": {
+  "page": "specs.html",
+  "text": "Accessibility"
+ },
+ "05955717738e": {
+  "page": "specs.html",
+  "text": "Keyboard focus with Tab and Shift+Tab; follows the system's reduced motion setting"
+ },
+ "cf069c1a2735": {
+  "page": "specs.html",
+  "text": "Assistant and agents"
+ },
+ "6c9a071cd8f7": {
+  "page": "specs.html",
+  "text": "Cloud models"
+ },
+ "93b2a20dd8f7": {
+  "page": "specs.html",
+  "text": "Anthropic, OpenAI and Google Gemini, with your own API key; prev lists the provider's chat models and suggests Claude Sonnet 5.5, GPT-5.6 or Gemini 3.8 Flash. Keys are kept in the system keychain, once per provider"
+ },
+ "91ab74644c8d": {
+  "page": "specs.html",
+  "text": "Local models"
+ },
+ "8474702aab6e": {
+  "page": "specs.html",
+  "text": "Ollama, found at <code>localhost:11434</code>, with each model's tools, vision and context shown, and qwen3.8 suggested; OpenAI-compatible servers, found at LM Studio's <code>localhost:1234</code>, llama.cpp's <code>localhost:8080</code> or vLLM's <code>localhost:8000</code>; or a server at any address, on this computer or another"
+ },
+ "6ad6a7848cd7": {
+  "page": "specs.html",
+  "text": "What a model needs"
+ },
+ "82fa5c6ace9b": {
+  "page": "specs.html",
+  "text": "Tool calling. Seeing pictures is optional: a model without it gets the page's text instead of a picture of it. For Ollama, the context is set per model"
+ },
+ "1fb0690f2fe6": {
+  "page": "specs.html",
+  "text": "What it can do"
+ },
+ "f1696e6d365c": {
+  "page": "specs.html",
+  "text": "The same 44 tools agents use, below, without asking again, as you asked for them; each change it makes is one step of Undo"
+ },
+ "94cbffb24efc": {
+  "page": "specs.html",
+  "text": "MCP server"
+ },
+ "a0efe24362cf": {
+  "page": "specs.html",
+  "text": "<code>prev --mcp</code>, over standard input and output, for Claude Code (<code>claude mcp add prev -- prev --mcp</code>) or any MCP client. It drives the prev you are using, starting it if needed; nothing listens on the network"
+ },
+ "2f81a22de0af": {
+  "page": "specs.html",
+  "text": "Access"
+ },
+ "313ccb2e8823": {
+  "page": "specs.html",
+  "text": "prev asks before letting a new agent in, and remembers Allow; Settings lists allowed agents, and Allow outside control turns agents off"
+ },
+ "861e57dc9cb3": {
+  "page": "specs.html",
+  "text": "Read (11)"
+ },
+ "54acc50e8ca7": {
+  "page": "specs.html",
+  "text": "<code>list_windows</code>, <code>document_info</code>, <code>page_text</code>, <code>search</code>, <code>current_view</code>, <code>list_annotations</code>, <code>form_fields</code>, <code>list_signatures</code>, <code>render_page</code>, <code>render_image</code>, <code>get_image</code>"
+ },
+ "64bd682b0d7f": {
+  "page": "specs.html",
+  "text": "View (11)"
+ },
+ "bb02923e46b9": {
+  "page": "specs.html",
+  "text": "<code>open_file</code>, <code>focus_window</code>, <code>go_to_page</code>, <code>scroll_to</code>, <code>set_zoom</code>, <code>set_view_mode</code>, <code>point_at</code>, <code>show_panel</code>, <code>hide_panel</code>, <code>set_window</code>, <code>close_window</code>"
+ },
+ "9559cb461ec9": {
+  "page": "specs.html",
+  "text": "Markup (7)"
+ },
+ "1446179adf95": {
+  "page": "specs.html",
+  "text": "<code>highlight</code>, <code>add_note</code>, <code>add_text_box</code>, <code>add_shape</code>, <code>edit_annotation</code>, <code>delete_annotation</code>, <code>add_redaction</code>"
+ },
+ "5e403f8869a1": {
+  "page": "specs.html",
+  "text": "Edit (12)"
+ },
+ "410ea4b345f0": {
+  "page": "specs.html",
+  "text": "<code>rotate_pages</code>, <code>delete_pages</code>, <code>move_pages</code>, <code>insert_blank_page</code>, <code>crop_pages</code>, <code>fill_field</code>, <code>place_image</code>, <code>crop</code>, <code>rotate</code>, <code>resize</code>, <code>adjust_color</code>, <code>replace_image</code>"
+ },
+ "38a5d33d9602": {
+  "page": "specs.html",
+  "text": "Sign, redact, export (3)"
+ },
+ "ba3447c4d4f8": {
+  "page": "specs.html",
+  "text": "<code>place_signature</code>, <code>apply_redactions</code>, <code>export</code>"
+ },
+ "97fa19250695": {
+  "page": "specs.html",
+  "text": "Asking first"
+ },
+ "33c8cd977e6c": {
+  "page": "specs.html",
+  "text": "A switch for each kind above; signing and applying redactions ask at first, as Undo cannot take them back"
+ },
+ "d018b082e8a3": {
+  "page": "specs.html",
+  "text": "Technology"
+ },
+ "89b86ab0e66f": {
+  "page": "specs.html",
+  "text": "Language"
+ },
+ "fc9b6ba994bf": {
+  "page": "specs.html",
+  "text": "Rust, edition 2024, Rust 1.95 or newer to build"
+ },
+ "dc3d7137e926": {
+  "page": "specs.html",
+  "text": "iced 0.14 with wgpu, and tiny-skia for drawing on the CPU"
+ },
+ "bc20f4fcb4a0": {
+  "page": "specs.html",
+  "text": "PDF engine"
+ },
+ "e84ef65fb777": {
+  "page": "specs.html",
+  "text": "MuPDF 1.27, through the mupdf crate"
+ },
+ "0c3b18ffbc52": {
+  "page": "specs.html",
+  "text": "The image crate; rawler for camera RAW; libheif with libde265 and aom's AV1 decoder for HEIC and AVIF"
+ },
+ "58a5c50de021": {
+  "page": "specs.html",
+  "text": "resvg; pulldown-cmark with syntect for highlighting"
+ },
+ "4bd9be830185": {
+  "page": "specs.html",
+  "text": "Project Fluent"
+ },
+ "f1f80a2760cd": {
+  "page": "specs.html",
+  "text": "An MCP server, <code>prev --mcp</code>, on standard input and output, through rmcp; it relays to the running prev over a private local socket (a named pipe on Windows), with JSON-RPC 2.0"
+ },
+ "8010d1f4d069": {
+  "page": "specs.html",
+  "text": "Assistant"
+ },
+ "728e6397c5dc": {
+  "page": "specs.html",
+  "text": "rig-core, pinned and kept to one crate (<code>prev-assist</code>), for Anthropic, OpenAI, Google Gemini, Ollama and OpenAI-compatible servers; API keys in the system keychain through keyring (the Secret Service on Linux, the Credential Manager on Windows, the Keychain on macOS)"
+ },
+ "ffe688a50143": {
+  "page": "specs.html",
+  "text": "Fonts"
+ },
+ "35c771fcde4f": {
+  "page": "specs.html",
+  "text": "Roboto Flex, Material Symbols Rounded and Dancing Script, bundled"
+ },
+ "2aa3f35f0aaf": {
+  "page": "specs.html",
+  "text": "System integration"
+ },
+ "25134d2432ec": {
+  "page": "specs.html",
+  "text": "XDG desktop portals on Linux; Win32 and OLE on Windows; AppKit and Launch Services on macOS, with a menu bar through muda"
+ },
+ "0562f32dc56f": {
+  "page": "specs.html",
+  "text": "Dependencies"
+ },
+ "ab778d5a85aa": {
+  "page": "specs.html",
+  "text": "All open source, with licenses checked by cargo-deny in CI; GPL-2.0-only is refused"
+ },
+ "63c904559993": {
+  "page": "specs.html",
+  "text": "Performance"
+ },
+ "d1e5f2cd0c5a": {
+  "page": "specs.html",
+  "text": "Measured on Linux with a release build, an RTX 4080 SUPER and a 3840 × 1080 display at 120 Hz."
+ },
+ "d4fd0a232ee5": {
+  "page": "specs.html",
+  "text": "Measure"
+ },
+ "61ad50a9b918": {
+  "page": "specs.html",
+  "text": "Target"
+ },
+ "9550373e8b9b": {
+  "page": "specs.html",
+  "text": "Measured"
+ },
+ "af2079fc2511": {
+  "page": "specs.html",
+  "text": "Start to window"
+ },
+ "d886e96f291e": {
+  "page": "specs.html",
+  "text": "under 150 ms"
+ },
+ "245547aae5f9": {
+  "page": "specs.html",
+  "text": "about 230 ms, 200 ms of it Vulkan setup"
+ },
+ "2b4390a76bf7": {
+  "page": "specs.html",
+  "text": "Open a PDF to its first page drawn"
+ },
+ "30261cb88e4b": {
+  "page": "specs.html",
+  "text": "under 100 ms"
+ },
+ "d0af43b2d082": {
+  "page": "specs.html",
+  "text": "20 ms for 499 pages, 93 ms for 7,025 pages"
+ },
+ "dbbd0e71dcaa": {
+  "page": "specs.html",
+  "text": "Scroll and zoom"
+ },
+ "4058a22ae5dc": {
+  "page": "specs.html",
+  "text": "60 fps without dropped frames"
+ },
+ "5636f823e680": {
+  "page": "specs.html",
+  "text": "120 fps, no slow frames"
+ },
+ "216e7d78c8f3": {
+  "page": "specs.html",
+  "text": "Memory with one 100-page PDF open"
+ },
+ "8d2f1e84ac4e": {
+  "page": "specs.html",
+  "text": "under 150 MB"
+ },
+ "f633cee6c40a": {
+  "page": "specs.html",
+  "text": "61 MB heap, 179 MB resident with GPU drivers"
+ },
+ "25c3f10bb4ed": {
+  "page": "specs.html",
+  "text": "Program size"
+ },
+ "cc5c632e8474": {
+  "page": "specs.html",
+  "text": "under 60 MB, with everything it needs inside"
+ },
+ "d3bf441133cd": {
+  "page": "specs.html",
+  "text": "58.3 MB, 52.4 MB without camera RAW"
+ },
+ "97106460283e": {
+  "page": "specs.html",
+  "text": "Pages render in tiles on background threads, with a 128 MB tile cache. On the CPU renderer prev scrolls at about 60 fps and zooms at about 30 fps."
+ },
+ "8906c977181f": {
+  "page": "specs.html",
+  "text": "Settings and data"
+ },
+ "bef020fa479b": {
+  "page": "specs.html",
+  "text": "License and privacy"
+ },
+ "3229609e1543": {
+  "page": "specs.html",
+  "text": "License"
+ },
+ "fdb9a990a9df": {
+  "page": "specs.html",
+  "text": "GNU AGPL-3.0 or later, as MuPDF requires; the bundled fonts keep their own licenses (SIL Open Font License 1.1, Apache 2.0)"
+ },
+ "6da13addb000": {
+  "page": "specs.html",
+  "text": "Source"
+ },
+ "7389ffd5b177": {
+  "page": "specs.html",
+  "text": "<a1>github.com/scrambletools/prev</a1>"
+ },
+ "53ebc572b4a4": {
+  "page": "specs.html",
+  "text": "Network"
+ },
+ "ac1796bc1d8e": {
+  "page": "specs.html",
+  "text": "None of its own: prev goes online only to fetch a picture dropped onto it as a web address, to open links you click, and, when you use the assistant, to talk to the model you added. No accounts, no telemetry"
+ },
+ "cc61ce11f724": {
+  "page": "specs.html",
+  "text": "Only those you allow, through <code>prev --mcp</code>; no bundled model. What an agent reads goes to the model it uses"
+ },
+ "e345dae42deb": {
+  "page": "specs.html",
+  "text": "Talks only to the model you add: a local model stays on your computer, and a cloud model gets what it asks to read, never the whole file up front. API keys stay in the system keychain"
+ },
+ "445973854213": {
+  "page": "specs.html",
+  "text": "Code signing"
+ },
+ "b265a518f1ba": {
+  "page": "specs.html",
+  "text": "Windows releases are signed by Scramble Tools LLC since {v}; macOS releases are not yet; see the <a1>code signing policy</a1>"
+ },
+ "248440b65b16": {
+  "page": "specs.html",
+  "text": "prev's specifications: the systems and processors it runs on, the file formats it opens and exports, its languages and input, the software it is built on, and its performance.",
+  "attribute": true
+ },
+ "extra:policy-note": {
+  "page": "index.html",
+  "text": "This translation is given for convenience; the English version of this policy is the one that applies."
+ }
+}

@@ -9,6 +9,9 @@ on:
       - site/**
       - site/.well-known/**
       - scripts/build-site.sh
+      - scripts/site-i18n.py
+      # The language names and the menu's label come from the app's.
+      - i18n/*/prev.ftl
       - docs/screenshots/**
       - data/icons/**
       - .github/workflows/site.yml
