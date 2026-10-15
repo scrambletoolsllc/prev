@@ -173,9 +173,11 @@ impl Prev {
         .width(Length::Fixed(520.0))
         .height(Length::Fixed(height))
         .style(style::dialog);
-        // A click on the dimmed window around the dialog closes it.
+        // A click on the dimmed window around the dialog closes it. The
+        // dialog shows at once, even with animations on: growing in did
+        // not look right for a card this large.
         mouse_area(
-            container(ui::enter::grow(opaque(card)))
+            container(opaque(card))
                 .padding(24)
                 .center(Fill)
                 .style(style::scrim),
