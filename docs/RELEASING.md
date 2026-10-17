@@ -14,11 +14,12 @@ Everything a release ships is built from this repository:
 | `packaging/nfpm.yaml` | Debian and RPM packages, made with nfpm |
 | `packaging/appimage/build.sh` | The AppImage |
 | `packaging/flatpak/` | Flatpak manifest and the crate sources it builds from |
-| `packaging/windows/` | Windows MSI (WiX 5) and zip, made by `build.ps1`; the ARM64 patch for mupdf-sys; `msvc-toolset.ps1`, which builds MuPDF with the installed Visual Studio's toolset; `bindgen-headers.ps1`, which has MuPDF's bindings read clang's own headers; `vcpkg/`, the pinned, decode-only `heif.dll` (move its baseline to update libheif, libde265 and aom) |
+| `packaging/windows/` | Windows MSI (WiX 5) and zip, made by `build.ps1`; `check-dlls.py`, which copies in the Visual C++ runtime prev.exe and heif.dll load and fails if they load any other DLL that neither ships nor comes with Windows; `install-test.ps1`; the ARM64 patch for mupdf-sys; `msvc-toolset.ps1`, which builds MuPDF with the installed Visual Studio's toolset; `bindgen-headers.ps1`, which has MuPDF's bindings read clang's own headers; `vcpkg/`, the pinned, decode-only `heif.dll` (move its baseline to update libheif, libde265 and aom) |
 | `packaging/macos/bundle.sh` | prev.app and its disk image, with an Info.plist for the file types it opens |
 | `packaging/macos/build-libheif.sh` | The decode-only libheif prev.app carries, from pinned, checksummed sources; update its versions and checksums for new libheif, libde265 and aom releases |
 | `scripts/cross-setup.sh` | Prepares Ubuntu to cross-compile for RISC-V |
 | `.github/workflows/release.yml` | Builds all of them for a tag and drafts the GitHub release |
+| `.github/workflows/install-test.yml`, `scripts/install-test.sh` | Installs each package on a clean system and starts prev: the MSI and zip in a Windows Server container without the Visual C++ Redistributable, the .deb, .rpm, AppImage, tarball and Flatpak in containers of the distributions they are for (RISC-V emulated), the disk image on macOS, checking that it links nothing outside the app and the system |
 
 Each package is built for x86_64 and ARM64 on GitHub's runners of that
 architecture; the Linux .deb, .rpm and tarball are also cross-compiled
@@ -46,8 +47,12 @@ Builds without it are development builds.
    Flatpak's list is missing a crate.
 4. Try the packaging without releasing: run the Release workflow by hand
    (Actions, Release, Run workflow), which builds every package as an
-   artifact, or with "Packages to build" only one system's, such as
-   `gh workflow run release.yml -f only=macos`.
+   artifact and runs the install test on them, or with "Packages to
+   build" only one system's, such as `gh workflow run release.yml -f
+   only=macos`. The install test runs again before a tag's release is
+   drafted, and a package that does not install and start on a clean
+   system stops it; to test a published release's files, run
+   `gh workflow run install-test.yml -f release=vX.Y.Z`.
 5. Tag and push: `git tag vX.Y.Z && git push origin vX.Y.Z`. The workflow
    checks that the tag matches `Cargo.toml`, builds the packages and
    drafts a release with them, `SHA256SUMS`, and a `PKGBUILD` with the

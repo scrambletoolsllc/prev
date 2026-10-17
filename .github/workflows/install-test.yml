@@ -1,0 +1,158 @@
+name: Install test
+
+# Installs prev's packages on clean systems and checks that prev starts:
+# the Windows installer and zip in a Windows container without the Visual
+# C++ Redistributable, each Linux package in containers of the
+# distributions it is for, and the macOS disk image. The release workflow
+# runs it on the packages it has just built, before drafting the release;
+# run it by hand to test the files of a published release.
+on:
+  workflow_call:
+    inputs:
+      only:
+        description: Packages to test, as the release workflow built them
+        type: string
+        default: all
+  workflow_dispatch:
+    inputs:
+      release:
+        description: Release whose files to test, such as v2.2.2
+        type: string
+        required: true
+
+jobs:
+  windows:
+    # A clean Windows Server 2025 container on the Windows Server 2025
+    # runner: the same build, so it runs without a virtual machine.
+    if: ${{ inputs.release || inputs.only == 'all' || inputs.only == 'windows' }}
+    runs-on: windows-2025
+    steps:
+      - uses: actions/checkout@v4
+      - if: ${{ !inputs.release }}
+        uses: actions/download-artifact@v4
+        with:
+          name: windows-x64
+          path: packages
+      - if: ${{ inputs.release }}
+        run: gh release download "${{ inputs.release }}" -p "prev-*-x64.msi" -p "prev-*-x64-windows.zip" -D packages
+        env:
+          GH_TOKEN: ${{ github.token }}
+      # The Windows DLLs prev loads, for the test to name one it misses.
+      - name: What prev loads
+        shell: pwsh
+        run: |
+          Expand-Archive (Get-ChildItem packages\prev-*-x64-windows.zip)[0].FullName -DestinationPath files
+          python -m pip install --quiet pefile
+          python packaging\windows\check-dlls.py files --system-list packages\system-dlls.txt
+          Write-Host "check-dlls.py: exit $LASTEXITCODE (the clean install below decides)"
+          exit 0
+      - name: Install and start on a clean Windows
+        shell: pwsh
+        run: |
+          docker run --rm --isolation process `
+            -v "${{ github.workspace }}\packages:C:\packages" `
+            -v "${{ github.workspace }}\packaging\windows:C:\test" `
+            mcr.microsoft.com/windows/server:ltsc2025 `
+            powershell -NoProfile -ExecutionPolicy Bypass -File C:\test\install-test.ps1 `
+              -Packages C:\packages -SystemDlls C:\packages\system-dlls.txt
+          if ($LASTEXITCODE -ne 0) { throw "The install test failed" }
+
+  linux:
+    if: ${{ inputs.release || inputs.only == 'all' || inputs.only == 'linux' || inputs.only == 'flatpak' }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { arch: x86_64, runner: ubuntu-24.04, kind: deb, image: 'ubuntu:22.04' }
+          - { arch: x86_64, runner: ubuntu-24.04, kind: deb, image: 'ubuntu:24.04' }
+          - { arch: x86_64, runner: ubuntu-24.04, kind: deb, image: 'debian:12' }
+          - { arch: x86_64, runner: ubuntu-24.04, kind: rpm, image: 'fedora:latest' }
+          - { arch: x86_64, runner: ubuntu-24.04, kind: appimage, image: 'ubuntu:24.04' }
+          - { arch: x86_64, runner: ubuntu-24.04, kind: tarball, image: 'debian:12' }
+          - { arch: x86_64, runner: ubuntu-24.04, kind: flatpak, image: 'ubuntu:24.04' }
+          - { arch: aarch64, runner: ubuntu-24.04-arm, kind: deb, image: 'ubuntu:24.04' }
+          - { arch: aarch64, runner: ubuntu-24.04-arm, kind: deb, image: 'debian:12' }
+          - { arch: aarch64, runner: ubuntu-24.04-arm, kind: rpm, image: 'fedora:latest' }
+          - { arch: aarch64, runner: ubuntu-24.04-arm, kind: appimage, image: 'ubuntu:24.04' }
+          - { arch: aarch64, runner: ubuntu-24.04-arm, kind: flatpak, image: 'ubuntu:24.04' }
+          # No RISC-V runners: emulated, as the cross-compiled packages
+          # were only started under emulation before.
+          - { arch: riscv64, runner: ubuntu-24.04, kind: deb, image: 'ubuntu:24.04', platform: linux/riscv64 }
+          - { arch: riscv64, runner: ubuntu-24.04, kind: tarball, image: 'ubuntu:24.04', platform: linux/riscv64 }
+    name: linux (${{ matrix.arch }}, ${{ matrix.kind }}, ${{ matrix.image }})
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: skip
+        # The release workflow's "only" builds one kind at a time.
+        run: |
+          skip=false
+          if [ -z "${{ inputs.release }}" ]; then
+            case "${{ inputs.only }}:${{ matrix.kind }}" in
+              all:*|linux:deb|linux:rpm|linux:appimage|linux:tarball|flatpak:flatpak) ;;
+              *) skip=true ;;
+            esac
+          fi
+          echo "skip=$skip" >>"$GITHUB_OUTPUT"
+      - if: ${{ steps.skip.outputs.skip == 'false' && !inputs.release }}
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ matrix.kind == 'flatpak' && 'flatpak-' || 'packages-' }}${{ matrix.arch }}
+          path: packages
+      - if: ${{ steps.skip.outputs.skip == 'false' && inputs.release }}
+        run: gh release download "${{ inputs.release }}" -p "*${{ matrix.arch }}*" -p "*_${{ matrix.arch == 'x86_64' && 'amd64' || matrix.arch == 'aarch64' && 'arm64' || matrix.arch }}.deb" -D packages
+        env:
+          GH_TOKEN: ${{ github.token }}
+      - if: ${{ steps.skip.outputs.skip == 'false' && matrix.platform }}
+        name: Emulate ${{ matrix.arch }}
+        run: docker run --privileged --rm tonistiigi/binfmt --install ${{ matrix.arch }}
+      - if: ${{ steps.skip.outputs.skip == 'false' }}
+        name: Install and start on a clean ${{ matrix.image }}
+        run: |
+          docker run --rm ${{ matrix.kind == 'flatpak' && '--privileged' || '' }} \
+            ${{ matrix.platform && format('--platform {0}', matrix.platform) || '' }} \
+            -v "$PWD/packages:/packages:ro" -v "$PWD/scripts:/scripts:ro" \
+            ${{ matrix.image }} sh /scripts/install-test.sh ${{ matrix.kind }} /packages
+
+  macos:
+    # GitHub's macOS runners come with Homebrew, so the check is that prev
+    # links nothing outside the app and the system, rather than a clean
+    # Mac.
+    if: ${{ inputs.release || inputs.only == 'all' || inputs.only == 'macos' }}
+    runs-on: macos-15
+    steps:
+      - if: ${{ !inputs.release }}
+        uses: actions/download-artifact@v4
+        with:
+          name: macos-arm64
+          path: packages
+      - if: ${{ inputs.release }}
+        run: gh release download "${{ inputs.release }}" -R "${{ github.repository }}" -p "*.dmg" -D packages
+        env:
+          GH_TOKEN: ${{ github.token }}
+      - name: Install from the disk image and start
+        run: |
+          set -eu
+          dmg=$(ls packages/*.dmg | head -1)
+          hdiutil attach -nobrowse -readonly -mountpoint "$RUNNER_TEMP/dmg" "$dmg"
+          mkdir -p "$RUNNER_TEMP/Applications"
+          cp -R "$RUNNER_TEMP/dmg/prev.app" "$RUNNER_TEMP/Applications/"
+          hdiutil detach "$RUNNER_TEMP/dmg"
+          app="$RUNNER_TEMP/Applications/prev.app"
+          codesign --verify --deep --strict "$app"
+          version=$("$app/Contents/MacOS/prev" --version)
+          echo "$version"
+          [[ $version == prev\ [0-9]* ]]
+          # Every library it links is in the app or the system.
+          bad=0
+          while IFS= read -r file; do
+            if file "$file" | grep -q Mach-O; then
+              while IFS= read -r lib; do
+                case $lib in
+                  /usr/lib/*|/System/*|@rpath/*|@executable_path/*|@loader_path/*) ;;
+                  *) echo "$file links $lib, outside the app and the system"; bad=1 ;;
+                esac
+              done < <(otool -L "$file" | tail -n +2 | awk '{print $1}')
+            fi
+          done < <(find "$app" -type f)
+          exit $bad

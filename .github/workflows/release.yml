@@ -336,9 +336,18 @@ jobs:
           name: aur
           path: aur/*
 
+  # Each package installed on a clean system and started, before any
+  # release is drafted.
+  install-test:
+    needs: [packages, flatpak, windows, macos]
+    if: ${{ !cancelled() && !contains(needs.*.result, 'failure') }}
+    uses: ./.github/workflows/install-test.yml
+    with:
+      only: ${{ inputs.only || 'all' }}
+
   release:
     if: github.ref_type == 'tag'
-    needs: [packages, flatpak, aur, windows, macos]
+    needs: [packages, flatpak, aur, windows, macos, install-test]
     runs-on: ubuntu-24.04
     permissions:
       contents: write
