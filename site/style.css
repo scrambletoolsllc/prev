@@ -1,4 +1,5 @@
-/* prev's website, in the app's own Material 3 colors, from its blue seed. */
+/* prev's website, in Material 3 colors from a grey seed: the accent is
+   grey, and the surfaces are the app's own for a grey accent. */
 
 @font-face {
   font-family: "Roboto Flex";
@@ -8,16 +9,16 @@
 }
 
 :root {
-  --primary: #2f5fb8;
+  --primary: #5e5e5e;
   --on-primary: #ffffff;
-  --primary-container: #d9e2ff;
-  --on-primary-container: #001945;
-  --surface: #faf8ff;
-  --surface-container: #eef0f9;
-  --surface-container-high: #e7e8f2;
-  --on-surface: #1a1b21;
-  --on-surface-variant: #44464f;
-  --outline-variant: #c5c6d0;
+  --primary-container: #e2e2e2;
+  --on-primary-container: #1b1b1b;
+  --surface: #f9f9f9;
+  --surface-container: #eeeeee;
+  --surface-container-high: #e8e8e8;
+  --on-surface: #1b1b1b;
+  --on-surface-variant: #474747;
+  --outline-variant: #c6c6c6;
   --shadow: 0 1px 3px rgb(0 0 0 / 0.12), 0 8px 24px rgb(0 0 0 / 0.10);
   --hero-shadow: var(--shadow);
   color-scheme: light;
@@ -25,23 +26,23 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --primary: #b0c6ff;
-    --on-primary: #002d6f;
-    --primary-container: #1b4596;
-    --on-primary-container: #d9e2ff;
-    --surface: #121318;
-    --surface-container: #1e1f25;
-    --surface-container-high: #282a2f;
-    --on-surface: #e3e2e9;
-    --on-surface-variant: #c5c6d0;
-    --outline-variant: #44464f;
+    --primary: #c6c6c6;
+    --on-primary: #303030;
+    --primary-container: #474747;
+    --on-primary-container: #e2e2e2;
+    --surface: #131313;
+    --surface-container: #1f1f1f;
+    --surface-container-high: #2a2a2a;
+    --on-surface: #e2e2e2;
+    --on-surface-variant: #c6c6c6;
+    --outline-variant: #474747;
     --shadow: 0 1px 3px rgb(0 0 0 / 0.4), 0 8px 24px rgb(0 0 0 / 0.35);
     /* A hairline and a soft glow in the accent color, so the dark hero
        screenshot stands off the dark page. */
     --hero-shadow:
-      0 0 0 1px rgb(176 198 255 / 0.20),
-      0 0 48px 0 rgb(176 198 255 / 0.18),
-      0 0 140px 16px rgb(70 110 220 / 0.20),
+      0 0 0 1px rgb(198 198 198 / 0.20),
+      0 0 48px 0 rgb(198 198 198 / 0.18),
+      0 0 140px 16px rgb(120 120 120 / 0.20),
       0 24px 64px rgb(0 0 0 / 0.5);
     color-scheme: dark;
   }
