@@ -44,6 +44,15 @@
         <File Source="$(var.Source)\heif.dll" />
         <RegistryValue Root="HKCU" Key="$(var.AppKey)" Name="Heif" Type="integer" Value="1" KeyPath="yes" />
       </Component>
+      <!-- The Visual C++ runtime DLLs prev.exe and heif.dll load, which
+           check-dlls.py copies in beside them: a Windows without the Visual
+           C++ Redistributable has none. build.ps1 names them in Runtime. -->
+      <Component Id="Runtime" Guid="f805fb7b-988f-44a3-998a-3b3cd281f992">
+        <?foreach Dll in $(var.Runtime) ?>
+        <File Source="$(var.Source)\$(Dll)" />
+        <?endforeach ?>
+        <RegistryValue Root="HKCU" Key="$(var.AppKey)" Name="Runtime" Type="integer" Value="1" KeyPath="yes" />
+      </Component>
     </ComponentGroup>
 
     <Component Id="StartMenu" Directory="ProgramMenuFolder">

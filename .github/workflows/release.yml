@@ -208,12 +208,18 @@ jobs:
           key: vcpkg-libheif-${{ matrix.arch }}-${{ hashFiles('packaging/windows/vcpkg/**') }}
       - name: libheif
         run: vcpkg install --x-manifest-root=packaging\windows\vcpkg --x-install-root=vcpkg_installed --triplet ${{ matrix.arch }}-windows-prev
+      # With the Visual C++ runtime they load, which a Windows without its
+      # Redistributable lacks; the check fails if they load any other DLL
+      # that neither ships nor comes with Windows.
       - name: Collect prev.exe and its DLLs
         shell: pwsh
         run: |
           New-Item -ItemType Directory -Force dist | Out-Null
           Copy-Item target\release\prev.exe dist\
           Copy-Item vcpkg_installed\${{ matrix.arch }}-windows-prev\bin\heif.dll dist\
+          python -m pip install --quiet pefile
+          python packaging\windows\check-dlls.py dist --bundle-crt ${{ matrix.arch }}
+          if ($LASTEXITCODE -ne 0) { throw "check-dlls.py failed" }
           Get-ChildItem dist
       - if: env.SIGNING == 'true'
         uses: azure/login@v2

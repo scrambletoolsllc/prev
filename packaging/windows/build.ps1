@@ -2,9 +2,10 @@
 #
 #   packaging\windows\build.ps1 -Version 1.1.0 -Source dist -Out out [-Arch arm64]
 #
-# Source holds prev.exe and heif.dll, which has libheif's decoders linked
-# in (packaging/windows/vcpkg). Needs WiX 5 (dotnet tool install --global
-# wix --version 5.0.2).
+# Source holds prev.exe, heif.dll, which has libheif's decoders linked in
+# (packaging/windows/vcpkg), and the Visual C++ runtime DLLs they load,
+# which check-dlls.py --bundle-crt copies in. Needs WiX 5 (dotnet tool
+# install --global wix --version 5.0.2).
 param(
     [Parameter(Mandatory)] [string] $Version,
     [Parameter(Mandatory)] [string] $Source,
@@ -15,8 +16,12 @@ $ErrorActionPreference = 'Stop'
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 New-Item -ItemType Directory -Force $Out | Out-Null
 
+# Every DLL beside prev.exe but heif.dll is the Visual C++ runtime.
+$runtime = (Get-ChildItem $Source -Filter *.dll | Where-Object Name -ne 'heif.dll' | ForEach-Object Name) -join ';'
+if (-not $runtime) { throw "No Visual C++ runtime in $Source: run check-dlls.py --bundle-crt first" }
+
 $msi = Join-Path $Out "prev-$Version-$Arch.msi"
-wix build (Join-Path $here 'prev.wxs') -arch $Arch -d "Version=$Version" -d "Source=$((Resolve-Path $Source).Path)" -o $msi
+wix build (Join-Path $here 'prev.wxs') -arch $Arch -d "Version=$Version" -d "Source=$((Resolve-Path $Source).Path)" -d "Runtime=$runtime" -o $msi
 if ($LASTEXITCODE -ne 0) { throw "wix build failed" }
 # WiX's debug symbols are no use to people installing prev.
 Remove-Item (Join-Path $Out '*.wixpdb') -ErrorAction SilentlyContinue

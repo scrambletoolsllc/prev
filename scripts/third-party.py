@@ -20,6 +20,7 @@ BUNDLED = [
     ("libheif", "LGPL-3.0-or-later", "HEIC and AVIF decoding; bundled on Windows, macOS and in the Flatpak, the system's elsewhere", "https://github.com/strukturag/libheif"),
     ("libde265", "LGPL-3.0-or-later", "HEVC decoder for libheif; bundled on Windows, macOS and in the Flatpak", "https://github.com/strukturag/libde265"),
     ("libaom", "BSD-2-Clause", "AV1 decoder for libheif; bundled on Windows and macOS", "https://aomedia.googlesource.com/aom"),
+    ("Microsoft Visual C++ runtime", "Microsoft Visual Studio license, distributable code", "MSVCP140.dll and VCRUNTIME140 DLLs that prev.exe and libheif load, bundled on Windows as Microsoft signs them", "https://learn.microsoft.com/cpp/windows/redistributing-visual-cpp-files"),
     ("wl-clipboard", "GPL-3.0-or-later", "clipboard images on Wayland, run as a separate program; bundled in the Flatpak", "https://github.com/bugaevc/wl-clipboard"),
     ("Roboto Flex", "OFL-1.1", "interface font", "https://github.com/googlefonts/roboto-flex"),
     ("Dancing Script", "OFL-1.1", "font for typed signatures", "https://github.com/googlefonts/DancingScript"),
