@@ -142,7 +142,7 @@
  "7173a9331f33": "<strong>Rechteckige Auswahl</strong> wählt einen Bereich, der als Bild kopiert oder auf den die Seite beschnitten wird (Ctrl+K).",
  "d49141919eed": "<strong>Skizzieren</strong> macht aus Strichen, die wie ein Rechteck, Oval oder eine Linie aussehen, diese Form; <strong>Zeichnen</strong> behält sie so, wie sie gezeichnet wurden.",
  "b8a5dc9e4e1a": "<strong>Formen</strong>: Rechteck, abgerundetes Rechteck, Oval, Linie, Pfeil, Stern, Polygon, Sprechblase, eine Lupe, die die Seite darunter vergrößert, und eine Maske, die alles außer einem Loch abdunkelt.",
- "7ad0054d9a9c": "<strong>Textfeld</strong> und <strong>Notiz</strong>, mit Schriften, Größen, Farben und Ausrichtung.",
+ "499581862a15": "<strong>Textfeld</strong> und <strong>Notiz</strong>, mit Schriften, Größen, Farben und Ausrichtung. Während Sie in ein Textfeld tippen, macht eine Leiste darüber den ausgewählten Text fett (Ctrl+B), kursiv (Ctrl+I) oder andersfarbig.",
  "3d014d05326a": "<strong>Hervorheben</strong>, Unterstreichen und Durchstreichen von ausgewähltem Text, in fünf Farben.",
  "4a0cff4fe457": "<strong>Signieren</strong> und <strong>Schwärzen</strong>, siehe unten.",
  "05fe1d0ecdfd": "Rahmenfarbe, Füllfarbe, Linienstärke und Strichelung für Formen.",
@@ -255,7 +255,7 @@
  "bb035be82b3b": "Ein Bildfenster mit nur einem Bild hat keine Seitenleiste, aus der man es ziehen könnte; ziehen Sie es stattdessen aus dem Dateimanager.",
  "0a207286869b": "Die Seitenminiaturen scrollen beim Ziehen nahe ihrem oberen oder unteren Rand nicht von selbst; das Mausrad scrollt sie während des Ziehens.",
  "882f80e586dd": "Der Assistent",
- "28f86d312931": "Der Assistent ist ein Chat neben Ihrem Dokument: Fragen Sie nach der Datei, und er liest, was er braucht, zeigt Ihnen, wo etwas steht, und arbeitet für Sie in der Datei, mit denselben Werkzeugen wie ein <a1>KI-Agent</a1>. Der Roboterkopf in der Symbolleiste, vor der Taste „Markierungen“, öffnet ihn rechts. Jedes Fenster hat seinen eigenen Chat, der erhalten bleibt, während der Bereich geschlossen ist; „Neuer Chat“ fängt von vorn an, und „Stoppen“ beendet eine laufende Antwort.",
+ "ca87760a51b1": "Der Assistent ist ein Chat neben Ihrem Dokument: Fragen Sie nach der Datei, und er liest, was er braucht, zeigt Ihnen, wo etwas steht, und arbeitet für Sie in der Datei, mit denselben Werkzeugen wie ein <a1>KI-Agent</a1>. Der Roboterkopf in der Symbolleiste, vor der Taste „Markierungen“, öffnet ihn rechts. Jedes Fenster hat seinen eigenen Chat, der erhalten bleibt, während der Bereich geschlossen ist; „Neuer Chat“ fängt von vorn an, und „Stoppen“ beendet eine laufende Antwort. Wird ein Chat länger, als ein lokales Modell auf einmal lesen kann, wird sein früherer Teil zusammengefasst, damit der Chat weitergehen kann, und der Bereich weist darauf hin.",
  "c52aa23e60f2": "Das Modell bekommt nur, was es über die Werkzeuge anfordert, nie vorab die ganze Datei. Mit einem lokalen Modell verlässt nichts Ihren Computer; mit einem Cloud-Modell geht, was es liest, an den Anbieter, also nutzen Sie eines, dem Sie diese Dateien anvertrauen.",
  "a24634e6e042": "Ein Modell hinzufügen",
  "ed654e3b7891": "Öffnen Sie die Einstellungen, den Tab „Assistent“, und wählen Sie unter „Modell hinzufügen“ einen Anbieter:",
@@ -402,7 +402,7 @@
  "cf03cf2e9cdf": "Navigation",
  "4e76125fd488": "Seitenminiaturen, Inhaltsverzeichnis, Hervorhebungen und Notizen, Lesezeichen, Suche mit hervorgehobenen Treffern, Links, Diashow",
  "3d221e822859": "Markierungen",
- "68296d319760": "Hervorheben, Unterstreichen, Durchstreichen; Skizzieren, Zeichnen; Rechteck, abgerundetes Rechteck, Oval, Linie, Pfeil, Stern, Polygon, Sprechblase, Lupe, Maske; Textfelder und Notizen. Gespeichert als Standard-PDF-Anmerkungen",
+ "e93a54438d64": "Hervorheben, Unterstreichen, Durchstreichen; Skizzieren, Zeichnen; Rechteck, abgerundetes Rechteck, Oval, Linie, Pfeil, Stern, Polygon, Sprechblase, Lupe, Maske; Textfelder mit fetten, kursiven und farbigen Stellen sowie Notizen. Gespeichert als Standard-PDF-Anmerkungen",
  "da81c7ed7935": "Textfelder, Kontrollkästchen, Optionsfelder, Aufklappmenüs",
  "bedc5a9d866d": "Gezeichnet, in einer Handschrift getippt oder aus einem Foto oder Scan importiert; in einer Sammlung aufbewahrt und als Bilder platziert",
  "a8267cec0f7a": "Neu ordnen, drehen, löschen, beschneiden, leere Seiten oder andere PDFs einfügen, zwischen Dokumenten kopieren und einfügen, samt Anmerkungen und Formularfeldern",
@@ -511,5 +511,6 @@
  "248440b65b16": "Die technischen Daten von prev: die Systeme und Prozessoren, auf denen es läuft, die Dateiformate, die es öffnet und exportiert, seine Sprachen und Eingabe, die Software, auf der es aufbaut, und seine Leistung.",
  "extra:policy-note": "Diese Übersetzung wird der Einfachheit halber bereitgestellt; maßgeblich ist die englische Fassung dieser Richtlinie.",
  "8d302eb83a9f": "<code>sudo apt install ./prev_{v}-1_*.deb</code>",
- "b265a518f1ba": "Releases für Windows sind seit {v} von Scramble Tools LLC signiert, Releases für macOS noch nicht; siehe die <a1>Richtlinie zur Codesignierung</a1>"
+ "b265a518f1ba": "Releases für Windows sind seit {v} von Scramble Tools LLC signiert, Releases für macOS noch nicht; siehe die <a1>Richtlinie zur Codesignierung</a1>",
+ "5710c4e352d8": "Auf Linux-Desktops, die über Fenstern keine Titelleiste zeichnen, etwa Hyprland, niri und river, endet die Symbolleiste mit einer Taste, die das Fenster schließt, und ein Fenster ohne geöffnete Datei hat eine oben in der Ecke."
 }

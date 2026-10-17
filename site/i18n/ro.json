@@ -142,7 +142,6 @@
  "7173a9331f33": "<strong>Selecție dreptunghiulară</strong> alege o zonă de copiat ca imagine sau la care să decupezi pagina (Ctrl+K).",
  "d49141919eed": "<strong>Schiță</strong> transformă trăsăturile care seamănă cu un dreptunghi, un oval sau o linie în forma respectivă; <strong>Desenează</strong> le păstrează așa cum au fost desenate.",
  "b8a5dc9e4e1a": "<strong>Forme</strong>: dreptunghi, dreptunghi rotunjit, oval, linie, săgeată, stea, poligon, balon de dialog, o lupă care mărește pagina de sub ea și o mască ce estompează totul în afară de o deschidere.",
- "7ad0054d9a9c": "<strong>Casetă de text</strong> și <strong>Notă</strong>, cu fonturi, dimensiuni, culori și aliniere.",
  "3d014d05326a": "<strong>Evidențiază</strong>, subliniere și tăiere cu o linie peste textul selectat, în cinci culori.",
  "4a0cff4fe457": "<strong>Semnează</strong> și <strong>Înnegrește</strong>, descrise mai jos.",
  "05fe1d0ecdfd": "Culoare contur, culoare umplere, grosimea liniei și linii întrerupte pentru forme.",
@@ -255,7 +254,6 @@
  "bb035be82b3b": "O fereastră de imagine care afișează o singură imagine nu are bară laterală din care să o tragi; trage-o în schimb din managerul de fișiere.",
  "0a207286869b": "Miniaturile paginilor nu se derulează singure când tragi lângă partea lor de sus sau de jos; rotița mouse-ului le derulează în timpul tragerii.",
  "882f80e586dd": "Asistentul",
- "28f86d312931": "Asistentul este un chat lângă documentul tău: întreabă despre fișier, iar el citește ce îi trebuie, îți arată unde se află lucrurile și lucrează în fișier pentru tine, cu aceleași instrumente ca un <a1>agent AI</a1>. Capul de robot din bara de instrumente, înaintea butonului Marcaje, îl deschide în dreapta. Fiecare fereastră are propriul chat, păstrat cât timp panoul este închis; Conversație nouă o ia de la capăt, iar Oprește încheie un răspuns în curs.",
  "c52aa23e60f2": "Modelul primește doar ce cere prin instrumente, niciodată întregul fișier de la început. Cu un model local, nimic nu părăsește computerul tău; cu un model cloud, ce citește ajunge la furnizor, așa că folosește unul căruia i-ai încredința acele fișiere.",
  "a24634e6e042": "Adăugarea unui model",
  "ed654e3b7891": "Deschide Configurări, fila Asistent, și alege un furnizor sub Adaugă un model:",
@@ -402,7 +400,6 @@
  "cf03cf2e9cdf": "Navigare",
  "4e76125fd488": "Miniaturi ale paginilor, cuprins, evidențieri și note, semne de carte, căutare cu fiecare potrivire evidențiată, linkuri, prezentare",
  "3d221e822859": "Marcaje",
- "68296d319760": "Evidențiere, subliniere, tăiere cu o linie; schiță, desen; dreptunghi, dreptunghi rotunjit, oval, linie, săgeată, stea, poligon, balon de dialog, lupă, mască; casete de text și note. Salvate ca adnotări PDF standard",
  "da81c7ed7935": "Câmpuri de text, casete de selectare, butoane radio, meniuri derulante",
  "bedc5a9d866d": "Desenate, scrise cu un font de scris de mână sau importate dintr-o fotografie ori o scanare; păstrate într-o bibliotecă și plasate ca imagini",
  "a8267cec0f7a": "Reordonare, rotire, ștergere, decupare, inserare de pagini goale sau de alte PDF-uri, copiere și lipire între documente, cu adnotările și câmpurile de formular",
@@ -511,5 +508,9 @@
  "248440b65b16": "Specificațiile prev: sistemele și procesoarele pe care rulează, formatele de fișiere pe care le deschide și le exportă, limbile și metodele de introducere, software-ul pe care este construit și performanța sa.",
  "extra:policy-note": "Această traducere este oferită pentru comoditate; versiunea în engleză a acestei politici este cea care se aplică.",
  "8d302eb83a9f": "<code>sudo apt install ./prev_{v}-1_*.deb</code>",
- "b265a518f1ba": "Versiunile pentru Windows sunt semnate de Scramble Tools LLC începând cu {v}; cele pentru macOS încă nu; vezi <a1>politica de semnare a codului</a1>"
+ "b265a518f1ba": "Versiunile pentru Windows sunt semnate de Scramble Tools LLC începând cu {v}; cele pentru macOS încă nu; vezi <a1>politica de semnare a codului</a1>",
+ "499581862a15": "<strong>Casetă de text</strong> și <strong>Notă</strong>, cu fonturi, dimensiuni, culori și aliniere. Cât timp scrii într-o casetă de text, o bară deasupra ei face textul selectat aldin (Ctrl+B), cursiv (Ctrl+I) sau de altă culoare.",
+ "ca87760a51b1": "Asistentul este un chat lângă documentul tău: întreabă despre fișier, iar el citește ce îi trebuie, îți arată unde se află lucrurile și lucrează în fișier pentru tine, cu aceleași instrumente ca un <a1>agent AI</a1>. Capul de robot din bara de instrumente, înaintea butonului Marcaje, îl deschide în dreapta. Fiecare fereastră are propriul chat, păstrat cât timp panoul este închis; Conversație nouă o ia de la capăt, iar Oprește încheie un răspuns în curs. Când un chat devine mai lung decât poate citi dintr-odată un model local, partea lui anterioară este rezumată, ca chatul să poată continua, iar panoul te anunță.",
+ "e93a54438d64": "Evidențiere, subliniere, tăiere cu o linie; schiță, desen; dreptunghi, dreptunghi rotunjit, oval, linie, săgeată, stea, poligon, balon de dialog, lupă, mască; casete de text cu părți aldine, cursive și colorate, precum și note. Salvate ca adnotări PDF standard",
+ "5710c4e352d8": "În mediile desktop Linux care nu desenează bară de titlu deasupra ferestrei, precum Hyprland, niri și river, bara de instrumente se termină cu un buton care închide fereastra, iar o fereastră fără fișier deschis are unul în colț."
 }

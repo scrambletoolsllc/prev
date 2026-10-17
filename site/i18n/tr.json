@@ -142,7 +142,6 @@
  "7173a9331f33": "<strong>Dikdörtgen seçim</strong> resim olarak kopyalanacak ya da sayfanın kırpılacağı bir alan seçer (Ctrl+K).",
  "d49141919eed": "<strong>Karalama</strong> dikdörtgene, ovale veya çizgiye benzeyen çizimleri o şekle dönüştürür; <strong>Çiz</strong> onları çizildiği gibi bırakır.",
  "b8a5dc9e4e1a": "<strong>Şekiller</strong>: dikdörtgen, yuvarlatılmış dikdörtgen, oval, çizgi, ok, yıldız, çokgen, konuşma balonu, altındaki sayfayı büyüten bir büyüteç ve bir delik dışında her şeyi karartan bir maske.",
- "7ad0054d9a9c": "<strong>Metin kutusu</strong> ve <strong>Not</strong>; yazı tipleri, boyutlar, renkler ve hizalamayla.",
  "3d014d05326a": "Seçili metin üzerinde beş renkte <strong>Vurgula</strong>, altı çizili ve üstü çizili.",
  "4a0cff4fe457": "<strong>İmzala</strong> ve <strong>Karart</strong>, aşağıda anlatılıyor.",
  "05fe1d0ecdfd": "Şekiller için kenarlık rengi, dolgu rengi, çizgi kalınlığı ve kesik çizgiler.",
@@ -255,7 +254,6 @@
  "bb035be82b3b": "Tek bir resim gösteren bir resim penceresinde, resmi sürükleyecek bir kenar çubuğu yoktur; onu bunun yerine dosya yöneticisinden sürükleyin.",
  "0a207286869b": "Sayfa küçük resimleri, üstlerine veya altlarına yakın sürüklerken kendiliğinden kaymaz; sürükleme sırasında fare tekerleği onları kaydırır.",
  "882f80e586dd": "Asistan",
- "28f86d312931": "Asistan, belgenizin yanındaki bir sohbettir: dosya hakkında sorun; ihtiyacı olanı okur, bir şeylerin nerede olduğunu size gösterir ve bir <a1>yapay zekâ ajanıyla</a1> aynı araçları kullanarak dosyada sizin için çalışır. Araç çubuğunda işaretleme düğmesinden önceki robot başı, onu sağda açar. Her pencerenin kendi sohbeti vardır ve panel kapalıyken de saklanır; Yeni sohbet baştan başlar, Durdur süren bir yanıtı bitirir.",
  "c52aa23e60f2": "Model yalnızca araçlar aracılığıyla istediğini alır, asla en baştan dosyanın tamamını almaz. Yerel modelle hiçbir şey bilgisayarınızdan çıkmaz; bulut modelde okuduğu her şey sağlayıcıya gider, bu yüzden bu dosyalar konusunda güvendiğiniz birini kullanın.",
  "a24634e6e042": "Model ekleme",
  "ed654e3b7891": "Ayarlar'ı açın, Asistan sekmesine gidin ve Model ekle altında bir sağlayıcı seçin:",
@@ -402,7 +400,6 @@
  "cf03cf2e9cdf": "Gezinme",
  "4e76125fd488": "Sayfa küçük resimleri, içindekiler, vurgular ve notlar, yer işaretleri, her eşleşmeyi vurgulayan arama, bağlantılar, slayt gösterisi",
  "3d221e822859": "İşaretleme",
- "68296d319760": "Vurgu, altı çizili, üstü çizili; karalama, çizim; dikdörtgen, yuvarlatılmış dikdörtgen, oval, çizgi, ok, yıldız, çokgen, konuşma balonu, büyüteç, maske; metin kutuları ve notlar. Standart PDF ek açıklamaları olarak kaydedilir",
  "da81c7ed7935": "Metin alanları, onay kutuları, radyo düğmeleri, açılır menüler",
  "bedc5a9d866d": "Çizilmiş, el yazısı yazı tipiyle yazılmış veya bir fotoğraftan ya da taramadan içe aktarılmış; bir kitaplıkta saklanır ve resim olarak yerleştirilir",
  "a8267cec0f7a": "Yeniden sıralama, döndürme, silme, kırpma, boş sayfa veya başka PDF'ler ekleme, belgeler arasında ek açıklamaları ve form alanlarıyla birlikte kopyalayıp yapıştırma",
@@ -511,5 +508,9 @@
  "248440b65b16": "prev'in teknik özellikleri: çalıştığı sistemler ve işlemciler, açtığı ve dışa aktardığı dosya biçimleri, dilleri ve giriş yöntemleri, üzerine kurulduğu yazılım ve performansı.",
  "extra:policy-note": "Bu çeviri kolaylık sağlamak amacıyla sunulmuştur; bu politikanın geçerli olan sürümü İngilizce sürümüdür.",
  "8d302eb83a9f": "<code>sudo apt install ./prev_{v}-1_*.deb</code>",
- "b265a518f1ba": "Windows sürümleri {v} sürümünden beri Scramble Tools LLC tarafından imzalanıyor; macOS sürümleri henüz değil; bkz. <a1>kod imzalama politikası</a1>"
+ "b265a518f1ba": "Windows sürümleri {v} sürümünden beri Scramble Tools LLC tarafından imzalanıyor; macOS sürümleri henüz değil; bkz. <a1>kod imzalama politikası</a1>",
+ "499581862a15": "<strong>Metin kutusu</strong> ve <strong>Not</strong>; yazı tipleri, boyutlar, renkler ve hizalamayla. Bir metin kutusuna yazarken üstündeki çubuk, seçili metni kalın (Ctrl+B) ya da italik (Ctrl+I) yapar veya başka bir renge boyar.",
+ "ca87760a51b1": "Asistan, belgenizin yanındaki bir sohbettir: dosya hakkında sorun; ihtiyacı olanı okur, bir şeylerin nerede olduğunu size gösterir ve bir <a1>yapay zekâ ajanıyla</a1> aynı araçları kullanarak dosyada sizin için çalışır. Araç çubuğunda işaretleme düğmesinden önceki robot başı, onu sağda açar. Her pencerenin kendi sohbeti vardır ve panel kapalıyken de saklanır; Yeni sohbet baştan başlar, Durdur süren bir yanıtı bitirir. Sohbet, yerel bir modelin tek seferde okuyabileceğinden uzun hâle gelince, sürebilmesi için önceki kısmı özetlenir ve panel bunu belirtir.",
+ "e93a54438d64": "Vurgu, altı çizili, üstü çizili; karalama, çizim; dikdörtgen, yuvarlatılmış dikdörtgen, oval, çizgi, ok, yıldız, çokgen, konuşma balonu, büyüteç, maske; kalın, italik ve renkli kısımlar içerebilen metin kutuları ve notlar. Standart PDF ek açıklamaları olarak kaydedilir",
+ "5710c4e352d8": "Hyprland, niri ve river gibi, pencerelerin üstüne başlık çubuğu çizmeyen Linux masaüstlerinde araç çubuğu pencereyi kapatan bir düğmeyle biter; dosya açık olmayan bir pencerenin de üst köşesinde böyle bir düğme bulunur."
 }

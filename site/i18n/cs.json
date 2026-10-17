@@ -142,7 +142,6 @@
  "7173a9331f33": "<strong>Obdélníkový výběr</strong> vybere oblast, kterou zkopírujete jako obrázek nebo na kterou stránku oříznete (Ctrl+K).",
  "d49141919eed": "<strong>Skica</strong> promění tahy, které připomínají obdélník, ovál nebo čáru, v daný tvar; <strong>Kreslit</strong> je ponechá tak, jak jste je nakreslili.",
  "b8a5dc9e4e1a": "<strong>Tvary</strong>: obdélník, zaoblený obdélník, ovál, čára, šipka, hvězda, mnohoúhelník, bublina, lupa, která zvětšuje stránku pod sebou, a maska, která ztlumí vše kromě otvoru.",
- "7ad0054d9a9c": "<strong>Textové pole</strong> a <strong>Poznámka</strong>, s písmy, velikostmi, barvami a zarovnáním.",
  "3d014d05326a": "<strong>Zvýraznit</strong>, podtržení a přeškrtnutí vybraného textu, v pěti barvách.",
  "4a0cff4fe457": "<strong>Podepsat</strong> a <strong>Začernit</strong>, popsané níže.",
  "05fe1d0ecdfd": "Barva okraje, barva výplně, tloušťka čáry a přerušování pro tvary.",
@@ -255,7 +254,6 @@
  "bb035be82b3b": "Okno obrázků s jediným obrázkem nemá postranní panel, ze kterého by šlo obrázek přetáhnout; přetáhněte ho místo toho ze správce souborů.",
  "0a207286869b": "Miniatury stránek se při přetahování u horního nebo dolního okraje samy neposouvají; během přetahování je posunete kolečkem myši.",
  "882f80e586dd": "Asistent",
- "28f86d312931": "Asistent je chat vedle vašeho dokumentu: zeptejte se na soubor a on si přečte, co potřebuje, ukáže vám, kde co je, a pracuje v souboru za vás se stejnými nástroji jako <a1>AI agent</a1>. Otevře ho vpravo hlava robota na panelu nástrojů, před tlačítkem Anotace. Každé okno má vlastní chat, který zůstává i při zavřeném panelu; Nová konverzace začne znovu a Zastavit ukončí rozpracovanou odpověď.",
  "c52aa23e60f2": "Model dostane jen to, o co si přes nástroje řekne, nikdy celý soubor předem. S lokálním modelem nic neopustí váš počítač; s cloudovým modelem jde to, co si přečte, k poskytovateli, proto používejte takového, kterému tyto soubory svěříte.",
  "a24634e6e042": "Přidání modelu",
  "ed654e3b7891": "Otevřete Nastavení, kartu Asistent, a v části Přidat model vyberte poskytovatele:",
@@ -402,7 +400,6 @@
  "cf03cf2e9cdf": "Navigace",
  "4e76125fd488": "Miniatury stránek, obsah, zvýraznění a poznámky, záložky, hledání se zvýrazněním všech shod, odkazy, prezentace",
  "3d221e822859": "Anotace",
- "68296d319760": "Zvýraznění, podtržení, přeškrtnutí; skica, kreslení; obdélník, zaoblený obdélník, ovál, čára, šipka, hvězda, mnohoúhelník, bublina, lupa, maska; textová pole a poznámky. Ukládá se jako standardní anotace PDF",
  "da81c7ed7935": "Textová pole, zaškrtávací políčka, přepínače, rozbalovací nabídky",
  "bedc5a9d866d": "Nakreslené, napsané písmem napodobujícím rukopis nebo importované z fotky či skenu; uchovávané v knihovně a umisťované jako obrázky",
  "a8267cec0f7a": "Změna pořadí, otočení, smazání, oříznutí, vložení prázdných stránek nebo jiných PDF, kopírování a vkládání mezi dokumenty i s anotacemi a poli formulářů",
@@ -511,5 +508,9 @@
  "248440b65b16": "Specifikace prev: systémy a procesory, na kterých běží, formáty souborů, které otevírá a exportuje, jeho jazyky a vstup, software, na kterém je postaven, a jeho výkon.",
  "extra:policy-note": "Tento překlad slouží pro usnadnění; platná je anglická verze těchto zásad.",
  "8d302eb83a9f": "<code>sudo apt install ./prev_{v}-1_*.deb</code>",
- "b265a518f1ba": "Vydání pro Windows podepisuje Scramble Tools LLC od verze {v}; vydání pro macOS zatím ne; viz <a1>zásady podepisování kódu</a1>"
+ "b265a518f1ba": "Vydání pro Windows podepisuje Scramble Tools LLC od verze {v}; vydání pro macOS zatím ne; viz <a1>zásady podepisování kódu</a1>",
+ "499581862a15": "<strong>Textové pole</strong> a <strong>Poznámka</strong>, s písmy, velikostmi, barvami a zarovnáním. Když píšete do textového pole, lišta nad ním označený text ztuční (Ctrl+B), převede na kurzívu (Ctrl+I) nebo mu dá jinou barvu.",
+ "ca87760a51b1": "Asistent je chat vedle vašeho dokumentu: zeptejte se na soubor a on si přečte, co potřebuje, ukáže vám, kde co je, a pracuje v souboru za vás se stejnými nástroji jako <a1>AI agent</a1>. Otevře ho vpravo hlava robota na panelu nástrojů, před tlačítkem Anotace. Každé okno má vlastní chat, který zůstává i při zavřeném panelu; Nová konverzace začne znovu a Zastavit ukončí rozpracovanou odpověď. Když je chat delší, než lokální model dokáže přečíst najednou, jeho dřívější část se shrne, aby chat mohl pokračovat, a panel na to upozorní.",
+ "e93a54438d64": "Zvýraznění, podtržení, přeškrtnutí; skica, kreslení; obdélník, zaoblený obdélník, ovál, čára, šipka, hvězda, mnohoúhelník, bublina, lupa, maska; textová pole s tučnými, kurzivními a barevnými částmi a také poznámky. Ukládá se jako standardní anotace PDF",
+ "5710c4e352d8": "V linuxových pracovních prostředích, která nad oknem nekreslí záhlaví, jako jsou Hyprland, niri a river, končí panel nástrojů tlačítkem pro zavření okna a okno bez otevřeného souboru má takové tlačítko v rohu."
 }

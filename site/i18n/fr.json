@@ -142,7 +142,7 @@
  "7173a9331f33": "<strong>Sélection rectangulaire</strong> choisit une zone à copier en image, ou selon laquelle rogner la page (Ctrl+K).",
  "d49141919eed": "<strong>Esquisser</strong> transforme les tracés qui ressemblent à un rectangle, un ovale ou une ligne en cette forme ; <strong>Dessiner</strong> les garde tels quels.",
  "b8a5dc9e4e1a": "<strong>Formes</strong> : rectangle, rectangle arrondi, ovale, ligne, flèche, étoile, polygone, bulle de dialogue, une loupe qui agrandit la page en dessous, et un masque qui assombrit tout sauf une ouverture.",
- "7ad0054d9a9c": "<strong>Zone de texte</strong> et <strong>Note</strong>, avec polices, tailles, couleurs et alignement.",
+ "499581862a15": "<strong>Zone de texte</strong> et <strong>Note</strong>, avec polices, tailles, couleurs et alignement. Pendant que vous tapez dans une zone de texte, une barre au-dessus met le texte sélectionné en gras (Ctrl+B) ou en italique (Ctrl+I), ou en change la couleur.",
  "3d014d05326a": "<strong>Surligner</strong>, souligner et barrer le texte sélectionné, en cinq couleurs.",
  "4a0cff4fe457": "<strong>Signer</strong> et <strong>Caviarder</strong>, décrits plus bas.",
  "05fe1d0ecdfd": "Couleur de bordure, couleur de remplissage, épaisseur et pointillés du trait pour les formes.",
@@ -255,7 +255,7 @@
  "bb035be82b3b": "Une fenêtre d’image qui n’affiche qu’une image n’a pas de barre latérale d’où la faire glisser ; faites-la plutôt glisser depuis le gestionnaire de fichiers.",
  "0a207286869b": "Les vignettes des pages ne défilent pas d’elles-mêmes quand on glisse près de leur haut ou de leur bas ; la molette les fait défiler pendant un glisser.",
  "882f80e586dd": "L’assistant",
- "28f86d312931": "L’assistant est une discussion à côté de votre document : posez des questions sur le fichier, et il lit ce dont il a besoin, vous montre où se trouvent les choses et travaille dans le fichier pour vous, avec les mêmes outils qu’un <a1>agent IA</a1>. La tête de robot dans la barre d’outils, avant le bouton d’annotation, l’ouvre à droite. Chaque fenêtre a sa propre discussion, conservée quand le panneau est fermé ; Nouvelle discussion recommence à zéro, et Arrêter interrompt une réponse en cours.",
+ "ca87760a51b1": "L’assistant est une discussion à côté de votre document : posez des questions sur le fichier, et il lit ce dont il a besoin, vous montre où se trouvent les choses et travaille dans le fichier pour vous, avec les mêmes outils qu’un <a1>agent IA</a1>. La tête de robot dans la barre d’outils, avant le bouton d’annotation, l’ouvre à droite. Chaque fenêtre a sa propre discussion, conservée quand le panneau est fermé ; Nouvelle discussion recommence à zéro, et Arrêter interrompt une réponse en cours. Quand une discussion devient plus longue que ce qu’un modèle local peut lire d’un coup, son début est résumé pour qu’elle puisse continuer, et le panneau l’indique.",
  "c52aa23e60f2": "Le modèle ne reçoit que ce qu’il demande via les outils, jamais tout le fichier d’emblée. Avec un modèle local, rien ne quitte votre ordinateur ; avec un modèle cloud, ce qu’il lit part chez le fournisseur : utilisez-en un à qui vous confiez ces fichiers.",
  "a24634e6e042": "Ajouter un modèle",
  "ed654e3b7891": "Ouvrez les Réglages, onglet Assistant, et choisissez un fournisseur sous Ajouter un modèle :",
@@ -402,7 +402,7 @@
  "cf03cf2e9cdf": "Navigation",
  "4e76125fd488": "Vignettes des pages, table des matières, surlignages et notes, signets, recherche avec chaque résultat surligné, liens, diaporama",
  "3d221e822859": "Annotations",
- "68296d319760": "Surlignage, soulignement, barré ; esquisse, dessin ; rectangle, rectangle arrondi, ovale, ligne, flèche, étoile, polygone, bulle de dialogue, loupe, masque ; zones de texte et notes. Enregistrés sous forme d’annotations PDF standard",
+ "e93a54438d64": "Surlignage, soulignement, barré ; esquisse, dessin ; rectangle, rectangle arrondi, ovale, ligne, flèche, étoile, polygone, bulle de dialogue, loupe, masque ; zones de texte, avec des passages en gras, en italique et en couleur, et notes. Enregistrés sous forme d’annotations PDF standard",
  "da81c7ed7935": "Champs de texte, cases à cocher, boutons radio, menus déroulants",
  "bedc5a9d866d": "Dessinées, saisies dans une police manuscrite ou importées d’une photo ou d’un scan ; conservées dans une bibliothèque et placées comme images",
  "a8267cec0f7a": "Réorganiser, faire pivoter, supprimer, rogner, insérer des pages vierges ou d’autres PDF, copier et coller entre documents avec leurs annotations et champs de formulaire",
@@ -511,5 +511,6 @@
  "248440b65b16": "Les caractéristiques de prev : les systèmes et processeurs sur lesquels il fonctionne, les formats de fichier qu’il ouvre et exporte, ses langues et sa saisie, les logiciels sur lesquels il repose et ses performances.",
  "extra:policy-note": "Cette traduction est fournie pour plus de commodité ; c’est la version anglaise de cette politique qui fait foi.",
  "8d302eb83a9f": "<code>sudo apt install ./prev_{v}-1_*.deb</code>",
- "b265a518f1ba": "Les versions Windows sont signées par Scramble Tools LLC depuis la {v} ; les versions macOS pas encore ; voir la <a1>politique de signature du code</a1>"
+ "b265a518f1ba": "Les versions Windows sont signées par Scramble Tools LLC depuis la {v} ; les versions macOS pas encore ; voir la <a1>politique de signature du code</a1>",
+ "5710c4e352d8": "Sur les bureaux Linux qui ne dessinent pas de barre de titre au-dessus des fenêtres, comme Hyprland, niri et river, la barre d’outils se termine par un bouton qui ferme la fenêtre, et une fenêtre sans fichier ouvert en a un dans son coin supérieur."
 }

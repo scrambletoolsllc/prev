@@ -142,7 +142,7 @@
  "7173a9331f33": "<strong>Suorakulmainen valinta</strong> valitsee alueen, joka kopioidaan kuvana tai johon sivu rajataan (Ctrl+K).",
  "d49141919eed": "<strong>Luonnos</strong> muuttaa suorakulmiota, soikiota tai viivaa muistuttavat vedot kyseiseksi muodoksi; <strong>Piirrä</strong> säilyttää ne piirrettyinä.",
  "b8a5dc9e4e1a": "<strong>Muodot</strong>: suorakulmio, pyöristetty suorakulmio, soikio, viiva, nuoli, tähti, monikulmio, puhekupla, suurennuslasi, joka suurentaa alla olevaa sivua, ja maski, joka himmentää kaiken paitsi aukon.",
- "7ad0054d9a9c": "<strong>Tekstiruutu</strong> ja <strong>Muistiinpano</strong> fontteineen, kokoineen, väreineen ja tasauksineen.",
+ "499581862a15": "<strong>Tekstiruutu</strong> ja <strong>Muistiinpano</strong> fontteineen, kokoineen, väreineen ja tasauksineen. Kun kirjoitat tekstiruutuun, sen yläpuolella oleva palkki lihavoi valitun tekstin (Ctrl+B), kursivoi sen (Ctrl+I) tai vaihtaa sen värin.",
  "3d014d05326a": "<strong>Korosta</strong>, alleviivaus ja yliviivaus valitulle tekstille viidellä värillä.",
  "4a0cff4fe457": "<strong>Allekirjoita</strong> ja <strong>Mustaa</strong>, joita kuvataan alla.",
  "05fe1d0ecdfd": "Muotojen reunan väri, täyttöväri, viivan leveys ja katkoviivat.",
@@ -255,7 +255,7 @@
  "bb035be82b3b": "Yhtä kuvaa näyttävässä kuvaikkunassa ei ole sivupalkkia, josta sen voisi vetää; vedä se sen sijaan tiedostonhallinnasta.",
  "0a207286869b": "Sivujen pienoiskuvat eivät vieri itsestään, kun vedät niiden ylä- tai alareunan lähellä; hiiren rulla vierittää niitä vedon aikana.",
  "882f80e586dd": "Avustaja",
- "28f86d312931": "Avustaja on keskustelu asiakirjasi vieressä: kysy tiedostosta, niin se lukee tarvitsemansa, näyttää, missä asiat ovat, ja työskentelee tiedostossa puolestasi samoilla työkaluilla kuin <a1>tekoälyagentti</a1>. Työkalupalkin robotinpää ennen merkintäpainiketta avaa sen oikealle. Jokaisella ikkunalla on oma keskustelunsa, joka säilyy, kun paneeli on suljettu; Uusi keskustelu aloittaa alusta, ja Pysäytä lopettaa kesken olevan vastauksen.",
+ "ca87760a51b1": "Avustaja on keskustelu asiakirjasi vieressä: kysy tiedostosta, niin se lukee tarvitsemansa, näyttää, missä asiat ovat, ja työskentelee tiedostossa puolestasi samoilla työkaluilla kuin <a1>tekoälyagentti</a1>. Työkalupalkin robotinpää ennen merkintäpainiketta avaa sen oikealle. Jokaisella ikkunalla on oma keskustelunsa, joka säilyy, kun paneeli on suljettu; Uusi keskustelu aloittaa alusta, ja Pysäytä lopettaa kesken olevan vastauksen. Kun keskustelu venyy pidemmäksi kuin paikallinen malli voi lukea kerralla, sen alkuosa tiivistetään, jotta keskustelu voi jatkua, ja paneeli kertoo siitä.",
  "c52aa23e60f2": "Malli saa vain sen, mitä se pyytää työkalujen kautta, eikä koskaan koko tiedostoa etukäteen. Paikallisella mallilla mikään ei poistu tietokoneeltasi; pilvimallilla se, mitä malli lukee, menee palveluntarjoajalle, joten käytä sellaista, johon luotat noiden tiedostojen kanssa.",
  "a24634e6e042": "Mallin lisääminen",
  "ed654e3b7891": "Avaa Asetukset, Avustaja-välilehti, ja valitse palveluntarjoaja kohdasta Lisää malli:",
@@ -402,7 +402,7 @@
  "cf03cf2e9cdf": "Navigointi",
  "4e76125fd488": "Sivujen pienoiskuvat, sisällysluettelo, korostukset ja muistiinpanot, kirjanmerkit, haku, jossa jokainen osuma korostetaan, linkit, diaesitys",
  "3d221e822859": "Merkinnät",
- "68296d319760": "Korostus, alleviivaus, yliviivaus; luonnos, piirto; suorakulmio, pyöristetty suorakulmio, soikio, viiva, nuoli, tähti, monikulmio, puhekupla, suurennuslasi, maski; tekstiruudut ja muistiinpanot. Tallennetaan tavallisina PDF-huomautuksina",
+ "e93a54438d64": "Korostus, alleviivaus, yliviivaus; luonnos, piirto; suorakulmio, pyöristetty suorakulmio, soikio, viiva, nuoli, tähti, monikulmio, puhekupla, suurennuslasi, maski; tekstiruudut lihavoituine, kursivoituine ja värillisine osineen sekä muistiinpanot. Tallennetaan tavallisina PDF-huomautuksina",
  "da81c7ed7935": "Tekstikentät, valintaruudut, valintanapit, avattavat valikot",
  "bedc5a9d866d": "Piirretyt, käsialafontilla kirjoitetut tai valokuvasta tai skannauksesta tuodut; säilytetään kirjastossa ja sijoitetaan kuvina",
  "a8267cec0f7a": "Järjestäminen, kiertäminen, poistaminen, rajaaminen, tyhjien sivujen tai muiden PDF-tiedostojen lisääminen, kopioiminen ja liittäminen asiakirjojen välillä huomautuksineen ja lomakekenttineen",
@@ -511,5 +511,6 @@
  "248440b65b16": "previn tekniset tiedot: järjestelmät ja suorittimet, joilla se toimii, tiedostomuodot, jotka se avaa ja vie, sen kielet ja syöte, ohjelmistot, joiden varaan se on rakennettu, sekä sen suorituskyky.",
  "extra:policy-note": "Tämä käännös on annettu käytön helpottamiseksi; sovellettava versio tästä käytännöstä on englanninkielinen.",
  "8d302eb83a9f": "<code>sudo apt install ./prev_{v}-1_*.deb</code>",
- "b265a518f1ba": "Scramble Tools LLC allekirjoittaa Windows-julkaisut versiosta {v} alkaen; macOS-julkaisuja ei vielä; katso <a1>koodin allekirjoituskäytäntö</a1>"
+ "b265a518f1ba": "Scramble Tools LLC allekirjoittaa Windows-julkaisut versiosta {v} alkaen; macOS-julkaisuja ei vielä; katso <a1>koodin allekirjoituskäytäntö</a1>",
+ "5710c4e352d8": "Linuxin työpöytäympäristöissä, jotka eivät piirrä ikkunan yläpuolelle otsikkopalkkia, kuten Hyprlandissa, nirissä ja riverissä, työkalupalkin lopussa on ikkunan sulkeva painike, ja ikkunassa, jossa ei ole tiedostoa auki, on sellainen yläkulmassa."
 }

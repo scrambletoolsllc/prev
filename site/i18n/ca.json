@@ -142,7 +142,7 @@
  "7173a9331f33": "<strong>Selecció rectangular</strong> tria una àrea per copiar-la com a imatge o per retallar-hi la pàgina (Ctrl+K).",
  "d49141919eed": "<strong>Esbós</strong> converteix els traços que semblen un rectangle, un oval o una línia en aquesta forma; <strong>Dibuixa</strong> els deixa tal com s’han dibuixat.",
  "b8a5dc9e4e1a": "<strong>Formes</strong>: rectangle, rectangle arrodonit, oval, línia, fletxa, estrella, polígon, bafarada, una lupa que amplia la pàgina que té a sota i una màscara que enfosqueix tot excepte un forat.",
- "7ad0054d9a9c": "<strong>Quadre de text</strong> i <strong>Nota</strong>, amb tipus de lletra, mides, colors i alineació.",
+ "499581862a15": "<strong>Quadre de text</strong> i <strong>Nota</strong>, amb tipus de lletra, mides, colors i alineació. Mentre escrius en un quadre de text, una barra a sobre posa el text seleccionat en negreta (Ctrl+B) o en cursiva (Ctrl+I), o li canvia el color.",
  "3d014d05326a": "<strong>Ressalta</strong>, subratlla i ratlla el text seleccionat, en cinc colors.",
  "4a0cff4fe457": "<strong>Signa</strong> i <strong>Censura</strong>, que es descriuen més avall.",
  "05fe1d0ecdfd": "Color de la vora, color d’emplenament, gruix de la línia i traç discontinu per a les formes.",
@@ -255,7 +255,7 @@
  "bb035be82b3b": "Una finestra d’imatge que mostra una sola imatge no té barra lateral des d’on arrossegar-la; arrossega-la des del gestor de fitxers.",
  "0a207286869b": "Les miniatures de pàgina no es desplacen soles quan s’arrossega a prop de la part superior o inferior; la roda del ratolí les desplaça durant un arrossegament.",
  "882f80e586dd": "L’assistent",
- "28f86d312931": "L’assistent és un xat al costat del document: pregunta sobre el fitxer i llegeix el que necessita, et mostra on són les coses i treballa al fitxer per tu amb les mateixes eines que un <a1>agent d’IA</a1>. El cap de robot de la barra d’eines, abans del botó de marques, l’obre a la dreta. Cada finestra té el seu xat, que es conserva mentre el tauler és tancat; Xat nou torna a començar i Atura talla una resposta en curs.",
+ "ca87760a51b1": "L’assistent és un xat al costat del document: pregunta sobre el fitxer i llegeix el que necessita, et mostra on són les coses i treballa al fitxer per tu amb les mateixes eines que un <a1>agent d’IA</a1>. El cap de robot de la barra d’eines, abans del botó de marques, l’obre a la dreta. Cada finestra té el seu xat, que es conserva mentre el tauler és tancat; Xat nou torna a començar i Atura talla una resposta en curs. Quan un xat es fa més llarg del que un model local pot llegir d’una vegada, se’n resumeix la part anterior perquè el xat pugui continuar, i el tauler ho indica.",
  "c52aa23e60f2": "El model només rep el que demana a través de les eines, mai tot el fitxer d’entrada. Amb un model local no surt res del teu ordinador; amb un model al núvol, el que llegeix va al proveïdor, així que fes-ne servir un a qui confiïs aquests fitxers.",
  "a24634e6e042": "Afegir un model",
  "ed654e3b7891": "Obre Configuració, la pestanya Assistent, i tria un proveïdor a Afegeix un model:",
@@ -402,7 +402,7 @@
  "cf03cf2e9cdf": "Navegació",
  "4e76125fd488": "Miniatures de pàgina, índex, ressaltats i notes, marcadors, cerca amb totes les coincidències ressaltades, enllaços, presentació",
  "3d221e822859": "Marques",
- "68296d319760": "Ressaltat, subratllat, ratllat; esbós, dibuix; rectangle, rectangle arrodonit, oval, línia, fletxa, estrella, polígon, bafarada, lupa, màscara; quadres de text i notes. Es desen com a anotacions PDF estàndard",
+ "e93a54438d64": "Ressaltat, subratllat, ratllat; esbós, dibuix; rectangle, rectangle arrodonit, oval, línia, fletxa, estrella, polígon, bafarada, lupa, màscara; quadres de text, amb parts en negreta, en cursiva i de color, i notes. Es desen com a anotacions PDF estàndard",
  "da81c7ed7935": "Camps de text, caselles de selecció, botons d’opció, menús desplegables",
  "bedc5a9d866d": "Dibuixades, escrites amb una lletra manuscrita o importades d’una foto o un escaneig; guardades en una biblioteca i posades com a imatges",
  "a8267cec0f7a": "Reordenar, girar, suprimir, retallar, inserir pàgines en blanc o altres PDF, copiar i enganxar entre documents amb les anotacions i els camps de formulari",
@@ -511,5 +511,6 @@
  "248440b65b16": "Les especificacions del prev: els sistemes i processadors en què funciona, els formats de fitxer que obre i exporta, les seves llengües i l’entrada, el programari en què es basa i el seu rendiment.",
  "extra:policy-note": "Aquesta traducció s’ofereix per comoditat; la versió en anglès d’aquesta política és la que s’aplica.",
  "8d302eb83a9f": "<code>sudo apt install ./prev_{v}-1_*.deb</code>",
- "b265a518f1ba": "Les versions per al Windows estan signades per Scramble Tools LLC des de la {v}; les del macOS encara no; consulta la <a1>política de signatura de codi</a1>"
+ "b265a518f1ba": "Les versions per al Windows estan signades per Scramble Tools LLC des de la {v}; les del macOS encara no; consulta la <a1>política de signatura de codi</a1>",
+ "5710c4e352d8": "Als escriptoris Linux que no dibuixen cap barra de títol a sobre de les finestres, com ara el Hyprland, el niri i el river, la barra d’eines acaba amb un botó que tanca la finestra, i una finestra sense cap fitxer obert en té un a la cantonada superior."
 }

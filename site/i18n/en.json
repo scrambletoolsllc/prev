@@ -595,9 +595,9 @@
   "page": "guide.html",
   "text": "<strong>Shapes</strong>: rectangle, rounded rectangle, oval, line, arrow, star, polygon, speech bubble, a loupe that magnifies the page under it, and a mask that dims everything but a hole."
  },
- "7ad0054d9a9c": {
+ "499581862a15": {
   "page": "guide.html",
-  "text": "<strong>Text box</strong> and <strong>Note</strong>, with fonts, sizes, colors and alignment."
+  "text": "<strong>Text box</strong> and <strong>Note</strong>, with fonts, sizes, colors and alignment. While you type in a text box, a bar above it makes the selected text bold (Ctrl+B), italic (Ctrl+I) or another color."
  },
  "3d014d05326a": {
   "page": "guide.html",
@@ -1047,9 +1047,9 @@
   "page": "guide.html",
   "text": "The assistant"
  },
- "28f86d312931": {
+ "ca87760a51b1": {
   "page": "guide.html",
-  "text": "The assistant is a chat beside your document: ask about the file and it reads what it needs, shows you where things are, and works in the file for you with the same tools as an <a1>AI agent</a1>. The robot head on the toolbar, before the markup button, opens it on the right. Each window has its own chat, kept while the panel is closed; New Chat starts over, and Stop ends an answer under way."
+  "text": "The assistant is a chat beside your document: ask about the file and it reads what it needs, shows you where things are, and works in the file for you with the same tools as an <a1>AI agent</a1>. The robot head on the toolbar, before the markup button, opens it on the right. Each window has its own chat, kept while the panel is closed; New Chat starts over, and Stop ends an answer under way. When a chat grows longer than a local model can read at once, its earlier part is summarized so the chat can go on, and the panel says so."
  },
  "c52aa23e60f2": {
   "page": "guide.html",
@@ -1310,6 +1310,10 @@
  "acbdb47af4de": {
   "page": "guide.html",
   "text": "prev follows the system's light or dark setting and reduced motion setting, and its accent color. It looks the same on Windows and macOS, in each system's own window; on the Mac its menus are in the menu bar, and its shortcuts use ⌘ instead of Ctrl. In narrow windows, toolbar groups that don't fit move into a More menu, which closes as soon as you choose something from it (a button that opens its own menu, such as Pages, keeps it open under that menu). The search field grows into whatever room the toolbar has left."
+ },
+ "5710c4e352d8": {
+  "page": "guide.html",
+  "text": "On Linux desktops that draw no title bar above a window, such as Hyprland, niri and river, the toolbar ends with a button that closes the window, and a window with no file open has one in its corner."
  },
  "e21ecfd28ed8": {
   "page": "guide.html",
@@ -1662,9 +1666,9 @@
   "page": "specs.html",
   "text": "Markup"
  },
- "68296d319760": {
+ "e93a54438d64": {
   "page": "specs.html",
-  "text": "Highlight, underline, strikethrough; sketch, draw; rectangle, rounded rectangle, oval, line, arrow, star, polygon, speech bubble, loupe, mask; text boxes and notes. Saved as standard PDF annotations"
+  "text": "Highlight, underline, strikethrough; sketch, draw; rectangle, rounded rectangle, oval, line, arrow, star, polygon, speech bubble, loupe, mask; text boxes, with bold, italic and colored parts, and notes. Saved as standard PDF annotations"
  },
  "da81c7ed7935": {
   "page": "specs.html",

@@ -142,7 +142,7 @@
  "7173a9331f33": "<strong>Rektangulær markering</strong> vælger et område, der kan kopieres som et billede, eller som siden kan beskæres til (Ctrl+K).",
  "d49141919eed": "<strong>Skitse</strong> gør streger, der ligner et rektangel, en oval eller en linje, til den figur; <strong>Tegn</strong> beholder dem, som de blev tegnet.",
  "b8a5dc9e4e1a": "<strong>Figurer</strong>: rektangel, afrundet rektangel, oval, linje, pil, stjerne, polygon, taleboble, en lup, der forstørrer siden under den, og en maske, der dæmper alt undtagen et hul.",
- "7ad0054d9a9c": "<strong>Tekstfelt</strong> og <strong>Note</strong>, med skrifttyper, størrelser, farver og justering.",
+ "499581862a15": "<strong>Tekstfelt</strong> og <strong>Note</strong>, med skrifttyper, størrelser, farver og justering. Mens du skriver i et tekstfelt, gør en værktøjslinje over feltet den markerede tekst fed (Ctrl+B), kursiv (Ctrl+I) eller giver den en anden farve.",
  "3d014d05326a": "<strong>Fremhæv</strong>, understreg og gennemstreg markeret tekst, i fem farver.",
  "4a0cff4fe457": "<strong>Underskriv</strong> og <strong>Sværte</strong>, beskrevet nedenfor.",
  "05fe1d0ecdfd": "Kantfarve, fyldfarve, stregbredde og stiplede streger til figurer.",
@@ -255,7 +255,7 @@
  "bb035be82b3b": "Et billedvindue, der viser ét enkelt billede, har intet sidepanel at trække det fra; træk det i stedet fra filhåndteringen.",
  "0a207286869b": "Sideminiaturerne ruller ikke af sig selv, når du trækker nær deres top eller bund; rullehjulet ruller dem under et træk.",
  "882f80e586dd": "Assistenten",
- "28f86d312931": "Assistenten er en chat ved siden af dit dokument: Spørg om filen, så læser den det, den har brug for, viser dig, hvor tingene er, og arbejder i filen for dig med de samme værktøjer som en <a1>AI-agent</a1>. Robothovedet på værktøjslinjen, før knappen Markering, åbner den til højre. Hvert vindue har sin egen chat, som bevares, mens panelet er lukket; Ny chat starter forfra, og Stop afbryder et svar undervejs.",
+ "ca87760a51b1": "Assistenten er en chat ved siden af dit dokument: Spørg om filen, så læser den det, den har brug for, viser dig, hvor tingene er, og arbejder i filen for dig med de samme værktøjer som en <a1>AI-agent</a1>. Robothovedet på værktøjslinjen, før knappen Markering, åbner den til højre. Hvert vindue har sin egen chat, som bevares, mens panelet er lukket; Ny chat starter forfra, og Stop afbryder et svar undervejs. Når en chat bliver længere, end en lokal model kan læse på én gang, bliver den tidligere del opsummeret, så chatten kan fortsætte, og panelet gør opmærksom på det.",
  "c52aa23e60f2": "Modellen får kun det, den beder om gennem værktøjerne, aldrig hele filen på forhånd. Med en lokal model forlader intet din computer; med en cloudmodel går det, den læser, til udbyderen, så brug en, du stoler på med de filer.",
  "a24634e6e042": "Tilføje en model",
  "ed654e3b7891": "Åbn Indstillinger, fanen Assistent, og vælg en udbyder under Tilføj en model:",
@@ -402,7 +402,7 @@
  "cf03cf2e9cdf": "Navigation",
  "4e76125fd488": "Sideminiaturer, indholdsfortegnelse, fremhævninger og noter, bogmærker, søgning med hvert resultat fremhævet, links, lysbilledshow",
  "3d221e822859": "Markering",
- "68296d319760": "Fremhævning, understregning, gennemstregning; skitse, tegning; rektangel, afrundet rektangel, oval, linje, pil, stjerne, polygon, taleboble, lup, maske; tekstfelter og noter. Gemt som standard-PDF-annoteringer",
+ "e93a54438d64": "Fremhævning, understregning, gennemstregning; skitse, tegning; rektangel, afrundet rektangel, oval, linje, pil, stjerne, polygon, taleboble, lup, maske; tekstfelter med fede, kursive og farvede dele samt noter. Gemt som standard-PDF-annoteringer",
  "da81c7ed7935": "Tekstfelter, afkrydsningsfelter, alternativknapper, rullemenuer",
  "bedc5a9d866d": "Tegnet, skrevet med en håndskriftsskrift eller importeret fra et foto eller en scanning; gemt i et bibliotek og placeret som billeder",
  "a8267cec0f7a": "Omarranger, roter, slet, beskær, indsæt tomme sider eller andre PDF'er, kopier og indsæt mellem dokumenter med deres annoteringer og formularfelter",
@@ -511,5 +511,6 @@
  "248440b65b16": "prevs specifikationer: de systemer og processorer, den kører på, de filformater, den åbner og eksporterer, dens sprog og input, den software, den er bygget på, og dens ydeevne.",
  "extra:policy-note": "Denne oversættelse gives for nemheds skyld; det er den engelske version af denne politik, der gælder.",
  "8d302eb83a9f": "<code>sudo apt install ./prev_{v}-1_*.deb</code>",
- "b265a518f1ba": "Udgivelser til Windows er signeret af Scramble Tools LLC siden {v}; udgivelser til macOS er endnu ikke; se <a1>politikken for kodesignering</a1>"
+ "b265a518f1ba": "Udgivelser til Windows er signeret af Scramble Tools LLC siden {v}; udgivelser til macOS er endnu ikke; se <a1>politikken for kodesignering</a1>",
+ "5710c4e352d8": "På Linux-skriveborde, der ikke tegner en titellinje over vinduerne, såsom Hyprland, niri og river, slutter værktøjslinjen med en knap, der lukker vinduet, og et vindue uden en åben fil har en oppe i hjørnet."
 }

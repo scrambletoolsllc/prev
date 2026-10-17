@@ -142,7 +142,6 @@
  "7173a9331f33": "<strong>Selección rectangular</strong> elige un área para copiarla como imagen o para recortar la página a ella (Ctrl+K).",
  "d49141919eed": "<strong>Boceto</strong> convierte los trazos que parecen un rectángulo, un óvalo o una línea en esa forma; <strong>Dibujar</strong> los deja tal como los dibujaste.",
  "b8a5dc9e4e1a": "<strong>Formas</strong>: rectángulo, rectángulo redondeado, óvalo, línea, flecha, estrella, polígono, bocadillo, una lupa que amplía la página que tiene debajo y una máscara que oscurece todo salvo un hueco.",
- "7ad0054d9a9c": "<strong>Cuadro de texto</strong> y <strong>Nota</strong>, con tipos de letra, tamaños, colores y alineación.",
  "3d014d05326a": "<strong>Resaltar</strong>, subrayar y tachar el texto seleccionado, en cinco colores.",
  "4a0cff4fe457": "<strong>Firmar</strong> y <strong>Censurar</strong>, que se describen más abajo.",
  "05fe1d0ecdfd": "Color del borde, color de relleno, grosor y discontinuidad de línea para las formas.",
@@ -255,7 +254,6 @@
  "bb035be82b3b": "Una ventana de imagen que muestra una sola imagen no tiene barra lateral desde la que arrastrarla; arrástrala desde el gestor de archivos.",
  "0a207286869b": "Las miniaturas no se desplazan solas al arrastrar cerca de su parte superior o inferior; la rueda del ratón las desplaza durante un arrastre.",
  "882f80e586dd": "El asistente",
- "28f86d312931": "El asistente es un chat junto a tu documento: pregunta sobre el archivo y lee lo que necesita, te muestra dónde están las cosas y trabaja en el archivo por ti con las mismas herramientas que un <a1>agente de IA</a1>. La cabeza de robot de la barra de herramientas, antes del botón de marcación, lo abre a la derecha. Cada ventana tiene su propio chat, que se conserva mientras el panel está cerrado; Nuevo chat empieza de cero y Detener corta una respuesta en curso.",
  "c52aa23e60f2": "El modelo solo recibe lo que pide a través de las herramientas, nunca el archivo entero de entrada. Con un modelo local, nada sale de tu equipo; con un modelo en la nube, lo que lee va al proveedor, así que usa uno al que confiarías esos archivos.",
  "a24634e6e042": "Añadir un modelo",
  "ed654e3b7891": "Abre Ajustes, la pestaña Asistente, y elige un proveedor en Añadir un modelo:",
@@ -402,7 +400,6 @@
  "cf03cf2e9cdf": "Navegación",
  "4e76125fd488": "Miniaturas de página, tabla de contenido, resaltados y notas, marcadores, búsqueda con todas las coincidencias resaltadas, enlaces, pase de diapositivas",
  "3d221e822859": "Marcas",
- "68296d319760": "Resaltado, subrayado, tachado; boceto, dibujo; rectángulo, rectángulo redondeado, óvalo, línea, flecha, estrella, polígono, bocadillo, lupa, máscara; cuadros de texto y notas. Guardado como anotaciones PDF estándar",
  "da81c7ed7935": "Campos de texto, casillas, botones de opción, menús desplegables",
  "bedc5a9d866d": "Dibujadas, escritas con una letra manuscrita o importadas de una foto o un escaneo; guardadas en una biblioteca y colocadas como imágenes",
  "a8267cec0f7a": "Reordenar, girar, eliminar, recortar, insertar páginas en blanco u otros PDF, copiar y pegar entre documentos con sus anotaciones y campos de formulario",
@@ -511,5 +508,9 @@
  "248440b65b16": "Especificaciones de prev: los sistemas y procesadores en los que funciona, los formatos de archivo que abre y exporta, sus idiomas y su entrada, el software sobre el que está hecho y su rendimiento.",
  "extra:policy-note": "Esta traducción se ofrece por comodidad; la versión en inglés de esta política es la que se aplica.",
  "8d302eb83a9f": "<code>sudo apt install ./prev_{v}-1_*.deb</code>",
- "b265a518f1ba": "Las versiones para Windows están firmadas por Scramble Tools LLC desde la {v}; las de macOS aún no; consulta la <a1>política de firma de código</a1>"
+ "b265a518f1ba": "Las versiones para Windows están firmadas por Scramble Tools LLC desde la {v}; las de macOS aún no; consulta la <a1>política de firma de código</a1>",
+ "499581862a15": "<strong>Cuadro de texto</strong> y <strong>Nota</strong>, con tipos de letra, tamaños, colores y alineación. Mientras escribes en un cuadro de texto, una barra encima de él pone el texto seleccionado en negrita (Ctrl+B), en cursiva (Ctrl+I) o de otro color.",
+ "ca87760a51b1": "El asistente es un chat junto a tu documento: pregunta sobre el archivo y lee lo que necesita, te muestra dónde están las cosas y trabaja en el archivo por ti con las mismas herramientas que un <a1>agente de IA</a1>. La cabeza de robot de la barra de herramientas, antes del botón de marcación, lo abre a la derecha. Cada ventana tiene su propio chat, que se conserva mientras el panel está cerrado; Nuevo chat empieza de cero y Detener corta una respuesta en curso. Cuando un chat se hace más largo de lo que un modelo local puede leer de una vez, su parte anterior se resume para que el chat pueda seguir, y el panel lo indica.",
+ "e93a54438d64": "Resaltado, subrayado, tachado; boceto, dibujo; rectángulo, rectángulo redondeado, óvalo, línea, flecha, estrella, polígono, bocadillo, lupa, máscara; cuadros de texto, con partes en negrita, en cursiva y en color, y notas. Guardado como anotaciones PDF estándar",
+ "5710c4e352d8": "En los escritorios de Linux que no dibujan barra de título sobre las ventanas, como Hyprland, niri y river, la barra de herramientas termina con un botón que cierra la ventana, y una ventana sin archivo abierto tiene uno en la esquina."
 }

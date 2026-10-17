@@ -142,7 +142,6 @@
  "7173a9331f33": "<strong>Seleção retangular</strong> escolhe uma área para copiar como imagem ou para recortar a página nela (Ctrl+K).",
  "d49141919eed": "<strong>Esboço</strong> transforma traços que parecem um retângulo, uma oval ou uma linha nessa forma; <strong>Desenhar</strong> os mantém como foram desenhados.",
  "b8a5dc9e4e1a": "<strong>Formas</strong>: retângulo, retângulo arredondado, oval, linha, seta, estrela, polígono, balão de fala, uma lupa que amplia a página embaixo dela e uma máscara que escurece tudo menos um recorte.",
- "7ad0054d9a9c": "<strong>Caixa de texto</strong> e <strong>Nota</strong>, com fontes, tamanhos, cores e alinhamento.",
  "3d014d05326a": "<strong>Realçar</strong>, sublinhar e tachar o texto selecionado, em cinco cores.",
  "4a0cff4fe457": "<strong>Assinar</strong> e <strong>Tarjar</strong>, descritos mais abaixo.",
  "05fe1d0ecdfd": "Cor da borda, cor de preenchimento, espessura da linha e tracejado para as formas.",
@@ -255,7 +254,6 @@
  "bb035be82b3b": "Uma janela de imagem que mostra uma única imagem não tem barra lateral de onde arrastá-la; arraste-a do gerenciador de arquivos.",
  "0a207286869b": "As miniaturas não rolam sozinhas ao arrastar perto do topo ou do fim delas; a roda do mouse as rola durante um arrasto.",
  "882f80e586dd": "O assistente",
- "28f86d312931": "O assistente é um chat ao lado do seu documento: pergunte sobre o arquivo e ele lê o que precisa, mostra onde estão as coisas e trabalha no arquivo para você com as mesmas ferramentas de um <a1>agente de IA</a1>. A cabeça de robô na barra de ferramentas, antes do botão de marcação, abre o assistente à direita. Cada janela tem seu próprio chat, que é mantido enquanto o painel está fechado; Nova conversa recomeça do zero, e Parar interrompe uma resposta em andamento.",
  "c52aa23e60f2": "O modelo recebe só o que pede pelas ferramentas, nunca o arquivo inteiro de antemão. Com um modelo local, nada sai do seu computador; com um modelo na nuvem, o que ele lê vai para o provedor, então use um em que você confie para esses arquivos.",
  "a24634e6e042": "Adicionar um modelo",
  "ed654e3b7891": "Abra Ajustes, a aba Assistente, e escolha um provedor em Adicionar um modelo:",
@@ -402,7 +400,6 @@
  "cf03cf2e9cdf": "Navegação",
  "4e76125fd488": "Miniaturas das páginas, índice, realces e notas, marcadores, busca com todos os resultados realçados, links, apresentação de slides",
  "3d221e822859": "Marcações",
- "68296d319760": "Realce, sublinhado, tachado; esboço, desenho; retângulo, retângulo arredondado, oval, linha, seta, estrela, polígono, balão de fala, lupa, máscara; caixas de texto e notas. Salvas como anotações PDF padrão",
  "da81c7ed7935": "Campos de texto, caixas de seleção, botões de opção, menus suspensos",
  "bedc5a9d866d": "Desenhadas, digitadas em uma fonte manuscrita ou importadas de uma foto ou digitalização; guardadas em uma biblioteca e colocadas como imagens",
  "a8267cec0f7a": "Reordenar, girar, apagar, recortar, inserir páginas em branco ou outros PDFs, copiar e colar entre documentos com as anotações e os campos de formulário",
@@ -511,5 +508,9 @@
  "248440b65b16": "Especificações do prev: os sistemas e processadores em que ele roda, os formatos de arquivo que abre e exporta, os idiomas e a entrada, o software em que se baseia e o desempenho.",
  "extra:policy-note": "Esta tradução é oferecida por conveniência; a versão em inglês desta política é a que se aplica.",
  "8d302eb83a9f": "<code>sudo apt install ./prev_{v}-1_*.deb</code>",
- "b265a518f1ba": "As versões para Windows são assinadas pela Scramble Tools LLC desde a {v}; as para macOS ainda não; veja a <a1>política de assinatura de código</a1>"
+ "b265a518f1ba": "As versões para Windows são assinadas pela Scramble Tools LLC desde a {v}; as para macOS ainda não; veja a <a1>política de assinatura de código</a1>",
+ "499581862a15": "<strong>Caixa de texto</strong> e <strong>Nota</strong>, com fontes, tamanhos, cores e alinhamento. Enquanto você digita em uma caixa de texto, uma barra acima dela deixa o texto selecionado em negrito (Ctrl+B), em itálico (Ctrl+I) ou de outra cor.",
+ "ca87760a51b1": "O assistente é um chat ao lado do seu documento: pergunte sobre o arquivo e ele lê o que precisa, mostra onde estão as coisas e trabalha no arquivo para você com as mesmas ferramentas de um <a1>agente de IA</a1>. A cabeça de robô na barra de ferramentas, antes do botão de marcação, abre o assistente à direita. Cada janela tem seu próprio chat, que é mantido enquanto o painel está fechado; Nova conversa recomeça do zero, e Parar interrompe uma resposta em andamento. Quando um chat fica mais longo do que um modelo local consegue ler de uma vez, a parte anterior é resumida para que o chat possa continuar, e o painel avisa.",
+ "e93a54438d64": "Realce, sublinhado, tachado; esboço, desenho; retângulo, retângulo arredondado, oval, linha, seta, estrela, polígono, balão de fala, lupa, máscara; caixas de texto, com trechos em negrito, em itálico e coloridos, e notas. Salvas como anotações PDF padrão",
+ "5710c4e352d8": "Nos ambientes de trabalho Linux que não desenham barra de título acima da janela, como Hyprland, niri e river, a barra de ferramentas termina com um botão que fecha a janela, e uma janela sem arquivo aberto tem um no canto."
 }

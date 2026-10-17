@@ -142,7 +142,7 @@
  "7173a9331f33": "<strong>Vùng chọn chữ nhật</strong> chọn một vùng để sao chép thành hình ảnh, hoặc để cắt trang theo vùng đó (Ctrl+K).",
  "d49141919eed": "<strong>Phác thảo</strong> biến nét vẽ trông giống hình chữ nhật, hình bầu dục hay đường thẳng thành đúng hình đó; <strong>Vẽ</strong> giữ nguyên nét như đã vẽ.",
  "b8a5dc9e4e1a": "<strong>Hình dạng</strong>: hình chữ nhật, hình chữ nhật bo góc, hình bầu dục, đường thẳng, mũi tên, ngôi sao, đa giác, bong bóng hội thoại, kính lúp phóng to phần trang bên dưới, và mặt nạ làm tối mọi thứ trừ một lỗ trống.",
- "7ad0054d9a9c": "<strong>Hộp văn bản</strong> và <strong>Ghi chú</strong>, với phông chữ, cỡ chữ, màu sắc và căn lề.",
+ "499581862a15": "<strong>Hộp văn bản</strong> và <strong>Ghi chú</strong>, với phông chữ, cỡ chữ, màu sắc và căn lề. Trong khi bạn gõ vào hộp văn bản, thanh phía trên hộp giúp in đậm (Ctrl+B), in nghiêng (Ctrl+I) hoặc đổi sang màu khác cho văn bản đã chọn.",
  "3d014d05326a": "<strong>Tô sáng</strong>, gạch chân và gạch ngang trên văn bản đã chọn, với năm màu.",
  "4a0cff4fe457": "<strong>Ký</strong> và <strong>Che thông tin</strong>, được mô tả bên dưới.",
  "05fe1d0ecdfd": "Màu viền, màu tô, độ dày nét và nét đứt cho hình dạng.",
@@ -255,7 +255,7 @@
  "bb035be82b3b": "Cửa sổ hình ảnh chỉ hiển thị một hình không có thanh bên để kéo hình ra; hãy kéo từ trình quản lý tệp thay vào đó.",
  "0a207286869b": "Hình thu nhỏ của trang không tự cuộn khi kéo gần mép trên hoặc mép dưới; hãy dùng con lăn chuột để cuộn trong khi kéo.",
  "882f80e586dd": "Trợ lý",
- "28f86d312931": "Trợ lý là khung trò chuyện ngay cạnh tài liệu của bạn: hỏi về tệp, trợ lý sẽ đọc những gì cần thiết, chỉ cho bạn thấy mọi thứ nằm ở đâu, và làm việc trong tệp giúp bạn bằng chính các công cụ mà <a1>tác nhân AI</a1> dùng. Nút hình đầu robot trên thanh công cụ, trước nút đánh dấu, mở trợ lý ở bên phải. Mỗi cửa sổ có cuộc trò chuyện riêng, vẫn được giữ khi đóng bảng; Cuộc trò chuyện mới để bắt đầu lại, và Dừng để ngắt câu trả lời đang tạo.",
+ "ca87760a51b1": "Trợ lý là khung trò chuyện ngay cạnh tài liệu của bạn: hỏi về tệp, trợ lý sẽ đọc những gì cần thiết, chỉ cho bạn thấy mọi thứ nằm ở đâu, và làm việc trong tệp giúp bạn bằng chính các công cụ mà <a1>tác nhân AI</a1> dùng. Nút hình đầu robot trên thanh công cụ, trước nút đánh dấu, mở trợ lý ở bên phải. Mỗi cửa sổ có cuộc trò chuyện riêng, vẫn được giữ khi đóng bảng; Cuộc trò chuyện mới để bắt đầu lại, và Dừng để ngắt câu trả lời đang tạo. Khi cuộc trò chuyện dài hơn mức mô hình cục bộ có thể đọc trong một lần, phần trước sẽ được tóm tắt để cuộc trò chuyện có thể tiếp tục, và bảng sẽ báo cho bạn biết.",
  "c52aa23e60f2": "Mô hình chỉ nhận được những gì nó yêu cầu qua các công cụ, không bao giờ nhận toàn bộ tệp ngay từ đầu. Với mô hình cục bộ, không có gì rời khỏi máy tính của bạn; với mô hình đám mây, những gì nó đọc sẽ được gửi đến nhà cung cấp, vì vậy hãy dùng nhà cung cấp bạn tin tưởng với những tệp đó.",
  "a24634e6e042": "Thêm mô hình",
  "ed654e3b7891": "Mở Cài đặt, thẻ Trợ lý, và chọn một nhà cung cấp trong mục Thêm mô hình:",
@@ -402,7 +402,7 @@
  "cf03cf2e9cdf": "Điều hướng",
  "4e76125fd488": "Hình thu nhỏ của trang, mục lục, tô sáng và ghi chú, dấu trang, tìm kiếm tô sáng mọi kết quả, liên kết, trình chiếu",
  "3d221e822859": "Đánh dấu",
- "68296d319760": "Tô sáng, gạch chân, gạch ngang; phác thảo, vẽ; hình chữ nhật, hình chữ nhật bo góc, hình bầu dục, đường thẳng, mũi tên, ngôi sao, đa giác, bong bóng lời thoại, kính lúp, mặt nạ; hộp văn bản và ghi chú. Lưu dưới dạng chú thích PDF chuẩn",
+ "e93a54438d64": "Tô sáng, gạch chân, gạch ngang; phác thảo, vẽ; hình chữ nhật, hình chữ nhật bo góc, hình bầu dục, đường thẳng, mũi tên, ngôi sao, đa giác, bong bóng lời thoại, kính lúp, mặt nạ; hộp văn bản, với các phần in đậm, in nghiêng và có màu, cùng ghi chú. Lưu dưới dạng chú thích PDF chuẩn",
  "da81c7ed7935": "Trường văn bản, hộp kiểm, nút chọn, menu thả xuống",
  "bedc5a9d866d": "Vẽ tay, nhập bằng phông chữ viết tay, hoặc lấy từ ảnh chụp hay bản quét; được lưu trong thư viện và đặt dưới dạng hình ảnh",
  "a8267cec0f7a": "Sắp xếp lại, xoay, xóa, cắt, chèn trang trống hoặc PDF khác, sao chép và dán giữa các tài liệu kèm chú thích và trường biểu mẫu",
@@ -511,5 +511,6 @@
  "248440b65b16": "Thông số kỹ thuật của prev: hệ thống và bộ xử lý nó chạy trên, các định dạng tệp nó mở và xuất, ngôn ngữ và nhập liệu, phần mềm nó được xây dựng trên, và hiệu năng.",
  "extra:policy-note": "Bản dịch này chỉ nhằm thuận tiện cho bạn; phiên bản tiếng Anh của chính sách này là bản có hiệu lực.",
  "8d302eb83a9f": "<code>sudo apt install ./prev_{v}-1_*.deb</code>",
- "b265a518f1ba": "Các bản phát hành cho Windows được Scramble Tools LLC ký từ {v}; bản cho macOS thì chưa; xem <a1>chính sách ký mã</a1>"
+ "b265a518f1ba": "Các bản phát hành cho Windows được Scramble Tools LLC ký từ {v}; bản cho macOS thì chưa; xem <a1>chính sách ký mã</a1>",
+ "5710c4e352d8": "Trên các môi trường desktop Linux không hiển thị thanh tiêu đề phía trên cửa sổ, như Hyprland, niri và river, thanh công cụ có một nút đóng cửa sổ ở cuối, và cửa sổ chưa mở tệp nào có nút này ở góc trên."
 }

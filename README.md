@@ -45,7 +45,9 @@ For a walkthrough of every feature with more screenshots, see
   - Sketch (strokes become rectangles, ovals and lines when they look like
     one), draw, and shapes: rectangle, rounded rectangle, oval, line,
     arrow, star, polygon, speech bubble, loupe and mask.
-  - Text boxes and notes, with fonts, sizes, colors and alignment.
+  - Text boxes and notes, with fonts, sizes, colors and alignment; in a
+    text box, selected text can be bold, italic or a color of its own,
+    saved as PDF rich text that other readers show.
   - Border and fill colors, line widths and dashes.
   - Select, move, resize, restyle and delete annotations; undo and redo.
   - Paste an image or text from the clipboard onto the page, whatever
@@ -180,12 +182,14 @@ For a walkthrough of every feature with more screenshots, see
     motion setting as they change.
   - On Windows and macOS, the toolbars, panels and dialogs take the
     system's title bar color, which runs on into prev's toolbar.
+  - On Linux desktops that draw no title bars, such as Hyprland, niri
+    and river, the toolbar ends with a button that closes the window.
 
 ### Planned
 
 - Revert To for PDFs, as images have it.
 - Dragging annotations between documents.
-- Signed Windows releases, and prev on winget and the AUR.
+- prev on winget and the AUR.
 - Signed and notarized macOS releases.
 
 The [development plan](docs/PLAN.md#not-built-yet) lists more.
@@ -314,7 +318,9 @@ Adding a model sends it one short message first, and adds it once it
 answers. Then the robot head on the toolbar opens the panel. The model
 gets only what it asks for through the tools, never the whole file up
 front; with a cloud model, that goes to the provider. Thinking models
-show their reasoning as they work, folded away once they answer.
+show their reasoning as they work, folded away once they answer. When a
+chat grows longer than a local model can read at once, its earlier part
+is summarized so the chat can go on, and the panel says so.
 
 ## Using prev with AI agents
 
@@ -439,6 +445,7 @@ lists each shortcut too.
 | Crop to selection | Ctrl+K |
 | Undo, redo | Ctrl+Z, Ctrl+Shift+Z |
 | Adjust Color (images), Inspector | Ctrl+Shift+C, Ctrl+I |
+| Bold, italic, while typing in a text box | Ctrl+B, Ctrl+I |
 | Export | Ctrl+Shift+S |
 | Print | Ctrl+P |
 | Settings | Ctrl+, |

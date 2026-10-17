@@ -142,7 +142,7 @@
  "7173a9331f33": "<strong>Pilihan segi empat</strong> memilih kawasan untuk disalin sebagai imej, atau untuk mengerat halaman (Ctrl+K).",
  "d49141919eed": "<strong>Lakar</strong> menukar lorekan yang kelihatan seperti segi empat, bujur atau garisan kepada bentuk itu; <strong>Lukis</strong> mengekalkannya seperti yang dilukis.",
  "b8a5dc9e4e1a": "<strong>Bentuk</strong>: segi empat tepat, segi empat tepat bucu bulat, bujur, garisan, anak panah, bintang, poligon, belon pertuturan, kanta pembesar yang membesarkan halaman di bawahnya, dan topeng yang menggelapkan semuanya kecuali satu lubang.",
- "7ad0054d9a9c": "<strong>Kotak teks</strong> dan <strong>Nota</strong>, dengan fon, saiz, warna dan penjajaran.",
+ "499581862a15": "<strong>Kotak teks</strong> dan <strong>Nota</strong>, dengan fon, saiz, warna dan penjajaran. Semasa anda menaip dalam kotak teks, bar di atasnya menjadikan teks yang dipilih tebal (Ctrl+B), condong (Ctrl+I) atau berwarna lain.",
  "3d014d05326a": "<strong>Serlah</strong>, garis bawah dan garis lorek pada teks yang dipilih, dalam lima warna.",
  "4a0cff4fe457": "<strong>Tandatangani</strong> dan <strong>Hitamkan</strong>, diterangkan di bawah.",
  "05fe1d0ecdfd": "Warna sempadan, warna isian, lebar garisan dan sengkang untuk bentuk.",
@@ -255,7 +255,7 @@
  "bb035be82b3b": "Tetingkap imej yang memaparkan satu imej tidak mempunyai bar sisi untuk menyeretnya; seret dari pengurus fail sebaliknya.",
  "0a207286869b": "Lakaran kecil halaman tidak menatal sendiri semasa menyeret berhampiran bahagian atas atau bawahnya; roda tatal boleh menatalnya semasa seretan.",
  "882f80e586dd": "Pembantu",
- "28f86d312931": "Pembantu ialah sembang di sebelah dokumen anda: tanya tentang fail dan ia membaca apa yang diperlukannya, menunjukkan di mana sesuatu berada, dan bekerja dalam fail untuk anda dengan alat yang sama seperti <a1>ejen AI</a1>. Kepala robot pada bar alat, sebelum butang penandaan, membukanya di sebelah kanan. Setiap tetingkap mempunyai sembangnya sendiri, yang disimpan semasa panel ditutup; Sembang baharu bermula semula, dan Henti menamatkan jawapan yang sedang berjalan.",
+ "ca87760a51b1": "Pembantu ialah sembang di sebelah dokumen anda: tanya tentang fail dan ia membaca apa yang diperlukannya, menunjukkan di mana sesuatu berada, dan bekerja dalam fail untuk anda dengan alat yang sama seperti <a1>ejen AI</a1>. Kepala robot pada bar alat, sebelum butang penandaan, membukanya di sebelah kanan. Setiap tetingkap mempunyai sembangnya sendiri, yang disimpan semasa panel ditutup; Sembang baharu bermula semula, dan Henti menamatkan jawapan yang sedang berjalan. Apabila sembang menjadi lebih panjang daripada yang dapat dibaca oleh model setempat sekali gus, bahagian awalnya diringkaskan supaya sembang dapat diteruskan, dan panel memaklumkannya.",
  "c52aa23e60f2": "Model hanya mendapat apa yang dimintanya melalui alat, tidak pernah seluruh fail sekali gus pada awalnya. Dengan model setempat, tiada apa-apa yang keluar dari komputer anda; dengan model awan, apa yang dibacanya pergi kepada penyedia, jadi gunakan penyedia yang anda percayai dengan fail-fail itu.",
  "a24634e6e042": "Menambah model",
  "ed654e3b7891": "Buka Tetapan, tab Pembantu, dan pilih penyedia di bawah Tambah model:",
@@ -402,7 +402,7 @@
  "cf03cf2e9cdf": "Navigasi",
  "4e76125fd488": "Lakaran kecil halaman, kandungan, serlahan dan nota, penanda buku, carian dengan setiap padanan diserlahkan, pautan, tayangan slaid",
  "3d221e822859": "Penandaan",
- "68296d319760": "Serlahan, garis bawah, garis lorek; lakar, lukis; segi empat tepat, segi empat tepat bucu bulat, bujur, garisan, anak panah, bintang, poligon, belon pertuturan, kanta pembesar, topeng; kotak teks dan nota. Disimpan sebagai anotasi PDF standard",
+ "e93a54438d64": "Serlahan, garis bawah, garis lorek; lakar, lukis; segi empat tepat, segi empat tepat bucu bulat, bujur, garisan, anak panah, bintang, poligon, belon pertuturan, kanta pembesar, topeng; kotak teks, dengan bahagian tebal, condong dan berwarna, serta nota. Disimpan sebagai anotasi PDF standard",
  "da81c7ed7935": "Medan teks, kotak semak, butang radio, menu lungsur",
  "bedc5a9d866d": "Dilukis, ditaip dalam fon tulisan tangan, atau diimport daripada foto atau imbasan; disimpan dalam pustaka dan diletakkan sebagai imej",
  "a8267cec0f7a": "Susun semula, putar, padam, kerat, sisipkan halaman kosong atau PDF lain, salin dan tampal antara dokumen bersama anotasi dan medan borangnya",
@@ -511,5 +511,6 @@
  "248440b65b16": "Spesifikasi prev: sistem dan pemproses yang menjalankannya, format fail yang dibuka dan dieksportnya, bahasa dan inputnya, perisian yang menjadi asasnya, dan prestasinya.",
  "extra:policy-note": "Terjemahan ini diberikan untuk kemudahan; versi bahasa Inggeris dasar ini ialah versi yang terpakai.",
  "8d302eb83a9f": "<code>sudo apt install ./prev_{v}-1_*.deb</code>",
- "b265a518f1ba": "Keluaran Windows ditandatangani oleh Scramble Tools LLC sejak {v}; keluaran macOS belum; lihat <a1>dasar tandatangan kod</a1>"
+ "b265a518f1ba": "Keluaran Windows ditandatangani oleh Scramble Tools LLC sejak {v}; keluaran macOS belum; lihat <a1>dasar tandatangan kod</a1>",
+ "5710c4e352d8": "Pada desktop Linux yang tidak memaparkan bar tajuk di atas tetingkap, seperti Hyprland, niri dan river, bar alat diakhiri dengan butang yang menutup tetingkap, dan tetingkap tanpa fail yang dibuka mempunyai butang itu di bucu atasnya."
 }

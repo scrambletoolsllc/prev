@@ -142,7 +142,7 @@
  "7173a9331f33": "<strong>Seleksi persegi panjang</strong> memilih area untuk disalin sebagai gambar, atau untuk memangkas halaman (Ctrl+K).",
  "d49141919eed": "<strong>Sketsa</strong> mengubah goresan yang menyerupai persegi panjang, lonjong, atau garis menjadi bentuk itu; <strong>Gambar</strong> mempertahankannya seperti yang digambar.",
  "b8a5dc9e4e1a": "<strong>Bentuk</strong>: persegi panjang, persegi panjang membulat, lonjong, garis, panah, bintang, poligon, balon ucapan, kaca pembesar yang memperbesar halaman di bawahnya, dan masker yang meredupkan semuanya kecuali sebuah lubang.",
- "7ad0054d9a9c": "<strong>Kotak teks</strong> dan <strong>Catatan</strong>, dengan fon, ukuran, warna, dan perataan.",
+ "499581862a15": "<strong>Kotak teks</strong> dan <strong>Catatan</strong>, dengan fon, ukuran, warna, dan perataan. Saat Anda mengetik di kotak teks, bilah di atasnya membuat teks yang dipilih menjadi tebal (Ctrl+B), miring (Ctrl+I), atau berwarna lain.",
  "3d014d05326a": "<strong>Sorot</strong>, garis bawah, dan coret pada teks yang dipilih, dalam lima warna.",
  "4a0cff4fe457": "<strong>Tanda tangani</strong> dan <strong>Sensor</strong>, dijelaskan di bawah.",
  "05fe1d0ecdfd": "Warna garis tepi, warna isian, tebal garis, dan garis putus-putus untuk bentuk.",
@@ -255,7 +255,7 @@
  "bb035be82b3b": "Jendela gambar yang menampilkan satu gambar tidak memiliki bilah samping untuk menyeretnya; seret dari pengelola berkas sebagai gantinya.",
  "0a207286869b": "Gambar mini halaman tidak menggulir sendiri saat menyeret di dekat bagian atas atau bawahnya; roda gulir dapat menggulirnya selama seretan.",
  "882f80e586dd": "Asisten",
- "28f86d312931": "Asisten adalah obrolan di samping dokumen Anda: tanyakan tentang berkas dan asisten membaca apa yang diperlukannya, menunjukkan letak sesuatu, dan bekerja di berkas untuk Anda dengan alat yang sama seperti <a1>agen AI</a1>. Kepala robot di bilah alat, sebelum tombol markah, membukanya di sebelah kanan. Setiap jendela memiliki obrolannya sendiri, yang tetap tersimpan saat panel ditutup; Obrolan baru memulai dari awal, dan Hentikan mengakhiri jawaban yang sedang berjalan.",
+ "ca87760a51b1": "Asisten adalah obrolan di samping dokumen Anda: tanyakan tentang berkas dan asisten membaca apa yang diperlukannya, menunjukkan letak sesuatu, dan bekerja di berkas untuk Anda dengan alat yang sama seperti <a1>agen AI</a1>. Kepala robot di bilah alat, sebelum tombol markah, membukanya di sebelah kanan. Setiap jendela memiliki obrolannya sendiri, yang tetap tersimpan saat panel ditutup; Obrolan baru memulai dari awal, dan Hentikan mengakhiri jawaban yang sedang berjalan. Jika obrolan menjadi lebih panjang daripada yang dapat dibaca model lokal sekaligus, bagian awalnya diringkas agar obrolan dapat berlanjut, dan panel memberi tahu Anda.",
  "c52aa23e60f2": "Model hanya mendapat apa yang dimintanya melalui alat, tidak pernah seluruh berkas sekaligus di awal. Dengan model lokal, tidak ada yang keluar dari komputer Anda; dengan model cloud, apa yang dibacanya dikirim ke penyedia, jadi gunakan penyedia yang Anda percayai untuk berkas-berkas itu.",
  "a24634e6e042": "Menambahkan model",
  "ed654e3b7891": "Buka Pengaturan, tab Asisten, lalu pilih penyedia di bawah Tambahkan model:",
@@ -402,7 +402,7 @@
  "cf03cf2e9cdf": "Navigasi",
  "4e76125fd488": "Gambar mini halaman, daftar isi, sorotan dan catatan, penanda, pencarian dengan setiap kecocokan disorot, tautan, peragaan slide",
  "3d221e822859": "Markah",
- "68296d319760": "Sorotan, garis bawah, coret; sketsa, gambar; persegi panjang, persegi panjang membulat, lonjong, garis, panah, bintang, poligon, balon ucapan, kaca pembesar, masker; kotak teks dan catatan. Disimpan sebagai anotasi PDF standar",
+ "e93a54438d64": "Sorotan, garis bawah, coret; sketsa, gambar; persegi panjang, persegi panjang membulat, lonjong, garis, panah, bintang, poligon, balon ucapan, kaca pembesar, masker; kotak teks, dengan bagian tebal, miring, dan berwarna, serta catatan. Disimpan sebagai anotasi PDF standar",
  "da81c7ed7935": "Kolom teks, kotak centang, tombol radio, menu tarik-turun",
  "bedc5a9d866d": "Digambar, diketik dengan fon tulisan tangan, atau diimpor dari foto atau pindaian; disimpan dalam pustaka dan ditempatkan sebagai gambar",
  "a8267cec0f7a": "Ubah urutan, putar, hapus, pangkas, sisipkan halaman kosong atau PDF lain, salin dan tempel antardokumen beserta anotasi dan kolom formulirnya",
@@ -511,5 +511,6 @@
  "248440b65b16": "Spesifikasi prev: sistem dan prosesor tempatnya berjalan, format berkas yang dibuka dan diekspornya, bahasa dan inputnya, perangkat lunak yang menjadi dasarnya, dan kinerjanya.",
  "extra:policy-note": "Terjemahan ini diberikan untuk kemudahan; versi bahasa Inggris dari kebijakan ini adalah yang berlaku.",
  "8d302eb83a9f": "<code>sudo apt install ./prev_{v}-1_*.deb</code>",
- "b265a518f1ba": "Rilis Windows ditandatangani oleh Scramble Tools LLC sejak {v}; rilis macOS belum; lihat <a1>kebijakan penandatanganan kode</a1>"
+ "b265a518f1ba": "Rilis Windows ditandatangani oleh Scramble Tools LLC sejak {v}; rilis macOS belum; lihat <a1>kebijakan penandatanganan kode</a1>",
+ "5710c4e352d8": "Di desktop Linux yang tidak menampilkan bilah judul di atas jendela, seperti Hyprland, niri, dan river, bilah alat diakhiri dengan tombol yang menutup jendela, dan jendela tanpa berkas yang terbuka memiliki tombol itu di sudut atasnya."
 }

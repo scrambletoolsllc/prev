@@ -4,7 +4,6 @@
  "37820ce70d0c": "Open it and drag prev to Applications. Until the app is notarised, choose Open Anyway in System Settings, Privacy &amp; Security the first time",
  "840981ec0887": "<strong>Committers and reviewers:</strong> the members of the <a1>scrambletoolsllc</a1> GitHub organisation, who review every outside contribution before it is merged.",
  "6263ca064f9a": "<strong>Approvers:</strong> the owner of the <a1>scrambletoolsllc</a1> GitHub organisation, who alone can publish a release, and with it a signing.",
- "7ad0054d9a9c": "<strong>Text box</strong> and <strong>Note</strong>, with fonts, sizes, colours and alignment.",
  "3d014d05326a": "<strong>Highlight</strong>, underline and strikethrough over selected text, in five colours.",
  "05fe1d0ecdfd": "Border colour, fill colour, line width and dashes for shapes.",
  "b5cc1a2bb26c": "<strong>Draw</strong> with the mouse, a pen or the touchpad. Choose the ink colour and the pen's thickness under the pad; changing them redraws what you signed.",
@@ -27,5 +26,8 @@
  "ab778d5a85aa": "All open source, with licences checked by cargo-deny in CI; GPL-2.0-only is refused",
  "bef020fa479b": "Licence and privacy",
  "3229609e1543": "Licence",
- "fdb9a990a9df": "GNU AGPL-3.0 or later, as MuPDF requires; the bundled fonts keep their own licences (SIL Open Font License 1.1, Apache 2.0)"
+ "fdb9a990a9df": "GNU AGPL-3.0 or later, as MuPDF requires; the bundled fonts keep their own licences (SIL Open Font License 1.1, Apache 2.0)",
+ "499581862a15": "<strong>Text box</strong> and <strong>Note</strong>, with fonts, sizes, colours and alignment. While you type in a text box, a bar above it makes the selected text bold (Ctrl+B), italic (Ctrl+I) or another colour.",
+ "ca87760a51b1": "The assistant is a chat beside your document: ask about the file and it reads what it needs, shows you where things are, and works in the file for you with the same tools as an <a1>AI agent</a1>. The robot head on the toolbar, before the markup button, opens it on the right. Each window has its own chat, kept while the panel is closed; New Chat starts over, and Stop ends an answer under way. When a chat grows longer than a local model can read at once, its earlier part is summarised so the chat can go on, and the panel says so.",
+ "e93a54438d64": "Highlight, underline, strikethrough; sketch, draw; rectangle, rounded rectangle, oval, line, arrow, star, polygon, speech bubble, loupe, mask; text boxes, with bold, italic and coloured parts, and notes. Saved as standard PDF annotations"
 }

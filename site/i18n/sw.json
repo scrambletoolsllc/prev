@@ -142,7 +142,7 @@
  "7173a9331f33": "<strong>Uteuzi wa mstatili</strong> huchagua eneo la kunakili kama picha, au la kupunguza ukurasa hadi hapo (Ctrl+K).",
  "d49141919eed": "<strong>Mchoro huru</strong> hugeuza mistari inayofanana na mstatili, duaradufu au mstari kuwa umbo hilo; <strong>Chora</strong> huibakiza kama ilivyochorwa.",
  "b8a5dc9e4e1a": "<strong>Maumbo</strong>: mstatili, mstatili wenye pembe za mviringo, duaradufu, mstari, mshale, nyota, poligoni, kiputo cha maneno, lenzi ya kukuza inayokuza ukurasa ulio chini yake, na kifuniko kinachofifisha kila kitu isipokuwa tundu.",
- "7ad0054d9a9c": "<strong>Kisanduku cha maandishi</strong> na <strong>Dokezo</strong>, pamoja na fonti, ukubwa, rangi na upangaji.",
+ "499581862a15": "<strong>Kisanduku cha maandishi</strong> na <strong>Dokezo</strong>, pamoja na fonti, ukubwa, rangi na upangaji. Unapoandika kwenye kisanduku cha maandishi, upau ulio juu yake hufanya maandishi uliyochagua kuwa ya herufi nzito (Ctrl+B), ya italiki (Ctrl+I) au ya rangi nyingine.",
  "3d014d05326a": "<strong>Angazia</strong>, mstari chini na mstari katikati juu ya maandishi yaliyochaguliwa, kwa rangi tano.",
  "4a0cff4fe457": "<strong>Weka sahihi</strong> na <strong>Ficha</strong>, zimeelezwa hapa chini.",
  "05fe1d0ecdfd": "Rangi ya mpaka, rangi ya kujaza, unene wa mstari na vistari kwa maumbo.",
@@ -255,7 +255,7 @@
  "bb035be82b3b": "Dirisha la picha linaloonyesha picha moja halina upau wa pembeni wa kuiburuta kutoka; iburute kutoka kidhibiti faili badala yake.",
  "0a207286869b": "Vijipicha vya kurasa havisogei vyenyewe unapoburuta karibu na juu au chini yake; gurudumu la kusogeza huvisogeza wakati wa kuburuta.",
  "882f80e586dd": "Msaidizi",
- "28f86d312931": "Msaidizi ni gumzo kando ya hati yako: uliza kuhusu faili naye husoma anachohitaji, hukuonyesha mahali vitu vilipo, na hufanya kazi ndani ya faili kwa niaba yako kwa zana zilezile za <a1>wakala wa AI</a1>. Kichwa cha roboti kwenye upau wa zana, kabla ya kitufe cha alama, humfungua upande wa kulia. Kila dirisha lina gumzo lake, linalohifadhiwa kidirisha kikiwa kimefungwa; Gumzo jipya huanza upya, na Simamisha humaliza jibu linaloendelea.",
+ "ca87760a51b1": "Msaidizi ni gumzo kando ya hati yako: uliza kuhusu faili naye husoma anachohitaji, hukuonyesha mahali vitu vilipo, na hufanya kazi ndani ya faili kwa niaba yako kwa zana zilezile za <a1>wakala wa AI</a1>. Kichwa cha roboti kwenye upau wa zana, kabla ya kitufe cha alama, humfungua upande wa kulia. Kila dirisha lina gumzo lake, linalohifadhiwa kidirisha kikiwa kimefungwa; Gumzo jipya huanza upya, na Simamisha humaliza jibu linaloendelea. Gumzo linapokuwa refu mno kwa modeli ya ndani kulisoma kwa mara moja, sehemu yake ya awali hufupishwa ili gumzo liweze kuendelea, na kidirisha hukujulisha hivyo.",
  "c52aa23e60f2": "Modeli hupata tu kile inachoomba kupitia zana, kamwe si faili nzima mwanzoni. Ukiwa na modeli ya ndani hakuna kinachotoka kwenye kompyuta yako; ukiwa na modeli ya wingu, kile inachosoma huenda kwa mtoa huduma, kwa hiyo tumia mtoa huduma unayemwamini na faili hizo.",
  "a24634e6e042": "Kuongeza modeli",
  "ed654e3b7891": "Fungua Mipangilio, kichupo cha Msaidizi, na uchague mtoa huduma chini ya Ongeza modeli:",
@@ -402,7 +402,7 @@
  "cf03cf2e9cdf": "Urambazaji",
  "4e76125fd488": "Vijipicha vya kurasa, yaliyomo, viangazio na madokezo, alamisho, utafutaji wenye kila linalolingana likiangaziwa, viungo, onyesho la slaidi",
  "3d221e822859": "Alama",
- "68296d319760": "Kiangazio, mstari chini, mstari katikati; mchoro huru, chora; mstatili, mstatili wenye pembe za mviringo, duaradufu, mstari, mshale, nyota, poligoni, kiputo cha maneno, lenzi ya kukuza, kifuniko; visanduku vya maandishi na madokezo. Huhifadhiwa kama ufafanuzi wa kawaida wa PDF",
+ "e93a54438d64": "Kiangazio, mstari chini, mstari katikati; mchoro huru, chora; mstatili, mstatili wenye pembe za mviringo, duaradufu, mstari, mshale, nyota, poligoni, kiputo cha maneno, lenzi ya kukuza, kifuniko; visanduku vya maandishi vyenye sehemu za herufi nzito, za italiki na zenye rangi, pamoja na madokezo. Huhifadhiwa kama ufafanuzi wa kawaida wa PDF",
  "da81c7ed7935": "Sehemu za maandishi, visanduku vya kuteua, vitufe vya redio, menyu kunjuzi",
  "bedc5a9d866d": "Iliyochorwa, iliyoandikwa kwa fonti ya mwandiko, au iliyoletwa kutoka picha au skani; huhifadhiwa katika maktaba na kuwekwa kama picha",
  "a8267cec0f7a": "Panga upya, zungusha, futa, punguza, ingiza kurasa tupu au PDF nyingine, nakili na ubandike kati ya hati pamoja na ufafanuzi na sehemu za fomu",
@@ -511,5 +511,6 @@
  "248440b65b16": "Vipimo vya prev: mifumo na prosesa inazoendeshwa nazo, miundo ya faili inayofungua na kuhamisha, lugha zake na uingizaji, programu ambayo imejengwa juu yake, na utendaji wake.",
  "extra:policy-note": "Tafsiri hii imetolewa kwa urahisi; toleo la Kiingereza la sera hii ndilo linalotumika.",
  "8d302eb83a9f": "<code>sudo apt install ./prev_{v}-1_*.deb</code>",
- "b265a518f1ba": "Matoleo ya Windows yametiwa sahihi na Scramble Tools LLC tangu {v}; matoleo ya macOS bado; tazama <a1>sera ya kutia sahihi msimbo</a1>"
+ "b265a518f1ba": "Matoleo ya Windows yametiwa sahihi na Scramble Tools LLC tangu {v}; matoleo ya macOS bado; tazama <a1>sera ya kutia sahihi msimbo</a1>",
+ "5710c4e352d8": "Kwenye maeneo-kazi ya Linux yasiyoonyesha upau wa kichwa juu ya dirisha, kama vile Hyprland, niri na river, upau wa zana huishia na kitufe kinachofunga dirisha, na dirisha lisilo na faili iliyofunguliwa lina kitufe hicho kwenye pembe yake ya juu."
 }

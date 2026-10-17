@@ -104,7 +104,7 @@ Preview's:</p>
 <li><strong>Shapes</strong>: rectangle, rounded rectangle, oval, line, arrow, star,
   polygon, speech bubble, a loupe that magnifies the page under it, and a
   mask that dims everything but a hole.</li>
-<li><strong>Text box</strong> and <strong>Note</strong>, with fonts, sizes, colors and alignment.</li>
+<li><strong>Text box</strong> and <strong>Note</strong>, with fonts, sizes, colors and alignment. While you type in a text box, a bar above it makes the selected text bold (Ctrl+B), italic (Ctrl+I) or another color.</li>
 <li><strong>Highlight</strong>, underline and strikethrough over selected text, in five
   colors.</li>
 <li><strong>Sign</strong> and <strong>Redact</strong>, described below.</li>
@@ -427,7 +427,9 @@ reads what it needs, shows you where things are, and works in the file
 for you with the same tools as an <a href="#ai-agents">AI agent</a>. The
 robot head on the toolbar, before the markup button, opens it on the
 right. Each window has its own chat, kept while the panel is closed;
-New Chat starts over, and Stop ends an answer under way.</p>
+New Chat starts over, and Stop ends an answer under way. When a chat
+grows longer than a local model can read at once, its earlier part is
+summarized so the chat can go on, and the panel says so.</p>
 <p>The model gets only what it asks for through the tools, never the whole
 file up front. With a local model nothing leaves your computer; with a
 cloud model, what it reads goes to the provider, so use one you trust with
@@ -648,6 +650,9 @@ toolbar groups that don't fit move into a More menu, which closes as
 soon as you choose something from it (a button that opens its own menu,
 such as Pages, keeps it open under that menu). The search field grows
 into whatever room the toolbar has left.</p>
+<p>On Linux desktops that draw no title bar above a window, such as
+Hyprland, niri and river, the toolbar ends with a button that closes the
+window, and a window with no file open has one in its corner.</p>
 <figure><img class="shot plain" src="screenshots/platforms/windows-markup.png" alt="prev on Windows 11 with the garden plot application filled in and signed" width="1346" height="843" loading="lazy"></figure>
 <figure><img class="shot plain" src="screenshots/platforms/macos-image-markup.png" alt="prev on macOS, below its menu bar, with a landscape photo marked up" width="1212" height="913" loading="lazy"></figure>
 </main>

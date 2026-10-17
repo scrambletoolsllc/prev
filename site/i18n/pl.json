@@ -142,7 +142,6 @@
  "7173a9331f33": "<strong>Zaznaczenie prostokątne</strong> wybiera obszar do skopiowania jako obraz albo do przycięcia strony (Ctrl+K).",
  "d49141919eed": "<strong>Szkic</strong> zamienia pociągnięcia przypominające prostokąt, owal lub linię w ten kształt; <strong>Rysowanie</strong> zostawia je tak, jak je narysowano.",
  "b8a5dc9e4e1a": "<strong>Kształty</strong>: prostokąt, zaokrąglony prostokąt, owal, linia, strzałka, gwiazda, wielokąt, dymek, lupa powiększająca stronę pod sobą i maska przyciemniająca wszystko poza otworem.",
- "7ad0054d9a9c": "<strong>Pole tekstowe</strong> i <strong>Notatka</strong>, z czcionkami, rozmiarami, kolorami i wyrównaniem.",
  "3d014d05326a": "<strong>Wyróżnianie</strong>, podkreślenie i przekreślenie zaznaczonego tekstu, w pięciu kolorach.",
  "4a0cff4fe457": "<strong>Podpisz</strong> i <strong>Zaczernij</strong>, opisane niżej.",
  "05fe1d0ecdfd": "Kolor obramowania, kolor wypełnienia, grubość linii i przerywane linie dla kształtów.",
@@ -255,7 +254,6 @@
  "bb035be82b3b": "Okno obrazów z jednym obrazem nie ma paska bocznego, z którego można go przeciągnąć; przeciągnij go zamiast tego z menedżera plików.",
  "0a207286869b": "Miniaturki stron nie przewijają się same podczas przeciągania przy ich górnej lub dolnej krawędzi; w trakcie przeciągania przewija je kółko myszy.",
  "882f80e586dd": "Asystent",
- "28f86d312931": "Asystent to czat obok dokumentu: zapytaj o plik, a przeczyta, czego potrzebuje, pokaże Ci, gdzie co jest, i sam popracuje w pliku tymi samymi narzędziami co <a1>agent AI</a1>. Głowa robota na pasku narzędzi, przed przyciskiem oznaczeń, otwiera go po prawej. Każde okno ma własny czat, zachowywany, gdy panel jest zamknięty; „Nowy czat” zaczyna od nowa, a „Zatrzymaj” przerywa trwającą odpowiedź.",
  "c52aa23e60f2": "Model dostaje tylko to, o co poprosi przez narzędzia, nigdy cały plik na starcie. Z modelem lokalnym nic nie opuszcza Twojego komputera; z modelem w chmurze to, co przeczyta, trafia do dostawcy, więc wybierz takiego, któremu powierzasz te pliki.",
  "a24634e6e042": "Dodawanie modelu",
  "ed654e3b7891": "Otwórz Ustawienia, kartę „Asystent”, i wybierz dostawcę w sekcji „Dodaj model”:",
@@ -402,7 +400,6 @@
  "cf03cf2e9cdf": "Nawigacja",
  "4e76125fd488": "Miniaturki stron, spis treści, wyróżnienia i notatki, zakładki, wyszukiwanie z wyróżnieniem każdego trafienia, łącza, pokaz slajdów",
  "3d221e822859": "Oznaczenia",
- "68296d319760": "Wyróżnienie, podkreślenie, przekreślenie; szkic, rysowanie; prostokąt, zaokrąglony prostokąt, owal, linia, strzałka, gwiazda, wielokąt, dymek, lupa, maska; pola tekstowe i notatki. Zapisywane jako standardowe adnotacje PDF",
  "da81c7ed7935": "Pola tekstowe, pola wyboru, przyciski opcji, listy rozwijane",
  "bedc5a9d866d": "Narysowane, wpisane odręczną czcionką lub zaimportowane ze zdjęcia albo skanu; przechowywane w bibliotece i umieszczane jako obrazy",
  "a8267cec0f7a": "Zmiana kolejności, obracanie, usuwanie, przycinanie, wstawianie pustych stron lub innych PDF-ów, kopiowanie i wklejanie między dokumentami wraz z adnotacjami i polami formularzy",
@@ -511,5 +508,9 @@
  "248440b65b16": "Specyfikacja prev: systemy i procesory, na których działa, formaty plików, które otwiera i eksportuje, języki i wprowadzanie, oprogramowanie, na którym jest zbudowany, oraz wydajność.",
  "extra:policy-note": "To tłumaczenie udostępniono dla wygody; obowiązuje angielska wersja tych zasad.",
  "8d302eb83a9f": "<code>sudo apt install ./prev_{v}-1_*.deb</code>",
- "b265a518f1ba": "Wydania dla systemu Windows są podpisywane przez Scramble Tools LLC od wersji {v}; wydania dla macOS jeszcze nie; zobacz <a1>zasady podpisywania kodu</a1>"
+ "b265a518f1ba": "Wydania dla systemu Windows są podpisywane przez Scramble Tools LLC od wersji {v}; wydania dla macOS jeszcze nie; zobacz <a1>zasady podpisywania kodu</a1>",
+ "499581862a15": "<strong>Pole tekstowe</strong> i <strong>Notatka</strong>, z czcionkami, rozmiarami, kolorami i wyrównaniem. Gdy piszesz w polu tekstowym, pasek nad nim pogrubia zaznaczony tekst (Ctrl+B), zmienia go na kursywę (Ctrl+I) lub nadaje mu inny kolor.",
+ "ca87760a51b1": "Asystent to czat obok dokumentu: zapytaj o plik, a przeczyta, czego potrzebuje, pokaże Ci, gdzie co jest, i sam popracuje w pliku tymi samymi narzędziami co <a1>agent AI</a1>. Głowa robota na pasku narzędzi, przed przyciskiem oznaczeń, otwiera go po prawej. Każde okno ma własny czat, zachowywany, gdy panel jest zamknięty; „Nowy czat” zaczyna od nowa, a „Zatrzymaj” przerywa trwającą odpowiedź. Gdy czat robi się dłuższy, niż model lokalny może przeczytać naraz, jego wcześniejsza część zostaje podsumowana, by czat mógł toczyć się dalej, a panel o tym informuje.",
+ "e93a54438d64": "Wyróżnienie, podkreślenie, przekreślenie; szkic, rysowanie; prostokąt, zaokrąglony prostokąt, owal, linia, strzałka, gwiazda, wielokąt, dymek, lupa, maska; pola tekstowe z fragmentami pogrubionymi, pisanymi kursywą i kolorowymi oraz notatki. Zapisywane jako standardowe adnotacje PDF",
+ "5710c4e352d8": "W środowiskach graficznych Linuksa, które nie rysują nad oknem paska tytułu, takich jak Hyprland, niri i river, pasek narzędzi kończy się przyciskiem zamykającym okno, a okno bez otwartego pliku ma taki przycisk w rogu."
 }

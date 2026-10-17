@@ -142,7 +142,7 @@
  "7173a9331f33": "<strong>Rechthoekige selectie</strong> kiest een gebied om als afbeelding te kopiëren, of om de pagina tot dat gebied bij te snijden (Ctrl+K).",
  "d49141919eed": "<strong>Schetsen</strong> maakt van lijnen die op een rechthoek, ovaal of lijn lijken die vorm; <strong>Tekenen</strong> laat ze zoals getekend.",
  "b8a5dc9e4e1a": "<strong>Vormen</strong>: rechthoek, afgeronde rechthoek, ovaal, lijn, pijl, ster, veelhoek, tekstballon, een loep die de pagina eronder vergroot, en een masker dat alles behalve een gat dimt.",
- "7ad0054d9a9c": "<strong>Tekstvak</strong> en <strong>Notitie</strong>, met lettertypen, groottes, kleuren en uitlijning.",
+ "499581862a15": "<strong>Tekstvak</strong> en <strong>Notitie</strong>, met lettertypen, groottes, kleuren en uitlijning. Terwijl je in een tekstvak typt, maakt een balk erboven de geselecteerde tekst vet (Ctrl+B), cursief (Ctrl+I) of anders van kleur.",
  "3d014d05326a": "<strong>Markeren</strong>, onderstrepen en doorhalen van geselecteerde tekst, in vijf kleuren.",
  "4a0cff4fe457": "<strong>Ondertekenen</strong> en <strong>Zwartlakken</strong>, hieronder beschreven.",
  "05fe1d0ecdfd": "Randkleur, vulkleur, lijndikte en streepjes voor vormen.",
@@ -255,7 +255,7 @@
  "bb035be82b3b": "Een afbeeldingsvenster met één afbeelding heeft geen navigatiekolom om haar uit te slepen; sleep haar in plaats daarvan uit de bestandsbeheerder.",
  "0a207286869b": "De paginaminiaturen scrollen niet vanzelf als je bij hun boven- of onderkant sleept; het scrollwiel scrolt ze tijdens het slepen.",
  "882f80e586dd": "De assistent",
- "28f86d312931": "De assistent is een chat naast je document: stel een vraag over het bestand en hij leest wat hij nodig heeft, laat je zien waar dingen staan en werkt voor je in het bestand met dezelfde gereedschappen als een <a1>AI-agent</a1>. Het robothoofd op de knoppenbalk, voor de knop Annotaties, opent hem rechts. Elk venster heeft een eigen chat, die bewaard blijft terwijl het paneel dicht is; Nieuwe chat begint opnieuw, en Stoppen beëindigt een antwoord dat bezig is.",
+ "ca87760a51b1": "De assistent is een chat naast je document: stel een vraag over het bestand en hij leest wat hij nodig heeft, laat je zien waar dingen staan en werkt voor je in het bestand met dezelfde gereedschappen als een <a1>AI-agent</a1>. Het robothoofd op de knoppenbalk, voor de knop Annotaties, opent hem rechts. Elk venster heeft een eigen chat, die bewaard blijft terwijl het paneel dicht is; Nieuwe chat begint opnieuw, en Stoppen beëindigt een antwoord dat bezig is. Wordt een chat langer dan een lokaal model in één keer kan lezen, dan wordt het eerdere deel samengevat zodat de chat door kan gaan, en het paneel meldt dat.",
  "c52aa23e60f2": "Het model krijgt alleen wat het via de gereedschappen vraagt, nooit vooraf het hele bestand. Met een lokaal model verlaat niets je computer; met een cloudmodel gaat wat het leest naar de aanbieder, dus gebruik er een die je met die bestanden vertrouwt.",
  "a24634e6e042": "Een model toevoegen",
  "ed654e3b7891": "Open Instellingen, het tabblad Assistent, en kies een aanbieder onder Model toevoegen:",
@@ -402,7 +402,7 @@
  "cf03cf2e9cdf": "Navigatie",
  "4e76125fd488": "Paginaminiaturen, inhoudsopgave, markeringen en notities, bladwijzers, zoeken met elke treffer gemarkeerd, links, diavoorstelling",
  "3d221e822859": "Annotaties",
- "68296d319760": "Markeren, onderstrepen, doorhalen; schetsen, tekenen; rechthoek, afgeronde rechthoek, ovaal, lijn, pijl, ster, veelhoek, tekstballon, loep, masker; tekstvakken en notities. Bewaard als standaard PDF-annotaties",
+ "e93a54438d64": "Markeren, onderstrepen, doorhalen; schetsen, tekenen; rechthoek, afgeronde rechthoek, ovaal, lijn, pijl, ster, veelhoek, tekstballon, loep, masker; tekstvakken met vette, cursieve en gekleurde delen, en notities. Bewaard als standaard PDF-annotaties",
  "da81c7ed7935": "Tekstvelden, selectievakjes, keuzerondjes, vervolgkeuzemenu's",
  "bedc5a9d866d": "Getekend, getypt in een handschriftlettertype of geïmporteerd uit een foto of scan; bewaard in een verzameling en geplaatst als afbeeldingen",
  "a8267cec0f7a": "Herschikken, draaien, verwijderen, bijsnijden, lege pagina's of andere PDF's invoegen, kopiëren en plakken tussen documenten met hun annotaties en formuliervelden",
@@ -511,5 +511,6 @@
  "248440b65b16": "De specificaties van prev: de systemen en processors waarop het draait, de bestandsformaten die het opent en exporteert, de talen en invoer, de software waarop het is gebouwd, en de prestaties.",
  "extra:policy-note": "Deze vertaling is bedoeld voor het gemak; de Engelse versie van dit beleid is degene die geldt.",
  "8d302eb83a9f": "<code>sudo apt install ./prev_{v}-1_*.deb</code>",
- "b265a518f1ba": "Releases voor Windows zijn sinds {v} ondertekend door Scramble Tools LLC; releases voor macOS nog niet; zie het <a1>beleid voor codeondertekening</a1>"
+ "b265a518f1ba": "Releases voor Windows zijn sinds {v} ondertekend door Scramble Tools LLC; releases voor macOS nog niet; zie het <a1>beleid voor codeondertekening</a1>",
+ "5710c4e352d8": "Op Linux-desktops die geen titelbalk boven een venster tekenen, zoals Hyprland, niri en river, eindigt de knoppenbalk met een knop die het venster sluit, en een venster zonder geopend bestand heeft er een in de bovenhoek."
 }

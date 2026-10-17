@@ -142,7 +142,6 @@
  "7173a9331f33": "A <strong>Téglalap alakú kijelölés</strong> kiválaszt egy területet, amelyet képként másolhat, vagy amelyre az oldalt körülvághatja (Ctrl+K).",
  "d49141919eed": "A <strong>Vázlat</strong> a téglalapra, ellipszisre vagy vonalra hasonlító vonásokat ilyen alakzattá alakítja; a <strong>Rajzolás</strong> úgy hagyja őket, ahogy megrajzolta.",
  "b8a5dc9e4e1a": "<strong>Alakzatok</strong>: téglalap, lekerekített téglalap, ellipszis, vonal, nyíl, csillag, sokszög, szövegbuborék, egy nagyító, amely felnagyítja az alatta lévő oldalt, és egy maszk, amely egy lyuk kivételével mindent elhalványít.",
- "7ad0054d9a9c": "<strong>Szövegdoboz</strong> és <strong>Jegyzet</strong>, betűtípusokkal, méretekkel, színekkel és igazítással.",
  "3d014d05326a": "<strong>Kiemelés</strong>, aláhúzás és áthúzás a kijelölt szövegen, öt színben.",
  "4a0cff4fe457": "<strong>Aláírás</strong> és <strong>Kitakarás</strong>, lásd alább.",
  "05fe1d0ecdfd": "Szegély színe, kitöltés színe, vonalvastagság és szaggatás az alakzatokhoz.",
@@ -255,7 +254,6 @@
  "bb035be82b3b": "Az egyetlen képet mutató képablaknak nincs oldalsávja, ahonnan kihúzhatná; húzza ki helyette a fájlkezelőből.",
  "0a207286869b": "Az oldalminiatűrök nem görgetnek maguktól, ha a tetejük vagy az aljuk közelében húz; húzás közben az egérgörgővel görgetheti őket.",
  "882f80e586dd": "Az asszisztens",
- "28f86d312931": "Az asszisztens egy csevegés a dokumentum mellett: kérdezzen a fájlról, és ő elolvassa, amire szüksége van, megmutatja, hol mi található, és dolgozik a fájlban Ön helyett, ugyanazokkal az eszközökkel, mint egy <a1>MI-ügynök</a1>. Az eszköztáron a jelölés gomb előtti robotfej nyitja meg jobb oldalt. Minden ablaknak saját csevegése van, amely a panel bezárása után is megmarad; az Új csevegés újrakezdi, a Leállítás pedig befejezi a folyamatban lévő választ.",
  "c52aa23e60f2": "A modell csak azt kapja meg, amit az eszközökön keresztül kér, soha nem az egész fájlt előre. Helyi modellnél semmi sem hagyja el a számítógépét; felhőalapú modellnél az, amit elolvas, a szolgáltatóhoz kerül, ezért olyat használjon, amelyre ezeket a fájlokat rábízná.",
  "a24634e6e042": "Modell hozzáadása",
  "ed654e3b7891": "Nyissa meg a Beállítások Asszisztens lapját, és a Modell hozzáadása alatt válasszon szolgáltatót:",
@@ -402,7 +400,6 @@
  "cf03cf2e9cdf": "Navigáció",
  "4e76125fd488": "Oldalminiatűrök, tartalomjegyzék, kiemelések és jegyzetek, könyvjelzők, keresés minden találat kiemelésével, hivatkozások, diavetítés",
  "3d221e822859": "Jelölés",
- "68296d319760": "Kiemelés, aláhúzás, áthúzás; vázlat, rajzolás; téglalap, lekerekített téglalap, ellipszis, vonal, nyíl, csillag, sokszög, szövegbuborék, nagyító, maszk; szövegdobozok és jegyzetek. Szabványos PDF-annotációként mentve",
  "da81c7ed7935": "Szövegmezők, jelölőnégyzetek, választógombok, legördülő menük",
  "bedc5a9d866d": "Rajzolt, kézírásos betűtípussal gépelt vagy fényképből, illetve szkennelt képből importált; könyvtárban tárolva, képként elhelyezve",
  "a8267cec0f7a": "Átrendezés, forgatás, törlés, körülvágás, üres oldalak vagy más PDF-ek beszúrása, másolás és beillesztés dokumentumok között az annotációkkal és űrlapmezőkkel együtt",
@@ -511,5 +508,9 @@
  "248440b65b16": "A prev műszaki adatai: a rendszerek és processzorok, amelyeken fut, a fájlformátumok, amelyeket megnyit és exportál, a nyelvei és a bevitel, a szoftverek, amelyekre épül, és a teljesítménye.",
  "extra:policy-note": "Ez a fordítás a kényelmet szolgálja; a szabályzat angol nyelvű változata az irányadó.",
  "8d302eb83a9f": "<code>sudo apt install ./prev_{v}-1_*.deb</code>",
- "b265a518f1ba": "A Windows-kiadásokat a {v} óta a Scramble Tools LLC írja alá; a macOS-kiadásokat még nem; lásd a <a1>kódaláírási szabályzatot</a1>"
+ "b265a518f1ba": "A Windows-kiadásokat a {v} óta a Scramble Tools LLC írja alá; a macOS-kiadásokat még nem; lásd a <a1>kódaláírási szabályzatot</a1>",
+ "499581862a15": "<strong>Szövegdoboz</strong> és <strong>Jegyzet</strong>, betűtípusokkal, méretekkel, színekkel és igazítással. Amíg egy szövegdobozba ír, a fölötte lévő sáv a kijelölt szöveget félkövérré (Ctrl+B), dőltté (Ctrl+I) vagy más színűvé teszi.",
+ "ca87760a51b1": "Az asszisztens egy csevegés a dokumentum mellett: kérdezzen a fájlról, és ő elolvassa, amire szüksége van, megmutatja, hol mi található, és dolgozik a fájlban Ön helyett, ugyanazokkal az eszközökkel, mint egy <a1>MI-ügynök</a1>. Az eszköztáron a jelölés gomb előtti robotfej nyitja meg jobb oldalt. Minden ablaknak saját csevegése van, amely a panel bezárása után is megmarad; az Új csevegés újrakezdi, a Leállítás pedig befejezi a folyamatban lévő választ. Ha a csevegés hosszabb lesz annál, amennyit egy helyi modell egyszerre el tud olvasni, a korábbi része összefoglalóvá rövidül, hogy a csevegés folytatódhasson, és ezt a panel jelzi is.",
+ "e93a54438d64": "Kiemelés, aláhúzás, áthúzás; vázlat, rajzolás; téglalap, lekerekített téglalap, ellipszis, vonal, nyíl, csillag, sokszög, szövegbuborék, nagyító, maszk; szövegdobozok félkövér, dőlt és színes részekkel, valamint jegyzetek. Szabványos PDF-annotációként mentve",
+ "5710c4e352d8": "Az olyan linuxos asztali környezetekben, mint a Hyprland, a niri és a river, amelyek nem rajzolnak címsort az ablak fölé, az eszköztár az ablakot bezáró gombbal végződik, a fájl nélkül nyitott ablak sarkában pedig egy ugyanilyen gomb van."
 }

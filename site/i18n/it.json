@@ -142,7 +142,7 @@
  "7173a9331f33": "<strong>Selezione rettangolare</strong> sceglie un’area da copiare come immagine, o a cui ritagliare la pagina (Ctrl+K).",
  "d49141919eed": "<strong>Schizzo</strong> trasforma i tratti che somigliano a un rettangolo, un ovale o una linea in quella forma; <strong>Disegna</strong> li lascia come li hai tracciati.",
  "b8a5dc9e4e1a": "<strong>Forme</strong>: rettangolo, rettangolo arrotondato, ovale, linea, freccia, stella, poligono, fumetto, una lente che ingrandisce la pagina sottostante e una maschera che scurisce tutto tranne un foro.",
- "7ad0054d9a9c": "<strong>Casella di testo</strong> e <strong>Nota</strong>, con font, dimensioni, colori e allineamento.",
+ "499581862a15": "<strong>Casella di testo</strong> e <strong>Nota</strong>, con font, dimensioni, colori e allineamento. Mentre scrivi in una casella di testo, una barra sopra di essa mette il testo selezionato in grassetto (Ctrl+B), in corsivo (Ctrl+I) o in un altro colore.",
  "3d014d05326a": "<strong>Evidenzia</strong>, sottolineatura e barrato sul testo selezionato, in cinque colori.",
  "4a0cff4fe457": "<strong>Firma</strong> e <strong>Oscura</strong>, descritti più avanti.",
  "05fe1d0ecdfd": "Colore del bordo, colore di riempimento, spessore e tratteggio della linea per le forme.",
@@ -255,7 +255,7 @@
  "bb035be82b3b": "Una finestra delle immagini che mostra una sola immagine non ha una barra laterale da cui trascinarla; trascinala invece dal file manager.",
  "0a207286869b": "Le miniature delle pagine non scorrono da sole quando trascini vicino al loro bordo superiore o inferiore; durante un trascinamento le fa scorrere la rotellina.",
  "882f80e586dd": "L’assistente",
- "28f86d312931": "L’assistente è una chat accanto al documento: fai domande sul file e legge ciò che gli serve, ti mostra dove si trovano le cose e lavora nel file al posto tuo con gli stessi strumenti di un <a1>agente IA</a1>. La testa di robot nella barra degli strumenti, prima del pulsante del markup, lo apre a destra. Ogni finestra ha la sua chat, conservata mentre il pannello è chiuso; Nuova chat ricomincia da capo e Interrompi ferma una risposta in corso.",
+ "ca87760a51b1": "L’assistente è una chat accanto al documento: fai domande sul file e legge ciò che gli serve, ti mostra dove si trovano le cose e lavora nel file al posto tuo con gli stessi strumenti di un <a1>agente IA</a1>. La testa di robot nella barra degli strumenti, prima del pulsante del markup, lo apre a destra. Ogni finestra ha la sua chat, conservata mentre il pannello è chiuso; Nuova chat ricomincia da capo e Interrompi ferma una risposta in corso. Quando una chat diventa troppo lunga perché un modello locale la legga tutta insieme, la parte precedente viene riassunta così che la chat possa continuare, e il pannello lo segnala.",
  "c52aa23e60f2": "Il modello riceve solo ciò che chiede tramite gli strumenti, mai l’intero file in anticipo. Con un modello locale nulla lascia il tuo computer; con un modello cloud, ciò che legge va al fornitore, quindi usane uno a cui affideresti quei file.",
  "a24634e6e042": "Aggiungere un modello",
  "ed654e3b7891": "Apri Impostazioni, la scheda Assistente, e scegli un fornitore sotto Aggiungi un modello:",
@@ -402,7 +402,7 @@
  "cf03cf2e9cdf": "Navigazione",
  "4e76125fd488": "Miniature delle pagine, indice, evidenziazioni e note, segnalibri, ricerca con ogni risultato evidenziato, link, presentazione",
  "3d221e822859": "Markup",
- "68296d319760": "Evidenziazione, sottolineatura, barrato; schizzo, disegno; rettangolo, rettangolo arrotondato, ovale, linea, freccia, stella, poligono, fumetto, lente, maschera; caselle di testo e note. Salvati come annotazioni PDF standard",
+ "e93a54438d64": "Evidenziazione, sottolineatura, barrato; schizzo, disegno; rettangolo, rettangolo arrotondato, ovale, linea, freccia, stella, poligono, fumetto, lente, maschera; caselle di testo, con parti in grassetto, in corsivo e colorate, e note. Salvati come annotazioni PDF standard",
  "da81c7ed7935": "Campi di testo, caselle di controllo, pulsanti di opzione, menu a discesa",
  "bedc5a9d866d": "Disegnate, scritte con un font calligrafico o importate da una foto o scansione; conservate in una libreria e inserite come immagini",
  "a8267cec0f7a": "Riordinare, ruotare, eliminare, ritagliare, inserire pagine vuote o altri PDF, copiare e incollare tra documenti con annotazioni e campi dei moduli",
@@ -511,5 +511,6 @@
  "248440b65b16": "Le specifiche di prev: i sistemi e i processori su cui funziona, i formati di file che apre ed esporta, le sue lingue e l’input, il software su cui si basa e le sue prestazioni.",
  "extra:policy-note": "Questa traduzione è fornita per comodità; la versione inglese di questi criteri è quella che fa fede.",
  "8d302eb83a9f": "<code>sudo apt install ./prev_{v}-1_*.deb</code>",
- "b265a518f1ba": "Le release per Windows sono firmate da Scramble Tools LLC dalla {v}; quelle per macOS non ancora; vedi i <a1>criteri di firma del codice</a1>"
+ "b265a518f1ba": "Le release per Windows sono firmate da Scramble Tools LLC dalla {v}; quelle per macOS non ancora; vedi i <a1>criteri di firma del codice</a1>",
+ "5710c4e352d8": "Sui desktop Linux che non disegnano una barra del titolo sopra le finestre, come Hyprland, niri e river, la barra degli strumenti termina con un pulsante che chiude la finestra, e una finestra senza file aperti ne ha uno nell’angolo in alto."
 }

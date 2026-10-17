@@ -142,7 +142,7 @@
  "7173a9331f33": "<strong>Rektangulært utvalg</strong> velger et område som skal kopieres som bilde, eller som siden skal beskjæres til (Ctrl+K).",
  "d49141919eed": "<strong>Skisse</strong> gjør strøk som ligner et rektangel, en ellipse eller en linje, om til den figuren; <strong>Tegn</strong> beholder dem slik de ble tegnet.",
  "b8a5dc9e4e1a": "<strong>Figurer</strong>: rektangel, avrundet rektangel, ellipse, linje, pil, stjerne, mangekant, snakkeboble, en lupe som forstørrer siden under den, og en maske som demper alt unntatt et hull.",
- "7ad0054d9a9c": "<strong>Tekstboks</strong> og <strong>Notat</strong>, med skrifter, størrelser, farger og justering.",
+ "499581862a15": "<strong>Tekstboks</strong> og <strong>Notat</strong>, med skrifter, størrelser, farger og justering. Mens du skriver i en tekstboks, gjør en verktøylinje over boksen den markerte teksten fet (Ctrl+B), kursiv (Ctrl+I) eller gir den en annen farge.",
  "3d014d05326a": "<strong>Uthev</strong>, understreking og gjennomstreking av markert tekst, i fem farger.",
  "4a0cff4fe457": "<strong>Signer</strong> og <strong>Sladd</strong>, beskrevet nedenfor.",
  "05fe1d0ecdfd": "Kantfarge, fyllfarge, linjebredde og stipling for figurer.",
@@ -255,7 +255,7 @@
  "bb035be82b3b": "Et bildevindu som viser ett enkelt bilde, har ikke noe sidepanel å dra det fra; dra det fra filbehandleren i stedet.",
  "0a207286869b": "Sideminiatyrene ruller ikke av seg selv når du drar nær toppen eller bunnen av dem; rullehjulet ruller dem under en dragning.",
  "882f80e586dd": "Assistenten",
- "28f86d312931": "Assistenten er en chat ved siden av dokumentet ditt: spør om filen, så leser den det den trenger, viser deg hvor ting er, og arbeider i filen for deg med de samme verktøyene som en <a1>AI-agent</a1>. Robothodet på verktøylinjen, foran markeringsknappen, åpner den til høyre. Hvert vindu har sin egen chat, som blir tatt vare på mens panelet er lukket; Ny chat begynner på nytt, og Stopp avbryter et svar som er underveis.",
+ "ca87760a51b1": "Assistenten er en chat ved siden av dokumentet ditt: spør om filen, så leser den det den trenger, viser deg hvor ting er, og arbeider i filen for deg med de samme verktøyene som en <a1>AI-agent</a1>. Robothodet på verktøylinjen, foran markeringsknappen, åpner den til høyre. Hvert vindu har sin egen chat, som blir tatt vare på mens panelet er lukket; Ny chat begynner på nytt, og Stopp avbryter et svar som er underveis. Når en chat blir lengre enn en lokal modell kan lese på én gang, blir den tidligere delen oppsummert slik at chatten kan fortsette, og panelet sier fra om det.",
  "c52aa23e60f2": "Modellen får bare det den ber om gjennom verktøyene, aldri hele filen på forhånd. Med en lokal modell forlater ingenting datamaskinen din; med en skymodell går det den leser, til leverandøren, så bruk en du stoler på med de filene.",
  "a24634e6e042": "Legge til en modell",
  "ed654e3b7891": "Åpne Innstillinger, fanen Assistent, og velg en leverandør under Legg til en modell:",
@@ -402,7 +402,7 @@
  "cf03cf2e9cdf": "Navigering",
  "4e76125fd488": "Sideminiatyrer, innholdsfortegnelse, uthevinger og notater, bokmerker, søk med hvert treff uthevet, lenker, lysbildeserie",
  "3d221e822859": "Markering",
- "68296d319760": "Utheving, understreking, gjennomstreking; skisse, tegning; rektangel, avrundet rektangel, ellipse, linje, pil, stjerne, mangekant, snakkeboble, lupe, maske; tekstbokser og notater. Lagres som vanlige PDF-merknader",
+ "e93a54438d64": "Utheving, understreking, gjennomstreking; skisse, tegning; rektangel, avrundet rektangel, ellipse, linje, pil, stjerne, mangekant, snakkeboble, lupe, maske; tekstbokser med fete, kursive og fargede deler, og notater. Lagres som vanlige PDF-merknader",
  "da81c7ed7935": "Tekstfelt, avmerkingsbokser, alternativknapper, nedtrekksmenyer",
  "bedc5a9d866d": "Tegnet, skrevet med en håndskriftsskrift eller importert fra et bilde eller en skanning; lagret i et bibliotek og plassert som bilder",
  "a8267cec0f7a": "Endre rekkefølge, rotere, slette, beskjære, sette inn tomme sider eller andre PDF-er, kopiere og lime inn mellom dokumenter med merknader og skjemafelt",
@@ -511,5 +511,6 @@
  "248440b65b16": "Spesifikasjonene til prev: systemene og prosessorene det kjører på, filformatene det åpner og eksporterer, språk og inndata, programvaren det bygger på, og ytelsen.",
  "extra:policy-note": "Denne oversettelsen er gitt for enkelhets skyld; det er den engelske versjonen av disse retningslinjene som gjelder.",
  "8d302eb83a9f": "<code>sudo apt install ./prev_{v}-1_*.deb</code>",
- "b265a518f1ba": "Utgivelser for Windows er signert av Scramble Tools LLC siden {v}; utgivelser for macOS er ikke det ennå; se <a1>retningslinjene for kodesignering</a1>"
+ "b265a518f1ba": "Utgivelser for Windows er signert av Scramble Tools LLC siden {v}; utgivelser for macOS er ikke det ennå; se <a1>retningslinjene for kodesignering</a1>",
+ "5710c4e352d8": "I Linux-skrivebordsmiljøer som ikke tegner noen tittellinje over vinduet, for eksempel Hyprland, niri og river, slutter verktøylinjen med en knapp som lukker vinduet, og et vindu uten åpen fil har en oppe i hjørnet."
 }

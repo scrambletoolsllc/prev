@@ -142,7 +142,7 @@
  "7173a9331f33": "<strong>Rektangulär markering</strong> väljer ett område att kopiera som bild, eller att beskära sidan till (Ctrl+K).",
  "d49141919eed": "<strong>Skiss</strong> gör streck som liknar en rektangel, ellips eller linje till den formen; <strong>Rita</strong> behåller dem som de ritades.",
  "b8a5dc9e4e1a": "<strong>Former</strong>: rektangel, rundad rektangel, ellips, linje, pil, stjärna, månghörning, pratbubbla, en lupp som förstorar sidan under den och en mask som tonar ned allt utom ett hål.",
- "7ad0054d9a9c": "<strong>Textruta</strong> och <strong>Anteckning</strong>, med typsnitt, storlekar, färger och justering.",
+ "499581862a15": "<strong>Textruta</strong> och <strong>Anteckning</strong>, med typsnitt, storlekar, färger och justering. Medan du skriver i en textruta gör ett verktygsfält ovanför rutan den markerade texten fet (Ctrl+B), kursiv (Ctrl+I) eller ger den en annan färg.",
  "3d014d05326a": "<strong>Överstrykning</strong>, understrykning och genomstrykning av markerad text, i fem färger.",
  "4a0cff4fe457": "<strong>Signera</strong> och <strong>Svärta</strong>, som beskrivs nedan.",
  "05fe1d0ecdfd": "Kantfärg, fyllnadsfärg, linjebredd och streckning för former.",
@@ -255,7 +255,7 @@
  "bb035be82b3b": "Ett bildfönster som visar en enda bild har inget sidofält att dra den från; dra den från filhanteraren i stället.",
  "0a207286869b": "Sidminiatyrerna rullar inte av sig själva när du drar nära deras över- eller nederkant; rullhjulet rullar dem under en dragning.",
  "882f80e586dd": "Assistenten",
- "28f86d312931": "Assistenten är en chatt bredvid ditt dokument: fråga om filen så läser den det den behöver, visar dig var saker finns och arbetar i filen åt dig med samma verktyg som en <a1>AI-agent</a1>. Robothuvudet i verktygsfältet, före märkningsknappen, öppnar den till höger. Varje fönster har en egen chatt, som finns kvar medan panelen är stängd; Ny chatt börjar om, och Stoppa avbryter ett svar som pågår.",
+ "ca87760a51b1": "Assistenten är en chatt bredvid ditt dokument: fråga om filen så läser den det den behöver, visar dig var saker finns och arbetar i filen åt dig med samma verktyg som en <a1>AI-agent</a1>. Robothuvudet i verktygsfältet, före märkningsknappen, öppnar den till höger. Varje fönster har en egen chatt, som finns kvar medan panelen är stängd; Ny chatt börjar om, och Stoppa avbryter ett svar som pågår. När en chatt blir längre än vad en lokal modell kan läsa på en gång, sammanfattas den tidigare delen så att chatten kan fortsätta, och panelen talar om det.",
  "c52aa23e60f2": "Modellen får bara det den ber om via verktygen, aldrig hela filen på en gång. Med en lokal modell lämnar ingenting din dator; med en molnmodell går det den läser till leverantören, så använd en som du litar på med de filerna.",
  "a24634e6e042": "Lägga till en modell",
  "ed654e3b7891": "Öppna Inställningar, fliken Assistent, och välj en leverantör under Lägg till en modell:",
@@ -402,7 +402,7 @@
  "cf03cf2e9cdf": "Navigering",
  "4e76125fd488": "Sidminiatyrer, innehållsförteckning, överstrykningar och anteckningar, bokmärken, sökning med varje träff markerad, länkar, bildspel",
  "3d221e822859": "Märkning",
- "68296d319760": "Överstrykning, understrykning, genomstrykning; skiss, rita; rektangel, rundad rektangel, ellips, linje, pil, stjärna, månghörning, pratbubbla, lupp, mask; textrutor och anteckningar. Sparas som vanliga PDF-annoteringar",
+ "e93a54438d64": "Överstrykning, understrykning, genomstrykning; skiss, rita; rektangel, rundad rektangel, ellips, linje, pil, stjärna, månghörning, pratbubbla, lupp, mask; textrutor med feta, kursiva och färgade partier samt anteckningar. Sparas som vanliga PDF-annoteringar",
  "da81c7ed7935": "Textfält, kryssrutor, alternativknappar, listrutor",
  "bedc5a9d866d": "Ritade, skrivna med ett handskriftstypsnitt eller importerade från ett foto eller en skanning; sparas i ett bibliotek och placeras som bilder",
  "a8267cec0f7a": "Ändra ordning, rotera, radera, beskära, infoga tomma sidor eller andra PDF-filer, kopiera och klistra in mellan dokument med annoteringar och formulärfält",
@@ -511,5 +511,6 @@
  "248440b65b16": "Specifikationer för prev: system och processorer det körs på, filformat det öppnar och exporterar, språk och inmatning, programvaran det bygger på och dess prestanda.",
  "extra:policy-note": "Den här översättningen tillhandahålls för enkelhetens skull; det är den engelska versionen av den här policyn som gäller.",
  "8d302eb83a9f": "<code>sudo apt install ./prev_{v}-1_*.deb</code>",
- "b265a518f1ba": "Versioner för Windows är signerade av Scramble Tools LLC sedan {v}; versioner för macOS ännu inte; se <a1>policyn för kodsignering</a1>"
+ "b265a518f1ba": "Versioner för Windows är signerade av Scramble Tools LLC sedan {v}; versioner för macOS ännu inte; se <a1>policyn för kodsignering</a1>",
+ "5710c4e352d8": "I Linux-skrivbordsmiljöer som inte ritar någon namnlist ovanför fönstret, till exempel Hyprland, niri och river, slutar verktygsfältet med en knapp som stänger fönstret, och ett fönster utan öppen fil har en uppe i hörnet."
 }

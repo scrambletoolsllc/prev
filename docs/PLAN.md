@@ -70,8 +70,9 @@ Planned or considered, but not in prev today:
 
 ## Next
 
-- **Windows code signing** with Azure Artifact Signing, then a winget
-  listing. See [RELEASING.md](RELEASING.md#windows-code-signing).
+- **winget**: the listing for `ScrambleTools.prev` is in review; each
+  release after it needs its own manifests. See
+  [RELEASING.md](RELEASING.md#windows-code-signing).
 - **The AUR packages** (`prev`, `prev-git`), once an AUR account can be
   made.
 - **macOS signing**: a Developer ID signature and notarization so
@@ -275,6 +276,7 @@ driver mappings.
 | rig-core changes quickly between versions | Pinned to one version, and known to `prev-assist` alone, so an update touches one crate; recorded tests catch a provider's format changing |
 | A model does the wrong thing in a file | Every change is one step of Undo; for outside agents, signing, applying redactions and other steps Undo cannot take back ask first by default; the assistant does them only when asked |
 | Memory under heavy use, mostly MuPDF's store | Add a store size limit to the `mupdf` crate upstream if it becomes a problem, and remeasure |
-| Unsigned Windows downloads trigger SmartScreen warnings | Code signing with Azure Artifact Signing |
+| Unsigned Windows downloads trigger SmartScreen warnings | Signed with Azure Artifact Signing since 2.2.1 |
+| A package needs something a clean system lacks, as 2.2.2's Windows files needed the Visual C++ runtime | Every package installed and started on a clean system before a release is drafted (`install-test.yml`); `check-dlls.py` checks every DLL the Windows files load |
 | Gatekeeper blocks the macOS app until it is notarized | A Developer ID signature and notarization in the release workflow |
 | Draft translations read awkwardly | Marked as first drafts in the README; corrections welcome |
