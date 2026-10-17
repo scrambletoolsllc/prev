@@ -60,6 +60,8 @@ pub enum Message {
     /// Handled by the app, as in the other windows.
     ToggleFloatingBars,
     OpenSettings,
+    /// The toolbar's close button, where the window manager draws none.
+    CloseWindow,
     /// Open or close the assistant panel, which the app keeps.
     ToggleAssistant,
     /// A message from the app's panel in this window's side, which the
@@ -403,6 +405,7 @@ impl MarkdownWindow {
             }
             Message::ToggleFloatingBars
             | Message::OpenSettings
+            | Message::CloseWindow
             | Message::ToggleAssistant
             | Message::Side(_) => Task::none(),
             Message::Export => {
@@ -893,6 +896,7 @@ impl MarkdownWindow {
                 ),
             ]),
         ]
+        .push(crate::ui::close_window(Message::CloseWindow))
         .spacing(8)
         .align_y(Center);
         component::toolbar(bar)

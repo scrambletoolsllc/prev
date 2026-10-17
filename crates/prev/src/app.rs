@@ -871,6 +871,11 @@ impl Prev {
             | Message::Markdown(id, markdown::Message::OpenSettings) => {
                 self.perform(id, Action::Settings)
             }
+            Message::Pdf(id, pdf_window::Message::CloseWindow)
+            | Message::Image(id, image_window::Message::CloseWindow)
+            | Message::Markdown(id, markdown::Message::CloseWindow) => {
+                self.update(Message::CloseRequested(id))
+            }
             Message::Pdf(id, pdf_window::Message::ToggleAssistant)
             | Message::Image(id, image_window::Message::ToggleAssistant)
             | Message::Markdown(id, markdown::Message::ToggleAssistant)
@@ -1629,7 +1634,7 @@ impl Prev {
         let body = match &window.content {
             Content::Start => {
                 beside = self.panel_view(id);
-                start_view(id)
+                with_close(id, start_view(id))
             }
             Content::Document(Document { pdf: Some(pdf), .. }) => pdf
                 .view_with(side().map(|panel| panel.map(pdf_window::Message::Side)))
@@ -1649,7 +1654,7 @@ impl Prev {
                     side().map(|panel| panel.map(markdown::Message::Side)),
                 )
                 .map(move |message| Message::Markdown(id, message)),
-            Content::Document(document) => document_view(document),
+            Content::Document(document) => with_close(id, document_view(document)),
         };
         // Layers over the window are always in the tree, empty when not
         // shown, so opening one keeps the state underneath, such as the
@@ -2150,6 +2155,16 @@ fn theme_choice(
         system_dark,
         chosen_accent: chosen_accent(settings),
     })
+}
+
+/// `content` with the close button in its top right corner, for a window
+/// without a toolbar to end with it, where the window manager draws no
+/// title bar.
+fn with_close<'a>(id: window::Id, content: Element<'a, Message>) -> Element<'a, Message> {
+    match prev::ui::close_window(Message::CloseRequested(id)) {
+        Some(close) => stack![content, container(close).align_right(Fill).padding(8)].into(),
+        None => content,
+    }
 }
 
 fn start_view(id: window::Id) -> Element<'static, Message> {

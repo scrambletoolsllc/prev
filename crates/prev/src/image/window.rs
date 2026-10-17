@@ -301,6 +301,8 @@ pub enum Message {
     ToggleFloatingBars,
     /// Opens the settings window; the app handles it.
     OpenSettings,
+    /// The toolbar's close button, where the window manager draws none.
+    CloseWindow,
     /// Open or close the assistant panel, which the app keeps.
     ToggleAssistant,
     /// A message from the app's panel in this window's side, which the
@@ -802,6 +804,7 @@ impl ImageWindow {
         match message {
             Message::ToggleFloatingBars
             | Message::OpenSettings
+            | Message::CloseWindow
             | Message::ToggleAssistant
             | Message::Side(_) => Task::none(),
             Message::Loaded(index, result) => {
@@ -2553,6 +2556,9 @@ impl ImageWindow {
             None,
             false,
         ));
+        if let Some(close) = crate::ui::close_window(Message::CloseWindow) {
+            slots.push((close, TOOL_WIDTH, None, false));
+        }
         let widths: Vec<(f32, Option<u8>)> = slots
             .iter()
             .map(|(_, width, order, _)| (*width, *order))
