@@ -3,6 +3,45 @@
 All notable changes to prev. Versions follow
 [Semantic Versioning](https://semver.org).
 
+## [2.2.3] - 2026-10-17
+
+### Added
+
+- Parts of a text box's text can be bold, italic or in a color of their
+  own: while typing in a text box, a bar above it styles the selected
+  text, and Ctrl+B and Ctrl+I do too. The styles are saved as PDF rich
+  text, which other PDF readers show, and those of other apps' files
+  are kept.
+- Long chats with the assistant are summarized before they outgrow what
+  the model can read at once, where prev knows how much that is, such
+  as a local model's; the panel shows the summary being written and
+  says what happened, and keeps the whole chat in view.
+- On Linux desktops that draw no title bar above a window, such as
+  Hyprland, niri and river, the toolbar ends with a button that closes
+  the window, and a window with no file open has one in its corner.
+
+### Changed
+
+- The assistant sends the model much less with each request: only the
+  tools for the window's file, shorter descriptions of them, and the
+  page in view and the selected text with each message, so it asks
+  fewer questions first; Anthropic is asked to keep what repeats. In
+  tests, common questions took about half the tokens they did.
+- Settings opens at once, without growing in.
+
+### Fixed
+
+- prev starts on a Windows without the Visual C++ Redistributable,
+  where it closed at once: the installer and the zip carry the runtime
+  it needs.
+- The text box editor lines up with the text as the page draws it, so
+  nothing shifts as typing starts and ends.
+- Leaving full screen, or showing or hiding the side panel, lays the
+  pages out again for the new width rather than leaving them to one
+  side.
+- Ctrl and the mouse wheel zoom right after scrolling, rather than
+  scrolling on.
+
 ## [2.2.2] - 2026-10-10
 
 ### Fixed

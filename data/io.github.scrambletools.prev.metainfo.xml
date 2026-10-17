@@ -92,6 +92,11 @@
   <content_rating type="oars-1.1"/>
 
   <releases>
+    <release version="2.2.3" date="2026-10-17">
+      <description>
+        <p>Parts of a text box's text can be bold, italic or in a color of their own, saved as PDF rich text. The assistant sends the model much less with each request and summarizes long chats before they outgrow a local model's context. On Linux desktops that draw no title bars, such as Hyprland, the toolbar ends with a button that closes the window. prev now starts on a Windows without the Visual C++ Redistributable, and the text box editor lines up with the page.</p>
+      </description>
+    </release>
     <release version="2.2.2" date="2026-10-10">
       <description>
         <p>The names and descriptions of prev's tools, which the assistant and outside agents read, are now in US English like the rest of the interface.</p>
