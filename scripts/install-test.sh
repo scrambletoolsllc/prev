@@ -98,9 +98,10 @@ flatpak)
     export DEBIAN_FRONTEND=noninteractive
     apt-get update -qq
     apt-get install -y -qq --no-install-recommends flatpak ca-certificates dbus
-    flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-    # The bundle's runtime comes from Flathub, as when a user installs it.
-    flatpak install -y --noninteractive "$(one "prev-$arch.flatpak")"
+    # For the user, as the README says to install it; the bundle's runtime
+    # comes from Flathub.
+    flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+    flatpak install --user -y --noninteractive "$(one "prev-$arch.flatpak")"
     # flatpak run needs a session bus and a runtime folder, as a desktop
     # session has.
     export XDG_RUNTIME_DIR=/tmp/runtime
@@ -110,7 +111,7 @@ flatpak)
         "prev "[0-9]*) echo "prev starts: $version" ;;
         *) echo "prev did not start: $version" >&2; exit 1 ;;
     esac
-    flatpak uninstall -y --noninteractive $id
+    flatpak uninstall --user -y --noninteractive $id
     ;;
 *)
     echo "No install test for $kind" >&2
