@@ -77,7 +77,9 @@ appimage)
     export DEBIAN_FRONTEND=noninteractive
     apt-get update -qq
     apt-get install -y -qq --no-install-recommends libfontconfig1
-    image=$(one "prev-*-$arch.AppImage")
+    # Out of the read-only folder it came in, to be made executable.
+    image=/tmp/$(basename "$(one "prev-*-$arch.AppImage")")
+    cp "$(one "prev-*-$arch.AppImage")" "$image"
     chmod +x "$image"
     # No FUSE in a container: the AppImage unpacks itself instead.
     export APPIMAGE_EXTRACT_AND_RUN=1
@@ -95,11 +97,19 @@ tarball)
 flatpak)
     export DEBIAN_FRONTEND=noninteractive
     apt-get update -qq
-    apt-get install -y -qq --no-install-recommends flatpak ca-certificates
+    apt-get install -y -qq --no-install-recommends flatpak ca-certificates dbus
     flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
     # The bundle's runtime comes from Flathub, as when a user installs it.
     flatpak install -y --noninteractive "$(one "prev-$arch.flatpak")"
-    starts flatpak run $id
+    # flatpak run needs a session bus and a runtime folder, as a desktop
+    # session has.
+    export XDG_RUNTIME_DIR=/tmp/runtime
+    mkdir -p -m 700 "$XDG_RUNTIME_DIR"
+    version=$(dbus-run-session -- flatpak run $id --version)
+    case $version in
+        "prev "[0-9]*) echo "prev starts: $version" ;;
+        *) echo "prev did not start: $version" >&2; exit 1 ;;
+    esac
     flatpak uninstall -y --noninteractive $id
     ;;
 *)
