@@ -62,7 +62,8 @@ def crt_folder(arch):
     vswhere = os.path.join(os.environ.get("ProgramFiles(x86)", r"C:\Program Files (x86)"),
                            "Microsoft Visual Studio", "Installer", "vswhere.exe")
     roots = subprocess.run([vswhere, "-all", "-products", "*", "-property", "installationPath"],
-                           capture_output=True, text=True, check=True).stdout.split()
+                           capture_output=True, text=True, check=True).stdout.splitlines()
+    roots = [root.strip() for root in roots if root.strip()]
     found = []
     for root in roots:
         found += glob.glob(os.path.join(root, "VC", "Redist", "MSVC", "*", arch, "Microsoft.VC*.CRT"))
