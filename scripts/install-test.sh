@@ -98,20 +98,24 @@ flatpak)
     export DEBIAN_FRONTEND=noninteractive
     apt-get update -qq
     apt-get install -y -qq --no-install-recommends flatpak ca-certificates dbus
-    # For the user, as the README says to install it; the bundle's runtime
-    # comes from Flathub.
-    flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-    flatpak install --user -y --noninteractive "$(one "prev-$arch.flatpak")"
-    # flatpak run needs a session bus and a runtime folder, as a desktop
-    # session has.
+    # flatpak talks to the system and session buses, and runs apps in a
+    # runtime folder, which a desktop has and a container does not.
+    mkdir -p /run/dbus
+    dbus-daemon --system --fork
     export XDG_RUNTIME_DIR=/tmp/runtime
     mkdir -p -m 700 "$XDG_RUNTIME_DIR"
-    version=$(dbus-run-session -- flatpak run $id --version)
-    case $version in
-        "prev "[0-9]*) echo "prev starts: $version" ;;
-        *) echo "prev did not start: $version" >&2; exit 1 ;;
-    esac
-    flatpak uninstall --user -y --noninteractive $id
+    # For the user, as the README says to install it; the bundle's runtime
+    # comes from Flathub.
+    dbus-run-session -- sh -eu -c '
+        flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+        flatpak install --user -y --noninteractive "$1"
+        version=$(flatpak run '$id' --version)
+        case $version in
+            "prev "[0-9]*) echo "prev starts: $version" ;;
+            *) echo "prev did not start: $version" >&2; exit 1 ;;
+        esac
+        flatpak uninstall --user -y --noninteractive '$id'
+    ' sh "$(one "prev-$arch.flatpak")"
     ;;
 *)
     echo "No install test for $kind" >&2
