@@ -18,7 +18,7 @@ New-Item -ItemType Directory -Force $Out | Out-Null
 
 # Every DLL beside prev.exe but heif.dll is the Visual C++ runtime.
 $runtime = (Get-ChildItem $Source -Filter *.dll | Where-Object Name -ne 'heif.dll' | ForEach-Object Name) -join ';'
-if (-not $runtime) { throw "No Visual C++ runtime in $Source: run check-dlls.py --bundle-crt first" }
+if (-not $runtime) { throw "No Visual C++ runtime in ${Source}; run check-dlls.py --bundle-crt first" }
 
 $msi = Join-Path $Out "prev-$Version-$Arch.msi"
 wix build (Join-Path $here 'prev.wxs') -arch $Arch -d "Version=$Version" -d "Source=$((Resolve-Path $Source).Path)" -d "Runtime=$runtime" -o $msi
