@@ -90,12 +90,16 @@ jobs:
           key: vcpkg-libheif-x64-${{ hashFiles('packaging/windows/vcpkg/**') }}
       - name: libheif
         run: vcpkg install --x-manifest-root=packaging\windows\vcpkg --x-install-root=vcpkg_installed --triplet x64-windows-prev
+      # With the Visual C++ runtime they load, as the release has them.
       - name: Collect prev.exe and its DLLs
         shell: pwsh
         run: |
           New-Item -ItemType Directory -Force dist | Out-Null
           Copy-Item target\release\prev.exe dist\
           Copy-Item vcpkg_installed\x64-windows-prev\bin\heif.dll dist\
+          python -m pip install --quiet pefile
+          python packaging\windows\check-dlls.py dist --bundle-crt x64
+          if ($LASTEXITCODE -ne 0) { throw "check-dlls.py failed" }
           Get-ChildItem dist
       - uses: actions/upload-artifact@v4
         with:
