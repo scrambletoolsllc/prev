@@ -348,6 +348,35 @@ fn form_fields_fill_and_round_trip() {
     }
 }
 
+#[test]
+fn a_checkbox_under_a_container_keeps_its_value_to_itself() {
+    // A box that is a field of its own, under a node that only groups the
+    // page's fields: its value goes on it, not on the node, which every
+    // field under it would inherit.
+    let (_dir, mut document) = open(&common::nested_form_fixture());
+    let fields = document.fields(0).unwrap();
+    assert_eq!(fields.len(), 3, "{fields:#?}");
+    let button = |fields: &[Field], on: &str| {
+        fields
+            .iter()
+            .find(|field| field.on_value.as_deref() == Some(on))
+            .cloned()
+            .unwrap()
+    };
+    let no = button(&fields, "2");
+    document.set_field(0, no.id, "2").unwrap();
+
+    let (_dir, reopened, _) = reopen(&mut document);
+    let fields = reopened.fields(0).unwrap();
+    assert!(button(&fields, "2").is_on());
+    assert!(!button(&fields, "1").is_on());
+    let first = fields
+        .iter()
+        .find(|field| matches!(field.kind, FieldKind::Text { .. }))
+        .unwrap();
+    assert_eq!(first.value, "", "the text field took the box's value");
+}
+
 /// Every `/AS` entry in the file, uncompressed by MuPDF first.
 fn appearance_states(path: &Path) -> Vec<String> {
     let document = mupdf::pdf::PdfDocument::open(path.to_str().unwrap()).unwrap();

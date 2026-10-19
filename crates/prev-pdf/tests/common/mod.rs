@@ -99,6 +99,48 @@ pub fn navigation_fixture() -> Vec<u8> {
     assemble_pdf_with_trailer(&objects, "/Info 15 0 R")
 }
 
+/// One letter page whose form keeps its fields under a container node, as
+/// the IRS's forms do: "page1" holds a text field and two checkboxes, each
+/// a field of its own with its own name, the boxes on as "1" and "2".
+pub fn nested_form_fixture() -> Vec<u8> {
+    assemble_pdf(&[
+        // 1
+        b"<< /Type /Catalog /Pages 2 0 R /AcroForm << /Fields [6 0 R] \
+/DA (/Helv 12 Tf 0 g) /DR << /Font << /Helv 5 0 R >> >> >> >>"
+            .to_vec(),
+        // 2
+        b"<< /Type /Pages /Kids [3 0 R] /Count 1 >>".to_vec(),
+        // 3
+        b"<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R \
+/Resources << /Font << /F1 5 0 R >> >> /Annots [7 0 R 8 0 R 9 0 R] >>"
+            .to_vec(),
+        // 4
+        stream_object("", b""),
+        // 5
+        b"<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>".to_vec(),
+        // 6: the container, a field with no value of its own
+        b"<< /T (page1) /Kids [7 0 R 8 0 R 9 0 R] >>".to_vec(),
+        // 7: text field
+        b"<< /Type /Annot /Subtype /Widget /FT /Tx /T (first) /Parent 6 0 R \
+/Rect [72 600 300 624] /DA (/Helv 12 Tf 0 g) /P 3 0 R /F 4 >>"
+            .to_vec(),
+        // 8: checkbox "yes"
+        b"<< /Type /Annot /Subtype /Widget /FT /Btn /T (yes) /Parent 6 0 R \
+/Rect [72 560 90 578] /P 3 0 R /F 4 /AS /Off /MK << /CA (4) >> /DA (/ZaDb 0 Tf 0 g) \
+/AP << /N << /1 10 0 R /Off 11 0 R >> >> >>"
+            .to_vec(),
+        // 9: checkbox "no"
+        b"<< /Type /Annot /Subtype /Widget /FT /Btn /T (no) /Parent 6 0 R \
+/Rect [120 560 138 578] /P 3 0 R /F 4 /AS /Off /MK << /CA (4) >> /DA (/ZaDb 0 Tf 0 g) \
+/AP << /N << /2 10 0 R /Off 11 0 R >> >> >>"
+            .to_vec(),
+        // 10
+        stream_object("/BBox [0 0 18 18]", b"0 g 3 3 12 12 re f"),
+        // 11
+        stream_object("/BBox [0 0 18 18]", b""),
+    ])
+}
+
 /// One letter page with a line of text at the top, and a form with a text
 /// field, a checkbox, two radio buttons and a drop-down menu.
 pub fn form_fixture() -> Vec<u8> {

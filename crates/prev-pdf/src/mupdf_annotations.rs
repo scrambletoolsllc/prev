@@ -892,11 +892,15 @@ pub(crate) fn set_field(
 /// field's `/V` as a name, and each button's `/AS`.
 fn set_button(document: &PdfDocument, widget: &PdfObject, value: &str) -> Result<()> {
     let name = |value: &str| document.new_name(value).map_err(engine_error);
-    // The field is the widget itself, or its parent for grouped buttons.
+    // The field is the widget itself when it has a name, as most forms'
+    // boxes do, even under a parent that only groups a page's fields; a
+    // widget without a name is one button of its parent's field, such as
+    // a radio group's.
     let own = || widget.try_clone().map_err(engine_error);
+    let named = widget.get_dict("T").map_err(engine_error)?.is_some();
     let mut field = match widget.get_dict("Parent").map_err(engine_error)? {
-        Some(parent) => parent,
-        None => own()?,
+        Some(parent) if !named => parent,
+        _ => own()?,
     };
     field.dict_put("V", name(value)?).map_err(engine_error)?;
     let buttons: Vec<PdfObject> = match field.get_dict("Kids").map_err(engine_error)? {
