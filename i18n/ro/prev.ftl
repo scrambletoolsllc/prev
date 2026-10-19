@@ -720,6 +720,7 @@ menu-zoom-to-fit = Potrivește în fereastră
 menu-inspector = Afișează inspectorul
 menu-slideshow = Prezentare
 menu-full-screen = Intră în modul ecran complet
+menu-exit-full-screen = Ieși din modul ecran complet
 menu-go = Mergi
 menu-next-page = Pagina următoare
 menu-previous-page = Pagina anterioară

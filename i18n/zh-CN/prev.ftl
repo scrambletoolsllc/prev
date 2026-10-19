@@ -816,6 +816,7 @@ menu-zoom-to-fit = 缩放以适合
 menu-inspector = 显示检查器
 menu-slideshow = 幻灯片放映
 menu-full-screen = 进入全屏幕
+menu-exit-full-screen = 退出全屏幕
 menu-go = 前往
 menu-next-page = 下一页
 menu-previous-page = 上一页

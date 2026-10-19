@@ -849,6 +849,7 @@ menu-zoom-to-fit = Zoom naar passend
 menu-inspector = Toon infovenster
 menu-slideshow = Diavoorstelling
 menu-full-screen = Activeer schermvullende weergave
+menu-exit-full-screen = Stop schermvullende weergave
 menu-go = Ga
 menu-next-page = Volgende pagina
 menu-previous-page = Vorige pagina

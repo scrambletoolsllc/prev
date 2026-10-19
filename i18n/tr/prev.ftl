@@ -846,6 +846,7 @@ menu-zoom-to-fit = Sığacak Şekilde Yakınlaştır
 menu-inspector = Denetçiyi Göster
 menu-slideshow = Slayt Gösterisi
 menu-full-screen = Tam Ekrana Geç
+menu-exit-full-screen = Tam Ekrandan Çık
 menu-go = Git
 menu-next-page = Sonraki Sayfa
 menu-previous-page = Önceki Sayfa

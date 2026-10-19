@@ -730,6 +730,7 @@ menu-zoom-to-fit = Přizpůsobit oknu
 menu-inspector = Zobrazit inspektor
 menu-slideshow = Prezentace
 menu-full-screen = Přejít do režimu celé obrazovky
+menu-exit-full-screen = Ukončit režim celé obrazovky
 menu-go = Přejít
 menu-next-page = Další stránka
 menu-previous-page = Předchozí stránka

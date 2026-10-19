@@ -702,6 +702,7 @@ menu-zoom-to-fit = Zooma till passande storlek
 menu-inspector = Visa inspektör
 menu-slideshow = Bildspel
 menu-full-screen = Använd helskärm
+menu-exit-full-screen = Avsluta helskärm
 menu-go = Gå
 menu-next-page = Nästa sida
 menu-previous-page = Föregående sida

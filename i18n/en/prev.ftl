@@ -849,6 +849,7 @@ menu-zoom-to-fit = Zoom to Fit
 menu-inspector = Show Inspector
 menu-slideshow = Slideshow
 menu-full-screen = Enter Full Screen
+menu-exit-full-screen = Exit Full Screen
 menu-go = Go
 menu-next-page = Next Page
 menu-previous-page = Previous Page

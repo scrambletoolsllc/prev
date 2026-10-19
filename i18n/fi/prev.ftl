@@ -703,6 +703,7 @@ menu-zoom-to-fit = Sovita ikkunaan
 menu-inspector = Näytä tiedot
 menu-slideshow = Diaesitys
 menu-full-screen = Siirry koko näytön tilaan
+menu-exit-full-screen = Poistu koko näytön tilasta
 menu-go = Siirry
 menu-next-page = Seuraava sivu
 menu-previous-page = Edellinen sivu

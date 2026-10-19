@@ -877,6 +877,7 @@ menu-zoom-to-fit = За розміром вікна
 menu-inspector = Показати інспектор
 menu-slideshow = Слайд-шоу
 menu-full-screen = Увімкнути повноекранний режим
+menu-exit-full-screen = Вийти з повноекранного режиму
 menu-go = Перейти
 menu-next-page = Наступна сторінка
 menu-previous-page = Попередня сторінка

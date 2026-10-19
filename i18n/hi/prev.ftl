@@ -854,6 +854,7 @@ menu-zoom-to-fit = फ़िट करने के लिए ज़ूम क�
 menu-inspector = इंस्पेक्टर दिखाएँ
 menu-slideshow = स्लाइडशो
 menu-full-screen = पूर्ण स्क्रीन में प्रवेश करें
+menu-exit-full-screen = पूर्ण स्क्रीन से बाहर निकलें
 menu-go = जाएँ
 menu-next-page = अगला पृष्ठ
 menu-previous-page = पिछला पृष्ठ

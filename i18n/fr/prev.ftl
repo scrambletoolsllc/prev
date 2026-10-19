@@ -849,6 +849,7 @@ menu-zoom-to-fit = Zoom ajusté
 menu-inspector = Afficher l’inspecteur
 menu-slideshow = Diaporama
 menu-full-screen = Passer en mode plein écran
+menu-exit-full-screen = Quitter le mode plein écran
 menu-go = Aller
 menu-next-page = Page suivante
 menu-previous-page = Page précédente

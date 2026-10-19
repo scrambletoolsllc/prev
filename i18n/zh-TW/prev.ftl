@@ -816,6 +816,7 @@ menu-zoom-to-fit = 縮放至符合大小
 menu-inspector = 顯示檢閱器
 menu-slideshow = 幻燈片秀
 menu-full-screen = 進入全螢幕
+menu-exit-full-screen = 結束全螢幕
 menu-go = 前往
 menu-next-page = 下一頁
 menu-previous-page = 上一頁

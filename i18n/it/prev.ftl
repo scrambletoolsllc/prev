@@ -846,6 +846,7 @@ menu-zoom-to-fit = Adatta alla finestra
 menu-inspector = Mostra Inspector
 menu-slideshow = Presentazione
 menu-full-screen = Attiva modalità a tutto schermo
+menu-exit-full-screen = Esci da modalità a tutto schermo
 menu-go = Vai
 menu-next-page = Pagina successiva
 menu-previous-page = Pagina precedente

@@ -694,6 +694,7 @@ menu-zoom-to-fit = Perbesar agar Pas
 menu-inspector = Tampilkan Inspektur
 menu-slideshow = Peragaan Slide
 menu-full-screen = Masuk Layar Penuh
+menu-exit-full-screen = Keluar dari Layar Penuh
 menu-go = Pergi
 menu-next-page = Halaman Berikutnya
 menu-previous-page = Halaman Sebelumnya

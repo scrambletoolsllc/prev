@@ -705,6 +705,7 @@ menu-zoom-to-fit = Ζουμ για προσαρμογή
 menu-inspector = Εμφάνιση επιθεωρητή
 menu-slideshow = Παρουσίαση
 menu-full-screen = Είσοδος σε πλήρη οθόνη
+menu-exit-full-screen = Έξοδος από πλήρη οθόνη
 menu-go = Μετάβαση
 menu-next-page = Επόμενη σελίδα
 menu-previous-page = Προηγούμενη σελίδα

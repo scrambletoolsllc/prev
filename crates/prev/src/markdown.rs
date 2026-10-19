@@ -60,7 +60,11 @@ pub enum Message {
     /// Handled by the app, as in the other windows.
     ToggleFloatingBars,
     OpenSettings,
-    /// The toolbar's close button, where the window manager draws none.
+    /// The toolbar's open button; the app shows the file dialog.
+    Open,
+    /// The toolbar's full screen and close buttons, where the window
+    /// manager draws no title bar; the app handles them.
+    ToggleFullscreen,
     CloseWindow,
     /// Open or close the assistant panel, which the app keeps.
     ToggleAssistant,
@@ -116,6 +120,8 @@ pub struct MarkdownWindow {
     full_width: bool,
     /// Whether the app shows its assistant panel beside this window.
     assistant_shown: bool,
+    /// Whether the window is full screen, for the toolbar's button.
+    fullscreen: bool,
     pointer_inside: bool,
     scroll_id: Id,
     search_id: Id,
@@ -266,6 +272,11 @@ impl MarkdownWindow {
         }
     }
 
+    /// Shows the full screen button as the window is.
+    pub fn set_fullscreen(&mut self, fullscreen: bool) {
+        self.fullscreen = fullscreen;
+    }
+
     pub fn inspector_shown(&self) -> bool {
         self.inspector
     }
@@ -295,6 +306,7 @@ impl MarkdownWindow {
             inspector: false,
             full_width: false,
             assistant_shown: false,
+            fullscreen: false,
             pointer_inside: true,
             scroll_id: Id::unique(),
             search_id: Id::unique(),
@@ -405,6 +417,8 @@ impl MarkdownWindow {
             }
             Message::ToggleFloatingBars
             | Message::OpenSettings
+            | Message::Open
+            | Message::ToggleFullscreen
             | Message::CloseWindow
             | Message::ToggleAssistant
             | Message::Side(_) => Task::none(),
@@ -825,6 +839,8 @@ impl MarkdownWindow {
         );
         let zoom = self.zoom();
         let bar = crate::row![
+            ui::open_file(Message::Open),
+            component::toolbar_divider(),
             component::group([
                 component::tool(
                     Icon::ZoomOut,
@@ -896,7 +912,11 @@ impl MarkdownWindow {
                 ),
             ]),
         ]
-        .push(crate::ui::close_window(Message::CloseWindow))
+        .push(ui::window_buttons(
+            self.fullscreen,
+            Message::ToggleFullscreen,
+            Message::CloseWindow,
+        ))
         .spacing(8)
         .align_y(Center);
         component::toolbar(bar)

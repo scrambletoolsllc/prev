@@ -708,6 +708,7 @@ menu-zoom-to-fit = فٹ کرنے کے لیے زوم کریں
 menu-inspector = انسپکٹر دکھائیں
 menu-slideshow = سلائیڈ شو
 menu-full-screen = پوری اسکرین پر جائیں
+menu-exit-full-screen = پوری اسکرین سے باہر نکلیں
 menu-go = جائیں
 menu-next-page = اگلا صفحہ
 menu-previous-page = پچھلا صفحہ

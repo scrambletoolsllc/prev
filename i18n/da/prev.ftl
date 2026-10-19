@@ -846,6 +846,7 @@ menu-zoom-to-fit = Zoom til tilpasning
 menu-inspector = Vis inspektør
 menu-slideshow = Lysbilledshow
 menu-full-screen = Slå fuld skærm til
+menu-exit-full-screen = Slå fuld skærm fra
 menu-go = Gå
 menu-next-page = Næste side
 menu-previous-page = Forrige side

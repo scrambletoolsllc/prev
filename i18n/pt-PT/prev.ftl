@@ -712,6 +712,7 @@ menu-zoom-to-fit = Ajustar à janela
 menu-inspector = Mostrar inspetor
 menu-slideshow = Apresentação de diapositivos
 menu-full-screen = Entrar em ecrã completo
+menu-exit-full-screen = Sair do ecrã completo
 menu-go = Ir
 menu-next-page = Página seguinte
 menu-previous-page = Página anterior

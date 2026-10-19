@@ -694,6 +694,7 @@ menu-zoom-to-fit = Thu phóng vừa khít
 menu-inspector = Hiển thị bộ kiểm tra
 menu-slideshow = Trình chiếu
 menu-full-screen = Vào chế độ toàn màn hình
+menu-exit-full-screen = Thoát chế độ toàn màn hình
 menu-go = Đi
 menu-next-page = Trang tiếp theo
 menu-previous-page = Trang trước

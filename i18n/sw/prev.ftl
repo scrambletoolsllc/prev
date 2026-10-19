@@ -710,6 +710,7 @@ menu-zoom-to-fit = Kuza Kutosheleza
 menu-inspector = Onyesha Kikaguzi
 menu-slideshow = Onyesho la Slaidi
 menu-full-screen = Ingia Skrini Nzima
+menu-exit-full-screen = Toka kwenye Skrini Nzima
 menu-go = Nenda
 menu-next-page = Ukurasa Unaofuata
 menu-previous-page = Ukurasa Uliotangulia

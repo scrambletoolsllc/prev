@@ -209,6 +209,24 @@ struct Window {
     title_bar: f32,
 }
 
+impl Window {
+    /// Notes whether the window is full screen, for its toolbar's button.
+    fn show_fullscreen(&mut self, fullscreen: bool) {
+        self.fullscreen = fullscreen;
+        if let Content::Document(document) = &mut self.content {
+            if let Some(pdf) = document.pdf.as_mut() {
+                pdf.set_fullscreen(fullscreen);
+            }
+            if let Some(images) = document.images.as_mut() {
+                images.set_fullscreen(fullscreen);
+            }
+            if let Some(markdown) = document.markdown.as_mut() {
+                markdown.set_fullscreen(fullscreen);
+            }
+        }
+    }
+}
+
 enum Content {
     Start,
     Document(Document),
@@ -234,6 +252,9 @@ pub enum Message {
     /// The window manager or a shortcut asked to close a window.
     CloseRequested(window::Id),
     Resized(window::Id, Size),
+    /// Whether a window is full screen, asked after it resizes: the window
+    /// manager can change it with its own keys.
+    ModeKnown(window::Id, window::Mode),
     /// The size of the monitor a new window opened on, if known. Only
     /// asked for off Linux.
     #[cfg_attr(target_os = "linux", allow(dead_code))]
@@ -871,6 +892,14 @@ impl Prev {
             | Message::Markdown(id, markdown::Message::OpenSettings) => {
                 self.perform(id, Action::Settings)
             }
+            Message::Pdf(id, pdf_window::Message::Open)
+            | Message::Image(id, image_window::Message::Open)
+            | Message::Markdown(id, markdown::Message::Open) => self.perform(id, Action::Open),
+            Message::Pdf(id, pdf_window::Message::ToggleFullscreen)
+            | Message::Image(id, image_window::Message::ToggleFullscreen)
+            | Message::Markdown(id, markdown::Message::ToggleFullscreen) => {
+                self.set_fullscreen(id, None)
+            }
             Message::Pdf(id, pdf_window::Message::CloseWindow)
             | Message::Image(id, image_window::Message::CloseWindow)
             | Message::Markdown(id, markdown::Message::CloseWindow) => {
@@ -993,6 +1022,12 @@ impl Prev {
                         window.title_bar =
                             prev::title_bar_macos::height(window.surface.unwrap_or(0));
                     }
+                }
+                window::mode(id).map(move |mode| Message::ModeKnown(id, mode))
+            }
+            Message::ModeKnown(id, mode) => {
+                if let Some(window) = self.windows.get_mut(&id) {
+                    window.show_fullscreen(mode == window::Mode::Fullscreen);
                 }
                 Task::none()
             }
@@ -1514,7 +1549,7 @@ impl Prev {
         if fullscreen == window.fullscreen {
             return Task::none();
         }
-        window.fullscreen = fullscreen;
+        window.show_fullscreen(fullscreen);
         window::set_mode(
             id,
             if fullscreen {

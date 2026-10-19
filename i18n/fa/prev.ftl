@@ -846,6 +846,7 @@ menu-zoom-to-fit = بزرگ‌نمایی متناسب
 menu-inspector = نمایش بازرس
 menu-slideshow = نمایش اسلاید
 menu-full-screen = ورود به حالت تمام‌صفحه
+menu-exit-full-screen = خروج از حالت تمام‌صفحه
 menu-go = رفتن
 menu-next-page = صفحهٔ بعد
 menu-previous-page = صفحهٔ قبل

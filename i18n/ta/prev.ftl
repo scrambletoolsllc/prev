@@ -707,6 +707,7 @@ menu-zoom-to-fit = பொருந்தும்படி பெரிதாக
 menu-inspector = ஆய்வியைக் காட்டு
 menu-slideshow = ஸ்லைடுஷோ
 menu-full-screen = முழுத்திரைக்குச் செல்
+menu-exit-full-screen = முழுத்திரையிலிருந்து வெளியேறு
 menu-go = செல்
 menu-next-page = அடுத்த பக்கம்
 menu-previous-page = முந்தைய பக்கம்

@@ -871,6 +871,7 @@ menu-zoom-to-fit = Dopasuj do okna
 menu-inspector = Pokaż inspektora
 menu-slideshow = Pokaz slajdów
 menu-full-screen = Włącz tryb pełnoekranowy
+menu-exit-full-screen = Wyłącz tryb pełnoekranowy
 menu-go = Idź
 menu-next-page = Następna strona
 menu-previous-page = Poprzednia strona

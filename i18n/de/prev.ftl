@@ -846,6 +846,7 @@ menu-zoom-to-fit = In Fenster einpassen
 menu-inspector = Informationen einblenden
 menu-slideshow = Diashow
 menu-full-screen = Vollbildmodus aktivieren
+menu-exit-full-screen = Vollbildmodus beenden
 menu-go = Gehe zu
 menu-next-page = Nächste Seite
 menu-previous-page = Vorherige Seite

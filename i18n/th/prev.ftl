@@ -693,6 +693,7 @@ menu-zoom-to-fit = ซูมให้พอดี
 menu-inspector = แสดงตัวตรวจสอบ
 menu-slideshow = สไลด์โชว์
 menu-full-screen = เข้าสู่โหมดเต็มหน้าจอ
+menu-exit-full-screen = ออกจากโหมดเต็มหน้าจอ
 menu-go = ไป
 menu-next-page = หน้าถัดไป
 menu-previous-page = หน้าก่อนหน้า

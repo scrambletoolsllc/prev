@@ -711,6 +711,7 @@ menu-zoom-to-fit = Ajusta a la finestra
 menu-inspector = Mostra l'inspector
 menu-slideshow = Presentació
 menu-full-screen = Entra a pantalla completa
+menu-exit-full-screen = Surt de la pantalla completa
 menu-go = Vés
 menu-next-page = Pàgina següent
 menu-previous-page = Pàgina anterior

@@ -846,6 +846,7 @@ menu-zoom-to-fit = Ajustar à Janela
 menu-inspector = Mostrar Inspetor
 menu-slideshow = Apresentação de Slides
 menu-full-screen = Entrar em Tela Cheia
+menu-exit-full-screen = Sair da Tela Cheia
 menu-go = Ir
 menu-next-page = Próxima Página
 menu-previous-page = Página Anterior

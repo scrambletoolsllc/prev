@@ -167,7 +167,11 @@ pub enum Message {
     ToggleFloatingBars,
     /// Opens the settings window; the app handles it.
     OpenSettings,
-    /// The toolbar's close button, where the window manager draws none.
+    /// The toolbar's open button; the app shows the file dialog.
+    Open,
+    /// The toolbar's full screen and close buttons, where the window
+    /// manager draws no title bar; the app handles them.
+    ToggleFullscreen,
     CloseWindow,
     /// Open or close the assistant panel, which the app keeps.
     ToggleAssistant,
@@ -278,6 +282,8 @@ pub struct PdfWindow {
     inspector: Option<Option<prev_pdf::engine::Metadata>>,
     /// Whether the app shows its assistant panel beside this window.
     assistant_shown: bool,
+    /// Whether the window is full screen, for the toolbar's button.
+    fullscreen: bool,
     /// Marking up an image: the document is a page made from the image,
     /// never saved, shown inside the image window with the markup bar.
     image_mode: bool,
@@ -360,6 +366,7 @@ impl PdfWindow {
             pointer_inside: true,
             inspector: None,
             assistant_shown: false,
+            fullscreen: false,
             image_mode: false,
             start_view: None,
             canvas_bounds: std::cell::Cell::default(),
@@ -424,6 +431,11 @@ impl PdfWindow {
         if shown {
             self.inspector = None;
         }
+    }
+
+    /// Shows the full screen button as the window is.
+    pub fn set_fullscreen(&mut self, fullscreen: bool) {
+        self.fullscreen = fullscreen;
     }
 
     pub fn inspector_shown(&self) -> bool {
@@ -975,6 +987,8 @@ impl PdfWindow {
             }
             Message::ToggleFloatingBars
             | Message::OpenSettings
+            | Message::Open
+            | Message::ToggleFullscreen
             | Message::CloseWindow
             | Message::ToggleAssistant
             | Message::Side(_) => Task::none(),
@@ -1638,11 +1652,14 @@ impl PdfWindow {
         // Each slot: its content, its width, and when it moves into "More".
         let mut slots: Vec<(Element<'a, Message>, f32, Option<u8>)> = vec![
             (
-                row![sidebar_toggle, component::toolbar_divider()]
-                    .spacing(8)
-                    .align_y(Center)
-                    .into(),
-                TOOL_WIDTH + DIVIDER_WIDTH + 8.0,
+                row![
+                    component::group([ui::open_file(Message::Open), sidebar_toggle]),
+                    component::toolbar_divider()
+                ]
+                .spacing(8)
+                .align_y(Center)
+                .into(),
+                TOOL_WIDTH * 2.0 + 4.0 + DIVIDER_WIDTH + 8.0,
                 None,
             ),
             (
@@ -1784,9 +1801,16 @@ impl PdfWindow {
                 None,
             ),
         ]);
-        if let Some(close) = crate::ui::close_window(Message::CloseWindow) {
-            slots.push((close, TOOL_WIDTH, None));
-        }
+        // The window's own buttons end the bar, after More.
+        let window_buttons = ui::window_buttons(
+            self.fullscreen,
+            Message::ToggleFullscreen,
+            Message::CloseWindow,
+        );
+        let width = width
+            - window_buttons
+                .as_ref()
+                .map_or(0.0, |_| ui::WINDOW_BUTTONS_WIDTH + component::TOOLBAR_GAP);
         let widths: Vec<(f32, Option<u8>)> = slots
             .iter()
             .map(|(_, width, order)| (*width, *order))
@@ -1841,6 +1865,9 @@ impl PdfWindow {
                 Message::Overflow((!open).then_some(Bar::Main)),
                 Message::Overflow(None),
             ));
+        }
+        if let Some(buttons) = window_buttons {
+            bar = bar.push(buttons);
         }
         // The bar fills the toolbar's height; keep the buttons in its middle.
         container(bar).height(Fill).align_y(Center).into()

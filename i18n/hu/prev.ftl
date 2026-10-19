@@ -705,6 +705,7 @@ menu-zoom-to-fit = Méretezés az ablakhoz
 menu-inspector = Felügyelő megjelenítése
 menu-slideshow = Diavetítés
 menu-full-screen = Teljes képernyő
+menu-exit-full-screen = Kilépés a teljes képernyőből
 menu-go = Ugrás
 menu-next-page = Következő oldal
 menu-previous-page = Előző oldal

@@ -816,6 +816,7 @@ menu-zoom-to-fit = ウインドウサイズに合わせる
 menu-inspector = インスペクタを表示
 menu-slideshow = スライドショー
 menu-full-screen = フルスクリーンにする
+menu-exit-full-screen = フルスクリーンを解除
 menu-go = 移動
 menu-next-page = 次のページ
 menu-previous-page = 前のページ

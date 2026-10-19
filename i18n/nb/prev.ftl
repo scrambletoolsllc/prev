@@ -702,6 +702,7 @@ menu-zoom-to-fit = Zoom for å tilpasse
 menu-inspector = Vis inspektør
 menu-slideshow = Lysbildeserie
 menu-full-screen = Bruk fullskjerm
+menu-exit-full-screen = Avslutt fullskjerm
 menu-go = Gå
 menu-next-page = Neste side
 menu-previous-page = Forrige side

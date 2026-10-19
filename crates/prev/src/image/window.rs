@@ -301,7 +301,11 @@ pub enum Message {
     ToggleFloatingBars,
     /// Opens the settings window; the app handles it.
     OpenSettings,
-    /// The toolbar's close button, where the window manager draws none.
+    /// The toolbar's open button; the app shows the file dialog.
+    Open,
+    /// The toolbar's full screen and close buttons, where the window
+    /// manager draws no title bar; the app handles them.
+    ToggleFullscreen,
     CloseWindow,
     /// Open or close the assistant panel, which the app keeps.
     ToggleAssistant,
@@ -432,6 +436,8 @@ pub struct ImageWindow {
     inspector: Option<Inspector>,
     /// Whether the app shows its assistant panel beside this window.
     assistant_shown: bool,
+    /// Whether the window is full screen, for the toolbar's button.
+    fullscreen: bool,
     pending_export: Option<PendingExport>,
     /// The export choices, kept for the next export from this window, and
     /// whether their dialog is showing.
@@ -609,6 +615,7 @@ impl ImageWindow {
             keep_proportions: true,
             inspector: None,
             assistant_shown: false,
+            fullscreen: false,
             pending_export: None,
             export_choice: None,
             notice: None,
@@ -667,6 +674,11 @@ impl ImageWindow {
         if shown {
             self.panel = None;
         }
+    }
+
+    /// Shows the full screen button as the window is.
+    pub fn set_fullscreen(&mut self, fullscreen: bool) {
+        self.fullscreen = fullscreen;
     }
 
     /// Whether the window shows a panel of its own on the right, which the
@@ -804,6 +816,8 @@ impl ImageWindow {
         match message {
             Message::ToggleFloatingBars
             | Message::OpenSettings
+            | Message::Open
+            | Message::ToggleFullscreen
             | Message::CloseWindow
             | Message::ToggleAssistant
             | Message::Side(_) => Task::none(),
@@ -2320,29 +2334,30 @@ impl ImageWindow {
         // Each slot: its content, its width, when it moves into "More", and
         // whether a divider goes before it in the bar.
         let mut slots: Vec<(Element<'_, Message>, f32, Option<u8>, bool)> = Vec::new();
+        // Open, and the sidebar's button when there are images to list.
+        let mut start = vec![ui::open_file(Message::Open)];
         if self.items.len() > 1 {
-            slots.push((
-                row![
-                    component::toggle_tool(
-                        if self.sidebar {
-                            Icon::LeftPanelClose
-                        } else {
-                            Icon::LeftPanelOpen
-                        },
-                        crate::fl!("image-sidebar"),
-                        self.sidebar,
-                        Message::ToggleSidebar,
-                    ),
-                    component::toolbar_divider()
-                ]
+            start.push(component::toggle_tool(
+                if self.sidebar {
+                    Icon::LeftPanelClose
+                } else {
+                    Icon::LeftPanelOpen
+                },
+                crate::fl!("image-sidebar"),
+                self.sidebar,
+                Message::ToggleSidebar,
+            ));
+        }
+        let start_width = tools(start.len() as f32);
+        slots.push((
+            row![component::group(start), component::toolbar_divider()]
                 .spacing(8)
                 .align_y(Center)
                 .into(),
-                TOOL_WIDTH + DIVIDER_WIDTH + 8.0,
-                None,
-                false,
-            ));
-        }
+            start_width + DIVIDER_WIDTH + 8.0,
+            None,
+            false,
+        ));
         // As in the PDF toolbar: what is shown and the view on the left,
         // editing, panels and export on the right.
         let details_width = ui::font::measure(&details, Type::BodyMedium).ceil() + 8.0;
@@ -2556,9 +2571,16 @@ impl ImageWindow {
             None,
             false,
         ));
-        if let Some(close) = crate::ui::close_window(Message::CloseWindow) {
-            slots.push((close, TOOL_WIDTH, None, false));
-        }
+        // The window's own buttons end the bar, after More.
+        let window_buttons = ui::window_buttons(
+            self.fullscreen,
+            Message::ToggleFullscreen,
+            Message::CloseWindow,
+        );
+        let width = width
+            - window_buttons
+                .as_ref()
+                .map_or(0.0, |_| ui::WINDOW_BUTTONS_WIDTH + component::TOOLBAR_GAP);
         let widths: Vec<(f32, Option<u8>)> = slots
             .iter()
             .map(|(_, width, order, _)| (*width, *order))
@@ -2586,6 +2608,9 @@ impl ImageWindow {
                 Message::ToggleOverflow,
                 Message::CloseOverflow,
             ));
+        }
+        if let Some(buttons) = window_buttons {
+            bar = bar.push(buttons);
         }
         // The bar fills the toolbar's height; keep the buttons in its middle.
         container(bar).height(Fill).align_y(Center).into()

@@ -706,6 +706,7 @@ menu-zoom-to-fit = মানানসই জুম
 menu-inspector = পরিদর্শক দেখান
 menu-slideshow = স্লাইডশো
 menu-full-screen = পূর্ণ স্ক্রিনে যান
+menu-exit-full-screen = পূর্ণ স্ক্রিন থেকে বেরোন
 menu-go = যান
 menu-next-page = পরের পৃষ্ঠা
 menu-previous-page = আগের পৃষ্ঠা

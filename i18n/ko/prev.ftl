@@ -837,6 +837,7 @@ menu-zoom-to-fit = 크기에 맞게 확대/축소
 menu-inspector = 속성 보기
 menu-slideshow = 슬라이드쇼
 menu-full-screen = 전체 화면 시작
+menu-exit-full-screen = 전체 화면 종료
 menu-go = 이동
 menu-next-page = 다음 페이지
 menu-previous-page = 이전 페이지

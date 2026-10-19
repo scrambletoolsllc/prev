@@ -709,6 +709,7 @@ menu-zoom-to-fit = התאמה לחלון
 menu-inspector = הצגת החלונית פרטים
 menu-slideshow = מצגת
 menu-full-screen = כניסה למסך מלא
+menu-exit-full-screen = יציאה ממסך מלא
 menu-go = מעבר
 menu-next-page = העמוד הבא
 menu-previous-page = העמוד הקודם
