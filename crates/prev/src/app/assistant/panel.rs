@@ -6,7 +6,9 @@
 use std::collections::VecDeque;
 
 use base64::Engine;
-use iced::widget::{Id, column, container, image, markdown, operation, row, space, text};
+use iced::widget::{
+    Id, column, container, image, markdown, operation, row, space, text, text_input,
+};
 use iced::{Center, Element, Fill, Length, Padding, Task, window};
 use prev::control::{Call, Error};
 use prev::ui::button::Kind;
@@ -718,41 +720,45 @@ impl Prev {
         .anchor_bottom()
         .height(Fill);
 
-        let field = container(component::text_field(
-            prev::fl!("assistant-ask"),
-            &panel.input,
-            component::Backdrop::ContainerLow,
-            |input| {
-                input
-                    .id(panel.input_id.clone())
-                    .on_input(move |text| message(PanelMessage::Input(text)))
-                    .on_submit(message(PanelMessage::Send))
-            },
-        ))
-        .width(Fill);
-        let action = if panel.busy {
-            component::tool(
+        let (glyph, label, action) = if panel.busy {
+            (
                 Icon::Stop,
                 prev::fl!("assistant-stop"),
                 Some(message(PanelMessage::Stop)),
             )
         } else {
-            component::tool(
+            (
                 Icon::ArrowUpward,
                 prev::fl!("assistant-send"),
                 (!panel.input.trim().is_empty() && has_models)
                     .then_some(message(PanelMessage::Send)),
             )
         };
-        let input = row![field, component::beside_field(action)]
-            .spacing(8)
-            .align_y(Center)
-            .padding(Padding {
-                top: 8.0,
-                right: 16.0,
-                bottom: 8.0,
-                left: 24.0,
-            });
+        let action = component::tip(
+            ui::icon_button(glyph)
+                .size(ui::button::Size::ExtraSmall)
+                .on_press_maybe(action),
+            label,
+        );
+        // The search bar's pill, with Send where its search icon is.
+        let field = component::prompt_bar(
+            action,
+            text_input(
+                prev::i18n::lasting(prev::fl!("assistant-ask")),
+                &panel.input,
+            )
+            .align_x(ui::dir::input_align(&panel.input))
+            .id(panel.input_id.clone())
+            .on_input(move |text| message(PanelMessage::Input(text)))
+            .on_submit(message(PanelMessage::Send)),
+            Fill,
+        );
+        let input = container(field).padding(Padding {
+            top: 8.0,
+            right: 16.0,
+            bottom: 8.0,
+            left: 24.0,
+        });
         // It slides in from the right, as the inspector does.
         Some(prev::ui::enter::from_right(
             container(column![header, entries, input, model_row])
