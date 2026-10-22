@@ -81,11 +81,11 @@ bit_field 0.10.3, cexpr 0.6.0, intl_pluralrules 7.0.2, rustc-hash 1.1.0
 
 ### ISC
 
-libloading 0.8.9, libloading 0.9.0, rustls-webpki 0.103.15, untrusted 0.9.0
+libloading 0.8.9, libloading 0.9.0, rustls-webpki 0.103.16, untrusted 0.9.0
 
 ### Apache-2.0 OR ISC OR MIT
 
-hyper-rustls 0.27.10, rustls 0.23.45, rustls-native-certs 0.8.4
+hyper-rustls 0.27.10, rustls 0.23.46, rustls-native-certs 0.8.4
 
 ### BSD-2-Clause
 
