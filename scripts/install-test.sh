@@ -13,7 +13,9 @@ set -eu
 kind=$1
 dir=$2
 arch=$(uname -m)
-id=io.github.scrambletools.prev
+id=run.prev
+# Flatpak ids take three parts.
+flatpak_id=run.prev.Prev
 
 one() {
     # The one file in DIR matching a pattern.
@@ -109,12 +111,12 @@ flatpak)
     dbus-run-session -- sh -eu -c '
         flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
         flatpak install --user -y --noninteractive "$1"
-        version=$(flatpak run '$id' --version)
+        version=$(flatpak run '$flatpak_id' --version)
         case $version in
             "prev "[0-9]*) echo "prev starts: $version" ;;
             *) echo "prev did not start: $version" >&2; exit 1 ;;
         esac
-        flatpak uninstall --user -y --noninteractive '$id'
+        flatpak uninstall --user -y --noninteractive '$flatpak_id'
     ' sh "$(one "prev-$arch.flatpak")"
     ;;
 *)

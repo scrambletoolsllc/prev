@@ -1099,9 +1099,9 @@
   "page": "guide.html",
   "text": "There is nothing to set up in prev. Add it to the agent as an MCP server that runs <code>prev --mcp</code>. For Claude Code:"
  },
- "e45f36e0b27d": {
+ "87316ca9abf1": {
   "page": "guide.html",
-  "text": "Where <code>prev</code> is not on the path, give the whole path: <code>/Applications/prev.app/Contents/MacOS/prev</code> on macOS, <code>%LOCALAPPDATA%\\Programs\\prev\\prev.exe</code> on Windows, and <code>flatpak run io.github.scrambletools.prev</code> for the Flatpak. For a local model, use an MCP client that works with it and add prev the same way; most take a file like this:"
+  "text": "Where <code>prev</code> is not on the path, give the whole path: <code>/Applications/prev.app/Contents/MacOS/prev</code> on macOS, <code>%LOCALAPPDATA%\\Programs\\prev\\prev.exe</code> on Windows, and <code>flatpak run run.prev.Prev</code> for the Flatpak. For a local model, use an MCP client that works with it and add prev the same way; most take a file like this:"
  },
  "b627d8959511": {
   "page": "guide.html",
@@ -1295,9 +1295,9 @@
   "page": "guide.html",
   "text": "On Linux, for example:"
  },
- "df9fbc4ff42d": {
+ "dc0c9f9ef2ce": {
   "page": "guide.html",
-  "text": "The Flatpak keeps its own under <code>~/.var/app/io.github.scrambletools.prev</code>."
+  "text": "The Flatpak keeps its own under <code>~/.var/app/run.prev.Prev</code>."
  },
  "a3efa8fd56ff": {
   "page": "guide.html",

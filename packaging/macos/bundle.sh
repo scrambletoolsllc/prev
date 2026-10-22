@@ -25,9 +25,9 @@ done
 
 version=$(sed -n 's/^version = "\(.*\)"/\1/p' "$root/Cargo.toml" | head -1)
 if [ -n "${PREV_PRODUCTION:-}" ]; then
-    name=prev; id=io.github.scrambletools.prev
+    name=prev; id=run.prev
 else
-    name=prev-dev; id=io.github.scrambletools.prev.dev
+    name=prev-dev; id=run.prev.dev
 fi
 
 # bindgen, for MuPDF's bindings, needs libclang: the Command Line Tools'
@@ -54,13 +54,13 @@ icons="$root/data/icons/hicolor"
 iconset=$(mktemp -d)/prev.iconset
 mkdir -p "$iconset"
 for size in 16 32 128 256 512; do
-    cp "$icons/${size}x${size}/apps/io.github.scrambletools.prev.png" "$iconset/icon_${size}x${size}.png"
+    cp "$icons/${size}x${size}/apps/run.prev.png" "$iconset/icon_${size}x${size}.png"
 done
-cp "$icons/32x32/apps/io.github.scrambletools.prev.png" "$iconset/icon_16x16@2x.png"
-cp "$icons/64x64/apps/io.github.scrambletools.prev.png" "$iconset/icon_32x32@2x.png"
-cp "$icons/256x256/apps/io.github.scrambletools.prev.png" "$iconset/icon_128x128@2x.png"
-cp "$icons/512x512/apps/io.github.scrambletools.prev.png" "$iconset/icon_256x256@2x.png"
-sips -z 1024 1024 "$icons/512x512/apps/io.github.scrambletools.prev.png" \
+cp "$icons/32x32/apps/run.prev.png" "$iconset/icon_16x16@2x.png"
+cp "$icons/64x64/apps/run.prev.png" "$iconset/icon_32x32@2x.png"
+cp "$icons/256x256/apps/run.prev.png" "$iconset/icon_128x128@2x.png"
+cp "$icons/512x512/apps/run.prev.png" "$iconset/icon_256x256@2x.png"
+sips -z 1024 1024 "$icons/512x512/apps/run.prev.png" \
     --out "$iconset/icon_512x512@2x.png" >/dev/null
 iconutil -c icns "$iconset" -o "$app/Contents/Resources/prev.icns"
 

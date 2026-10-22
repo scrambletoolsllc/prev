@@ -4,8 +4,8 @@ Everything a release ships is built from this repository:
 
 | Path | What |
 |---|---|
-| `data/io.github.scrambletools.prev.desktop` | Desktop entry |
-| `data/io.github.scrambletools.prev.metainfo.xml` | AppStream metadata, with the release history |
+| `data/run.prev.desktop` | Desktop entry |
+| `data/run.prev.metainfo.xml` | AppStream metadata, with the release history |
 | `data/icons/hicolor/` | App icon: the SVG and PNGs made from it |
 | `docs/prev.1` | Man page |
 | `docs/THIRD-PARTY.md` | Bundled components and their licenses, from `scripts/third-party.py` |
@@ -29,7 +29,8 @@ Apple Silicon only.
 Packages are built with `PREV_PRODUCTION=1`, which makes the installed
 copy: settings in `prev.toml` (`~/.config` on Linux, `%APPDATA%\prev` on
 Windows, `~/Library/Application Support/prev` on macOS), data under
-`prev`, app id `io.github.scrambletools.prev`.
+`prev`, app id `run.prev`, prev.run reversed (`run.prev.Prev` for the
+Flatpak, whose ids take three parts).
 Builds without it are development builds.
 
 ## Steps

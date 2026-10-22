@@ -60,8 +60,14 @@ mod platform {
 
     use super::{Failure, Outcome, Status};
 
-    /// The desktop entry every prev package and install script installs.
-    const DESKTOP_ID: &str = "io.github.scrambletools.prev.desktop";
+    /// The desktop entry every prev package and install script installs,
+    /// or inside the Flatpak the one it exports, named for the Flatpak.
+    fn desktop_id() -> String {
+        match std::env::var("FLATPAK_ID") {
+            Ok(id) if !id.is_empty() => format!("{id}.desktop"),
+            _ => "run.prev.desktop".to_owned(),
+        }
+    }
     const SECTION: &str = "[Default Applications]";
 
     pub async fn make_default() -> Result<Outcome, Failure> {
@@ -78,7 +84,7 @@ mod platform {
                 Err(error) if error.kind() == std::io::ErrorKind::NotFound => String::new(),
                 Err(error) => return Err(Failure::Other(error.to_string())),
             };
-            let updated = set_defaults(&text, &types, DESKTOP_ID);
+            let updated = set_defaults(&text, &types, &desktop_id());
             if updated != text {
                 if let Some(parent) = list.parent() {
                     std::fs::create_dir_all(parent)
@@ -99,13 +105,14 @@ mod platform {
             .filter_map(|path| std::fs::read_to_string(path).ok())
             .collect();
         let types: Vec<&str> = crate::filetype::supported_mime_types().collect();
+        let ours = desktop_id();
         let set = types
             .iter()
             .filter(|mime| {
                 texts
                     .iter()
                     .find_map(|text| default_in(text, mime))
-                    .is_some_and(|desktop| desktop == DESKTOP_ID)
+                    .is_some_and(|desktop| desktop == ours)
             })
             .count();
         Some(Status {
@@ -230,7 +237,7 @@ mod platform {
             .any(|dir| {
                 Path::new(&dir)
                     .join("applications")
-                    .join(DESKTOP_ID)
+                    .join(desktop_id())
                     .exists()
             })
     }

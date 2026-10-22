@@ -37,7 +37,9 @@ jobs:
       # The Flatpak builds offline from this list of crates.
       - run: scripts/check-cargo-sources.py
       - run: desktop-file-validate data/*.desktop
-      - run: appstreamcli validate --no-net data/*.metainfo.xml
+      # The app id is run.prev, prev.run reversed, where the validator
+      # looks for three parts.
+      - run: appstreamcli validate --no-net --override=cid-desktopapp-is-not-rdns=info data/*.metainfo.xml
 
   macos:
     # Apple Silicon. The release job adds the decode-only libheif.

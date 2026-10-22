@@ -9,7 +9,7 @@ Some Hyprland setups make every window slightly see-through, which dims
 photos and pages. To keep prev opaque, add this line to
 ~/.config/hypr/hyprland.lua:
 
-  o.window("^io\\.github\\.scrambletools\\.prev$", { tag = "-default-opacity", opacity = "1 1" })
+  o.window("^run\\.prev$", { tag = "-default-opacity", opacity = "1 1" })
 NOTE
 }
 

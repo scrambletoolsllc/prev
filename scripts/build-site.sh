@@ -17,6 +17,6 @@ cp -r "$root"/site/. "$out/"
 # The translations go into the pages rather than beside them.
 rm -rf "$out/i18n"
 python3 "$root/scripts/site-i18n.py" build "$out"
-cp "$root/data/icons/hicolor/scalable/apps/io.github.scrambletools.prev.svg" "$out/icon.svg"
+cp "$root/data/icons/hicolor/scalable/apps/run.prev.svg" "$out/icon.svg"
 cp -r "$root/docs/screenshots/." "$out/screenshots/"
 echo "Built the site in $out"

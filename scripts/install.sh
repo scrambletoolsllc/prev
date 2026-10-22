@@ -23,7 +23,12 @@ PREV_PRODUCTION=1 cargo build --release --locked -p prev \
     --manifest-path "$root/Cargo.toml" --target-dir "$root/target/production"
 
 "$root/scripts/dist-install.sh" "$root/target/production/release/prev" "" "$prefix"
-desktop="$share_dir/applications/io.github.scrambletools.prev.desktop"
+# Earlier installs named prev's desktop entry, metadata and icons for its
+# old app id.
+old=io.github.scrambletools.prev
+rm -f "$share_dir/applications/$old.desktop" "$share_dir/metainfo/$old.metainfo.xml" \
+    "$share_dir"/icons/hicolor/*/apps/"$old".png "$share_dir"/icons/hicolor/*/apps/"$old".svg
+desktop="$share_dir/applications/run.prev.desktop"
 sed -i "s|^Exec=prev |Exec=$bin_dir/prev |" "$desktop"
 if command -v update-desktop-database >/dev/null; then
     update-desktop-database "$share_dir/applications"
@@ -38,7 +43,7 @@ fi
 hypr_dir=${XDG_CONFIG_HOME:-$HOME/.config}/hypr
 hypr_config=$hypr_dir/hyprland.lua
 if [ -z "${PREV_NO_HYPRLAND:-}" ] && [ -f "$hypr_config" ] && command -v omarchy >/dev/null; then
-    if grep -rqs 'scrambletools' "$hypr_dir"; then
+    if grep -rqsE 'run\\+\.prev' "$hypr_dir"; then
         echo "Hyprland already has a rule for prev windows; left as it is."
     else
         backup="$hypr_config.bak.$(date +%s)"
@@ -47,7 +52,7 @@ if [ -z "${PREV_NO_HYPRLAND:-}" ] && [ -f "$hypr_config" ] && command -v omarchy
 
 -- Added by prev's install script: keep prev (and its dev builds) fully
 -- opaque, so photos and pages show their true colors.
-o.window("^io\\.github\\.scrambletools\\.prev(\\.Devel)?$", { tag = "-default-opacity", opacity = "1 1" })
+o.window("^run\\.prev(\\.Devel)?$", { tag = "-default-opacity", opacity = "1 1" })
 EOF
         if command -v hyprctl >/dev/null && [ -n "${HYPRLAND_INSTANCE_SIGNATURE:-}" ]; then
             hyprctl reload >/dev/null

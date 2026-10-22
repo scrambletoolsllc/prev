@@ -186,7 +186,7 @@ mod mac {
 
     /// Pasteboard types and the names `choose` knows them by.
     const TYPES: [(&str, &str); 10] = [
-        ("io.github.scrambletools.prev.pages", PAGES_TYPE),
+        ("run.prev.pages", PAGES_TYPE),
         ("public.png", "image/png"),
         ("public.jpeg", "image/jpeg"),
         ("org.webmproject.webp", "image/webp"),

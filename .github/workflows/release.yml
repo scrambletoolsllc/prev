@@ -138,7 +138,7 @@ jobs:
       - uses: flathub-infra/flatpak-github-actions/flatpak-builder@master
         with:
           bundle: prev-${{ matrix.arch }}.flatpak
-          manifest-path: packaging/flatpak/io.github.scrambletools.prev.yml
+          manifest-path: packaging/flatpak/run.prev.Prev.yml
           arch: ${{ matrix.arch }}
           cache-key: flatpak-builder-${{ matrix.arch }}-${{ github.sha }}
           upload-artifact: false

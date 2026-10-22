@@ -37,7 +37,7 @@ const PAGES_MIME: &str = crate::paste::PAGES_TYPE;
 /// Pasteboard types and the MIME types prev knows them by, most wanted
 /// first. Files and web addresses both become a URI list.
 const TYPES: &[(&str, &str)] = &[
-    (PAGES_MIME, "io.github.scrambletools.prev.pages"),
+    (PAGES_MIME, "run.prev.pages"),
     ("image/png", "public.png"),
     ("image/jpeg", "public.jpeg"),
     ("image/webp", "org.webmproject.webp"),
@@ -399,7 +399,7 @@ fn items(data: &[(String, Vec<u8>)]) -> Vec<Retained<NSPasteboardItem>> {
             PAGES_MIME => {
                 first.setData_forType(
                     &NSData::with_bytes(bytes),
-                    &NSString::from_str("io.github.scrambletools.prev.pages"),
+                    &NSString::from_str("run.prev.pages"),
                 );
             }
             "application/pdf" => {

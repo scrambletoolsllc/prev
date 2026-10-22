@@ -14,7 +14,7 @@ binary=${1:?usage: build.sh BINARY VERSION [OUTPUT_DIR]}
 version=${2:?usage: build.sh BINARY VERSION [OUTPUT_DIR]}
 output=${3:-.}
 root=$(cd "$(dirname "$0")/../.." && pwd)
-id=io.github.scrambletools.prev
+id=run.prev
 arch=$(uname -m)
 tool=${APPIMAGETOOL:-appimagetool}
 

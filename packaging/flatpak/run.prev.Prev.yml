@@ -1,13 +1,13 @@
 # Flatpak build of prev. From the repository root:
 #
 #   flatpak-builder --user --install --force-clean build-dir \
-#       packaging/flatpak/io.github.scrambletools.prev.yml
+#       packaging/flatpak/run.prev.Prev.yml
 #
 # cargo-sources.json lists every crate in Cargo.lock; regenerate it with
 # flatpak-builder-tools' flatpak-cargo-generator.py after changing
 # dependencies. The release workflow builds it into the prev.flatpak
 # bundle attached to each release.
-id: io.github.scrambletools.prev
+id: run.prev.Prev
 runtime: org.freedesktop.Platform
 runtime-version: '25.08'
 sdk: org.freedesktop.Sdk
@@ -87,7 +87,8 @@ modules:
         PREV_PRODUCTION: '1'
     build-commands:
       - cargo --offline build --release --locked -p prev
-      - scripts/dist-install.sh target/release/prev "" /app
+      # Exported under the Flatpak's id, which takes three parts.
+      - scripts/dist-install.sh target/release/prev "" /app run.prev.Prev
     sources:
       - type: dir
         path: ../..

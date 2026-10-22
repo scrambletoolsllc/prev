@@ -305,7 +305,7 @@ mod tests {
 
     #[test]
     fn desktop_file_lists_every_supported_mime_type() {
-        let desktop = include_str!("../../../data/io.github.scrambletools.prev.desktop");
+        let desktop = include_str!("../../../data/run.prev.desktop");
         let listed = desktop
             .lines()
             .find_map(|line| line.strip_prefix("MimeType="))

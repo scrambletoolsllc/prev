@@ -31,12 +31,17 @@ pub(crate) mod assistant;
 mod settings_view;
 mod tools;
 
+/// The app id desktops match windows and launchers by: prev.run
+/// reversed. Inside the Flatpak it is the Flatpak's own, which takes three
+/// parts and names the desktop entry the Flatpak exports.
 #[cfg(target_os = "linux")]
-pub const APP_ID: &str = if prev_store::paths::PRODUCTION {
-    "io.github.scrambletools.prev"
-} else {
-    "io.github.scrambletools.prev.Devel"
-};
+fn app_id() -> String {
+    match std::env::var("FLATPAK_ID") {
+        Ok(id) if !id.is_empty() => id,
+        _ if prev_store::paths::PRODUCTION => "run.prev".to_owned(),
+        _ => "run.prev.Devel".to_owned(),
+    }
+}
 
 /// How long a notice shows before it goes away by itself.
 const NOTICE_TIME: std::time::Duration = std::time::Duration::from_secs(10);
@@ -175,8 +180,7 @@ fn check_storage(storage: Storage, path: &std::path::Path) -> Result<(), String>
 /// The app icon for window systems that take it from the window (X11);
 /// Wayland compositors use the desktop entry's.
 fn window_icon() -> Option<window::Icon> {
-    let png =
-        include_bytes!("../../../data/icons/hicolor/64x64/apps/io.github.scrambletools.prev.png");
+    let png = include_bytes!("../../../data/icons/hicolor/64x64/apps/run.prev.png");
     let image = image::load_from_memory(png).ok()?.into_rgba8();
     let (width, height) = image.dimensions();
     window::icon::from_rgba(image.into_raw(), width, height).ok()
@@ -2272,7 +2276,7 @@ fn fit_to_monitor(_id: window::Id) -> Task<Message> {
 #[cfg(target_os = "linux")]
 fn platform_settings() -> PlatformSpecific {
     PlatformSpecific {
-        application_id: APP_ID.to_owned(),
+        application_id: app_id(),
         ..PlatformSpecific::default()
     }
 }

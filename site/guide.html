@@ -489,7 +489,7 @@ that runs <code>prev --mcp</code>. For Claude Code:</p>
 <p>Where <code>prev</code> is not on the path, give the whole path:
 <code>/Applications/prev.app/Contents/MacOS/prev</code> on macOS,
 <code>%LOCALAPPDATA%\Programs\prev\prev.exe</code> on Windows, and
-<code>flatpak run io.github.scrambletools.prev</code> for the Flatpak. For a local
+<code>flatpak run run.prev.Prev</code> for the Flatpak. For a local
 model, use an MCP client that works with it and add prev the same way;
 most take a file like this:</p>
 <pre><code>{ "mcpServers": { "prev": { "command": "prev", "args": ["--mcp"] } } }</code></pre>
@@ -634,7 +634,7 @@ including where prev keeps your files:</p>
 <pre><code>signatures = "~/.local/share/prev/signatures"
 versions = "~/.local/share/prev/versions"
 bookmarks = "~/.local/share/prev/bookmarks.toml"</code></pre>
-<p>The Flatpak keeps its own under <code>~/.var/app/io.github.scrambletools.prev</code>.</p>
+<p>The Flatpak keeps its own under <code>~/.var/app/run.prev.Prev</code>.</p>
 <p>Change them in the Storage section: type a path (<code>~</code> works) and press
 Enter or Apply, or pick a folder with Choose. prev checks that the folder
 exists and can be written, uses the new place at once and saves it to

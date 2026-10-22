@@ -1,4 +1,4 @@
-<img src="data/icons/hicolor/scalable/apps/io.github.scrambletools.prev.svg" width="128" alt="The prev icon: a signed document with a beach photo on it">
+<img src="data/icons/hicolor/scalable/apps/run.prev.svg" width="128" alt="The prev icon: a signed document with a beach photo on it">
 
 # prev
 
@@ -238,7 +238,7 @@ when they are installed (see [Building](#building)); the Flatpak has them
 built in. prev is not on Flathub, but its Flatpak takes the Freedesktop
 runtime from there and offers to add the Flathub remote when it is
 missing. The Flatpak keeps its settings and data under
-`~/.var/app/io.github.scrambletools.prev`.
+`~/.var/app/run.prev.Prev`.
 
 ### What differs between packages
 
@@ -295,7 +295,7 @@ photos and pages. `scripts/install.sh` adds a Hyprland rule keeping prev
 opaque; with a package, add it to `~/.config/hypr/hyprland.lua`:
 
 ```lua
-o.window("^io\\.github\\.scrambletools\\.prev$", { tag = "-default-opacity", opacity = "1 1" })
+o.window("^run\\.prev(\\.Prev)?$", { tag = "-default-opacity", opacity = "1 1" })
 ```
 
 ## Using the assistant
@@ -334,7 +334,7 @@ claude mcp add prev -- prev --mcp
 Where `prev` is not on the path, give its whole path:
 `/Applications/prev.app/Contents/MacOS/prev` on macOS,
 `%LOCALAPPDATA%\Programs\prev\prev.exe` on Windows, or
-`flatpak run io.github.scrambletools.prev` for the Flatpak. MCP clients
+`flatpak run run.prev.Prev` for the Flatpak. MCP clients
 for local models take the same command, often as
 `{ "mcpServers": { "prev": { "command": "prev", "args": ["--mcp"] } } }`.
 
