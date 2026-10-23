@@ -314,6 +314,14 @@ Open Settings, Assistant, and pick a provider:
   is kept once for all that provider's models. A new OpenAI or Anthropic
   account needs some credit bought before its key works; prev says so.
 
+The models and their keys are shared with the other Scramble Tools apps,
+such as [plaa](https://github.com/scrambletools/plaa): set up in one,
+they are there in the others, and a change in one reaches the others
+while they run. They are kept in `~/.config/scramble/assistant.toml`
+(`%APPDATA%\scramble\` on Windows, `~/Library/Application Support/scramble/`
+on macOS), the keys in the system's keychain; each app chooses which
+model it uses.
+
 Adding a model sends it one short message first, and adds it once it
 answers. Then the robot head on the toolbar opens the panel. The model
 gets only what it asks for through the tools, never the whole file up

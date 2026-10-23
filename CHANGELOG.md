@@ -3,6 +3,16 @@
 All notable changes to prev. Versions follow
 [Semantic Versioning](https://semver.org).
 
+## [Unreleased]
+
+### Changed
+
+- The assistant's models and keys are shared with the other Scramble
+  Tools apps, such as plaa, in `~/.config/scramble/assistant.toml`: set
+  up in one, they are there in the others, and a change in one reaches
+  the others while they run. Models set up before move there as prev
+  starts; each app keeps its own choice of model.
+
 ## [2.2.3] - 2026-10-17
 
 ### Added

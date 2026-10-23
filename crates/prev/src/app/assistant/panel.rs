@@ -17,9 +17,8 @@ use prev_assist::{Chat, Content, Event, ToolCall, ToolResult};
 use serde_json::{Value, json};
 
 use super::super::{Message, Prev, tools};
-use super::{choice_of, key_of, shown_name};
+use super::{AssistantModel, choice_of, key_of, shown_name};
 use crate::External;
-use prev_store::settings::AssistantModel;
 
 /// The panel's width.
 const WIDTH: f32 = 380.0;
@@ -190,7 +189,6 @@ impl Prev {
     /// have no key.
     pub(crate) fn model_changed(&mut self, id: &str) {
         let Some(choice) = self
-            .settings
             .assistant_models
             .iter()
             .find(|model| model.id == id)
@@ -248,8 +246,8 @@ impl Prev {
 
     /// The model the panel of window `id` uses: its own, if Settings still
     /// has it, else the one in use.
-    fn panel_model(&self, panel: &Panel) -> Option<&prev_store::settings::AssistantModel> {
-        let models = &self.settings.assistant_models;
+    fn panel_model(&self, panel: &Panel) -> Option<&AssistantModel> {
+        let models = &self.assistant_models;
         panel
             .model
             .as_deref()
@@ -328,7 +326,6 @@ impl Prev {
                 let said = panel.unsent.take().unwrap_or_default();
                 let started = key.and_then(|key| {
                     let model = self
-                        .settings
                         .assistant_models
                         .iter()
                         .find(|model| model.id == model_id)
@@ -389,7 +386,6 @@ impl Prev {
             PanelMessage::Model(chosen) => {
                 panel.menu_open = false;
                 let Some(model) = self
-                    .settings
                     .assistant_models
                     .iter()
                     .find(|model| model.id == chosen)
@@ -430,7 +426,6 @@ impl Prev {
                     return Task::none();
                 }
                 let choice = self
-                    .settings
                     .assistant_models
                     .iter()
                     .find(|model| model.id == model_id)
@@ -672,7 +667,7 @@ impl Prev {
         .spacing(4)
         .align_y(Center)
         .padding(ui::dir::padding(12.0, 12.0, 4.0, 24.0));
-        let has_models = !self.settings.assistant_models.is_empty();
+        let has_models = !self.assistant_models.is_empty();
         let model_row: Element<'_, Message> = if !has_models {
             column![
                 ui::aligned(
@@ -775,7 +770,7 @@ impl Prev {
     fn model_menu<'a>(&'a self, id: window::Id, panel: &'a Panel) -> Element<'a, Message> {
         use prev::ui::dropdown::{self, Entry as Item};
         let message = move |message: PanelMessage| Message::Assistant(id, message);
-        let models = &self.settings.assistant_models;
+        let models = &self.assistant_models;
         let chosen = self.panel_model(panel);
         let group = |model: &AssistantModel| (model.provider.clone(), model.address.clone());
         // Names two models share, which then show their ids too.

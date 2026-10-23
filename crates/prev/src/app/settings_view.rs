@@ -341,10 +341,10 @@ impl Prev {
                 .size(ui::button::Size::ExtraSmall)
         };
         let mut models = column![note(prev::fl!("settings-assistant-note"))].spacing(8);
-        if self.settings.assistant_models.is_empty() {
+        if self.assistant_models.is_empty() {
             models = models.push(note(prev::fl!("settings-assistant-none")));
         }
-        for model in &self.settings.assistant_models {
+        for model in &self.assistant_models {
             let used = self.settings.assistant_model.as_deref() == Some(model.id.as_str());
             let choice = choice_of(model);
             let provider = choice.as_ref().map_or_else(
@@ -602,7 +602,7 @@ impl Prev {
                 for info in found {
                     // Ollama answers to a name with or without `:latest`.
                     let bare = info.id.strip_suffix(":latest").unwrap_or(&info.id);
-                    let added = self.settings.assistant_models.iter().any(|model| {
+                    let added = self.assistant_models.iter().any(|model| {
                         let saved = model.model.strip_suffix(":latest").unwrap_or(&model.model);
                         saved == bare
                             && choice_of(model).is_some_and(|choice| choice.provider == provider)

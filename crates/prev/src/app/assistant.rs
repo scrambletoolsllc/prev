@@ -1,9 +1,10 @@
-//! The assistant: the models Settings adds, with their keys in the system
-//! keychain, and the chats the assistant panel holds with them.
+//! The assistant: the models Settings adds, shared with the other
+//! Scramble Tools apps and with their keys in the system keychain, and
+//! the chats the assistant panel holds with them.
 
 use iced::Task;
+pub(crate) use prev::ui::assistant::Model as AssistantModel;
 use prev_assist::{ModelChoice, ModelInfo, Problem, Provider};
-use prev_store::settings::AssistantModel;
 
 use super::{Message, Prev};
 
@@ -11,8 +12,13 @@ mod panel;
 
 pub(crate) use panel::{Heard, Panel, PanelMessage};
 
-/// The keychain service prev's keys are under.
+/// The keychain service the apps' keys are under.
 fn keychain_service() -> &'static str {
+    prev::ui::assistant::keychain_service(prev_store::paths::PRODUCTION)
+}
+
+/// The one prev kept its keys under before the apps shared them.
+fn own_keychain_service() -> &'static str {
     if prev_store::paths::PRODUCTION {
         "prev"
     } else {
@@ -229,17 +235,48 @@ fn key_id(provider: Provider, address: Option<&str>) -> String {
 }
 
 /// The key kept for `model`: its provider's, else one kept for the model
-/// alone, as prev 2.0's first builds did. Blocks: call it off the
-/// interface thread.
+/// alone, as prev 2.0's first builds did, else one prev kept before the
+/// apps shared them. Blocks: call it off the interface thread.
 pub(super) fn key_of(model: &AssistantModel) -> Result<Option<String>, String> {
-    let service = keychain_service();
-    if let Some(provider) = provider_of(&model.provider) {
-        let shared = prev_assist::keys::get(service, &key_id(provider, model.address.as_deref()))?;
-        if shared.is_some() {
-            return Ok(shared);
+    for service in [keychain_service(), own_keychain_service()] {
+        if let Some(provider) = provider_of(&model.provider) {
+            let shared =
+                prev_assist::keys::get(service, &key_id(provider, model.address.as_deref()))?;
+            if shared.is_some() {
+                return Ok(shared);
+            }
+        }
+        if let Some(own) = prev_assist::keys::get(service, &model.id)? {
+            return Ok(Some(own));
         }
     }
-    prev_assist::keys::get(service, &model.id)
+    Ok(None)
+}
+
+/// Moves the keys of models prev kept in its own settings to where the
+/// apps share them, unless a key is there already. `ids` gives each
+/// model's id in the shared file. Blocks: call it off the interface
+/// thread.
+fn move_keys(own: &[AssistantModel], ids: &[(String, String)]) -> Result<(), String> {
+    let mut moves: Vec<(String, String)> = ids.to_vec();
+    for model in own {
+        if let Some(provider) = provider_of(&model.provider) {
+            let id = key_id(provider, model.address.as_deref());
+            moves.push((id.clone(), id));
+        }
+    }
+    moves.sort();
+    moves.dedup();
+    for (old, new) in moves {
+        let Some(key) = prev_assist::keys::get(own_keychain_service(), &old)? else {
+            continue;
+        };
+        if prev_assist::keys::get(keychain_service(), &new)?.is_none() {
+            prev_assist::keys::set(keychain_service(), &new, &key)?;
+        }
+        prev_assist::keys::delete(own_keychain_service(), &old)?;
+    }
+    Ok(())
 }
 
 /// Runs `work` off the interface thread, then makes its message.
@@ -254,6 +291,107 @@ fn off_thread<T: Send + 'static>(
 }
 
 impl Prev {
+    /// Loads the models the apps share, first moving there those prev
+    /// kept in its own settings, with their keys.
+    pub(super) fn load_models(&mut self) -> Task<Message> {
+        let Some(path) = self.models_path.clone() else {
+            return Task::none();
+        };
+        let mut task = Task::none();
+        let own: Vec<AssistantModel> = self
+            .settings
+            .assistant_models
+            .iter()
+            .filter_map(|table| toml::Value::Table(table.clone()).try_into().ok())
+            .collect();
+        if !own.is_empty() {
+            match prev::ui::assistant::adopt(&path, own.clone()) {
+                Ok(ids) => {
+                    if let Some(chosen) = &mut self.settings.assistant_model
+                        && let Some((_, id)) = ids.iter().find(|(old, _)| old == chosen)
+                    {
+                        *chosen = id.clone();
+                    }
+                    self.settings.assistant_models.clear();
+                    self.save_settings();
+                    let moving = prev::image::editor::spawn(move || move_keys(&own, &ids));
+                    task = Task::perform(moving, |moved| {
+                        if let Ok(Err(error)) = moved {
+                            eprintln!("prev: the assistant's keys stay where they were: {error}");
+                        }
+                        Message::Nothing
+                    });
+                }
+                Err(error) => self.settings_error = Some(error),
+            }
+        }
+        match prev::ui::assistant::load(&path) {
+            Ok(models) => self.assistant_models = models,
+            Err(error) => self.settings_error = Some(error),
+        }
+        task
+    }
+
+    /// The models as another app, or prev, saved them.
+    pub(super) fn models_loaded(&mut self, models: Result<Vec<AssistantModel>, String>) {
+        let models = match models {
+            Ok(models) => models,
+            Err(error) => {
+                self.settings_error = Some(error);
+                return;
+            }
+        };
+        if models == self.assistant_models {
+            return;
+        }
+        let old = std::mem::replace(&mut self.assistant_models, models);
+        let changed: Vec<String> = self
+            .assistant_models
+            .iter()
+            .filter(|model| !old.contains(model))
+            .map(|model| model.id.clone())
+            .collect();
+        for id in changed {
+            self.model_changed(&id);
+        }
+        self.keep_choice();
+    }
+
+    /// Changes the models in the file the apps share, as they are there
+    /// now, and keeps what was saved; `None` where it could not be saved,
+    /// which Settings says.
+    fn change_models<T>(&mut self, edit: impl FnOnce(&mut Vec<AssistantModel>) -> T) -> Option<T> {
+        let path = self.models_path.as_deref()?;
+        match prev::ui::assistant::change(path, edit) {
+            Ok((models, given)) => {
+                self.assistant_models = models;
+                Some(given)
+            }
+            Err(error) => {
+                self.settings_error = Some(prev::fl!("settings-save-failed", error = error));
+                None
+            }
+        }
+    }
+
+    /// Uses the first model when the one in use is gone, or when there
+    /// was none.
+    fn keep_choice(&mut self) {
+        let models = &self.assistant_models;
+        let chosen = &self.settings.assistant_model;
+        if chosen
+            .as_deref()
+            .is_some_and(|id| models.iter().any(|model| model.id == id))
+        {
+            return;
+        }
+        let first = models.first().map(|model| model.id.clone());
+        if *chosen != first {
+            self.settings.assistant_model = first;
+            self.save_settings();
+        }
+    }
+
     /// Looks for models to add when the Assistant tab shows and has not
     /// looked yet.
     pub(super) fn assistant_tab_shown(&mut self) -> Task<Message> {
@@ -425,20 +563,9 @@ impl Prev {
                     ),
                     _ => (form.typed_address(), None),
                 };
-                let base = format!("{}-{id}", provider_id(provider));
-                let mut model_id = base.clone();
-                let mut n = 2;
-                while self
-                    .settings
-                    .assistant_models
-                    .iter()
-                    .any(|model| model.id == model_id)
-                {
-                    model_id = format!("{base}-{n}");
-                    n += 1;
-                }
                 let model = AssistantModel {
-                    id: model_id,
+                    // Made unused in the shared file as it is saved.
+                    id: format!("{}-{id}", provider_id(provider)),
                     provider: provider_id(provider).to_owned(),
                     model: id.clone(),
                     address: address.clone(),
@@ -448,6 +575,7 @@ impl Prev {
                         .map(|info| info.name.clone())
                         .filter(|name| *name != prev_assist::friendly_name(provider, &id)),
                     vision: info.as_ref().and_then(|info| info.vision),
+                    other: toml::Table::new(),
                 };
                 form.adding = Some(id);
                 form.failed = None;
@@ -490,25 +618,31 @@ impl Prev {
                     model = shown_name(&model)
                 )));
                 form.typed.clear();
-                if self.settings.assistant_model.is_none() {
-                    self.settings.assistant_model = Some(model.id.clone());
+                let added = self.change_models(|models| {
+                    let id = prev::ui::assistant::unused_id(models, &model.id);
+                    models.push(AssistantModel {
+                        id: id.clone(),
+                        ..model
+                    });
+                    id
+                });
+                if let Some(id) = added
+                    && self.settings.assistant_model.is_none()
+                {
+                    self.settings.assistant_model = Some(id);
+                    self.save_settings();
                 }
-                self.settings.assistant_models.push(model);
-                self.save_settings();
             }
             ModelMessage::FormContext(ContextSize(size)) => form.context = size,
             ModelMessage::Context(id, ContextSize(size)) => {
-                let Some(model) = self
-                    .settings
-                    .assistant_models
-                    .iter_mut()
-                    .find(|model| model.id == id)
-                else {
-                    return Task::none();
-                };
-                model.context = Some(size);
-                self.save_settings();
-                self.model_changed(&id);
+                let changed = self.change_models(|models| {
+                    let model = models.iter_mut().find(|model| model.id == id)?;
+                    model.context = Some(size);
+                    Some(())
+                });
+                if changed.flatten().is_some() {
+                    self.model_changed(&id);
+                }
             }
             ModelMessage::Removed(result) => {
                 if let Err(error) = result {
@@ -523,40 +657,34 @@ impl Prev {
                 self.save_settings();
             }
             ModelMessage::Remove(id) => {
-                let Some(index) = self
-                    .settings
-                    .assistant_models
-                    .iter()
-                    .position(|model| model.id == id)
-                else {
+                // The provider's key stays while another of its models
+                // needs it, in any app; a key kept for this model alone
+                // goes.
+                let removed = self.change_models(|models| {
+                    let index = models.iter().position(|model| model.id == id)?;
+                    let removed = models.remove(index);
+                    let still_used = models.iter().any(|model| {
+                        model.provider == removed.provider && model.address == removed.address
+                    });
+                    Some((removed, still_used))
+                });
+                let Some(Some((removed, still_used))) = removed else {
                     return Task::none();
                 };
-                let removed = self.settings.assistant_models.remove(index);
-                if self.settings.assistant_model.as_deref() == Some(id.as_str()) {
-                    self.settings.assistant_model = self
-                        .settings
-                        .assistant_models
-                        .first()
-                        .map(|model| model.id.clone());
-                }
-                self.save_settings();
-                // The provider's key stays while another of its models
-                // needs it; a key kept for this model alone goes.
+                self.keep_choice();
                 let shared = provider_of(&removed.provider)
                     .map(|provider| (provider, key_id(provider, removed.address.as_deref())));
-                let still_used = self.settings.assistant_models.iter().any(|model| {
-                    model.provider == removed.provider && model.address == removed.address
-                });
                 return off_thread(
                     move || {
-                        let service = keychain_service();
-                        prev_assist::keys::delete(service, &removed.id)?;
-                        match shared {
-                            Some((_, key)) if !still_used => {
-                                prev_assist::keys::delete(service, &key)
+                        for service in [keychain_service(), own_keychain_service()] {
+                            prev_assist::keys::delete(service, &removed.id)?;
+                            if let Some((_, key)) = &shared
+                                && !still_used
+                            {
+                                prev_assist::keys::delete(service, key)?;
                             }
-                            _ => Ok(()),
                         }
+                        Ok(())
                     },
                     || Err("Removing the key stopped.".to_owned()),
                     ModelMessage::Removed,

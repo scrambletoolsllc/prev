@@ -57,6 +57,9 @@ pub struct Prev {
     settings: Settings,
     settings_path: Option<PathBuf>,
     settings_error: Option<String>,
+    /// The assistant's models, as the file the apps share has them.
+    assistant_models: Vec<assistant::AssistantModel>,
+    models_path: Option<PathBuf>,
     omarchy_dir: Option<PathBuf>,
     omarchy: Option<omarchy::Palette>,
     /// The desktop's, Windows' or macOS's accent color, when it has one.
@@ -320,6 +323,8 @@ pub enum Message {
     /// Open or close a window's assistant panel.
     ToggleAssistant(window::Id),
     Assistant(window::Id, assistant::PanelMessage),
+    /// The assistant's models, saved again by prev or another app.
+    Models(Result<Vec<assistant::AssistantModel>, String>),
     /// A task finished with nothing to do.
     Nothing,
     /// Forget the agents allowed to control prev, so they are asked about
@@ -410,6 +415,8 @@ impl Prev {
             settings,
             settings_path,
             settings_error,
+            assistant_models: Vec::new(),
+            models_path: ui::assistant::file(prev_store::paths::PRODUCTION),
             omarchy_dir,
             system_accent: None,
             omarchy: None,
@@ -428,6 +435,7 @@ impl Prev {
             model_form: assistant::ModelForm::default(),
             notices_seen: BTreeMap::new(),
         };
+        let models = prev.load_models();
         ui::component::set_floating_bars(prev.settings.auto_hide_toolbar);
         ui::shape::set_surface(prev.settings.corner_radius);
         ui::component::set_floating_transparency(prev.settings.overlay_transparency);
@@ -450,7 +458,7 @@ impl Prev {
         let motion = Task::perform(portal::animations_enabled(), Message::AnimationsEnabled);
         (
             prev,
-            Task::batch([task, system, motion, read_system_accent()]),
+            Task::batch([task, system, motion, read_system_accent(), models]),
         )
     }
 
@@ -914,6 +922,10 @@ impl Prev {
             | Message::Markdown(id, markdown::Message::ToggleAssistant)
             | Message::ToggleAssistant(id) => self.toggle_assistant(id),
             Message::Assistant(id, message) => self.panel_update(id, message),
+            Message::Models(models) => {
+                self.models_loaded(models);
+                Task::none()
+            }
             Message::Nothing => Task::none(),
             // The assistant's messages, back from the window's side.
             Message::Pdf(_, pdf_window::Message::Side(outside))
@@ -1619,6 +1631,13 @@ impl Prev {
             Subscription::run(portal::accent_changes).map(Message::SystemAccent),
             Subscription::run(crate::external_events).map(Message::External),
             Subscription::run(prev::input::keyboard_changes).map(Message::KeyboardDirection),
+            match &self.models_path {
+                Some(path) => Subscription::run_with(path.clone(), |path| {
+                    ui::assistant::changes(path.clone())
+                })
+                .map(Message::Models),
+                None => Subscription::none(),
+            },
             window::close_events().map(Message::WindowClosed),
             window::close_requests().map(Message::CloseRequested),
             event::listen_with(|event, status, id| match (event, status) {
