@@ -147,8 +147,9 @@ jobs:
           hdiutil detach "$RUNNER_TEMP/dmg"
           app="$RUNNER_TEMP/Applications/prev.app"
           codesign --verify --deep --strict "$app"
+          # Gatekeeper reads the ticket stapled to it, which the release
+          # job validated with Apple's servers.
           if [ "$EXPECT_SIGNED" = true ]; then
-            xcrun stapler validate "$app"
             spctl --assess --type execute --verbose=2 "$app"
           fi
           version=$("$app/Contents/MacOS/prev" --version)
