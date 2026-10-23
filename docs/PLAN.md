@@ -75,9 +75,8 @@ Planned or considered, but not in prev today:
   [RELEASING.md](RELEASING.md#windows-code-signing).
 - **The AUR packages** (`prev`, `prev-git`), once an AUR account can be
   made.
-- **macOS signing**: a Developer ID signature and notarization so
-  Gatekeeper opens prev without a warning, and a Homebrew cask. See
-  [RELEASING.md](RELEASING.md#macos-signing).
+- **A Homebrew cask**, now that macOS releases are signed and
+  notarized. See [RELEASING.md](RELEASING.md#macos-signing).
 - The items above, roughly in the order listed.
 
 ## Architecture
@@ -278,5 +277,5 @@ driver mappings.
 | Memory under heavy use, mostly MuPDF's store | Add a store size limit to the `mupdf` crate upstream if it becomes a problem, and remeasure |
 | Unsigned Windows downloads trigger SmartScreen warnings | Signed with Azure Artifact Signing since 2.2.1 |
 | A package needs something a clean system lacks, as 2.2.2's Windows files needed the Visual C++ runtime | Every package installed and started on a clean system before a release is drafted (`install-test.yml`); `check-dlls.py` checks every DLL the Windows files load |
-| Gatekeeper blocks the macOS app until it is notarized | A Developer ID signature and notarization in the release workflow |
+| Gatekeeper blocks the macOS app until it is notarized | Signed with Scramble Tools' Developer ID and notarized by the release workflow |
 | Draft translations read awkwardly | Marked as first drafts in the README; corrections welcome |

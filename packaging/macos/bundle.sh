@@ -2,13 +2,21 @@
 # Builds prev.app on macOS: the release binary, its icon, and an
 # Info.plist that declares the files prev opens, so Finder offers it in
 # Open With and hands it files through the app delegate. The app is
-# signed ad hoc, which Apple Silicon needs to run it at all; a Developer
-# ID signature and notarization come later (docs/RELEASING.md).
+# signed ad hoc, which Apple Silicon needs to run it at all, unless
+# given a Developer ID (docs/RELEASING.md).
 #
 #   packaging/macos/bundle.sh [--dmg] [--out DIR]
 #
 # PREV_PRODUCTION=1 makes a release build, as in CI; without it the app
 # is the development build, with its own settings and data.
+#
+# PREV_SIGN_IDENTITY signs the app, the libraries it carries and the
+# disk image with that identity, the hardened runtime and a secure
+# timestamp, as notarization asks, from the keychain PREV_SIGN_KEYCHAIN
+# when given, unlocked with PREV_SIGN_KEYCHAIN_PASSWORD.
+# PREV_NOTARY_KEY, an App Store Connect API key's .p8 file, with
+# PREV_NOTARY_KEY_ID and PREV_NOTARY_ISSUER, has the app and the disk
+# image notarized and their tickets stapled to them.
 set -euo pipefail
 
 root=$(cd "$(dirname "$0")/../.." && pwd)
@@ -153,7 +161,61 @@ if [ -e "$app/Contents/Frameworks/libheif.1.dylib" ]; then
         "$app/Contents/Frameworks/libheif.1.dylib"
 fi
 
-codesign --force --deep --sign - "$app"
+# Extended attributes would break the signature's seal.
+xattr -cr "$app"
+identity=${PREV_SIGN_IDENTITY:--}
+sign=(--force --sign "$identity")
+if [ "$identity" != - ]; then
+    sign+=(--options runtime --timestamp)
+fi
+if [ -n "${PREV_SIGN_KEYCHAIN:-}" ]; then
+    security unlock-keychain -p "${PREV_SIGN_KEYCHAIN_PASSWORD:-}" "$PREV_SIGN_KEYCHAIN"
+    sign+=(--keychain "$PREV_SIGN_KEYCHAIN")
+fi
+for library in "$app"/Contents/Frameworks/*.dylib; do
+    [ -e "$library" ] || continue
+    codesign "${sign[@]}" "$library"
+done
+codesign "${sign[@]}" "$app"
+codesign --verify --strict --deep "$app"
+
+# Submits $1 for notarization and staples the ticket to $2.
+notarize() {
+    local result status submission attempt staple
+    result=$(xcrun notarytool submit "$1" "${notary[@]}" --wait --output-format json) || true
+    status=$(plutil -extract status raw -o - - <<<"$result" 2>/dev/null || echo none)
+    if [ "$status" != Accepted ]; then
+        echo "notarization of $1: $status" >&2
+        echo "$result" >&2
+        submission=$(plutil -extract id raw -o - - <<<"$result" 2>/dev/null || true)
+        if [ -n "$submission" ]; then
+            xcrun notarytool log "$submission" "${notary[@]}" >&2 || true
+        fi
+        exit 1
+    fi
+    # The ticket can take a moment to reach Apple's servers after the
+    # submission is accepted, so stapling is tried again before failing.
+    for attempt in 1 2 3 4 5; do
+        if staple=$(xcrun stapler staple "$2" 2>&1); then
+            return
+        fi
+        if [ "$attempt" = 5 ]; then
+            echo "$staple" >&2
+            exit 1
+        fi
+        sleep 30
+    done
+}
+
+if [ -n "${PREV_NOTARY_KEY:-}" ]; then
+    notary=(--key "$PREV_NOTARY_KEY" --key-id "${PREV_NOTARY_KEY_ID:?}"
+        --issuer "${PREV_NOTARY_ISSUER:?}")
+    # The app on its own first, so its ticket goes with it out of the
+    # disk image and it opens without asking Apple's servers.
+    archive=$(mktemp -d)/prev.zip
+    ditto -c -k --keepParent "$app" "$archive"
+    notarize "$archive" "$app"
+fi
 echo "$app"
 
 if $dmg; then
@@ -163,5 +225,15 @@ if $dmg; then
     image="$out/$name-$version-$(uname -m).dmg"
     rm -f "$image"
     hdiutil create -volname "$name" -srcfolder "$stage" -ov -format UDZO "$image" >/dev/null
+    if [ "$identity" != - ]; then
+        image_sign=(--force --sign "$identity" --timestamp)
+        if [ -n "${PREV_SIGN_KEYCHAIN:-}" ]; then
+            image_sign+=(--keychain "$PREV_SIGN_KEYCHAIN")
+        fi
+        codesign "${image_sign[@]}" "$image"
+    fi
+    if [ -n "${PREV_NOTARY_KEY:-}" ]; then
+        notarize "$image" "$image"
+    fi
     echo "$image"
 fi

@@ -283,10 +283,17 @@ jobs:
           path: packages/*
 
   macos:
-    # prev.app in a disk image, for Apple Silicon, signed ad hoc until a
-    # Developer ID signature and notarization are set up.
+    # prev.app in a disk image, for Apple Silicon. Once the repository
+    # variable MACOS_APP_IDENTITY is set (see docs/RELEASING.md), the app
+    # and the disk image carry Scramble Tools' Developer ID signature and
+    # are notarized; until then the app is signed ad hoc. The certificate
+    # and the App Store Connect API key are secrets of the environment
+    # "release".
     if: ${{ !inputs.only || inputs.only == 'all' || inputs.only == 'macos' }}
+    environment: release
     runs-on: macos-15
+    env:
+      SIGNING: ${{ vars.MACOS_APP_IDENTITY != '' }}
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
@@ -301,6 +308,40 @@ jobs:
         run: |
           command -v ninja >/dev/null || brew install ninja
           packaging/macos/build-libheif.sh
+      # A keychain of its own holding the Developer ID identity, for this
+      # run only, and the notary key beside it.
+      - if: env.SIGNING == 'true'
+        name: Signing keychain
+        env:
+          APP_P12: ${{ secrets.MACOS_APP_P12 }}
+          P12_PASSWORD: ${{ secrets.MACOS_P12_PASSWORD }}
+          NOTARY_KEY: ${{ secrets.APPLE_API_KEY }}
+          APP_IDENTITY: ${{ vars.MACOS_APP_IDENTITY }}
+          NOTARY_KEY_ID: ${{ vars.APPLE_API_KEY_ID }}
+          NOTARY_ISSUER: ${{ vars.APPLE_API_ISSUER }}
+        run: |
+          keychain=$RUNNER_TEMP/signing.keychain-db
+          password=$(openssl rand -hex 24)
+          echo "::add-mask::$password"
+          security create-keychain -p "$password" "$keychain"
+          security set-keychain-settings -lut 7200 "$keychain"
+          security unlock-keychain -p "$password" "$keychain"
+          printf '%s' "$APP_P12" | base64 --decode >"$RUNNER_TEMP/identity.p12"
+          security import "$RUNNER_TEMP/identity.p12" -k "$keychain" -f pkcs12 -P "$P12_PASSWORD" \
+            -T /usr/bin/codesign
+          rm "$RUNNER_TEMP/identity.p12"
+          security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$password" "$keychain" >/dev/null
+          security list-keychains -d user -s "$keychain" $(security list-keychains -d user | tr -d '"')
+          security find-identity -v "$keychain"
+          printf '%s' "$NOTARY_KEY" | base64 --decode >"$RUNNER_TEMP/notary.p8"
+          {
+            echo "PREV_SIGN_KEYCHAIN=$keychain"
+            echo "PREV_SIGN_KEYCHAIN_PASSWORD=$password"
+            echo "PREV_SIGN_IDENTITY=$APP_IDENTITY"
+            echo "PREV_NOTARY_KEY=$RUNNER_TEMP/notary.p8"
+            echo "PREV_NOTARY_KEY_ID=$NOTARY_KEY_ID"
+            echo "PREV_NOTARY_ISSUER=$NOTARY_ISSUER"
+          } >>"$GITHUB_ENV"
       - name: App and disk image
         run: packaging/macos/bundle.sh --dmg --out dist
         env:
@@ -311,6 +352,26 @@ jobs:
           echo "$version"
           [[ $version == prev\ [0-9]* ]]
           otool -L dist/prev.app/Contents/Frameworks/libheif.1.dylib
+      # The signatures, checked against the identity named: an app signed
+      # by anyone else, or not notarized, must not go out.
+      - if: env.SIGNING == 'true'
+        name: Check the signatures
+        run: |
+          codesign --verify --strict --deep --verbose=2 dist/prev.app
+          codesign -dvv dist/prev.app 2>&1 | grep -Fx "Authority=$PREV_SIGN_IDENTITY"
+          for library in dist/prev.app/Contents/Frameworks/*.dylib; do
+            codesign -dvv "$library" 2>&1 | grep -Fqx "Authority=$PREV_SIGN_IDENTITY"
+          done
+          codesign -dvv dist/*.dmg 2>&1 | grep -Fx "Authority=$PREV_SIGN_IDENTITY"
+          xcrun stapler validate dist/prev.app
+          xcrun stapler validate dist/*.dmg
+          spctl --assess --type execute --verbose=2 dist/prev.app
+          spctl --assess --type open --context context:primary-signature --verbose=2 dist/*.dmg
+      - if: always() && env.SIGNING == 'true'
+        name: Remove the signing keychain
+        run: |
+          security delete-keychain "$RUNNER_TEMP/signing.keychain-db" || true
+          rm -f "$RUNNER_TEMP/notary.p8"
       - uses: actions/upload-artifact@v4
         with:
           name: macos-arm64

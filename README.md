@@ -190,7 +190,6 @@ For a walkthrough of every feature with more screenshots, see
 - Revert To for PDFs, as images have it.
 - Dragging annotations between documents.
 - prev on winget and the AUR.
-- Signed and notarized macOS releases.
 
 The [development plan](docs/PLAN.md#not-built-yet) lists more.
 
@@ -272,8 +271,9 @@ Every package has every feature. Some depend on where prev runs:
   - Colors follow the accent color set in Settings, Personalization,
     Colors.
 - **macOS:**
-  - The app is not yet signed with an Apple Developer ID or notarized,
-    so macOS blocks it the first time: open it once, then choose Open
+  - Releases after 2.2.3 are signed with Scramble Tools' Developer ID
+    and notarized by Apple, so they open without a warning; 2.2.3 and
+    earlier are blocked the first time: open it once, then choose Open
     Anyway in System Settings, Privacy & Security.
   - Settings are in `~/Library/Application Support/prev/prev.toml`, with
     signatures, version history and bookmarks beside it.

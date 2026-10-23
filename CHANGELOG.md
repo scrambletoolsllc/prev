@@ -12,6 +12,9 @@ All notable changes to prev. Versions follow
   up in one, they are there in the others, and a change in one reaches
   the others while they run. Models set up before move there as prev
   starts; each app keeps its own choice of model.
+- The macOS app and its disk image are signed with Scramble Tools'
+  Developer ID and notarized by Apple, so macOS opens them without
+  asking for Open Anyway first.
 
 ## [2.2.3] - 2026-10-17
 

@@ -131,15 +131,26 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
       - name: Install from the disk image and start
+        env:
+          # The disk image this run built, once releases are signed.
+          EXPECT_SIGNED: ${{ vars.MACOS_APP_IDENTITY != '' && !inputs.release }}
         run: |
           set -eu
           dmg=$(ls packages/*.dmg | head -1)
+          # Gatekeeper's verdict on the disk image and the app in it.
+          if [ "$EXPECT_SIGNED" = true ]; then
+            spctl --assess --type open --context context:primary-signature --verbose=2 "$dmg"
+          fi
           hdiutil attach -nobrowse -readonly -mountpoint "$RUNNER_TEMP/dmg" "$dmg"
           mkdir -p "$RUNNER_TEMP/Applications"
           cp -R "$RUNNER_TEMP/dmg/prev.app" "$RUNNER_TEMP/Applications/"
           hdiutil detach "$RUNNER_TEMP/dmg"
           app="$RUNNER_TEMP/Applications/prev.app"
           codesign --verify --deep --strict "$app"
+          if [ "$EXPECT_SIGNED" = true ]; then
+            xcrun stapler validate "$app"
+            spctl --assess --type execute --verbose=2 "$app"
+          fi
           version=$("$app/Contents/MacOS/prev" --version)
           echo "$version"
           [[ $version == prev\ [0-9]* ]]

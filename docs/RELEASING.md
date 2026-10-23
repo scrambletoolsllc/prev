@@ -113,17 +113,29 @@ up again, such as in a new account:
 
 ## macOS signing
 
-The app is signed ad hoc, which Apple Silicon needs to run it at all, so
-Gatekeeper blocks a downloaded copy until the user chooses Open Anyway in
-System Settings, Privacy & Security. To open without a warning:
+As for triib and plaa: releases carry Scramble Tools' Developer ID
+signature and are notarized, so Gatekeeper opens a downloaded copy
+without asking. `bundle.sh` signs the libraries the app carries, then
+the app, with the hardened runtime and a secure timestamp, with the
+identity in `PREV_SIGN_IDENTITY` where it is set, else ad hoc, from the
+keychain in `PREV_SIGN_KEYCHAIN`, unlocked with
+`PREV_SIGN_KEYCHAIN_PASSWORD`. Given `PREV_NOTARY_KEY`,
+`PREV_NOTARY_KEY_ID` and `PREV_NOTARY_ISSUER`, it has the app notarized
+and staples its ticket, so it opens without asking Apple's servers once
+out of the disk image, then signs the disk image, has it notarized and
+staples it too.
 
-1. Join the Apple Developer Program and make a Developer ID Application
-   certificate.
-2. Store it and an App Store Connect API key as repository secrets, sign
-   `prev.app` with it and the hardened runtime in `bundle.sh`, then
-   submit the disk image with `xcrun notarytool submit --wait` and
-   staple the ticket with `xcrun stapler staple`.
-3. With notarized releases, offer a Homebrew cask.
+The release workflow's macOS job runs in the environment `release` and
+reads the same variables and secrets as triib's and plaa's: the
+repository variables `MACOS_APP_IDENTITY`, `APPLE_API_KEY_ID` and
+`APPLE_API_ISSUER`, and the environment's secrets `MACOS_APP_P12`, the
+Developer ID Application certificate with its key, `MACOS_P12_PASSWORD`
+and `APPLE_API_KEY`, the API key's .p8 file, both base64 encoded. Until
+`MACOS_APP_IDENTITY` is set the app is signed ad hoc; once it is, the
+job checks that the app, every library and the disk image are signed by
+it, that the app and the disk image are notarized with their tickets
+stapled, and that Gatekeeper accepts both, and the install test asks
+Gatekeeper again. A Homebrew cask can follow.
 
 ## The Hyprland rule
 
