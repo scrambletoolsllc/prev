@@ -92,6 +92,11 @@
   <content_rating type="oars-1.1"/>
 
   <releases>
+    <release version="2.3.0" date="2026-10-23">
+      <description>
+        <p>Every toolbar starts with an Open button, and on Linux desktops that draw no title bars, such as Hyprland, a full screen button sits beside the close button. The macOS app is signed and notarized, so macOS opens it without asking first. The assistant's models and keys are shared with the other Scramble Tools apps, and its prompt sits in a pill like the search bar. prev's app ID is now run.prev, and a default app choice carries over. Ticking a checkbox on a form that groups its fields no longer fills the group's other fields.</p>
+      </description>
+    </release>
     <release version="2.2.3" date="2026-10-17">
       <description>
         <p>Parts of a text box's text can be bold, italic or in a color of their own, saved as PDF rich text. The assistant sends the model much less with each request and summarizes long chats before they outgrow a local model's context. On Linux desktops that draw no title bars, such as Hyprland, the toolbar ends with a button that closes the window. prev now starts on a Windows without the Visual C++ Redistributable, and the text box editor lines up with the page.</p>
