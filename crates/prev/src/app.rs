@@ -456,9 +456,10 @@ impl Prev {
             }),
         ]);
         let motion = Task::perform(portal::animations_enabled(), Message::AnimationsEnabled);
+        let defaults = Task::perform(default_app::move_old_defaults(), |()| Message::Nothing);
         (
             prev,
-            Task::batch([task, system, motion, read_system_accent(), models]),
+            Task::batch([task, system, motion, read_system_accent(), models, defaults]),
         )
     }
 

@@ -31,9 +31,11 @@ All notable changes to prev. Versions follow
 - prev's app ID is `run.prev`, prev.run reversed, in place of
   `io.github.scrambletools.prev`: the desktop file, icons, AppStream
   metadata, Wayland app ID and Mac bundle ID take it. Where prev was
-  made the default app on Linux or macOS, choose Make Default in
-  Settings again. Window rules that match prev's class, such as
-  Hyprland's, need the new ID; `scripts/install.sh` adds its own.
+  the default app on Linux or macOS, it stays so: once the old one is
+  gone, prev moves the defaults to the new ID as it starts, and macOS
+  asks to confirm each file type. Window rules that match prev's class,
+  such as Hyprland's, need the new ID; `scripts/install.sh` adds its
+  own.
 - The Flatpak is `run.prev.Prev`, as Flatpak IDs take three parts, so
   Flatpak installs it beside the old one rather than over it: remove
   `io.github.scrambletools.prev` after installing it. Settings made in

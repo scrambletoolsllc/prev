@@ -10,7 +10,9 @@
 //! - Windows lets only the user choose default apps, in Settings; this
 //!   opens prev's page there.
 //!
-//! `status` tells how many of those types prev opens now.
+//! `status` tells how many of those types prev opens now, and
+//! `move_old_defaults` hands this prev the defaults given to prev under
+//! its old app ID, `io.github.scrambletools.prev`.
 
 /// What changing the default did.
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -54,6 +56,13 @@ pub async fn status() -> Option<Status> {
     platform::status()
 }
 
+/// Makes this prev the default wherever prev under its old app ID was,
+/// once that one is gone, so a choice made before the ID changed carries
+/// over. Blocks briefly; run it off the interface thread.
+pub async fn move_old_defaults() {
+    platform::move_old_defaults().await;
+}
+
 #[cfg(target_os = "linux")]
 mod platform {
     use std::path::{Path, PathBuf};
@@ -69,12 +78,15 @@ mod platform {
         }
     }
     const SECTION: &str = "[Default Applications]";
+    /// The desktop entry of prev before its app ID became run.prev, the
+    /// Flatpak's too.
+    const OLD_ID: &str = "io.github.scrambletools.prev.desktop";
 
     pub async fn make_default() -> Result<Outcome, Failure> {
         let flatpak = std::env::var_os("FLATPAK_ID").is_some();
         // Inside the Flatpak the desktop entry is exported outside the
         // sandbox, where prev cannot look.
-        if !flatpak && !desktop_entry_installed() {
+        if !flatpak && !entry_installed(&desktop_id()) {
             return Err(Failure::NoDesktopEntry);
         }
         let types: Vec<&str> = crate::filetype::supported_mime_types().collect();
@@ -119,6 +131,28 @@ mod platform {
             set,
             total: types.len(),
         })
+    }
+
+    /// Renames the old desktop entry to this prev's in the user's lists,
+    /// once this prev's entry is installed and the old one is gone: a
+    /// default then never names an entry that is not there, and a prev
+    /// still installed under the old ID keeps what was chosen for it.
+    pub async fn move_old_defaults() {
+        let flatpak = std::env::var_os("FLATPAK_ID").is_some();
+        if (!flatpak && !entry_installed(&desktop_id())) || entry_installed(OLD_ID) {
+            return;
+        }
+        for list in lists(flatpak) {
+            let Ok(text) = std::fs::read_to_string(&list) else {
+                continue;
+            };
+            let updated = rename_entry(&text, OLD_ID, &desktop_id());
+            if updated != text
+                && let Err(error) = prev_store::atomic::write(&list, updated.as_bytes())
+            {
+                eprintln!("prev: could not update {}: {error}", list.display());
+            }
+        }
     }
 
     /// The files the system reads defaults from, first one first: each
@@ -222,7 +256,11 @@ mod platform {
             .unwrap_or_else(|| home.join(".config"))
     }
 
-    fn desktop_entry_installed() -> bool {
+    /// Whether a desktop entry named `id` is installed: in the data
+    /// folders, and in `~/.local/share` and Flatpak's exports, which
+    /// launchers read even where the variables leave them out, and which
+    /// the Flatpak sees through its access to the home folder.
+    fn entry_installed(id: &str) -> bool {
         let home = prev_store::paths::home().unwrap_or_default();
         let data_home = std::env::var_os("XDG_DATA_HOME")
             .map(PathBuf::from)
@@ -232,14 +270,51 @@ mod platform {
             .ok()
             .filter(|dirs| !dirs.is_empty())
             .unwrap_or_else(|| "/usr/local/share:/usr/share".into());
-        std::iter::once(data_home)
-            .chain(data_dirs.split(':').map(PathBuf::from))
-            .any(|dir| {
-                Path::new(&dir)
-                    .join("applications")
-                    .join(desktop_id())
-                    .exists()
-            })
+        [
+            data_home,
+            home.join(".local/share"),
+            home.join(".local/share/flatpak/exports/share"),
+            PathBuf::from("/var/lib/flatpak/exports/share"),
+        ]
+        .into_iter()
+        .chain(data_dirs.split(':').map(PathBuf::from))
+        .any(|dir| Path::new(&dir).join("applications").join(id).exists())
+    }
+
+    /// `text`, a `mimeapps.list`, with the desktop entry `old` renamed
+    /// `new` in every section, and named only once where a list already
+    /// had `new`. Lines without `old` stay as they were.
+    pub fn rename_entry(text: &str, old: &str, new: &str) -> String {
+        let mut out = String::with_capacity(text.len());
+        for line in text.split_inclusive('\n') {
+            let (body, end) = match line.strip_suffix('\n') {
+                Some(body) => (body, "\n"),
+                None => (line, ""),
+            };
+            match body.split_once('=') {
+                Some((key, value))
+                    if !body.trim_start().starts_with(['#', '['])
+                        && value.split(';').any(|desktop| desktop.trim() == old) =>
+                {
+                    let mut desktops: Vec<&str> = Vec::new();
+                    for desktop in value.split(';').map(str::trim) {
+                        let desktop = if desktop == old { new } else { desktop };
+                        if !desktop.is_empty() && !desktops.contains(&desktop) {
+                            desktops.push(desktop);
+                        }
+                    }
+                    out.push_str(key);
+                    out.push('=');
+                    out.push_str(&desktops.join(";"));
+                    if value.trim_end().ends_with(';') {
+                        out.push(';');
+                    }
+                }
+                _ => out.push_str(body),
+            }
+            out.push_str(end);
+        }
+        out
     }
 
     /// `text`, a `mimeapps.list`, with `desktop` the default for each of
@@ -310,12 +385,22 @@ mod platform {
             content_type: CFStringRef,
             role: u32,
         ) -> CFStringRef;
+        fn LSCopyApplicationURLsForBundleIdentifier(
+            bundle_id: CFStringRef,
+            error: *mut *const c_void,
+        ) -> *const c_void;
     }
 
     #[link(name = "CoreFoundation", kind = "framework")]
     unsafe extern "C" {
         fn CFRelease(object: *const c_void);
+        fn CFArrayGetCount(array: *const c_void) -> isize;
     }
+
+    /// The bundle identifier prev's began with before its app ID became
+    /// run.prev, and the one it begins with now.
+    const OLD_PREFIX: &str = "io.github.scrambletools.prev";
+    const NEW_PREFIX: &str = "run.prev";
 
     /// Every role: viewing and editing.
     const ROLES_ALL: u32 = 0xFFFF_FFFF;
@@ -344,16 +429,7 @@ mod platform {
         let mut asked = 0;
         let mut last_error = None;
         for identifier in TYPES {
-            let content_type = NSString::from_str(identifier);
-            // SAFETY: both strings are live NSStrings, which are CFStrings.
-            // macOS then asks the user to confirm each change.
-            let status = unsafe {
-                LSSetDefaultRoleHandlerForContentType(
-                    (&raw const *content_type).cast(),
-                    ROLES_ALL,
-                    (&raw const *bundle).cast(),
-                )
-            };
+            let status = set_handler(identifier, &bundle);
             if status == 0 {
                 asked += 1;
             } else {
@@ -371,27 +447,95 @@ mod platform {
         let set = TYPES
             .iter()
             .filter(|identifier| {
-                let content_type = NSString::from_str(identifier);
-                // SAFETY: a live NSString is a CFString; the result is
-                // owned, copied, then released.
-                let handler = unsafe {
-                    LSCopyDefaultRoleHandlerForContentType(
-                        (&raw const *content_type).cast(),
-                        ROLES_ALL,
-                    )
-                };
-                if handler.is_null() {
-                    return false;
-                }
-                let name = unsafe { &*handler.cast::<NSString>() }.to_string();
-                unsafe { CFRelease(handler) };
-                name.eq_ignore_ascii_case(&bundle)
+                handler(identifier).is_some_and(|name| name.eq_ignore_ascii_case(&bundle))
             })
             .count();
         Some(Status {
             set,
             total: TYPES.len(),
         })
+    }
+
+    /// Asks for this prev as the default for the types prev under its old
+    /// bundle identifier opened, once that app is gone. macOS asks the user
+    /// to confirm each, so this asks only once: a marker in prev's state
+    /// folder keeps a user who said no from being asked again.
+    pub async fn move_old_defaults() {
+        let Some(bundle) = bundle() else {
+            return;
+        };
+        let Some(old) = bundle
+            .to_string()
+            .strip_prefix(NEW_PREFIX)
+            .map(|rest| format!("{OLD_PREFIX}{rest}"))
+        else {
+            return;
+        };
+        let Some(marker) = prev_store::paths::state_dir().map(|dir| dir.join("default-app-moved"))
+        else {
+            return;
+        };
+        if marker.exists() || installed(&old) {
+            return;
+        }
+        for identifier in TYPES {
+            if handler(identifier).is_some_and(|name| name.eq_ignore_ascii_case(&old)) {
+                set_handler(identifier, &bundle);
+            }
+        }
+        if let Some(parent) = marker.parent() {
+            let _ = std::fs::create_dir_all(parent);
+        }
+        let _ = std::fs::write(&marker, "");
+    }
+
+    /// The bundle identifier of the default app for a content type.
+    fn handler(identifier: &str) -> Option<String> {
+        let content_type = NSString::from_str(identifier);
+        // SAFETY: a live NSString is a CFString; the result is owned,
+        // copied, then released.
+        let handler = unsafe {
+            LSCopyDefaultRoleHandlerForContentType((&raw const *content_type).cast(), ROLES_ALL)
+        };
+        if handler.is_null() {
+            return None;
+        }
+        let name = unsafe { &*handler.cast::<NSString>() }.to_string();
+        unsafe { CFRelease(handler) };
+        Some(name)
+    }
+
+    /// Makes `bundle` the default app for a content type, which macOS asks
+    /// the user to confirm; Launch Services' status, 0 when asked.
+    fn set_handler(identifier: &str, bundle: &NSString) -> i32 {
+        let content_type = NSString::from_str(identifier);
+        // SAFETY: both strings are live NSStrings, which are CFStrings.
+        unsafe {
+            LSSetDefaultRoleHandlerForContentType(
+                (&raw const *content_type).cast(),
+                ROLES_ALL,
+                (&raw const *bundle).cast(),
+            )
+        }
+    }
+
+    /// Whether any app with this bundle identifier is installed.
+    fn installed(bundle: &str) -> bool {
+        let bundle = NSString::from_str(bundle);
+        // SAFETY: a live NSString is a CFString; the array, when there is
+        // one, is owned, counted, then released.
+        unsafe {
+            let urls = LSCopyApplicationURLsForBundleIdentifier(
+                (&raw const *bundle).cast(),
+                std::ptr::null_mut(),
+            );
+            if urls.is_null() {
+                return false;
+            }
+            let count = CFArrayGetCount(urls);
+            CFRelease(urls);
+            count > 0
+        }
     }
 }
 
@@ -408,6 +552,10 @@ mod platform {
     /// under RegisteredApplications. Windows versions without the
     /// per-app page show the Default apps list.
     const PAGE: &str = "ms-settings:defaultapps?registeredAppUser=prev";
+
+    /// Windows names the default by prev.exe, which kept its name, so
+    /// nothing moves.
+    pub async fn move_old_defaults() {}
 
     pub async fn make_default() -> Result<Outcome, Failure> {
         crate::portal::open_uri(PAGE.to_owned())
@@ -508,5 +656,35 @@ mod tests {
     fn setting_twice_changes_nothing() {
         let once = set_defaults("", &["image/png"], ID);
         assert_eq!(set_defaults(&once, &["image/png"], ID), once);
+    }
+
+    #[test]
+    fn the_old_entry_is_renamed_in_every_section() {
+        use super::platform::rename_entry;
+        let text = "[Added Associations]\napplication/pdf=old.desktop;\nimage/png=gimp.desktop;old.desktop;\n\n[Default Applications]\napplication/pdf=old.desktop\ntext/html=firefox.desktop\n# old.desktop=old.desktop\n";
+        assert_eq!(
+            rename_entry(text, "old.desktop", ID),
+            "[Added Associations]\napplication/pdf=prev.desktop;\nimage/png=gimp.desktop;prev.desktop;\n\n[Default Applications]\napplication/pdf=prev.desktop\ntext/html=firefox.desktop\n# old.desktop=old.desktop\n"
+        );
+    }
+
+    #[test]
+    fn a_list_naming_both_names_the_new_one_once() {
+        use super::platform::rename_entry;
+        assert_eq!(
+            rename_entry(
+                "[Default Applications]\nimage/png=old.desktop;prev.desktop;\n",
+                "old.desktop",
+                ID
+            ),
+            "[Default Applications]\nimage/png=prev.desktop;\n"
+        );
+    }
+
+    #[test]
+    fn a_list_without_the_old_entry_stays_as_it_was() {
+        use super::platform::rename_entry;
+        let text = "[Default Applications]\nimage/png = gimp.desktop\nimage/gif=old.desktop.bak\n";
+        assert_eq!(rename_entry(text, "old.desktop", ID), text);
     }
 }
