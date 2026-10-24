@@ -5,6 +5,16 @@ All notable changes to prev. Versions follow
 
 ## [Unreleased]
 
+### Added
+
+- Every toolbar starts with an Open button, which shows the file dialog
+  as Ctrl+O does.
+- On Linux desktops that draw no title bar above a window, such as
+  Hyprland, a full screen button sits beside the close button; it shows
+  Exit Full Screen while the window is full screen, also when the
+  window manager made it so. The window's own buttons end the toolbar,
+  after More.
+
 ### Changed
 
 - The assistant's models and keys are shared with the other Scramble
@@ -15,6 +25,25 @@ All notable changes to prev. Versions follow
 - The macOS app and its disk image are signed with Scramble Tools'
   Developer ID and notarized by Apple, so macOS opens them without
   asking for Open Anyway first.
+- The assistant's prompt sits in a pill like the toolbar's search bar,
+  with Send where the search icon is; Stop takes its place while the
+  assistant works.
+- prev's app ID is `run.prev`, prev.run reversed, in place of
+  `io.github.scrambletools.prev`: the desktop file, icons, AppStream
+  metadata, Wayland app ID and Mac bundle ID take it. Where prev was
+  made the default app on Linux or macOS, choose Make Default in
+  Settings again. Window rules that match prev's class, such as
+  Hyprland's, need the new ID; `scripts/install.sh` adds its own.
+- The Flatpak is `run.prev.Prev`, as Flatpak IDs take three parts, so
+  Flatpak installs it beside the old one rather than over it: remove
+  `io.github.scrambletools.prev` after installing it. Settings made in
+  the old one stay in `~/.var/app/io.github.scrambletools.prev`.
+
+### Fixed
+
+- Ticking a checkbox on a form whose fields sit in groups, as the IRS's
+  do, no longer gives the box's value to every other field in its
+  group, text fields too.
 
 ## [2.2.3] - 2026-10-17
 
