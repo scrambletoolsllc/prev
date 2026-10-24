@@ -1,7 +1,6 @@
 {
  "fc1737e6fa71": "<span1>Fast, open, elegant document and image preview.</span1> <span2>Any PDF, including forms, annotations and encryption. Markdown files, most image formats, including RAW and SVG. Review, annotate, sign and redact by yourself, or using your favourite AI model or agent&nbsp;tools.</span2>",
  "6d94e49a3888": "PNG, JPEG, WebP, AVIF, HEIC, TIFF, camera RAW and more. Crop, rotate, resize and adjust colour with undo, mark up, and export to nine formats. Edits keep EXIF and colour profiles.",
- "37820ce70d0c": "Open it and drag prev to Applications. Until the app is notarised, choose Open Anyway in System Settings, Privacy &amp; Security the first time",
  "840981ec0887": "<strong>Committers and reviewers:</strong> the members of the <a1>scrambletoolsllc</a1> GitHub organisation, who review every outside contribution before it is merged.",
  "6263ca064f9a": "<strong>Approvers:</strong> the owner of the <a1>scrambletoolsllc</a1> GitHub organisation, who alone can publish a release, and with it a signing.",
  "3d014d05326a": "<strong>Highlight</strong>, underline and strikethrough over selected text, in five colours.",
@@ -20,7 +19,6 @@
  "e33a7cf2935c": "An agent pointing out the largest expense: the drip irrigation row of the budget's expenses table, outlined in the accent colour",
  "80e5b3da05ba": "The Appearance tab of Settings: light or dark, the accent colour, and how windows look",
  "ca9f059b4152": "<a1>Licence and privacy</a1>",
- "ac2ad4386ae4": "Disk image (.dmg), not yet notarised",
  "c9283a58313e": "Material Design 3, light or dark and the accent colour from the system",
  "81b71dc9405b": "EXIF, ICC colour profiles and XMP kept through edits in JPEG, PNG, WebP and TIFF; keywords and descriptions saved to JPEG, PNG and WebP; location removable",
  "ab778d5a85aa": "All open source, with licences checked by cargo-deny in CI; GPL-2.0-only is refused",

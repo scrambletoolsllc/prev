@@ -247,9 +247,9 @@
   "page": "index.html",
   "text": "Disk image (.dmg): <a1>Apple Silicon</a1>"
  },
- "37820ce70d0c": {
+ "ad7a6715d26d": {
   "page": "index.html",
-  "text": "Open it and drag prev to Applications. Until the app is notarized, choose Open Anyway in System Settings, Privacy &amp; Security the first time"
+  "text": "Open it and drag prev to Applications"
  },
  "2d9dceb94637": {
   "page": "index.html",
@@ -1546,9 +1546,9 @@
   "page": "specs.html",
   "text": "Apple Silicon"
  },
- "ac2ad4386ae4": {
+ "e6268f54a076": {
   "page": "specs.html",
-  "text": "Disk image (.dmg), not yet notarized"
+  "text": "Disk image (.dmg)"
  },
  "ab255c27aec8": {
   "page": "specs.html",
