@@ -18,6 +18,7 @@
   --surface-container-high: #e8e8e8;
   --on-surface: #1b1b1b;
   --on-surface-variant: #474747;
+  --nav-link: #6b6b6b;
   --outline-variant: #c6c6c6;
   --shadow: 0 1px 3px rgb(0 0 0 / 0.12), 0 8px 24px rgb(0 0 0 / 0.10);
   --hero-shadow: var(--shadow);
@@ -35,6 +36,7 @@
     --surface-container-high: #2a2a2a;
     --on-surface: #e2e2e2;
     --on-surface-variant: #c6c6c6;
+    --nav-link: #9a9a9a;
     --outline-variant: #474747;
     --shadow: 0 1px 3px rgb(0 0 0 / 0.4), 0 8px 24px rgb(0 0 0 / 0.35);
     /* A hairline and a soft glow in the accent color, so the dark hero
@@ -96,18 +98,14 @@ code {
 }
 
 .top nav { display: flex; gap: 20px; flex-wrap: wrap; }
-.top nav a { color: var(--on-surface-variant); text-decoration: none; font-weight: 500; }
-.top nav a:hover { color: var(--primary); }
-.top nav .repo { color: var(--primary); }
-/* The page shown, or on the front page the section last gone to, in the
-   accent and heavier, as the language menu marks its language: the grey
-   accent alone is the other links' color in dark mode. */
+/* The links a tone below the text, so the page shown, or on the front
+   page the section last gone to, stands out in the text's own color: the
+   grey accent is the links' color in dark mode. */
+.top nav a { color: var(--nav-link); text-decoration: none; font-weight: 500; }
+.top nav a:hover,
 .top nav a[aria-current="page"],
 body:has(#features:target) .top nav a[href$="#features"],
-body:has(#download:target) .top nav a[href$="#download"] {
-  color: var(--primary);
-  font-weight: 650;
-}
+body:has(#download:target) .top nav a[href$="#download"] { color: var(--on-surface); }
 
 /* The language menu: a list of links, which opens without script. */
 .top nav { align-items: center; }
@@ -118,11 +116,11 @@ body:has(#download:target) .top nav a[href$="#download"] {
   gap: 6px;
   cursor: pointer;
   list-style: none;
-  color: var(--on-surface-variant);
+  color: var(--nav-link);
   font-weight: 500;
 }
 .languages summary::-webkit-details-marker { display: none; }
-.languages summary:hover { color: var(--primary); }
+.languages summary:hover { color: var(--on-surface); }
 .languages ul {
   position: absolute;
   inset-inline-end: 0;
