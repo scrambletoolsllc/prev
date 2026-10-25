@@ -245,22 +245,7 @@ impl Annotation {
     /// which its line straddles, or its rect. MuPDF keeps a drawing's rect
     /// larger, with room for its line.
     pub fn frame(&self) -> Rect {
-        let rect = self.rect;
-        match self.kind {
-            // MuPDF draws a redaction mark's outline inside its rect,
-            // centred this far in.
-            Kind::Redact
-                if rect.width() > 2.0 * REDACT_INSET && rect.height() > 2.0 * REDACT_INSET =>
-            {
-                Rect::new(
-                    rect.x0 + REDACT_INSET,
-                    rect.y0 + REDACT_INSET,
-                    rect.x1 - REDACT_INSET,
-                    rect.y1 - REDACT_INSET,
-                )
-            }
-            _ => self.point_bounds().unwrap_or(rect),
-        }
+        self.point_bounds().unwrap_or(self.rect)
     }
 
     /// The annotation resized so its frame is `target`, its rect keeping
@@ -418,9 +403,8 @@ pub fn new_id() -> String {
     format!("prev-{nanos:x}-{count}")
 }
 
-/// How far inside a redaction mark's rect MuPDF centres its outline, in
-/// points.
-const REDACT_INSET: f32 = 1.0;
+/// How dark a redaction mark shades what it covers, as prev draws it.
+pub const REDACTION_SHADE: f32 = 0.35;
 
 #[cfg(test)]
 mod tests {

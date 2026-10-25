@@ -3,6 +3,23 @@
 All notable changes to prev. Versions follow
 [Semantic Versioning](https://semver.org).
 
+## Unreleased
+
+### Changed
+
+- The rectangular selection, in documents and images, is framed as a
+  selected annotation is, with the same box and handles, and dragging a
+  handle resizes it.
+- A redaction mark is a see-through dark box, outlined in red as a
+  selection is, 1 pixel wide at every zoom; selected, it has the same
+  handles as other annotations. Other apps show the dark box too. Marks
+  made before keep MuPDF's thicker red line until moved or resized.
+
+### Fixed
+
+- With the Redact tool, a redaction mark, the one just drawn or any
+  other, can be moved and resized; a press on one started a new mark.
+
 ## [2.3.0] - 2026-10-23
 
 ### Added

@@ -1,5 +1,7 @@
 //! Draws one image inside a scrollable, zooms with Ctrl+scroll, pans or
-//! selects by dragging, and wakes up for the next animation frame.
+//! selects by dragging, and wakes up for the next animation frame. The
+//! selection is framed as a selected annotation is, and its handles
+//! resize it.
 
 use std::time::Instant;
 
@@ -11,9 +13,12 @@ use iced::advanced::{Clipboard, Shell};
 use iced::keyboard::{self, Modifiers};
 use iced::mouse::{self, Cursor};
 use iced::widget::image::Handle;
-use iced::{Background, Border, Color, Element, Event, Length, Rectangle, Size, Theme, window};
+use iced::{Background, Color, Element, Event, Length, Rectangle, Size, Theme, Vector, window};
+use prev_pdf::geometry::{Point, Rect};
 
 use super::view::Placement;
+use crate::pdf::markup;
+use crate::pdf::{canvas::handle_interaction, overlay};
 
 const LINE_SCROLL_ZOOM: f32 = 1.1;
 /// Zoom at or above which pixels are shown sharp instead of smoothed.
@@ -52,6 +57,8 @@ pub struct ImageCanvas<'a, Message> {
     /// Dragging draws a selection instead of panning.
     selecting: bool,
     selection: Option<Selection>,
+    /// Screen pixels per logical pixel.
+    device_scale: f32,
     on_event: Box<dyn Fn(CanvasEvent) -> Message + 'a>,
 }
 
@@ -68,6 +75,7 @@ impl<'a, Message> ImageCanvas<'a, Message> {
             next_frame,
             selecting: false,
             selection: None,
+            device_scale: 1.0,
             on_event: Box::new(on_event),
         }
     }
@@ -76,6 +84,42 @@ impl<'a, Message> ImageCanvas<'a, Message> {
         self.selecting = selecting;
         self.selection = selection;
         self
+    }
+
+    pub fn device_scale(mut self, scale: f32) -> Self {
+        self.device_scale = scale;
+        self
+    }
+
+    /// The image's size in its own pixels.
+    fn image_size(&self) -> (f32, f32) {
+        let zoom = self.placement.zoom.max(f32::EPSILON);
+        (
+            self.placement.image.width / zoom,
+            self.placement.image.height / zoom,
+        )
+    }
+
+    /// The selection in image pixels, in order and kept on the image.
+    fn selection_rect(&self) -> Option<Rect> {
+        let (x0, y0, x1, y1) = self.selection?;
+        let (width, height) = self.image_size();
+        let on_x = |value: f32| value.clamp(0.0, width);
+        let on_y = |value: f32| value.clamp(0.0, height);
+        Some(Rect::new(
+            on_x(x0.min(x1)),
+            on_y(y0.min(y1)),
+            on_x(x0.max(x1)),
+            on_y(y0.max(y1)),
+        ))
+    }
+
+    /// The selection's handle under `position`, a position in the window.
+    fn handle_at(&self, bounds: Rectangle, position: iced::Point) -> Option<markup::Handle> {
+        let rect = self.selection_rect()?;
+        let (x, y) = self.to_image(bounds, position);
+        let reach = markup::HANDLE_PIXELS / self.placement.zoom.max(f32::EPSILON);
+        markup::hit_edge(rect, Point::new(x, y), reach)
     }
 
     /// A position in the window to image pixels.
@@ -94,6 +138,9 @@ struct State {
     drag_from: Option<iced::Point>,
     /// Image pixel where a selection drag started.
     select_from: Option<(f32, f32)>,
+    /// A handle of the selection being dragged: the selection as the drag
+    /// began, the handle, and the image pixel where it began.
+    resize: Option<(Rect, markup::Handle, (f32, f32))>,
     modifiers: Modifiers,
     reported: Option<(f32, f32, f32, f32)>,
 }
@@ -173,7 +220,12 @@ impl<Message> Widget<Message, Theme, iced::Renderer> for ImageCanvas<'_, Message
             }
             Event::Mouse(mouse::Event::ButtonPressed(mouse::Button::Left)) => {
                 if let Some(position) = cursor.position_over(*viewport) {
-                    if self.selecting {
+                    if self.selecting
+                        && let Some(handle) = self.handle_at(bounds, position)
+                        && let Some(rect) = self.selection_rect()
+                    {
+                        state.resize = Some((rect, handle, self.to_image(bounds, position)));
+                    } else if self.selecting {
                         state.select_from = Some(self.to_image(bounds, position));
                         shell.publish((self.on_event)(CanvasEvent::Selection(None)));
                     } else {
@@ -183,7 +235,24 @@ impl<Message> Widget<Message, Theme, iced::Renderer> for ImageCanvas<'_, Message
                 }
             }
             Event::Mouse(mouse::Event::CursorMoved { position }) => {
-                if let Some((x0, y0)) = state.select_from {
+                if let Some((
+                    original,
+                    markup::Handle::Edge {
+                        x: side_x,
+                        y: side_y,
+                    },
+                    from,
+                )) = state.resize
+                {
+                    let (x, y) = self.to_image(bounds, cursor.position().unwrap_or(*position));
+                    let (width, height) = self.image_size();
+                    let (dx, dy) = (x.clamp(0.0, width) - from.0, y.clamp(0.0, height) - from.1);
+                    let keep_ratio = state.modifiers.shift();
+                    let rect = markup::resized(original, side_x, side_y, dx, dy, keep_ratio);
+                    shell.publish((self.on_event)(CanvasEvent::Selection(Some((
+                        rect.x0, rect.y0, rect.x1, rect.y1,
+                    )))));
+                } else if let Some((x0, y0)) = state.select_from {
                     // The event has window coordinates; the cursor given to
                     // this widget is moved by the scroll offset.
                     let (x1, y1) = self.to_image(bounds, cursor.position().unwrap_or(*position));
@@ -202,6 +271,7 @@ impl<Message> Widget<Message, Theme, iced::Renderer> for ImageCanvas<'_, Message
             Event::Mouse(mouse::Event::ButtonReleased(mouse::Button::Left)) => {
                 state.drag_from = None;
                 state.select_from = None;
+                state.resize = None;
             }
             Event::Mouse(mouse::Event::WheelScrolled { delta }) if state.modifiers.command() => {
                 let Some(position) = cursor.position_over(*viewport) else {
@@ -222,14 +292,21 @@ impl<Message> Widget<Message, Theme, iced::Renderer> for ImageCanvas<'_, Message
     fn mouse_interaction(
         &self,
         tree: &Tree,
-        _layout: Layout<'_>,
+        layout: Layout<'_>,
         cursor: Cursor,
         viewport: &Rectangle,
         _renderer: &iced::Renderer,
     ) -> mouse::Interaction {
         let state = tree.state.downcast_ref::<State>();
-        if self.selecting && cursor.is_over(*viewport) {
-            return mouse::Interaction::Crosshair;
+        if let Some((_, handle, _)) = state.resize {
+            return handle_interaction(handle);
+        }
+        if self.selecting
+            && let Some(position) = cursor.position_over(*viewport)
+        {
+            return self
+                .handle_at(layout.bounds(), position)
+                .map_or(mouse::Interaction::Crosshair, handle_interaction);
         }
         let (content_width, content_height) = self.placement.content;
         let scrolls =
@@ -243,7 +320,7 @@ impl<Message> Widget<Message, Theme, iced::Renderer> for ImageCanvas<'_, Message
 
     fn draw(
         &self,
-        _tree: &Tree,
+        tree: &Tree,
         renderer: &mut iced::Renderer,
         _theme: &Theme,
         _style: &renderer::Style,
@@ -271,14 +348,12 @@ impl<Message> Widget<Message, Theme, iced::Renderer> for ImageCanvas<'_, Message
             *viewport,
         );
 
-        let Some((x0, y0, x1, y1)) = self.selection else {
+        let Some(selection) = self.selection_rect() else {
             return;
         };
         let zoom = self.placement.zoom;
-        let clamp_x = |value: f32| (rect.x + value * zoom).clamp(rect.x, rect.x + rect.width);
-        let clamp_y = |value: f32| (rect.y + value * zoom).clamp(rect.y, rect.y + rect.height);
-        let (left, right) = (clamp_x(x0.min(x1)), clamp_x(x0.max(x1)));
-        let (top, bottom) = (clamp_y(y0.min(y1)), clamp_y(y0.max(y1)));
+        let (left, right) = (rect.x + selection.x0 * zoom, rect.x + selection.x1 * zoom);
+        let (top, bottom) = (rect.y + selection.y0 * zoom, rect.y + selection.y1 * zoom);
         let area = |x: f32, y: f32, width: f32, height: f32| renderer::Quad {
             bounds: Rectangle::new(
                 iced::Point::new(x, y),
@@ -299,17 +374,23 @@ impl<Message> Widget<Message, Theme, iced::Renderer> for ImageCanvas<'_, Message
                 area(right, top, rect.x + rect.width - right, bottom - top),
                 shade,
             );
-            renderer.fill_quad(
-                renderer::Quad {
-                    border: Border {
-                        color: Color::WHITE,
-                        width: 1.0,
-                        radius: 0.0.into(),
-                    },
-                    ..area(left, top, right - left, bottom - top)
-                },
-                Background::Color(Color::TRANSPARENT),
-            );
+        });
+        // The box on top of the shade, with its handles once drawn.
+        use iced::advanced::graphics::geometry::Renderer as _;
+        let drawing = tree.state.downcast_ref::<State>().select_from.is_some();
+        let mut frame = iced::widget::canvas::Frame::new(renderer, viewport.size());
+        overlay::selection_rect(
+            &mut frame,
+            iced::Point::new(left - viewport.x, top - viewport.y),
+            Size::new(right - left, bottom - top),
+            !drawing,
+            self.device_scale,
+        );
+        let geometry = frame.into_geometry();
+        renderer.with_layer(*viewport, |renderer| {
+            renderer.with_translation(Vector::new(viewport.x, viewport.y), |renderer| {
+                renderer.draw_geometry(geometry);
+            });
         });
     }
 }

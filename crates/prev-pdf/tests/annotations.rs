@@ -279,6 +279,37 @@ fn masks_darken_all_but_the_hole() {
     );
 }
 
+#[test]
+fn redaction_marks_shade_without_an_outline() {
+    let (_dir, mut document) = open(&common::form_fixture());
+    let gray = |pixel: [u8; 4]| {
+        let [red, green, blue, _] = pixel;
+        red.abs_diff(green) <= 2 && red.abs_diff(blue) <= 2 && (150..=180).contains(&red)
+    };
+    let mark = Annotation::new(
+        new_id(),
+        Kind::Redact,
+        Rect::new(100.0, 100.0, 300.0, 200.0),
+    );
+    document.add_annotation(0, &mark, None).unwrap();
+    for (x, y) in [(200.0, 150.0), (101.0, 150.0), (200.0, 101.0)] {
+        let shade = pixel(document.as_ref(), x, y);
+        assert!(
+            gray(shade),
+            "shaded, with no red line, at {x}, {y}: {shade:?}"
+        );
+    }
+    assert_eq!(pixel(document.as_ref(), 50.0, 50.0), [255, 255, 255, 255]);
+
+    let resized = mark.resized(Rect::new(100.0, 100.0, 400.0, 250.0));
+    document.update_annotation(0, &resized, None).unwrap();
+    let (_dir, reopened, _) = reopen(&mut document);
+    for (x, y) in [(350.0, 225.0), (101.0, 225.0)] {
+        let shade = pixel(reopened.as_ref(), x, y);
+        assert!(gray(shade), "kept after a resize at {x}, {y}: {shade:?}");
+    }
+}
+
 fn field<'a>(fields: &'a [Field], name: &str) -> &'a Field {
     fields
         .iter()

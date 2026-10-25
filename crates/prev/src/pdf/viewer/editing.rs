@@ -80,6 +80,13 @@ pub(super) enum Drag {
     /// A press on selected text or a chosen area, which becomes a drag to
     /// other windows and apps once the pointer moves.
     Out { start: (f32, f32), out: Outgoing },
+    /// A handle of the chosen area, reshaping it as the pointer moves.
+    Area {
+        page: usize,
+        original: Rect,
+        handle: Handle,
+        from: Point,
+    },
 }
 
 /// What a drag out of the document carries.
@@ -520,7 +527,7 @@ impl PdfViewer {
             }
             Drag::Create {
                 page,
-                creation: Creation::TextBox | Creation::Area,
+                creation: Creation::TextBox,
                 start,
                 current,
             } => {
@@ -540,7 +547,7 @@ impl PdfViewer {
                 start,
                 current,
             } => Some((*page, redaction(markup::normalized(*start, *current)))),
-            Drag::Create { .. } | Drag::Out { .. } => None,
+            Drag::Create { .. } | Drag::Out { .. } | Drag::Area { .. } => None,
             Drag::Move {
                 page,
                 original,
@@ -687,8 +694,18 @@ impl PdfViewer {
             }
             Tool::Area => {
                 self.edit.selected = None;
-                self.edit.area = None;
-                self.edit.drag = create(Creation::Area);
+                self.edit.drag = match self.area_handle_at(x, y) {
+                    Some((page, original, handle, from)) => Some(Drag::Area {
+                        page,
+                        original,
+                        handle,
+                        from,
+                    }),
+                    None => {
+                        self.edit.area = None;
+                        create(Creation::Area)
+                    }
+                };
                 return Some(Task::batch(tasks));
             }
             Tool::Highlight(_) => {
@@ -697,8 +714,19 @@ impl PdfViewer {
                 return Some(Task::batch(tasks));
             }
             Tool::Redact => {
-                self.edit.selected = None;
-                self.edit.drag = create(Creation::Redact);
+                let held = self
+                    .redaction_at(x, y)
+                    .map(|(page, mark, handle, point)| (page, mark.clone(), handle, point));
+                match held {
+                    Some((page, mark, handle, point)) => {
+                        self.edit.selected = Some((page, mark.id.clone()));
+                        tasks.push(self.start_move(page, mark, handle, point));
+                    }
+                    None => {
+                        self.edit.selected = None;
+                        self.edit.drag = create(Creation::Redact);
+                    }
+                }
                 return Some(Task::batch(tasks));
             }
             Tool::Select => {}
@@ -923,7 +951,7 @@ impl PdfViewer {
     /// way, which scrolls the view at its edge.
     pub(super) fn edge_scrolls(&self) -> bool {
         match &self.edit.drag {
-            Some(Drag::Stroke { .. } | Drag::Create { .. }) => true,
+            Some(Drag::Stroke { .. } | Drag::Create { .. } | Drag::Area { .. }) => true,
             Some(Drag::Move { .. }) => self.moving(),
             Some(Drag::Out { .. }) | None => false,
         }
@@ -933,9 +961,74 @@ impl PdfViewer {
     /// way, wherever it goes.
     pub fn dragged_handle(&self) -> Option<Handle> {
         match &self.edit.drag {
-            Some(Drag::Move { handle, .. }) => Some(*handle),
+            Some(Drag::Move { handle, .. } | Drag::Area { handle, .. }) => Some(*handle),
             _ => None,
         }
+    }
+
+    /// The area to outline, and whether it shows its handles: the chosen
+    /// one, or one being drawn.
+    pub fn shown_area(&self) -> Option<(usize, Rect, bool)> {
+        if let Some((page, rect)) = self.edit.area {
+            return Some((page, rect, true));
+        }
+        match &self.edit.drag {
+            Some(Drag::Create {
+                page,
+                creation: Creation::Area,
+                start,
+                current,
+            }) => Some((*page, markup::normalized(*start, *current), false)),
+            _ => None,
+        }
+    }
+
+    /// The handle of the chosen area under `x`, `y` in document space,
+    /// with the area's page, the area and the point on the page.
+    pub fn area_handle_at(&self, x: f32, y: f32) -> Option<(usize, Rect, Handle, Point)> {
+        let (page, rect) = self.edit.area?;
+        let point = self.layout.to_page(page, x, y)?;
+        let handle = markup::HANDLE_PIXELS * self.points_per_pixel();
+        markup::hit_edge(rect, point, handle).map(|edge| (page, rect, edge, point))
+    }
+
+    /// The redaction mark a press with the redaction tool at `x`, `y` in
+    /// document space takes hold of, as the select tool would: a handle of
+    /// the selected mark, or any mark's body. With the mark come its page,
+    /// the part pressed and the point on the page.
+    pub fn redaction_at(&self, x: f32, y: f32) -> Option<(usize, &Annotation, Handle, Point)> {
+        let per_pixel = self.points_per_pixel();
+        if let Some((page, mark)) = self.selected_annotation()
+            && mark.kind == Kind::Redact
+            && let Some(point) = self.layout.to_page(page, x, y)
+            && let Some(handle) = markup::hit_handle(mark, point, markup::HANDLE_PIXELS * per_pixel)
+        {
+            return Some((page, mark, handle, point));
+        }
+        let (page, point) = self.layout.hit(x, y)?;
+        let slop = markup::HIT_SLOP * per_pixel.max(1.0);
+        let mark = markup::hit_annotation(&self.markup.get(&page)?.annotations, point, slop)?;
+        (mark.kind == Kind::Redact).then_some((page, mark, Handle::Body, point))
+    }
+
+    /// The chosen area as of `original` with `handle` dragged from `from`
+    /// to `to`, which stays on the page.
+    fn reshaped_area(
+        &self,
+        page: usize,
+        original: Rect,
+        handle: Handle,
+        from: Point,
+        to: Point,
+    ) -> Rect {
+        let Handle::Edge { x, y } = handle else {
+            return original;
+        };
+        let to = match self.info.page_sizes.get(page) {
+            Some(size) => Point::new(to.x.clamp(0.0, size.width), to.y.clamp(0.0, size.height)),
+            None => to,
+        };
+        markup::resized(original, x, y, to.x - from.x, to.y - from.y, self.shift)
     }
 
     /// The part of `page` in view, in page points, with `slack` logical
@@ -1142,10 +1235,22 @@ impl PdfViewer {
         let Some(drag) = self.edit.drag.as_mut() else {
             return false;
         };
+        if let Drag::Area {
+            page,
+            original,
+            handle,
+            from,
+        } = *drag
+        {
+            let to = self.layout.to_page(page, x, y).unwrap_or_default();
+            self.edit.area = Some((page, self.reshaped_area(page, original, handle, from, to)));
+            return true;
+        }
         let page = match drag {
             Drag::Stroke { page, .. } | Drag::Create { page, .. } | Drag::Move { page, .. } => {
                 *page
             }
+            Drag::Area { .. } => return true,
             Drag::Out { start, out } => {
                 // Past a small move, the drag leaves for other windows.
                 if (x - start.0).abs() + (y - start.1).abs() > 4.0 {
@@ -1161,7 +1266,7 @@ impl PdfViewer {
         match drag {
             Drag::Stroke { points, .. } => points.push(point),
             Drag::Create { current, .. } | Drag::Move { current, .. } => *current = point,
-            Drag::Out { .. } => {}
+            Drag::Out { .. } | Drag::Area { .. } => {}
         }
         true
     }
@@ -1184,7 +1289,7 @@ impl PdfViewer {
                 self.selection = None;
                 Task::none()
             }
-            Drag::Out { .. } => Task::none(),
+            Drag::Out { .. } | Drag::Area { .. } => Task::none(),
             Drag::Stroke {
                 page,
                 points,
@@ -1737,6 +1842,9 @@ impl PdfViewer {
     pub(super) fn drag_out_at(&self, x: f32, y: f32) -> Option<Outgoing> {
         let (page, point) = self.layout.hit(x, y)?;
         if self.edit.tool == Tool::Area {
+            if self.area_handle_at(x, y).is_some() {
+                return None;
+            }
             let (area_page, rect) = self.edit.area?;
             return (area_page == page && rect.contains(point))
                 .then_some(Outgoing::Area(page, rect));

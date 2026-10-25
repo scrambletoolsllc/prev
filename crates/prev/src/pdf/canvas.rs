@@ -18,7 +18,7 @@ use super::layout::{Area, visible_tiles};
 use super::markup::{self, Handle, Tool};
 use super::overlay::{self, Mapping};
 use super::viewer::{PdfMessage, PdfViewer, Zoom};
-use prev_pdf::annotation::FieldKind;
+use prev_pdf::annotation::{FieldKind, Kind};
 
 const LINE_SCROLL_ZOOM: f32 = 1.1;
 
@@ -92,6 +92,22 @@ impl<Message> PageCanvas<'_, Message> {
         match viewer.edit.tool {
             Tool::Select => {}
             Tool::Highlight(_) => return Some(mouse::Interaction::Text),
+            Tool::Area => {
+                let handle = viewer
+                    .dragged_handle()
+                    .or_else(|| viewer.area_handle_at(x, y).map(|(_, _, handle, _)| handle));
+                return Some(handle.map_or(mouse::Interaction::Crosshair, handle_interaction));
+            }
+            Tool::Redact => {
+                let handle = viewer
+                    .dragged_handle()
+                    .or_else(|| viewer.redaction_at(x, y).map(|(_, _, handle, _)| handle));
+                return Some(match handle {
+                    Some(Handle::Body) => mouse::Interaction::Idle,
+                    Some(handle) => handle_interaction(handle),
+                    None => mouse::Interaction::Crosshair,
+                });
+            }
             _ => return Some(mouse::Interaction::Crosshair),
         }
         // A drag keeps its pointer, wherever it goes.
@@ -570,11 +586,27 @@ impl<Message> Widget<Message, Theme, iced::Renderer> for PageCanvas<'_, Message>
                 .as_ref()
                 .is_some_and(|lift| lift.page == page && lift.id == id)
         };
+        // Redaction marks have no outline of their own; the selected one
+        // gets its handles with it below.
+        let selected = viewer.selected_annotation();
+        for (page, _) in pages.iter() {
+            let (Some(markup), Some(mapping)) = (viewer.markup.get(page), mapping_for(*page))
+            else {
+                continue;
+            };
+            for mark in &markup.annotations {
+                let chosen =
+                    selected.is_some_and(|(at, chosen)| at == *page && chosen.id == mark.id);
+                if mark.kind == Kind::Redact && !chosen {
+                    overlay::redaction_outline(&mut frame, mark, &mapping, viewer.device_scale);
+                }
+            }
+        }
         if let Some((page, annotation)) = &preview
             && let Some(mapping) = mapping_for(*page)
             && !lifted(*page, &annotation.id)
         {
-            overlay::paint(&mut frame, annotation, &mapping);
+            overlay::paint(&mut frame, annotation, &mapping, viewer.device_scale);
         }
         if let Some((page, annotation)) = viewer.selected_annotation()
             && let Some(mapping) = mapping_for(page)
@@ -587,10 +619,17 @@ impl<Message> Widget<Message, Theme, iced::Renderer> for PageCanvas<'_, Message>
                 overlay::selection(&mut frame, shown, &mapping, viewer.device_scale);
             }
         }
-        if let Some((page, area)) = viewer.edit.area
+        if let Some((page, area, handles)) = viewer.shown_area()
             && let Some(mapping) = mapping_for(page)
         {
-            overlay::area(&mut frame, area, &mapping, accent);
+            overlay::area(
+                &mut frame,
+                area,
+                &mapping,
+                accent,
+                handles,
+                viewer.device_scale,
+            );
         }
         let geometry = frame.into_geometry();
         renderer.with_layer(*viewport, |renderer| {
@@ -608,7 +647,7 @@ impl<'a, Message: 'a> From<PageCanvas<'a, Message>> for Element<'a, Message> {
 }
 
 /// The pointer over a handle that reshapes an annotation.
-fn handle_interaction(handle: Handle) -> mouse::Interaction {
+pub fn handle_interaction(handle: Handle) -> mouse::Interaction {
     match handle {
         Handle::Edge { x: 0, .. } => mouse::Interaction::ResizingVertically,
         Handle::Edge { y: 0, .. } => mouse::Interaction::ResizingHorizontally,

@@ -217,16 +217,25 @@ pub fn hit_handle(annotation: &Annotation, point: Point, handle: f32) -> Option<
         }
         return hits(annotation, point, handle / 2.0).then_some(Handle::Body);
     }
-    if resizable(annotation) {
-        for (x, y) in handle_positions() {
-            if near(handle_point(frame(annotation), x, y)) {
-                return Some(Handle::Edge { x, y });
-            }
-        }
+    if resizable(annotation)
+        && let Some(edge) = hit_edge(frame(annotation), point, handle)
+    {
+        return Some(edge);
     }
     expand(frame(annotation), handle / 2.0)
         .contains(point)
         .then_some(Handle::Body)
+}
+
+/// The corner or edge handle of `rect` under `point`.
+pub fn hit_edge(rect: Rect, point: Point, handle: f32) -> Option<Handle> {
+    handle_positions()
+        .into_iter()
+        .find(|&(x, y)| {
+            let target = handle_point(rect, x, y);
+            (point.x - target.x).abs() <= handle && (point.y - target.y).abs() <= handle
+        })
+        .map(|(x, y)| Handle::Edge { x, y })
 }
 
 /// Notes and text markup keep their size.
@@ -297,30 +306,35 @@ pub fn dragged(
             line
         }
         Handle::Edge { x, y } => {
-            let rect = frame(annotation);
-            let mut target = rect;
-            match x {
-                -1 => target.x0 = (rect.x0 + dx).min(rect.x1 - 4.0),
-                1 => target.x1 = (rect.x1 + dx).max(rect.x0 + 4.0),
-                _ => {}
-            }
-            match y {
-                -1 => target.y0 = (rect.y0 + dy).min(rect.y1 - 4.0),
-                1 => target.y1 = (rect.y1 + dy).max(rect.y0 + 4.0),
-                _ => {}
-            }
-            if keep_ratio && x != 0 && y != 0 && rect.height() > 0.0 {
-                let ratio = rect.width() / rect.height();
-                let height = target.width() / ratio;
-                if y == -1 {
-                    target.y0 = target.y1 - height;
-                } else {
-                    target.y1 = target.y0 + height;
-                }
-            }
-            annotation.reframed(target)
+            annotation.reframed(resized(frame(annotation), x, y, dx, dy, keep_ratio))
         }
     }
+}
+
+/// `rect` with its handle at `x`, `y` moved by `dx`, `dy`, kept at least
+/// 4 points across. `keep_ratio` keeps the aspect ratio from a corner.
+pub fn resized(rect: Rect, x: i8, y: i8, dx: f32, dy: f32, keep_ratio: bool) -> Rect {
+    let mut target = rect;
+    match x {
+        -1 => target.x0 = (rect.x0 + dx).min(rect.x1 - 4.0),
+        1 => target.x1 = (rect.x1 + dx).max(rect.x0 + 4.0),
+        _ => {}
+    }
+    match y {
+        -1 => target.y0 = (rect.y0 + dy).min(rect.y1 - 4.0),
+        1 => target.y1 = (rect.y1 + dy).max(rect.y0 + 4.0),
+        _ => {}
+    }
+    if keep_ratio && x != 0 && y != 0 && rect.height() > 0.0 {
+        let ratio = rect.width() / rect.height();
+        let height = target.width() / ratio;
+        if y == -1 {
+            target.y0 = target.y1 - height;
+        } else {
+            target.y1 = target.y0 + height;
+        }
+    }
+    target
 }
 
 /// Points of a regular star with `points` tips inside `rect`.
@@ -743,5 +757,24 @@ mod tests {
             false,
         );
         assert_eq!(moved.rect, Rect::new(10.0, 20.0, 110.0, 70.0));
+    }
+
+    #[test]
+    fn a_rects_handles_find_and_move_its_sides() {
+        let area = Rect::new(10.0, 10.0, 110.0, 60.0);
+        assert_eq!(
+            hit_edge(area, Point::new(61.0, 58.0), 4.0),
+            Some(Handle::Edge { x: 0, y: 1 })
+        );
+        assert_eq!(hit_edge(area, Point::new(60.0, 35.0), 4.0), None);
+        assert_eq!(
+            resized(area, -1, 0, -5.0, 20.0, false),
+            Rect::new(5.0, 10.0, 110.0, 60.0)
+        );
+        // A side dragged past the other stops short of it.
+        assert_eq!(
+            resized(area, 1, 0, -200.0, 0.0, false),
+            Rect::new(10.0, 10.0, 14.0, 60.0)
+        );
     }
 }

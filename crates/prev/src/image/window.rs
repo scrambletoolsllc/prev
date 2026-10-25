@@ -2089,7 +2089,8 @@ impl ImageWindow {
                     .selection(
                         self.selecting && self.editable(),
                         self.selection.filter(|_| self.editable()),
-                    ),
+                    )
+                    .device_scale(self.device_scale),
                 )
                 .id(self.canvas_id.clone())
                 .direction(Direction::Both {

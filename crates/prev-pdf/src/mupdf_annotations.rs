@@ -8,8 +8,8 @@ use mupdf::pdf::{
 use mupdf::{Buffer, Colorspace, Image, Pixmap};
 
 use crate::annotation::{
-    Align, Annotation, Field, FieldKind, Font, Kind, LineEnd, Removed, Rgb, StampContent, Style,
-    TextMarkup,
+    Align, Annotation, Field, FieldKind, Font, Kind, LineEnd, REDACTION_SHADE, Removed, Rgb,
+    StampContent, Style, TextMarkup,
 };
 use crate::engine::{Error, Result};
 use crate::geometry::{Point, Quad, Rect};
@@ -349,6 +349,9 @@ pub(crate) fn add_annotation(
     if let Some(content) = content {
         set_stamp_appearance(document, page, &mut annot, annotation.rect, content)?;
     }
+    if annotation.kind == Kind::Redact {
+        set_redaction_appearance(document, page, &mut annot, annotation.rect)?;
+    }
     Ok(())
 }
 
@@ -414,6 +417,9 @@ pub(crate) fn update_annotation(
     annot.update().map_err(engine_error)?;
     if let Some(content) = content {
         set_stamp_appearance(document, page, &mut annot, annotation.rect, content)?;
+    }
+    if annotation.kind == Kind::Redact {
+        set_redaction_appearance(document, page, &mut annot, annotation.rect)?;
     }
     Ok(())
 }
@@ -621,7 +627,6 @@ fn set_stamp_appearance(
     rect: Rect,
     content: &StampContent,
 ) -> Result<()> {
-    let space = Space::of(page)?;
     let (width, height) = (rect.width().max(1.0), rect.height().max(1.0));
     let mut resources = document.new_dict().map_err(engine_error)?;
     let stream = match content {
@@ -687,6 +692,48 @@ fn set_stamp_appearance(
             format!("q /Mask gs 0 g 0 0 {width} {height} re {hole_path}f* Q")
         }
     };
+    set_appearance(document, page, annot, rect, &stream, resources)
+}
+
+/// A redaction mark's look: a see-through dark box with no outline, which
+/// prev outlines itself as it does a selection, so the outline keeps its
+/// width at every zoom. MuPDF's own is a red line a point wide.
+fn set_redaction_appearance(
+    document: &mut PdfDocument,
+    page: &PdfPage,
+    annot: &mut PdfAnnotation,
+    rect: Rect,
+) -> Result<()> {
+    let (width, height) = (rect.width().max(1.0), rect.height().max(1.0));
+    let mut state = document.new_dict().map_err(engine_error)?;
+    state
+        .dict_put(
+            "ca",
+            document.new_real(REDACTION_SHADE).map_err(engine_error)?,
+        )
+        .map_err(engine_error)?;
+    let mut states = document.new_dict().map_err(engine_error)?;
+    states.dict_put("Shade", state).map_err(engine_error)?;
+    let mut resources = document.new_dict().map_err(engine_error)?;
+    resources
+        .dict_put("ExtGState", states)
+        .map_err(engine_error)?;
+    let stream = format!("q /Shade gs 0 g 0 0 {width} {height} re f Q");
+    set_appearance(document, page, annot, rect, &stream, resources)
+}
+
+/// Gives `annot` the appearance drawn by `stream`, in a box the size of
+/// `rect`, which becomes its rect.
+fn set_appearance(
+    document: &mut PdfDocument,
+    page: &PdfPage,
+    annot: &mut PdfAnnotation,
+    rect: Rect,
+    stream: &str,
+    resources: PdfObject,
+) -> Result<()> {
+    let space = Space::of(page)?;
+    let (width, height) = (rect.width().max(1.0), rect.height().max(1.0));
     let mut form = document.new_dict().map_err(engine_error)?;
     form.dict_put("Type", document.new_name("XObject").map_err(engine_error)?)
         .map_err(engine_error)?;

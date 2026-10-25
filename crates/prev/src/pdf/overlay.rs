@@ -3,7 +3,7 @@
 
 use iced::widget::canvas::{Frame, LineCap, LineDash, LineJoin, Path, Stroke};
 use iced::{Color, Size};
-use prev_pdf::annotation::{Annotation, Kind, LineEnd, Rgb, TextMarkup};
+use prev_pdf::annotation::{Annotation, Kind, LineEnd, REDACTION_SHADE, Rgb, TextMarkup};
 use prev_pdf::geometry::{Point, Rect};
 
 use super::markup::{self, handle_positions};
@@ -84,8 +84,9 @@ fn arrow_head(from: Point, tip: Point, size: f32) -> Vec<Point> {
     vec![tip, back(spread), back(-spread)]
 }
 
-/// Draws an annotation roughly as MuPDF will render it.
-pub fn paint(frame: &mut Frame, annotation: &Annotation, mapping: &Mapping) {
+/// Draws an annotation roughly as MuPDF will render it; a redaction mark
+/// is outlined as its selection is, without the handles.
+pub fn paint(frame: &mut Frame, annotation: &Annotation, mapping: &Mapping, device_scale: f32) {
     let style = &annotation.style;
     let alpha = style.opacity.clamp(0.1, 1.0);
     let width = (style.line_width * mapping.scale).max(1.0);
@@ -119,13 +120,12 @@ pub fn paint(frame: &mut Frame, annotation: &Annotation, mapping: &Mapping) {
         ),
         Kind::Redact => {
             let (origin, size) = mapping.rect(annotation.rect);
-            frame.fill_rectangle(origin, size, Color::from_rgba(0.0, 0.0, 0.0, 0.35));
-            frame.stroke(
-                &Path::rectangle(origin, size),
-                Stroke::default()
-                    .with_color(Color::from_rgb(0.85, 0.1, 0.1))
-                    .with_width(1.5),
+            frame.fill_rectangle(
+                origin,
+                size,
+                Color::from_rgba(0.0, 0.0, 0.0, REDACTION_SHADE),
             );
+            redaction_outline(frame, annotation, mapping, device_scale);
         }
         Kind::Circle => shape(
             frame,
@@ -217,55 +217,97 @@ pub fn paint(frame: &mut Frame, annotation: &Annotation, mapping: &Mapping) {
     }
 }
 
-/// The rectangular selection: a dashed outline with the rest of the page
-/// dimmed a little.
-pub fn area(frame: &mut Frame, area: Rect, mapping: &Mapping, accent: Color) {
+/// A redaction mark's outline: its selection's box, without the handles.
+/// Marks are saved without one of their own, so it keeps its width at
+/// every zoom.
+pub fn redaction_outline(
+    frame: &mut Frame,
+    mark: &Annotation,
+    mapping: &Mapping,
+    device_scale: f32,
+) {
+    let (origin, size) = mapping.rect(markup::frame(mark));
+    let pixels = Pixels::new(device_scale);
+    selection_box(frame, origin, size, false, REDACTION_LINE, &pixels);
+}
+
+/// The rectangular selection, framed as a selected annotation is, over a
+/// light tint of the accent: with its handles once chosen, without them
+/// while it is being drawn.
+pub fn area(
+    frame: &mut Frame,
+    area: Rect,
+    mapping: &Mapping,
+    accent: Color,
+    handles: bool,
+    device_scale: f32,
+) {
     let (origin, size) = mapping.rect(area);
     frame.fill_rectangle(origin, size, Color { a: 0.08, ..accent });
-    let dash = [6.0, 4.0];
-    frame.stroke(
-        &Path::rectangle(origin, size),
-        Stroke {
-            line_dash: LineDash {
-                segments: &dash,
-                offset: 0,
-            },
-            ..Stroke::default().with_color(accent).with_width(1.5)
-        },
-    );
+    selection_rect(frame, origin, size, handles, device_scale);
+}
+
+/// A selection over `origin` and `size`, framed as a selected annotation
+/// is, with its eight handles when `handles`.
+pub fn selection_rect(
+    frame: &mut Frame,
+    origin: iced::Point,
+    size: Size,
+    handles: bool,
+    device_scale: f32,
+) {
+    let pixels = Pixels::new(device_scale);
+    selection_box(frame, origin, size, handles, SELECTION_LINE, &pixels);
 }
 
 /// The selection of `annotation`, the same in every theme: a 1 pixel box
-/// in half-transparent blue and square handles, 7 pixels across, white
-/// with a black border, centred on the box's line.
+/// in half-transparent blue, red for a redaction mark, and square handles,
+/// 7 pixels across, white with a black border, centred on the box's line.
 /// Everything sits on whole screen pixels, so nothing is blurred by
 /// anti-aliasing. A line annotation has only its two end handles, and one
 /// that cannot be resized only the box. `device_scale` is the window's
 /// pixels per logical pixel.
 pub fn selection(frame: &mut Frame, annotation: &Annotation, mapping: &Mapping, device_scale: f32) {
-    let scale = device_scale.max(0.01);
-    // One logical pixel, as a whole number of screen pixels.
-    let one = scale.round().max(1.0) / scale;
-    let snap = |value: f32| (value * scale).floor() / scale;
-    let handle = |frame: &mut Frame, x: f32, y: f32| {
-        let corner = iced::Point::new(x - 3.0 * one, y - 3.0 * one);
-        frame.fill_rectangle(corner, Size::new(7.0 * one, 7.0 * one), Color::BLACK);
-        frame.fill_rectangle(
-            iced::Point::new(corner.x + one, corner.y + one),
-            Size::new(5.0 * one, 5.0 * one),
-            Color::WHITE,
-        );
-    };
+    let pixels = Pixels::new(device_scale);
     if let Kind::Line { start, end, .. } = annotation.kind {
         for point in [start, end] {
             let point = mapping.point(point);
-            handle(frame, snap(point.x), snap(point.y));
+            pixels.handle(frame, pixels.snap(point.x), pixels.snap(point.y));
         }
         return;
     }
     let (origin, size) = mapping.rect(markup::frame(annotation));
-    let (left, top) = (snap(origin.x), snap(origin.y));
-    let (right, bottom) = (snap(origin.x + size.width), snap(origin.y + size.height));
+    let line = if annotation.kind == Kind::Redact {
+        REDACTION_LINE
+    } else {
+        SELECTION_LINE
+    };
+    selection_box(
+        frame,
+        origin,
+        size,
+        markup::resizable(annotation),
+        line,
+        &pixels,
+    );
+}
+
+/// The selection's box over `origin` and `size`, drawn in `line`, with
+/// its eight handles when `handles`.
+fn selection_box(
+    frame: &mut Frame,
+    origin: iced::Point,
+    size: Size,
+    handles: bool,
+    line: Color,
+    pixels: &Pixels,
+) {
+    let one = pixels.one;
+    let (left, top) = (pixels.snap(origin.x), pixels.snap(origin.y));
+    let (right, bottom) = (
+        pixels.snap(origin.x + size.width),
+        pixels.snap(origin.y + size.height),
+    );
     // Top and bottom run the full width; the sides fill in between, so no
     // pixel of the half-transparent line is painted twice.
     let width = right - left + one;
@@ -276,18 +318,18 @@ pub fn selection(frame: &mut Frame, annotation: &Annotation, mapping: &Mapping, 
         (left, top + one, one, side),
         (right, top + one, one, side),
     ] {
-        frame.fill_rectangle(iced::Point::new(x, y), Size::new(w, h), SELECTION_LINE);
+        frame.fill_rectangle(iced::Point::new(x, y), Size::new(w, h), line);
     }
-    if markup::resizable(annotation) {
-        let middle_x = snap((left + right) / 2.0);
-        let middle_y = snap((top + bottom) / 2.0);
+    if handles {
+        let middle_x = pixels.snap((left + right) / 2.0);
+        let middle_y = pixels.snap((top + bottom) / 2.0);
         for (x, y) in handle_positions() {
             let pick = |side: i8, low: f32, middle: f32, high: f32| match side {
                 -1 => low,
                 1 => high,
                 _ => middle,
             };
-            handle(
+            pixels.handle(
                 frame,
                 pick(x, left, middle_x, right),
                 pick(y, top, middle_y, bottom),
@@ -296,6 +338,44 @@ pub fn selection(frame: &mut Frame, annotation: &Annotation, mapping: &Mapping, 
     }
 }
 
+/// Whole screen pixels for the selection.
+struct Pixels {
+    /// Screen pixels per logical pixel.
+    scale: f32,
+    /// One logical pixel, as a whole number of screen pixels.
+    one: f32,
+}
+
+impl Pixels {
+    fn new(device_scale: f32) -> Self {
+        let scale = device_scale.max(0.01);
+        Self {
+            scale,
+            one: scale.round().max(1.0) / scale,
+        }
+    }
+
+    /// `value` moved down to the edge of a screen pixel.
+    fn snap(&self, value: f32) -> f32 {
+        (value * self.scale).floor() / self.scale
+    }
+
+    /// A handle centred on `x`, `y`.
+    fn handle(&self, frame: &mut Frame, x: f32, y: f32) {
+        let one = self.one;
+        let corner = iced::Point::new(x - 3.0 * one, y - 3.0 * one);
+        frame.fill_rectangle(corner, Size::new(7.0 * one, 7.0 * one), Color::BLACK);
+        frame.fill_rectangle(
+            iced::Point::new(corner.x + one, corner.y + one),
+            Size::new(5.0 * one, 5.0 * one),
+            Color::WHITE,
+        );
+    }
+}
+
 /// The selection line: a blue at half opacity, #9eb3fd over white and
 /// #1f337e over black.
 const SELECTION_LINE: Color = Color::from_rgba(61.0 / 255.0, 103.0 / 255.0, 251.0 / 255.0, 0.5);
+
+/// The selection line of a redaction mark: its red at half opacity.
+const REDACTION_LINE: Color = Color::from_rgba(0.85, 0.1, 0.1, 0.5);
