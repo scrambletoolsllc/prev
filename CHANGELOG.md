@@ -19,6 +19,8 @@ All notable changes to prev. Versions follow
 
 ### Fixed
 
+- The assistant no longer repeats in its answers what it marks for
+  redaction or redacts; it says where it was instead.
 - With the Redact tool, a redaction mark, the one just drawn or any
   other, can be moved and resized; a press on one started a new mark.
 

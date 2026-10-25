@@ -35,7 +35,9 @@ ask for, so read the file with page_text, search or render_page before you answe
 Positions on PDF pages are in points from the page's top-left corner, with y growing down; on an \
 image's markup, in image pixels. Every change saves to the file by itself, as edits in prev do, \
 and is one step of the user's Undo; there is nothing to save. Signing and applying redactions \
-cannot be undone, so do them only when the user asks for them. Answer briefly, in the user's language; you may use Markdown.";
+cannot be undone, so do them only when the user asks for them. Never repeat in your answers what \
+you mark for redaction or redact; say where it was instead. Answer briefly, in the user's \
+language; you may use Markdown.";
 
 /// What the panel heard from its chat's thread or a tool call, through
 /// [`crate::post`].
