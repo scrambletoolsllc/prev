@@ -554,8 +554,8 @@ impl MarkdownWindow {
         self.view_with(theme, None)
     }
 
-    /// The window, with `side` in the place of a panel on the right: below
-    /// the toolbar, as the inspector is.
+    /// The window, with `side` in the place of a panel on the right: the
+    /// window's whole height, beside the bars, as the inspector is.
     pub fn view_with<'a>(
         &'a self,
         theme: &Theme,
@@ -573,36 +573,30 @@ impl MarkdownWindow {
             .into(),
             None => self.document(theme),
         };
-        // The inspector keeps its side in every language.
-        let mut content = iced::widget::row![body].height(Fill);
+        // The toolbar is made after the document, which counts the matches.
+        let bars = component::window_bars(
+            self.toolbar(),
+            None,
+            body,
+            self.pointer_inside || self.export_open(),
+        );
+        // The panels on the right run the window's whole height, and the
+        // bars end where they begin. They keep their side in every language.
+        let mut window = iced::widget::row![bars].height(Fill);
         if self.inspector {
-            content = content.push(component::between_bars(
-                component::side_sheet(
-                    crate::fl!("markdown-inspector"),
-                    Message::ToggleInspector,
-                    self.inspector_view(),
-                ),
-                component::floating_room(true),
-                0.0,
+            window = window.push(component::side_sheet(
+                crate::fl!("markdown-inspector"),
+                Message::ToggleInspector,
+                self.inspector_view(),
             ));
         }
         if let Some(side) = side {
-            content = content.push(component::between_bars(
-                side,
-                component::floating_room(true),
-                0.0,
-            ));
+            window = window.push(side);
         }
-        // The toolbar is made after the document, which counts the matches.
-        let page = container(component::window_bars(
-            self.toolbar(),
-            None,
-            content.into(),
-            self.pointer_inside || self.export_open(),
-        ))
-        .width(Fill)
-        .height(Fill)
-        .style(style::surface);
+        let page = container(window)
+            .width(Fill)
+            .height(Fill)
+            .style(style::surface);
         let page: Element<'_, Message> = match &self.notice {
             Some(notice) => component::snackbar(page, notice, Message::DismissNotice),
             None => page.into(),

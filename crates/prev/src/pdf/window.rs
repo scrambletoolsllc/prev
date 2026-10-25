@@ -1357,8 +1357,8 @@ impl PdfWindow {
         self.view_with(None)
     }
 
-    /// The window, with `side` in the place of a panel on the right: below
-    /// the toolbar, as the inspector is.
+    /// The window, with `side` in the place of a panel on the right: the
+    /// window's whole height, beside the bars, as the inspector is.
     pub fn view_with<'a>(&'a self, side: Option<Element<'a, Message>>) -> Element<'a, Message> {
         let name = self
             .path
@@ -1401,29 +1401,28 @@ impl PdfWindow {
                     component::floating_room(self.markup_bar),
                 );
                 // The panels keep their sides in every language.
-                let mut content = iced::widget::row![
+                let content = iced::widget::row![
                     component::between_bars(sidebar, top, bottom),
                     component::between_bars(handle, top, bottom),
                     self.canvas(viewer, None)
                 ];
-                // Last, so opening it leaves the canvas where it is in the
-                // widget tree.
-                if let Some(metadata) = &self.inspector {
-                    content = content.push(component::between_bars(
-                        self.inspector_view(viewer, metadata.as_ref()),
-                        top,
-                        bottom,
-                    ));
-                }
-                if let Some(side) = side {
-                    content = content.push(component::between_bars(side, top, bottom));
-                }
-                component::window_bars(
+                let bars = component::window_bars(
                     self.toolbar(viewer),
                     markup,
                     content.into(),
                     self.bars_shown(),
-                )
+                );
+                // The panels on the right run the window's whole height,
+                // and the bars end where they begin. Last, so opening one
+                // leaves the canvas where it is in the widget tree.
+                let mut window = iced::widget::row![bars].height(Fill);
+                if let Some(metadata) = &self.inspector {
+                    window = window.push(self.inspector_view(viewer, metadata.as_ref()));
+                }
+                if let Some(side) = side {
+                    window = window.push(side);
+                }
+                window.into()
             }
         };
         let body = container(body)

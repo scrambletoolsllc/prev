@@ -14,6 +14,8 @@ All notable changes to prev. Versions follow
   selection is, 1 pixel wide at every zoom; selected, it has the same
   handles as other annotations. Other apps show the dark box too. Marks
   made before keep MuPDF's thicker red line until moved or resized.
+- A panel on the right, such as the inspector or the assistant, runs
+  the window's whole height, and the toolbars end where it begins.
 
 ### Fixed
 

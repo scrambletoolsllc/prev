@@ -1683,8 +1683,9 @@ impl Prev {
         let Some(window) = self.windows.get(&id) else {
             return text("").into();
         };
-        // The assistant goes in the window's side, below its toolbar, where
-        // the inspector goes; the window carries its messages back.
+        // The assistant goes in the window's side, its whole height beside
+        // the bars, where the inspector goes; the window carries its
+        // messages back.
         let side = || {
             self.panel_view(id)
                 .map(|panel| panel.map(prev::ui::Outside::new))

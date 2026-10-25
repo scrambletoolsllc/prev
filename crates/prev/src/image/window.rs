@@ -2058,8 +2058,8 @@ impl ImageWindow {
         self.view_with(None)
     }
 
-    /// The window, with `side` in the place of a panel on the right: below
-    /// the toolbar, as the inspector is.
+    /// The window, with `side` in the place of a panel on the right: the
+    /// window's whole height, beside the bars, as the inspector is.
     pub fn view_with<'a>(&'a self, side: Option<Element<'a, Message>>) -> Element<'a, Message> {
         let index = self.current;
         if let Some(parts) = self.markup_parts() {
@@ -2137,27 +2137,26 @@ impl ImageWindow {
                 ));
         }
         content = content.push(canvas);
-        if let Some(panel) = self.panel {
-            content = content.push(below_bars(self.panel_view(panel), bottom));
-        }
-        if let Some(side) = side {
-            content = content.push(below_bars(side, bottom));
-        }
         let shown = self.pointer_inside
             || self.overflow_open
             || self.pending_export.is_some()
             || self.export_dialog_open()
             || self.close_prompt
             || self.markup_holds_bars();
-        let page = container(component::window_bars(
-            self.toolbar(),
-            markup_bar,
-            content.into(),
-            shown,
-        ))
-        .width(Fill)
-        .height(Fill)
-        .style(style::surface);
+        let bars = component::window_bars(self.toolbar(), markup_bar, content.into(), shown);
+        // The panels on the right run the window's whole height, and the
+        // bars end where they begin.
+        let mut window = iced::widget::Row::new().push(bars).height(Fill);
+        if let Some(panel) = self.panel {
+            window = window.push(self.panel_view(panel));
+        }
+        if let Some(side) = side {
+            window = window.push(side);
+        }
+        let page = container(window)
+            .width(Fill)
+            .height(Fill)
+            .style(style::surface);
         let page: Element<'_, Message> = match &self.notice {
             Some(notice) => {
                 component::snackbar_above_bar(page, notice, Message::DismissNotice, bottom)
