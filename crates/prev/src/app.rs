@@ -890,10 +890,14 @@ impl Prev {
                 Task::batch([window::resize(id, size), window::move_to(id, at)])
             }
             Message::MonitorSize(_, None) => Task::none(),
-            Message::ScaleFactor(id, scale) => Task::batch([
-                self.with_pdf(id, |pdf| pdf.set_device_scale(scale)),
-                self.with_images(id, |images| images.set_device_scale(scale)),
-            ]),
+            Message::ScaleFactor(id, scale) => {
+                // Sliding bars and sheets step by whole pixels of it.
+                ui::motion::set_scale_factor(scale);
+                Task::batch([
+                    self.with_pdf(id, |pdf| pdf.set_device_scale(scale)),
+                    self.with_images(id, |images| images.set_device_scale(scale)),
+                ])
+            }
             Message::Pdf(_, pdf_window::Message::ToggleFloatingBars)
             | Message::Image(_, image_window::Message::ToggleFloatingBars)
             | Message::Markdown(_, markdown::Message::ToggleFloatingBars) => {

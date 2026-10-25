@@ -19,6 +19,8 @@ All notable changes to prev. Versions follow
 
 ### Fixed
 
+- Panels and floating toolbars slide in by whole pixels, so their icons
+  and labels no longer hop against them as they settle.
 - The assistant no longer repeats in its answers what it marks for
   redaction or redacts; it says where it was instead.
 - With the Redact tool, a redaction mark, the one just drawn or any
