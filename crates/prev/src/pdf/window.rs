@@ -884,7 +884,12 @@ impl PdfWindow {
                     .file_name()
                     .map(|name| name.to_string_lossy().into_owned())
                     .unwrap_or_default();
-                Task::perform(portal::print(path, title), Message::PrintFinished)
+                let print = Task::perform(portal::print(path, title), Message::PrintFinished);
+                // The file is printed, so edits not yet saved go in first.
+                match self.flush() {
+                    Some(save) => save.chain(print),
+                    None => print,
+                }
             }
             Message::AutosaveDue(generation) => self.autosave(generation),
             Message::Pasted(result) => self.pasted(result),
@@ -1777,11 +1782,12 @@ impl PdfWindow {
             // Made once the room left over is known.
             (space().into(), SEARCH_WIDTH, Some(SEARCH_SLOT_ORDER)),
             (
-                component::tip(
-                    ui::icon_button(Icon::FileExport)
-                        .kind(Kind::Tonal)
-                        .on_press(Message::PageAction(PageAction::Export)),
+                ui::export::menu(
                     crate::fl!("pdf-export"),
+                    Some(Message::PageAction(PageAction::Export)),
+                    Some(Message::Print),
+                    self.menu == Some(Menu::Export),
+                    |open| Message::Menu(open.then_some(Menu::Export)),
                 ),
                 component::TOOL_WIDTH,
                 Some(5),

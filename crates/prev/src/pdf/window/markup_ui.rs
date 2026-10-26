@@ -35,6 +35,7 @@ const REDACT_SLOT: usize = 3;
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum Menu {
     Pages,
+    Export,
     Shapes,
     Highlight,
     Signatures,

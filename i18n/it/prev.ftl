@@ -455,6 +455,11 @@ print-dialog-failed = Impossibile mostrare la finestra di stampa: { $error }
 print-job-not-started = la stampante non ha avviato il lavoro
 # Shown after "Could not print:".
 print-printer-stopped = la stampante si è fermata
+print-no-dialog = Per stampare serve la finestra di stampa del desktop, fornita da un portale desktop XDG come xdg-desktop-portal-gtk.
+print-no-cups = Funziona solo la stampa su file: le stampanti richiedono CUPS, che non è installato.
+print-cups-stopped = Funziona solo la stampa su file finché CUPS, il servizio di stampa, non è in esecuzione.
+print-no-printer = Nessuna stampante è configurata, quindi funziona solo la stampa su file. Aggiungine una nelle impostazioni delle stampanti o su localhost:631.
+print-not-set-up = { $printer } è stata trovata in rete ma non è configurata, quindi la finestra di stampa potrebbe non raggiungerla. Aggiungila nelle impostazioni delle stampanti o su localhost:631.
 
 ## File dialogs
 
@@ -543,6 +548,8 @@ export-quality = Qualità
 export-size = Dimensioni
 # Button that goes on to choose where to save the export.
 export-choose = Esporta…
+export-menu-export = Esporta…
+export-menu-print = Stampa…
 # Format choice; the format name stays as it is.
 export-format-webp = WebP (senza perdita)
 # Stands in for a format name in a sentence when the format is unknown.

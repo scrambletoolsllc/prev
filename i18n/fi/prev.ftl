@@ -375,6 +375,11 @@ print-no-window = Tulostaminen epäonnistui: ei ikkunaa, jonka päällä tulostu
 print-dialog-failed = Tulostusikkunan näyttäminen epäonnistui: { $error }
 print-job-not-started = tulostin ei aloittanut työtä
 print-printer-stopped = tulostin pysähtyi
+print-no-dialog = Tulostus tarvitsee työpöydän tulostusikkunan, joka tulee XDG-työpöytäportaalin, kuten xdg-desktop-portal-gtk:n, mukana.
+print-no-cups = Vain tiedostoon tulostaminen toimii: tulostimet tarvitsevat CUPSin, jota ei ole asennettu.
+print-cups-stopped = Vain tiedostoon tulostaminen toimii niin kauan kuin tulostuspalvelu CUPS ei ole käynnissä.
+print-no-printer = Tulostinta ei ole otettu käyttöön, joten vain tiedostoon tulostaminen toimii. Lisää tulostin tulostinasetuksissa tai osoitteessa localhost:631.
+print-not-set-up = { $printer } löytyi verkosta, mutta sitä ei ole otettu käyttöön, joten tulostusikkuna ei ehkä tavoita sitä. Lisää se tulostinasetuksissa tai osoitteessa localhost:631.
 
 ## File dialogs
 
@@ -451,6 +456,8 @@ export-format = Tiedostomuoto
 export-quality = Laatu
 export-size = Koko
 export-choose = Vie…
+export-menu-export = Vie…
+export-menu-print = Tulosta…
 export-format-webp = WebP (häviötön)
 export-format-unknown = kuva
 export-quality-low = Matala

@@ -749,3 +749,54 @@ fn image_pages_fit_the_image_in_the_middle() {
     assert_eq!(pixel(20, 20), [255, 0, 0]);
     assert_eq!(pixel(20, 35), [255, 255, 255]);
 }
+
+#[test]
+fn picture_documents_get_a_page_per_picture() {
+    // A red picture filling a 40 x 20 page, then a blue one in the top
+    // half of a 30 x 30 page, the page's bottom edge 15 points below it.
+    let picture = |color: [u8; 4]| prev_pdf::engine::Bitmap {
+        width: 2,
+        height: 2,
+        pixels: color.repeat(4),
+    };
+    let mut document = prev_pdf::PictureDocument::new();
+    document
+        .add(
+            &picture([255, 0, 0, 255]),
+            Size::new(40.0, 20.0),
+            Rect::new(0.0, 0.0, 40.0, 20.0),
+        )
+        .unwrap();
+    document
+        .add(
+            &picture([0, 0, 255, 255]),
+            Size::new(30.0, 30.0),
+            Rect::new(0.0, 15.0, 30.0, 30.0),
+        )
+        .unwrap();
+    let bytes = document.finish().unwrap();
+    let dir = tempfile::tempdir().unwrap();
+    let (handle, info, _) = open(&dir, &bytes);
+    assert_eq!(
+        info.page_sizes,
+        vec![Size::new(40.0, 20.0), Size::new(30.0, 30.0)]
+    );
+    let pixel = |page: usize, x: i32, y: i32| {
+        let display = flatten(block_on(handle.display(page))).unwrap();
+        let bitmap = display
+            .render(
+                1.0,
+                prev_pdf::geometry::PixelRect {
+                    x,
+                    y,
+                    width: 1,
+                    height: 1,
+                },
+            )
+            .unwrap();
+        bitmap.pixels[..3].to_vec()
+    };
+    assert_eq!(pixel(0, 20, 10), [255, 0, 0]);
+    assert_eq!(pixel(1, 15, 5), [0, 0, 255]);
+    assert_eq!(pixel(1, 15, 25), [255, 255, 255]);
+}

@@ -380,6 +380,11 @@ print-no-window = پرنٹ نہیں کیا جا سکا: پرنٹ ڈائیلاگ 
 print-dialog-failed = پرنٹ ڈائیلاگ نہیں دکھایا جا سکا: { $error }
 print-job-not-started = پرنٹر نے کام شروع نہیں کیا
 print-printer-stopped = پرنٹر رک گیا
+print-no-dialog = پرنٹ کرنے کے لیے ڈیسک ٹاپ کا پرنٹ ڈائیلاگ درکار ہے، جو xdg-desktop-portal-gtk جیسے XDG ڈیسک ٹاپ پورٹل کے ساتھ آتا ہے۔
+print-no-cups = صرف فائل میں پرنٹ کرنا کام کرتا ہے: پرنٹرز کو CUPS درکار ہے، جو انسٹال نہیں ہے۔
+print-cups-stopped = جب تک پرنٹنگ سروس CUPS نہیں چل رہی، صرف فائل میں پرنٹ کرنا کام کرتا ہے۔
+print-no-printer = کوئی پرنٹر سیٹ اپ نہیں ہے، اس لیے صرف فائل میں پرنٹ کرنا کام کرتا ہے۔ پرنٹر کی سیٹنگز میں یا localhost:631 پر ایک شامل کریں۔
+print-not-set-up = { $printer } نیٹ ورک پر ملا لیکن سیٹ اپ نہیں ہے، اس لیے ممکن ہے پرنٹ ڈائیلاگ اس تک نہ پہنچ سکے۔ اسے پرنٹر کی سیٹنگز میں یا localhost:631 پر شامل کریں۔
 
 ## File dialogs
 
@@ -456,6 +461,8 @@ export-format = فارمیٹ
 export-quality = معیار
 export-size = سائز
 export-choose = برآمد کریں…
+export-menu-export = برآمد کریں…
+export-menu-print = پرنٹ کریں…
 export-format-webp = WebP (بغیر نقصان)
 export-format-unknown = تصویر
 export-quality-low = کم

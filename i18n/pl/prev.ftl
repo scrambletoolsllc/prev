@@ -478,6 +478,11 @@ print-dialog-failed = Nie można wyświetlić okna drukowania: { $error }
 print-job-not-started = drukarka nie rozpoczęła zadania
 # Shown after "Could not print:".
 print-printer-stopped = drukarka się zatrzymała
+print-no-dialog = Drukowanie wymaga okna drukowania pulpitu, które dostarcza portal pulpitu XDG, taki jak xdg-desktop-portal-gtk.
+print-no-cups = Działa tylko drukowanie do pliku: drukarki wymagają CUPS, który nie jest zainstalowany.
+print-cups-stopped = Dopóki usługa drukowania CUPS nie działa, działa tylko drukowanie do pliku.
+print-no-printer = Nie skonfigurowano żadnej drukarki, więc działa tylko drukowanie do pliku. Dodaj drukarkę w ustawieniach drukarek lub pod adresem localhost:631.
+print-not-set-up = Drukarkę { $printer } znaleziono w sieci, ale nie jest skonfigurowana, więc okno drukowania może do niej nie dotrzeć. Dodaj ją w ustawieniach drukarek lub pod adresem localhost:631.
 
 ## File dialogs
 
@@ -566,6 +571,8 @@ export-quality = Jakość
 export-size = Rozmiar
 # Button that goes on to choose where to save the export.
 export-choose = Eksportuj…
+export-menu-export = Eksportuj…
+export-menu-print = Drukuj…
 # Format choice; the format name stays as it is.
 export-format-webp = WebP (bezstratny)
 # Stands in for a format name in a sentence when the format is unknown.

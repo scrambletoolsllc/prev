@@ -483,6 +483,11 @@ print-dialog-failed = Не вдалося показати діалог друк
 print-job-not-started = принтер не почав завдання
 # Shown after "Could not print:".
 print-printer-stopped = принтер зупинився
+print-no-dialog = Для друку потрібне вікно друку робочого столу, яке входить до порталу робочого столу XDG, наприклад xdg-desktop-portal-gtk.
+print-no-cups = Працює лише друк у файл: принтерам потрібен CUPS, а його не встановлено.
+print-cups-stopped = Поки служба друку CUPS не запущена, працює лише друк у файл.
+print-no-printer = Жоден принтер не налаштовано, тому працює лише друк у файл. Додайте принтер у налаштуваннях принтерів або на localhost:631.
+print-not-set-up = Принтер { $printer } знайдено в мережі, але його не налаштовано, тому вікно друку може до нього не дістатися. Додайте його в налаштуваннях принтерів або на localhost:631.
 
 ## File dialogs
 
@@ -571,6 +576,8 @@ export-quality = Якість
 export-size = Розмір
 # Button that goes on to choose where to save the export.
 export-choose = Експортувати…
+export-menu-export = Експортувати…
+export-menu-print = Друкувати…
 # Format choice; the format name stays as it is.
 export-format-webp = WebP (без втрат)
 # Stands in for a format name in a sentence when the format is unknown.

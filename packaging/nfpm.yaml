@@ -44,6 +44,11 @@ overrides:
       - libheif-plugin-dav1d
       - curl
       - mesa-vulkan-drivers
+    # For printing, which only those who print need: suggested, so not
+    # installed with prev.
+    suggests:
+      - cups
+      - xdg-desktop-portal-gtk
   rpm:
     depends:
       - fontconfig
@@ -55,6 +60,9 @@ overrides:
       - libheif
       - curl
       - mesa-vulkan-drivers
+    suggests:
+      - cups
+      - xdg-desktop-portal-gtk
 
 rpm:
   group: Applications/Graphics

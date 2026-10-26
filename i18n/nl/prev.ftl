@@ -458,6 +458,11 @@ print-dialog-failed = Kan het afdrukvenster niet tonen: { $error }
 print-job-not-started = de printer is niet met de taak begonnen
 # Shown after "Could not print:".
 print-printer-stopped = de printer is gestopt
+print-no-dialog = Afdrukken heeft het afdrukvenster van de desktop nodig, dat bij een XDG-desktopportaal zoals xdg-desktop-portal-gtk hoort.
+print-no-cups = Alleen afdrukken naar een bestand werkt: printers hebben CUPS nodig, dat niet is geïnstalleerd.
+print-cups-stopped = Alleen afdrukken naar een bestand werkt zolang CUPS, de afdrukdienst, niet draait.
+print-no-printer = Er is geen printer ingesteld, dus alleen afdrukken naar een bestand werkt. Voeg er een toe in de printerinstellingen of op localhost:631.
+print-not-set-up = { $printer } is op het netwerk gevonden maar niet ingesteld, dus het afdrukvenster bereikt hem misschien niet. Voeg hem toe in de printerinstellingen of op localhost:631.
 
 ## File dialogs
 
@@ -546,6 +551,8 @@ export-quality = Kwaliteit
 export-size = Grootte
 # Button that goes on to choose where to save the export.
 export-choose = Exporteren…
+export-menu-export = Exporteren…
+export-menu-print = Afdrukken…
 # Format choice; the format name stays as it is.
 export-format-webp = WebP (verliesvrij)
 # Stands in for a format name in a sentence when the format is unknown.

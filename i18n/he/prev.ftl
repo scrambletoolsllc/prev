@@ -381,6 +381,11 @@ print-no-window = לא ניתן להדפיס: אין חלון שמעליו אפ�
 print-dialog-failed = לא ניתן להציג את חלון ההדפסה: { $error }
 print-job-not-started = המדפסת לא התחילה את העבודה
 print-printer-stopped = המדפסת הפסיקה
+print-no-dialog = להדפסה נדרש חלון ההדפסה של שולחן העבודה, שמגיע עם פורטל שולחן עבודה XDG כמו xdg-desktop-portal-gtk.
+print-no-cups = רק הדפסה לקובץ עובדת: מדפסות צריכות את CUPS, שאינו מותקן.
+print-cups-stopped = רק הדפסה לקובץ עובדת כל עוד CUPS, שירות ההדפסה, אינו פועל.
+print-no-printer = לא הוגדרה אף מדפסת, ולכן רק הדפסה לקובץ עובדת. יש להוסיף מדפסת בהגדרות המדפסות או ב־localhost:631.
+print-not-set-up = המדפסת { $printer } נמצאה ברשת אך אינה מוגדרת, ולכן ייתכן שחלון ההדפסה לא יגיע אליה. יש להוסיף אותה בהגדרות המדפסות או ב־localhost:631.
 
 ## File dialogs
 
@@ -457,6 +462,8 @@ export-format = פורמט
 export-quality = איכות
 export-size = גודל
 export-choose = ייצוא…
+export-menu-export = ייצוא…
+export-menu-print = הדפסה…
 export-format-webp = WebP (ללא אובדן)
 export-format-unknown = תמונה
 export-quality-low = נמוכה

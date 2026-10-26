@@ -491,6 +491,11 @@ print-dialog-failed = تعذّر عرض مربع حوار الطباعة: { $err
 print-job-not-started = لم تبدأ الطابعة المهمة
 # Shown after "Could not print:".
 print-printer-stopped = توقفت الطابعة
+print-no-dialog = تحتاج الطباعة إلى مربع حوار الطباعة الخاص بسطح المكتب، الذي يأتي مع بوابة سطح مكتب XDG مثل xdg-desktop-portal-gtk.
+print-no-cups = لا تعمل إلا الطباعة إلى ملف: تحتاج الطابعات إلى CUPS، وهو غير مثبّت.
+print-cups-stopped = لا تعمل إلا الطباعة إلى ملف ما دامت خدمة الطباعة CUPS متوقفة.
+print-no-printer = لم تُعَدّ أي طابعة، لذا لا تعمل إلا الطباعة إلى ملف. أضف طابعة من إعدادات الطابعات، أو من localhost:631.
+print-not-set-up = عُثر على { $printer } في الشبكة لكنها غير مُعدّة، لذا قد لا يصل إليها مربع حوار الطباعة. أضفها من إعدادات الطابعات، أو من localhost:631.
 
 ## File dialogs
 
@@ -579,6 +584,8 @@ export-quality = الجودة
 export-size = الحجم
 # Button that goes on to choose where to save the export.
 export-choose = تصدير…
+export-menu-export = تصدير…
+export-menu-print = طباعة…
 # Format choice; the format name stays as it is.
 export-format-webp = WebP (بلا فقدان)
 # Stands in for a format name in a sentence when the format is unknown.

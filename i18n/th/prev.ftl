@@ -366,6 +366,11 @@ print-no-window = ไม่สามารถพิมพ์ได้: ไม่
 print-dialog-failed = ไม่สามารถแสดงกล่องโต้ตอบการพิมพ์ได้: { $error }
 print-job-not-started = เครื่องพิมพ์ไม่ได้เริ่มงานพิมพ์
 print-printer-stopped = เครื่องพิมพ์หยุดทำงาน
+print-no-dialog = การพิมพ์ต้องใช้หน้าต่างพิมพ์ของเดสก์ท็อป ซึ่งมาพร้อมกับพอร์ทัลเดสก์ท็อป XDG เช่น xdg-desktop-portal-gtk
+print-no-cups = พิมพ์ได้เฉพาะลงไฟล์ เพราะเครื่องพิมพ์ต้องใช้ CUPS ซึ่งยังไม่ได้ติดตั้ง
+print-cups-stopped = พิมพ์ได้เฉพาะลงไฟล์ ตราบใดที่ CUPS ซึ่งเป็นบริการการพิมพ์ยังไม่ทำงาน
+print-no-printer = ยังไม่ได้ตั้งค่าเครื่องพิมพ์ใด จึงพิมพ์ได้เฉพาะลงไฟล์ เพิ่มเครื่องพิมพ์ได้ในการตั้งค่าเครื่องพิมพ์หรือที่ localhost:631
+print-not-set-up = พบ { $printer } บนเครือข่าย แต่ยังไม่ได้ตั้งค่า หน้าต่างพิมพ์จึงอาจเข้าถึงไม่ได้ เพิ่มได้ในการตั้งค่าเครื่องพิมพ์หรือที่ localhost:631
 
 ## File dialogs
 
@@ -442,6 +447,8 @@ export-format = รูปแบบ
 export-quality = คุณภาพ
 export-size = ขนาด
 export-choose = ส่งออก…
+export-menu-export = ส่งออก…
+export-menu-print = พิมพ์…
 export-format-webp = WebP (ไม่สูญเสียคุณภาพ)
 export-format-unknown = รูปภาพ
 export-quality-low = ต่ำ

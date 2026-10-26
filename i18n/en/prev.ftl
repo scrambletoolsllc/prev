@@ -240,7 +240,7 @@ pdf-rotate-left = Rotate left
 pdf-rotate-right = Rotate right
 pdf-inspector = Inspector
 pdf-markup = Markup
-# Tooltip of the button that opens the export dialog.
+# Tooltip of the button whose menu exports or prints the document.
 pdf-export = Export
 pdf-settings = Settings
 
@@ -457,6 +457,17 @@ print-dialog-failed = Could not show the print dialog: { $error }
 print-job-not-started = the printer did not start the job
 # Shown after "Could not print:".
 print-printer-stopped = the printer stopped
+# On Linux, when no desktop portal has a print dialog; the package name
+# stays as it is.
+print-no-dialog = Printing needs the desktop's print dialog, which comes with an XDG desktop portal such as xdg-desktop-portal-gtk.
+# On Linux, after a print that didn't go through: what keeps printers from
+# being used. CUPS is the name of the printing service, and localhost:631
+# the address of its web page; both stay as they are.
+print-no-cups = Only printing to a file works: printers need CUPS, which isn't installed.
+print-cups-stopped = Only printing to a file works while CUPS, the printing service, isn't running.
+print-no-printer = No printer is set up, so only printing to a file works. Add one in your printer settings, or at localhost:631.
+# { $printer } is the printer's name on the network.
+print-not-set-up = { $printer } was found on the network but isn't set up, so the print dialog may not reach it. Add it in your printer settings, or at localhost:631.
 
 ## File dialogs
 
@@ -545,6 +556,10 @@ export-quality = Quality
 export-size = Size
 # Button that goes on to choose where to save the export.
 export-choose = Export…
+# The export button's menu in every window: the export dialog, and
+# the system's print dialog.
+export-menu-export = Export…
+export-menu-print = Print…
 # Format choice; the format name stays as it is.
 export-format-webp = WebP (lossless)
 # Stands in for a format name in a sentence when the format is unknown.
@@ -635,6 +650,7 @@ image-adjust-color-tool = Adjust color
 # Tooltip and panel title.
 image-inspector = Inspector
 image-markup = Markup
+# Tooltip of the button whose menu exports or prints the image.
 image-export = Export
 image-settings = Settings
 # Panel titles.
@@ -711,6 +727,7 @@ markdown-actual-size = Actual size
 markdown-limit-width = Limit text width
 # Tooltip and panel title.
 markdown-inspector = Inspector
+# Tooltip of the button whose menu exports or prints the document.
 markdown-export = Export
 markdown-settings = Settings
 # Inspector headings and labels.

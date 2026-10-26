@@ -400,6 +400,11 @@ print-no-window = Nepodařilo se tisknout: chybí okno, nad kterým by se zobraz
 print-dialog-failed = Dialog tisku se nepodařilo zobrazit: { $error }
 print-job-not-started = tiskárna úlohu nespustila
 print-printer-stopped = tiskárna se zastavila
+print-no-dialog = Tisk potřebuje tiskový dialog prostředí, který přináší portál XDG, například xdg-desktop-portal-gtk.
+print-no-cups = Funguje jen tisk do souboru: tiskárny potřebují CUPS, který není nainstalovaný.
+print-cups-stopped = Dokud tisková služba CUPS neběží, funguje jen tisk do souboru.
+print-no-printer = Není nastavená žádná tiskárna, takže funguje jen tisk do souboru. Přidejte ji v nastavení tiskáren nebo na localhost:631.
+print-not-set-up = Tiskárna { $printer } byla nalezena v síti, ale není nastavená, takže se k ní tiskový dialog nemusí dostat. Přidejte ji v nastavení tiskáren nebo na localhost:631.
 
 ## File dialogs
 
@@ -476,6 +481,8 @@ export-format = Formát
 export-quality = Kvalita
 export-size = Velikost
 export-choose = Exportovat…
+export-menu-export = Exportovat…
+export-menu-print = Tisknout…
 export-format-webp = WebP (bezeztrátový)
 export-format-unknown = obrázek
 export-quality-low = Nízká

@@ -367,6 +367,11 @@ print-no-window = Không thể in: không có cửa sổ để hiển thị hộ
 print-dialog-failed = Không thể hiển thị hộp thoại in: { $error }
 print-job-not-started = máy in không bắt đầu lệnh in
 print-printer-stopped = máy in đã dừng
+print-no-dialog = Để in, cần hộp thoại in của màn hình nền, đi kèm một cổng màn hình nền XDG như xdg-desktop-portal-gtk.
+print-no-cups = Chỉ in ra tệp được: máy in cần CUPS, mà CUPS chưa được cài đặt.
+print-cups-stopped = Chỉ in ra tệp được khi CUPS, dịch vụ in, chưa chạy.
+print-no-printer = Chưa thiết lập máy in nào, nên chỉ in ra tệp được. Hãy thêm một máy in trong phần cài đặt máy in hoặc tại localhost:631.
+print-not-set-up = Đã tìm thấy { $printer } trên mạng nhưng chưa được thiết lập, nên hộp thoại in có thể không kết nối được. Hãy thêm máy in này trong phần cài đặt máy in hoặc tại localhost:631.
 
 ## File dialogs
 
@@ -443,6 +448,8 @@ export-format = Định dạng
 export-quality = Chất lượng
 export-size = Kích thước
 export-choose = Xuất…
+export-menu-export = Xuất…
+export-menu-print = In…
 export-format-webp = WebP (không mất dữ liệu)
 export-format-unknown = hình ảnh
 export-quality-low = Thấp

@@ -23,7 +23,7 @@ use crate::filetype::{self, FileKind};
 use crate::info;
 use crate::shortcuts::Action;
 use crate::ui::{self, Icon, Type, button, component, style};
-use crate::{dialog, portal};
+use crate::{dialog, portal, print};
 
 const POLL_INTERVAL: Duration = Duration::from_millis(700);
 /// Widest the text runs at the normal size; it grows with the text.
@@ -36,6 +36,9 @@ const SEARCH_WIDTH: f32 = 240.0;
 const PICTURE_SIZES: &[(&str, f32)] = &[("1", 1.0), ("2", 2.0)];
 /// The longest side a picture may have; WebP allows no more.
 const PICTURE_SIDE: f32 = 16383.0;
+/// The id of the document's pictures, by which a printout finds them,
+/// so as not to cut one across two pages.
+const PICTURE: Id = Id::new("markdown-picture");
 
 #[derive(Debug, Clone)]
 pub enum Message {
@@ -81,6 +84,11 @@ pub enum Message {
     ExportChoose,
     ExportTarget(Result<Option<PathBuf>, String>),
     Exported(Result<PathBuf, String>),
+    /// Opens or closes the export button's menu.
+    ExportMenu(bool),
+    /// Prints the document, and the result.
+    Print,
+    PrintFinished(Result<(), String>),
 }
 
 /// The export choices, kept for the next export from the window.
@@ -126,6 +134,7 @@ pub struct MarkdownWindow {
     scroll_id: Id,
     search_id: Id,
     export: Option<ExportChoice>,
+    export_menu: bool,
     /// The document's height at the normal text size, measured when the
     /// export dialog opens, for the size it shows.
     export_height: f32,
@@ -311,6 +320,7 @@ impl MarkdownWindow {
             scroll_id: Id::unique(),
             search_id: Id::unique(),
             export: None,
+            export_menu: false,
             export_height: 0.0,
             theme: RefCell::new(None),
             picture_found: Cell::new(0),
@@ -487,6 +497,17 @@ impl MarkdownWindow {
                 });
                 Task::none()
             }
+            Message::ExportMenu(open) => {
+                self.export_menu = open;
+                Task::none()
+            }
+            Message::Print => self.print(),
+            Message::PrintFinished(result) => {
+                if let Err(error) = result {
+                    self.notice = Some(error);
+                }
+                Task::none()
+            }
         }
     }
 
@@ -521,6 +542,7 @@ impl MarkdownWindow {
             Action::FindPrevious => self.update(Message::PreviousMatch),
             Action::Inspector => self.update(Message::ToggleInspector),
             Action::Export => self.update(Message::Export),
+            Action::Print => self.update(Message::Print),
             Action::Escape if self.export_open() => self.update(Message::ExportCancel),
             Action::Escape if self.inspector => {
                 self.inspector = false;
@@ -578,7 +600,7 @@ impl MarkdownWindow {
             self.toolbar(),
             None,
             body,
-            self.pointer_inside || self.export_open(),
+            self.pointer_inside || self.export_open() || self.export_menu,
         );
         // The panels on the right run the window's whole height, and the
         // bars end where they begin. They keep their side in every language.
@@ -665,16 +687,157 @@ impl MarkdownWindow {
         let theme = self.theme.borrow().clone()?;
         let renderer = picture_renderer()?;
         let mut page = self.picture_page(&theme);
-        let mut tree = iced::advanced::widget::Tree::new(&page);
-        let node = page.as_widget_mut().layout(
-            &mut tree,
+        Some(laid_out_height(
+            &mut page,
             &renderer,
-            &iced::advanced::layout::Limits::new(
-                iced::Size::ZERO,
-                iced::Size::new(MAX_WIDTH * self.zoom(), f32::INFINITY),
-            ),
+            MAX_WIDTH * self.zoom(),
+        ))
+    }
+
+    /// Prints the document, drawn on pages of paper.
+    fn print(&mut self) -> Task<Message> {
+        if self.items.is_empty() {
+            return Task::none();
+        }
+        let title = self
+            .path
+            .file_name()
+            .map(|name| name.to_string_lossy().into_owned())
+            .unwrap_or_default();
+        match self.draw_printout() {
+            Ok(printout) => Task::perform(printout.print(title), Message::PrintFinished),
+            Err(error) => {
+                self.notice = Some(error);
+                Task::none()
+            }
+        }
+    }
+
+    /// The document as printed: `width` pixels wide on the paper's white,
+    /// without matches marked.
+    fn print_page(&self, theme: &Theme, width: f32) -> Element<'_, Message> {
+        container(self.rendered(theme, "", &self.picture_found))
+            .width(width)
+            .into()
+    }
+
+    /// The document drawn on pages within the paper's margins, a page at
+    /// a time, each ending between lines. It is drawn light, in the
+    /// window's accent, whatever the window's theme.
+    fn draw_printout(&self) -> Result<print::Printout, String> {
+        use iced::advanced::Renderer as _;
+        use iced::advanced::renderer::Headless;
+        let failed = || crate::fl!("markdown-draw-failed");
+        let theme = self.theme.borrow().clone().ok_or_else(failed)?;
+        let scheme = ui::Scheme::of(&theme);
+        let theme = if scheme.dark {
+            ui::scheme::theme("prev".to_owned(), scheme.primary, false)
+        } else {
+            theme
+        };
+        let scheme = ui::Scheme::of(&theme);
+        let mut renderer = picture_renderer().ok_or_else(failed)?;
+        let paper = print::paper();
+        let width = (paper.width - 2.0 * print::MARGIN) / print::POINTS_PER_PIXEL;
+        let height = laid_out_height(&mut self.print_page(&theme, width), &renderer, width);
+        let scale = print::DOTS_PER_PIXEL;
+        let dots_wide = (width * scale).round() as u32;
+        let row_bytes = dots_wide as usize * 4;
+        let total = (height * scale).ceil() as usize;
+        let page_rows = ((paper.height - 2.0 * print::MARGIN) / print::POINTS_PER_PIXEL * scale)
+            .floor() as usize;
+        // How far down a page's top may start, past blank rows.
+        let lead_room = page_rows / 8;
+        // Pages end at gaps two pixels tall or more, as between lines.
+        let gap = (2.0 * scale).round() as usize;
+        let mut ui = iced_runtime::UserInterface::build(
+            self.print_page(&theme, width),
+            iced::Size::new(width, height),
+            iced_runtime::user_interface::Cache::default(),
+            &mut renderer,
         );
-        Some(node.size().height.ceil())
+        let style = iced::advanced::renderer::Style {
+            text_color: scheme.on_surface,
+        };
+        let mut found = Pictures(Vec::new());
+        ui.operate(&renderer, &mut found);
+        // In rows of dots; one taller than a page is cut wherever it must.
+        let pictures: Vec<std::ops::Range<usize>> = found
+            .0
+            .iter()
+            .map(|&(above, below)| {
+                (above * scale).floor() as usize..(below * scale).ceil() as usize
+            })
+            .filter(|picture| picture.len() <= page_rows)
+            .collect();
+        let printout = print::Printout::new();
+        let mut top = 0;
+        while top < total {
+            let rows = (page_rows + lead_room).min(total - top);
+            // A page starts past blank rows, up to a picture's top.
+            let to_picture = pictures
+                .iter()
+                .filter(|picture| picture.end > top)
+                .map(|picture| picture.start.saturating_sub(top))
+                .min()
+                .unwrap_or(rows);
+            renderer.with_translation(iced::Vector::new(0.0, -(top as f32) / scale), |renderer| {
+                ui.draw(renderer, &theme, &style, iced::mouse::Cursor::Unavailable);
+            });
+            let pixels = renderer.screenshot(
+                iced::Size::new(dots_wide, rows as u32),
+                scale,
+                iced::Color::WHITE,
+            );
+            let lead = print::plain_rows(
+                &pixels,
+                dots_wide as usize,
+                lead_room.min(rows).min(to_picture),
+            );
+            let left = total - top - lead;
+            if left == 0 {
+                break;
+            }
+            let end = if left <= page_rows {
+                left
+            } else {
+                let start = top + lead;
+                let on_page: Vec<std::ops::Range<usize>> = pictures
+                    .iter()
+                    .filter(|picture| picture.end > start && picture.start < start + page_rows)
+                    .map(|picture| picture.start.saturating_sub(start)..picture.end - start)
+                    .collect();
+                print::page_end(
+                    &pixels[lead * row_bytes..],
+                    dots_wide as usize,
+                    page_rows,
+                    gap,
+                    &on_page,
+                )
+            };
+            let picture = prev_pdf::engine::Bitmap {
+                width: dots_wide,
+                height: end as u32,
+                pixels: pixels[lead * row_bytes..(lead + end) * row_bytes].to_vec(),
+            };
+            let page_top = paper.height - print::MARGIN;
+            let tall = end as f32 / scale * print::POINTS_PER_PIXEL;
+            printout.add(print::Page {
+                picture,
+                size: paper,
+                place: prev_pdf::geometry::Rect::new(
+                    print::MARGIN,
+                    page_top - tall,
+                    paper.width - print::MARGIN,
+                    page_top,
+                ),
+            });
+            top += lead + end;
+        }
+        // Text is drawn from paragraphs the interface owns, so it lives
+        // until the last page is taken.
+        drop(ui);
+        Ok(printout)
     }
 
     /// Draws the document into a picture and saves it at `target`.
@@ -891,11 +1054,12 @@ impl MarkdownWindow {
                     Message::ToggleAssistant,
                 ),
             ]),
-            component::tip(
-                ui::icon_button(Icon::FileExport)
-                    .kind(button::Kind::Tonal)
-                    .on_press_maybe((!self.items.is_empty()).then_some(Message::Export)),
+            ui::export::menu(
                 crate::fl!("markdown-export"),
+                (!self.items.is_empty()).then_some(Message::Export),
+                (!self.items.is_empty()).then_some(Message::Print),
+                self.export_menu,
+                Message::ExportMenu,
             ),
             component::group([
                 component::floating_bars_toggle(Message::ToggleFloatingBars),
@@ -966,6 +1130,35 @@ fn fitting_scale(height: f32, scale: f32) -> f32 {
     } else {
         scale
     }
+}
+
+/// Where the document's pictures are, as their tops and bottoms.
+struct Pictures(Vec<(f32, f32)>);
+
+impl iced::advanced::widget::Operation for Pictures {
+    fn traverse(&mut self, operate: &mut dyn FnMut(&mut dyn iced::advanced::widget::Operation)) {
+        operate(self);
+    }
+
+    fn container(&mut self, id: Option<&Id>, bounds: iced::Rectangle) {
+        if id == Some(&PICTURE) {
+            self.0.push((bounds.y, bounds.y + bounds.height));
+        }
+    }
+}
+
+/// How tall `page` is, laid out `width` wide.
+fn laid_out_height(page: &mut Element<'_, Message>, renderer: &iced::Renderer, width: f32) -> f32 {
+    let mut tree = iced::advanced::widget::Tree::new(&*page);
+    let node = page.as_widget_mut().layout(
+        &mut tree,
+        renderer,
+        &iced::advanced::layout::Limits::new(
+            iced::Size::ZERO,
+            iced::Size::new(width, f32::INFINITY),
+        ),
+    );
+    node.size().height.ceil()
 }
 
 /// A renderer that draws on the CPU, into pictures rather than a window.
@@ -1097,6 +1290,7 @@ impl<'a> markdown::Viewer<'a, Message> for Viewer<'a> {
                     .content_fit(iced::ContentFit::ScaleDown)
                     .width(Fill),
             )
+            .id(PICTURE)
             .max_width(picture.width * self.zoom)
             .into(),
             None => {

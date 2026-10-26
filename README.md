@@ -117,6 +117,8 @@ For a walkthrough of every feature with more screenshots, see
   - Images opened together share one window with a thumbnail sidebar;
     drop more image files on the window to add them.
   - Zoom, fit, actual size, Ctrl+scroll zoom and drag to pan.
+  - Printing through the system print dialog, with edits and markup; an
+    animation prints the frame shown.
   - HEIC and AVIF open through libheif: the system's on Linux, built in
     on Windows, macOS and in the Flatpak.
 - **Image editing:** rotate, flip, crop, resize and Adjust Color (exposure,
@@ -134,7 +136,8 @@ For a walkthrough of every feature with more screenshots, see
   other image formats at one, two or four times their size.
 - **Markdown** with tables, task lists, syntax highlighted code and images;
   reloads when the file changes on disk. Text size, search and an
-  inspector, as in the other windows, and export as a picture.
+  inspector, as in the other windows, export as a picture, and printing
+  on light pages that end between lines.
 - **Material Design 3 interface:** an
   [M3 Expressive](https://m3.material.io) look with Roboto Flex, Material
   Symbols icons, spring motion and keyboard focus (Tab and Shift+Tab).
@@ -248,6 +251,15 @@ Every package has every feature. Some depend on where prev runs:
 - **HEIC and AVIF** need libheif with its decoders: on Debian and Ubuntu
   the `libheif-plugin-*` packages, on Fedora `libheif-freeworld` from RPM
   Fusion (Fedora's own libheif leaves out HEIC).
+- **Printing on Linux** goes through the desktop's print dialog, an XDG
+  desktop portal such as xdg-desktop-portal-gtk, and CUPS; the packages
+  suggest both without installing them. A printer the dialog only found
+  on the network can stop at "Getting printer information" until it is
+  added as a printer: in the desktop's printer settings, at
+  localhost:631, or, for one that prints driverless, with
+  `sudo lpadmin -p NAME -E -v URI -m everywhere`, where `driverless`
+  lists its URI. When a print does not go through, prev says what is
+  missing.
 - **Flatpak:** prev reaches the home folder; files elsewhere (other
   drives, `/tmp`) open through the file dialog, but dropping them from
   the file manager does not work. Its settings, signatures and versions

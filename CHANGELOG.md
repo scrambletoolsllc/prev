@@ -5,6 +5,23 @@ All notable changes to prev. Versions follow
 
 ## Unreleased
 
+### Added
+
+- The Export button opens a menu, with Export… and Print…, in every
+  window. Print… shows the system's print dialog, as Ctrl+P (⌘P on
+  macOS) does.
+- Images and Markdown documents print. An image prints as export would
+  write it, with its edits and markup; an animation prints the frame
+  shown. A Markdown document prints light, on Letter or A4 pages as the
+  system's region has it, each page ending between lines, and pictures
+  that fit on a page kept whole.
+- On Linux, a print that does not go through says what is missing: the
+  desktop's print dialog, CUPS or CUPS running, or a printer set up,
+  naming one found on the network that is not; a cancelled print says
+  so once a run. Nothing is checked until something is printed. The
+  packages suggest CUPS and xdg-desktop-portal-gtk without installing
+  them.
+
 ### Changed
 
 - The rectangular selection, in documents and images, is framed as a
@@ -25,6 +42,11 @@ All notable changes to prev. Versions follow
   redaction or redacts; it says where it was instead.
 - With the Redact tool, a redaction mark, the one just drawn or any
   other, can be moved and resized; a press on one started a new mark.
+- Printing on Linux prints once a printer is chosen; it failed with an
+  error about a missing orientation, as the print dialog's answer was
+  read as needing every setting it may hold.
+- Printing a document right after an edit includes the edit; it printed
+  the file as last saved, up to a second and a half before.
 
 ## [2.3.0] - 2026-10-23
 

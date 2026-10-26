@@ -1,14 +1,45 @@
-//! The export dialog of the image and Markdown windows: the format, the
-//! JPEG quality and, where it applies, the size, before the save dialog.
-//! It looks like the PDF window's export dialog.
+//! The toolbar's export button, a menu to export or print, in every
+//! window; and the export dialog of the image and Markdown windows: the
+//! format, the JPEG quality and, where it applies, the size, before the
+//! save dialog. It looks like the PDF window's export dialog.
 
 use crate::{column, row};
 use iced::widget::{container, space};
 use iced::{Center, Element, Fill};
 
 use super::button::{Kind, Size as ButtonSize};
-use super::{Type, component, style};
+use super::dropdown::{self, Entry};
+use super::{Icon, Type, component, style};
 use crate::image::editor;
+
+/// The export button: a menu of `export` and `print`, lit in the tonal
+/// button's colors as the window's main action, open while `open` and
+/// asking to open or close with `on_toggle`. While neither can be done,
+/// the button is dimmed.
+pub fn menu<'a, Message: Clone + 'a>(
+    tip: String,
+    export: Option<Message>,
+    print: Option<Message>,
+    open: bool,
+    on_toggle: impl Fn(bool) -> Message + Send + Sync + 'static,
+) -> Element<'a, Message> {
+    let mut items = Vec::new();
+    if let Some(export) = export {
+        items.push(Entry::item(crate::fl!("export-menu-export"), export).icon(Icon::FileExport));
+    }
+    if let Some(print) = print {
+        items.push(Entry::item(crate::fl!("export-menu-print"), print).icon(Icon::Print));
+    }
+    if items.is_empty() {
+        return component::tip(super::icon_button(Icon::FileExport).kind(Kind::Tonal), tip);
+    }
+    dropdown::icon_menu(Icon::FileExport, items)
+        .size(ButtonSize::Small)
+        .selected(true)
+        .tip(tip)
+        .open(open, on_toggle)
+        .into()
+}
 
 /// Sizes to pick from: (choice id, scale), the one chosen, and a note
 /// under them, such as the size in pixels.

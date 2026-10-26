@@ -367,6 +367,11 @@ print-no-window = Tidak dapat mencetak: tiada tetingkap untuk menunjukkan dialog
 print-dialog-failed = Tidak dapat menunjukkan dialog cetak: { $error }
 print-job-not-started = pencetak tidak memulakan kerja cetak
 print-printer-stopped = pencetak terhenti
+print-no-dialog = Pencetakan memerlukan dialog cetak desktop, yang disertakan dengan portal desktop XDG seperti xdg-desktop-portal-gtk.
+print-no-cups = Hanya pencetakan ke fail yang berfungsi: pencetak memerlukan CUPS, yang tidak dipasang.
+print-cups-stopped = Hanya pencetakan ke fail yang berfungsi selagi CUPS, perkhidmatan pencetakan, tidak berjalan.
+print-no-printer = Tiada pencetak yang disediakan, jadi hanya pencetakan ke fail yang berfungsi. Tambahkan satu dalam tetapan pencetak atau di localhost:631.
+print-not-set-up = { $printer } ditemui pada rangkaian tetapi belum disediakan, jadi dialog cetak mungkin tidak dapat mencapainya. Tambahkannya dalam tetapan pencetak atau di localhost:631.
 
 ## File dialogs
 
@@ -443,6 +448,8 @@ export-format = Format fail
 export-quality = Kualiti
 export-size = Saiz
 export-choose = Eksport…
+export-menu-export = Eksport…
+export-menu-print = Cetak…
 export-format-webp = WebP (tanpa kehilangan kualiti)
 export-format-unknown = imej
 export-quality-low = Rendah

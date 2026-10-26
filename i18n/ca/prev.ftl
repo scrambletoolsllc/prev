@@ -383,6 +383,11 @@ print-no-window = No s'ha pogut imprimir: no hi ha cap finestra on mostrar el di
 print-dialog-failed = No s'ha pogut mostrar el diàleg d'impressió: { $error }
 print-job-not-started = la impressora no ha començat la feina
 print-printer-stopped = la impressora s'ha aturat
+print-no-dialog = Per imprimir cal el diàleg d'impressió de l'escriptori, que ve amb un portal d'escriptori XDG com ara xdg-desktop-portal-gtk.
+print-no-cups = Només es pot imprimir a un fitxer: les impressores necessiten CUPS, que no està instal·lat.
+print-cups-stopped = Només es pot imprimir a un fitxer mentre CUPS, el servei d'impressió, no estigui en marxa.
+print-no-printer = No hi ha cap impressora configurada, així que només es pot imprimir a un fitxer. Afegeix-ne una a la configuració d'impressores o a localhost:631.
+print-not-set-up = S'ha trobat { $printer } a la xarxa, però no està configurada, i és possible que el diàleg d'impressió no hi arribi. Afegeix-la a la configuració d'impressores o a localhost:631.
 
 ## File dialogs
 
@@ -459,6 +464,8 @@ export-format = Format
 export-quality = Qualitat
 export-size = Mida
 export-choose = Exporta…
+export-menu-export = Exporta…
+export-menu-print = Imprimeix…
 export-format-webp = WebP (sense pèrdua)
 export-format-unknown = imatge
 export-quality-low = Baixa

@@ -455,6 +455,11 @@ print-dialog-failed = Yazdırma iletişim kutusu gösterilemedi: { $error }
 print-job-not-started = yazıcı işi başlatmadı
 # Shown after "Could not print:".
 print-printer-stopped = yazıcı durdu
+print-no-dialog = Yazdırmak için masaüstünün yazdırma penceresi gerekir; bu pencere xdg-desktop-portal-gtk gibi bir XDG masaüstü portalıyla gelir.
+print-no-cups = Yalnızca dosyaya yazdırma çalışıyor: yazıcılar için CUPS gerekir ve yüklü değil.
+print-cups-stopped = Yazdırma hizmeti CUPS çalışmadığı sürece yalnızca dosyaya yazdırma çalışır.
+print-no-printer = Kurulu bir yazıcı yok, bu yüzden yalnızca dosyaya yazdırma çalışıyor. Yazıcı ayarlarından veya localhost:631 adresinden bir yazıcı ekleyin.
+print-not-set-up = { $printer } ağda bulundu ancak kurulu değil, bu yüzden yazdırma penceresi ona ulaşamayabilir. Yazıcı ayarlarından veya localhost:631 adresinden ekleyin.
 
 ## File dialogs
 
@@ -543,6 +548,8 @@ export-quality = Kalite
 export-size = Boyut
 # Button that goes on to choose where to save the export.
 export-choose = Dışa Aktar…
+export-menu-export = Dışa Aktar…
+export-menu-print = Yazdır…
 # Format choice; the format name stays as it is.
 export-format-webp = WebP (kayıpsız)
 # Stands in for a format name in a sentence when the format is unknown.

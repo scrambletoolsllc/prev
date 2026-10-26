@@ -458,6 +458,11 @@ print-dialog-failed = Impossible d’afficher la zone de dialogue d’impression
 print-job-not-started = l’imprimante n’a pas démarré la tâche
 # Shown after "Could not print:".
 print-printer-stopped = l’imprimante s’est arrêtée
+print-no-dialog = L’impression a besoin de la boîte de dialogue d’impression du bureau, fournie par un portail de bureau XDG comme xdg-desktop-portal-gtk.
+print-no-cups = Seule l’impression dans un fichier fonctionne : les imprimantes ont besoin de CUPS, qui n’est pas installé.
+print-cups-stopped = Seule l’impression dans un fichier fonctionne tant que CUPS, le service d’impression, n’est pas lancé.
+print-no-printer = Aucune imprimante n’est configurée, donc seule l’impression dans un fichier fonctionne. Ajoutez-en une dans les réglages des imprimantes ou sur localhost:631.
+print-not-set-up = { $printer } a été trouvée sur le réseau mais n’est pas configurée, la boîte de dialogue d’impression risque donc de ne pas l’atteindre. Ajoutez-la dans les réglages des imprimantes ou sur localhost:631.
 
 ## File dialogs
 
@@ -546,6 +551,8 @@ export-quality = Qualité
 export-size = Taille
 # Button that goes on to choose where to save the export.
 export-choose = Exporter…
+export-menu-export = Exporter…
+export-menu-print = Imprimer…
 # Format choice; the format name stays as it is.
 export-format-webp = WebP (sans perte)
 # Stands in for a format name in a sentence when the format is unknown.

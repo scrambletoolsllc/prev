@@ -19,7 +19,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends \
             clang libclang-dev pkg-config libfontconfig1-dev libfreetype-dev \
-            libxkbcommon-dev libwayland-dev desktop-file-utils appstream
+            libxkbcommon-dev libwayland-dev desktop-file-utils appstream dbus
       - uses: dtolnay/rust-toolchain@stable
         with:
           components: rustfmt, clippy

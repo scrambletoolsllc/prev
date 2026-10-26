@@ -11,6 +11,8 @@ makedepends=('cargo' 'clang' 'pkgconf')
 optdepends=('wl-clipboard: copy and paste images'
             'libheif: HEIC and AVIF images'
             'curl: pictures dropped from a browser as a web address'
+            'cups: printing to a printer'
+            'xdg-desktop-portal-gtk: the print dialog, where the desktop portal has none'
             'libx11: running under X11'
             'libxcursor: running under X11'
             'libxi: running under X11')

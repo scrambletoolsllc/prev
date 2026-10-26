@@ -520,35 +520,79 @@ fn image_page(
     size: Size,
     (left, bottom, width, height): (f32, f32, f32, f32),
 ) -> Result<Vec<u8>> {
-    let mut document = PdfDocument::new();
-    document
-        .new_page(MupdfSize::new(size.width, size.height))
-        .map_err(engine_error)?;
-    let pixmap = crate::mupdf_annotations::rgba_pixmap(image)?;
-    let image = mupdf::Image::from_pixmap(&pixmap).map_err(engine_error)?;
-    let image = document.add_image(&image).map_err(engine_error)?;
-    let mut xobjects = document.new_dict().map_err(engine_error)?;
-    xobjects.dict_put("Im", image).map_err(engine_error)?;
-    let mut resources = document.new_dict().map_err(engine_error)?;
-    resources
-        .dict_put("XObject", xobjects)
-        .map_err(engine_error)?;
-    let contents = format!("q {width} 0 0 {height} {left} {bottom} cm /Im Do Q");
-    let contents = Buffer::from_bytes(contents.as_bytes()).map_err(engine_error)?;
-    let contents = document
-        .add_stream(&contents, None, false)
-        .map_err(engine_error)?;
-    let mut page = document.find_page(0).map_err(engine_error)?;
-    page.dict_put("Resources", resources)
-        .map_err(engine_error)?;
-    page.dict_put("Contents", contents).map_err(engine_error)?;
-    let mut options = PdfWriteOptions::default();
-    options.set_compress(true).set_compress_images(true);
-    let mut bytes = Vec::new();
-    document
-        .write_to_with_options(&mut bytes, options)
-        .map_err(engine_error)?;
-    Ok(bytes)
+    let mut document = PictureDocument::new();
+    document.add(
+        image,
+        size,
+        Rect::new(left, bottom, left + width, bottom + height),
+    )?;
+    document.finish()
+}
+
+/// A PDF made a page at a time, each page showing a picture, as a
+/// printout of what is not a PDF.
+pub struct PictureDocument {
+    document: PdfDocument,
+    pages: i32,
+}
+
+impl Default for PictureDocument {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
+impl PictureDocument {
+    pub fn new() -> Self {
+        Self {
+            document: PdfDocument::new(),
+            pages: 0,
+        }
+    }
+
+    /// Adds a page of `size` points with `image` drawn in `place`, in
+    /// points from the page's bottom left.
+    pub fn add(&mut self, image: &crate::engine::Bitmap, size: Size, place: Rect) -> Result<()> {
+        let document = &mut self.document;
+        document
+            .new_page(MupdfSize::new(size.width, size.height))
+            .map_err(engine_error)?;
+        let pixmap = crate::mupdf_annotations::rgba_pixmap(image)?;
+        let image = mupdf::Image::from_pixmap(&pixmap).map_err(engine_error)?;
+        let image = document.add_image(&image).map_err(engine_error)?;
+        let mut xobjects = document.new_dict().map_err(engine_error)?;
+        xobjects.dict_put("Im", image).map_err(engine_error)?;
+        let mut resources = document.new_dict().map_err(engine_error)?;
+        resources
+            .dict_put("XObject", xobjects)
+            .map_err(engine_error)?;
+        let (width, height) = (place.x1 - place.x0, place.y1 - place.y0);
+        let contents = format!(
+            "q {width} 0 0 {height} {} {} cm /Im Do Q",
+            place.x0, place.y0
+        );
+        let contents = Buffer::from_bytes(contents.as_bytes()).map_err(engine_error)?;
+        let contents = document
+            .add_stream(&contents, None, false)
+            .map_err(engine_error)?;
+        let mut page = document.find_page(self.pages).map_err(engine_error)?;
+        page.dict_put("Resources", resources)
+            .map_err(engine_error)?;
+        page.dict_put("Contents", contents).map_err(engine_error)?;
+        self.pages += 1;
+        Ok(())
+    }
+
+    /// The pages added, as a PDF file's bytes.
+    pub fn finish(self) -> Result<Vec<u8>> {
+        let mut options = PdfWriteOptions::default();
+        options.set_compress(true).set_compress_images(true);
+        let mut bytes = Vec::new();
+        self.document
+            .write_to_with_options(&mut bytes, options)
+            .map_err(engine_error)?;
+        Ok(bytes)
+    }
 }
 
 fn rect_entry(object: &PdfObject, key: &str) -> Result<Option<[f32; 4]>> {

@@ -447,6 +447,11 @@ print-dialog-failed = 인쇄 대화상자를 표시할 수 없습니다: { $erro
 print-job-not-started = 프린터가 작업을 시작하지 않음
 # Shown after "Could not print:".
 print-printer-stopped = 프린터가 중지됨
+print-no-dialog = 인쇄하려면 데스크톱의 인쇄 대화상자가 필요하며, 이는 xdg-desktop-portal-gtk 같은 XDG 데스크톱 포털에 포함되어 있습니다.
+print-no-cups = 파일로 인쇄만 할 수 있습니다. 프린터를 쓰려면 CUPS가 필요하지만 설치되어 있지 않습니다.
+print-cups-stopped = 인쇄 서비스인 CUPS가 실행 중이 아니어서 파일로 인쇄만 할 수 있습니다.
+print-no-printer = 설정된 프린터가 없어서 파일로 인쇄만 할 수 있습니다. 프린터 설정이나 localhost:631에서 프린터를 추가하세요.
+print-not-set-up = 네트워크에서 { $printer }을(를) 찾았지만 설정되어 있지 않아 인쇄 대화상자가 연결하지 못할 수 있습니다. 프린터 설정이나 localhost:631에서 추가하세요.
 
 ## File dialogs
 
@@ -535,6 +540,8 @@ export-quality = 품질
 export-size = 크기
 # Button that goes on to choose where to save the export.
 export-choose = 내보내기…
+export-menu-export = 내보내기…
+export-menu-print = 인쇄…
 # Format choice; the format name stays as it is.
 export-format-webp = WebP(무손실)
 # Stands in for a format name in a sentence when the format is unknown.

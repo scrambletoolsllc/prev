@@ -428,6 +428,11 @@ print-dialog-failed = プリントダイアログを表示できませんでし�
 print-job-not-started = プリンタがジョブを開始しませんでした
 # Shown after "Could not print:".
 print-printer-stopped = プリンタが停止しました
+print-no-dialog = プリントするには、デスクトップのプリントダイアログが必要です。xdg-desktop-portal-gtk などの XDG デスクトップポータルに含まれています。
+print-no-cups = ファイルへのプリントしかできません。プリンタには CUPS が必要ですが、インストールされていません。
+print-cups-stopped = プリントサービスの CUPS が動作していないため、ファイルへのプリントしかできません。
+print-no-printer = プリンタが設定されていないため、ファイルへのプリントしかできません。プリンタの設定か localhost:631 で追加してください。
+print-not-set-up = { $printer } はネットワーク上で見つかりましたが設定されていないため、プリントダイアログから使えない場合があります。プリンタの設定か localhost:631 で追加してください。
 
 ## File dialogs
 
@@ -516,6 +521,8 @@ export-quality = 画質
 export-size = サイズ
 # Button that goes on to choose where to save the export.
 export-choose = 書き出す…
+export-menu-export = 書き出す…
+export-menu-print = 印刷…
 # Format choice; the format name stays as it is.
 export-format-webp = WebP（ロスレス）
 # Stands in for a format name in a sentence when the format is unknown.

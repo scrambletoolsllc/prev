@@ -379,6 +379,11 @@ print-no-window = அச்சிட முடியவில்லை: அச�
 print-dialog-failed = அச்சு உரையாடலைக் காட்ட முடியவில்லை: { $error }
 print-job-not-started = அச்சுப்பொறி பணியைத் தொடங்கவில்லை
 print-printer-stopped = அச்சுப்பொறி நின்றுவிட்டது
+print-no-dialog = அச்சிட, டெஸ்க்டாப்பின் அச்சு உரையாடல் தேவை; அது xdg-desktop-portal-gtk போன்ற XDG டெஸ்க்டாப் போர்ட்டலுடன் வருகிறது.
+print-no-cups = கோப்பில் அச்சிடுவது மட்டுமே வேலை செய்கிறது: அச்சுப்பொறிகளுக்கு CUPS தேவை, அது நிறுவப்படவில்லை.
+print-cups-stopped = அச்சுச் சேவையான CUPS இயங்காதவரை, கோப்பில் அச்சிடுவது மட்டுமே வேலை செய்யும்.
+print-no-printer = எந்த அச்சுப்பொறியும் அமைக்கப்படவில்லை, எனவே கோப்பில் அச்சிடுவது மட்டுமே வேலை செய்கிறது. அச்சுப்பொறி அமைப்புகளில் அல்லது localhost:631 இல் ஒன்றைச் சேர்க்கவும்.
+print-not-set-up = { $printer } நெட்வொர்க்கில் கண்டறியப்பட்டது, ஆனால் அமைக்கப்படவில்லை, எனவே அச்சு உரையாடல் அதை அடையாமல் போகலாம். அச்சுப்பொறி அமைப்புகளில் அல்லது localhost:631 இல் அதைச் சேர்க்கவும்.
 
 ## File dialogs
 
@@ -455,6 +460,8 @@ export-format = வடிவமைப்பு
 export-quality = தரம்
 export-size = அளவு
 export-choose = ஏற்றுமதி செய்…
+export-menu-export = ஏற்றுமதி செய்…
+export-menu-print = அச்சிடு…
 export-format-webp = WebP (இழப்பற்றது)
 export-format-unknown = படம்
 export-quality-low = குறைவு

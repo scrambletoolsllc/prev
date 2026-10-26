@@ -382,6 +382,11 @@ print-no-window = Imeshindwa kuchapisha: hakuna dirisha la kuonyesha kidirisha c
 print-dialog-failed = Imeshindwa kuonyesha kidirisha cha kuchapisha: { $error }
 print-job-not-started = printa haikuanza kazi
 print-printer-stopped = printa imesimama
+print-no-dialog = Uchapishaji unahitaji dirisha la kuchapisha la eneo-kazi, linalokuja na lango la eneo-kazi la XDG kama xdg-desktop-portal-gtk.
+print-no-cups = Kuchapisha kwenye faili tu ndiko kunakofanya kazi: printa zinahitaji CUPS, ambayo haijasakinishwa.
+print-cups-stopped = Kuchapisha kwenye faili tu ndiko kunakofanya kazi wakati CUPS, huduma ya uchapishaji, haifanyi kazi.
+print-no-printer = Hakuna printa iliyowekwa, kwa hivyo kuchapisha kwenye faili tu ndiko kunakofanya kazi. Ongeza moja katika mipangilio ya printa au kwenye localhost:631.
+print-not-set-up = { $printer } imepatikana kwenye mtandao lakini haijawekwa, kwa hivyo dirisha la kuchapisha huenda lisiifikie. Iongeze katika mipangilio ya printa au kwenye localhost:631.
 
 ## File dialogs
 
@@ -458,6 +463,8 @@ export-format = Umbizo
 export-quality = Ubora
 export-size = Ukubwa
 export-choose = Hamisha…
+export-menu-export = Hamisha…
+export-menu-print = Chapisha…
 export-format-webp = WebP (bila upotevu)
 export-format-unknown = picha
 export-quality-low = Chini

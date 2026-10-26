@@ -455,6 +455,11 @@ print-dialog-failed = Udskrivningsdialogen kunne ikke vises: { $error }
 print-job-not-started = printeren startede ikke jobbet
 # Shown after "Could not print:".
 print-printer-stopped = printeren stoppede
+print-no-dialog = Udskrivning kræver skrivebordets udskriftsdialog, som følger med en XDG-skrivebordsportal som xdg-desktop-portal-gtk.
+print-no-cups = Kun udskrivning til en fil virker: printere kræver CUPS, som ikke er installeret.
+print-cups-stopped = Kun udskrivning til en fil virker, så længe udskrivningstjenesten CUPS ikke kører.
+print-no-printer = Der er ingen printer sat op, så kun udskrivning til en fil virker. Tilføj en i printerindstillingerne eller på localhost:631.
+print-not-set-up = { $printer } blev fundet på netværket, men er ikke sat op, så udskriftsdialogen når den måske ikke. Tilføj den i printerindstillingerne eller på localhost:631.
 
 ## File dialogs
 
@@ -543,6 +548,8 @@ export-quality = Kvalitet
 export-size = Størrelse
 # Button that goes on to choose where to save the export.
 export-choose = Eksporter…
+export-menu-export = Eksporter…
+export-menu-print = Udskriv…
 # Format choice; the format name stays as it is.
 export-format-webp = WebP (uden tab)
 # Stands in for a format name in a sentence when the format is unknown.

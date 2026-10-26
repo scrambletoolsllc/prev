@@ -378,6 +378,11 @@ print-no-window = প্রিন্ট করা যায়নি: প্র�
 print-dialog-failed = প্রিন্ট ডায়ালগ দেখানো যায়নি: { $error }
 print-job-not-started = প্রিন্টার কাজটি শুরু করেনি
 print-printer-stopped = প্রিন্টার থেমে গেছে
+print-no-dialog = প্রিন্ট করতে ডেস্কটপের প্রিন্ট ডায়ালগ দরকার, যা xdg-desktop-portal-gtk-এর মতো একটি XDG ডেস্কটপ পোর্টালের সঙ্গে আসে।
+print-no-cups = শুধু ফাইলে প্রিন্ট করা যায়: প্রিন্টারের জন্য CUPS দরকার, যা ইনস্টল করা নেই।
+print-cups-stopped = প্রিন্টিং পরিষেবা CUPS চালু না থাকা পর্যন্ত শুধু ফাইলে প্রিন্ট করা যায়।
+print-no-printer = কোনো প্রিন্টার সেট আপ করা নেই, তাই শুধু ফাইলে প্রিন্ট করা যায়। প্রিন্টার সেটিংসে বা localhost:631-এ একটি যোগ করুন।
+print-not-set-up = নেটওয়ার্কে { $printer } পাওয়া গেছে, কিন্তু এটি সেট আপ করা নেই, তাই প্রিন্ট ডায়ালগ হয়তো এটিতে পৌঁছাতে পারবে না। প্রিন্টার সেটিংসে বা localhost:631-এ এটি যোগ করুন।
 
 ## File dialogs
 
@@ -454,6 +459,8 @@ export-format = ফরম্যাট
 export-quality = গুণমান
 export-size = আকার
 export-choose = রপ্তানি করুন…
+export-menu-export = রপ্তানি করুন…
+export-menu-print = প্রিন্ট করুন…
 export-format-webp = WebP (ক্ষতিহীন)
 export-format-unknown = ছবি
 export-quality-low = নিম্ন

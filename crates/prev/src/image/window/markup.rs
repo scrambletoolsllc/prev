@@ -308,35 +308,52 @@ impl ImageWindow {
         frame: Arc<Frame>,
     ) -> Option<Task<Message>> {
         let index = self.current;
+        let marked = self.marked_frame(index, frame, crate::fl!("export-stopped"))?;
+        let edits = self.items[index].markup.as_ref()?.window.edits();
+        let original = self.items[index].path.clone();
+        let PendingExport { path, format, .. } = pending;
+        Some(Task::perform(
+            async move {
+                let burned = marked.await?;
+                spawn(move || editor::export(&original, &burned, &path, format).map(|()| path))
+                    .await
+                    .unwrap_or_else(|_| Err(crate::fl!("export-stopped")))
+            },
+            move |result| Message::MarkupExported(index, edits, result),
+        ))
+    }
+
+    /// `frame` with image `index`'s markup drawn over it, once the markup
+    /// is drawn, if it has any; `stopped` says so if the drawing stops.
+    pub(super) fn marked_frame(
+        &self,
+        index: usize,
+        frame: Arc<Frame>,
+        stopped: String,
+    ) -> Option<impl Future<Output = Result<Frame, String>> + Send + 'static> {
         let markup = self.items[index].markup.as_ref()?;
         if !markup.window.has_annotations() {
             return None;
         }
         let layer = markup.window.document()?.annotation_layer(0);
-        let (scale, edits) = (markup.scale, markup.window.edits());
-        let original = self.items[index].path.clone();
-        let PendingExport { path, format, .. } = pending;
-        Some(Task::perform(
-            async move {
-                let display = flatten(layer.await).map_err(|error| error.describe())?;
-                let work = spawn(move || {
-                    let area = PixelRect {
-                        x: 0,
-                        y: 0,
-                        width: frame.width,
-                        height: frame.height,
-                    };
-                    let layer = display
-                        .render(scale, area)
-                        .map_err(|error| error.describe())?;
-                    let burned = editor::burn_in(&frame, &layer.pixels);
-                    editor::export(&original, &burned, &path, format).map(|()| path)
-                });
-                work.await
-                    .unwrap_or_else(|_| Err(crate::fl!("export-stopped")))
-            },
-            move |result| Message::MarkupExported(index, edits, result),
-        ))
+        let scale = markup.scale;
+        Some(async move {
+            let display = flatten(layer.await).map_err(|error| error.describe())?;
+            spawn(move || {
+                let area = PixelRect {
+                    x: 0,
+                    y: 0,
+                    width: frame.width,
+                    height: frame.height,
+                };
+                let layer = display
+                    .render(scale, area)
+                    .map_err(|error| error.describe())?;
+                Ok(editor::burn_in(&frame, &layer.pixels))
+            })
+            .await
+            .unwrap_or(Err(stopped))
+        })
     }
 
     pub(super) fn markup_exported(

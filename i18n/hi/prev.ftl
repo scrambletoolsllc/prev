@@ -463,6 +463,11 @@ print-dialog-failed = प्रिंट डायलॉग नहीं दि�
 print-job-not-started = प्रिंटर ने जॉब शुरू नहीं किया
 # Shown after "Could not print:".
 print-printer-stopped = प्रिंटर रुक गया
+print-no-dialog = प्रिंट करने के लिए डेस्कटॉप का प्रिंट डायलॉग चाहिए, जो xdg-desktop-portal-gtk जैसे XDG डेस्कटॉप पोर्टल के साथ आता है।
+print-no-cups = केवल फ़ाइल में प्रिंट करना काम करता है: प्रिंटरों को CUPS चाहिए, जो इंस्टॉल नहीं है।
+print-cups-stopped = जब तक प्रिंटिंग सेवा CUPS नहीं चल रही, केवल फ़ाइल में प्रिंट करना काम करता है।
+print-no-printer = कोई प्रिंटर सेट अप नहीं है, इसलिए केवल फ़ाइल में प्रिंट करना काम करता है। प्रिंटर सेटिंग में या localhost:631 पर एक जोड़ें।
+print-not-set-up = { $printer } नेटवर्क पर मिला, पर सेट अप नहीं है, इसलिए प्रिंट डायलॉग शायद उस तक न पहुँचे। इसे प्रिंटर सेटिंग में या localhost:631 पर जोड़ें।
 
 ## File dialogs
 
@@ -551,6 +556,8 @@ export-quality = गुणवत्ता
 export-size = आकार
 # Button that goes on to choose where to save the export.
 export-choose = एक्सपोर्ट करें…
+export-menu-export = एक्सपोर्ट करें…
+export-menu-print = प्रिंट करें…
 # Format choice; the format name stays as it is.
 export-format-webp = WebP (लॉसलेस)
 # Stands in for a format name in a sentence when the format is unknown.

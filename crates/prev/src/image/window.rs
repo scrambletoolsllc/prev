@@ -56,6 +56,8 @@ const KEEP_AROUND: usize = 1;
 const FRAMES_AHEAD: usize = 4;
 /// Quiet time after an edit before it is written to disk.
 const AUTOSAVE_DELAY: Duration = Duration::from_millis(1200);
+/// The longest side, in pixels, an SVG drawing is drawn at to print.
+const PRINTED_SVG_SIDE: f32 = 8192.0;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum Source {
@@ -362,6 +364,11 @@ pub enum Message {
     ExportChooseAgain,
     ExportTarget(Result<Option<dialog::SavedWithMenus>, String>),
     Exported(Result<PathBuf, String>),
+    /// Opens or closes the export button's menu.
+    ExportMenu(bool),
+    /// Prints the image shown, as export would write it, and the result.
+    Print,
+    PrintFinished(Result<(), String>),
     DismissNotice,
     SidebarResized(Drag),
     ToggleOverflow,
@@ -418,6 +425,7 @@ pub struct ImageWindow {
     sidebar_width: Width,
     /// The toolbar's "More" menu is open.
     overflow_open: bool,
+    export_menu: bool,
     /// Whether the pointer is over the window, for floating toolbars.
     pointer_inside: bool,
     fit: Fit,
@@ -599,6 +607,7 @@ impl ImageWindow {
             sidebar,
             sidebar_width: SIDEBAR_WIDTH,
             overflow_open: false,
+            export_menu: false,
             pointer_inside: true,
             fit: Fit::Fit,
             view: (0.0, 0.0, 900.0, 700.0),
@@ -1158,6 +1167,17 @@ impl ImageWindow {
             }
             Message::ToggleOverflow => {
                 self.overflow_open = !self.overflow_open;
+                Task::none()
+            }
+            Message::ExportMenu(open) => {
+                self.export_menu = open;
+                Task::none()
+            }
+            Message::Print => self.print(),
+            Message::PrintFinished(result) => {
+                if let Err(error) = result {
+                    self.notice = Some(error);
+                }
                 Task::none()
             }
             Message::CloseOverflow => {
@@ -1949,6 +1969,81 @@ impl ImageWindow {
         )
     }
 
+    /// Prints the image shown as export would write it, with its edits
+    /// and any markup; an animation prints the frame shown.
+    fn print(&mut self) -> Task<Message> {
+        let Some(shown) = self.shown() else {
+            return Task::none();
+        };
+        let item = &self.items[self.current];
+        let title = item
+            .path
+            .file_name()
+            .map(|name| name.to_string_lossy().into_owned())
+            .unwrap_or_default();
+        if let Some(svg) = shown.image.svg.clone() {
+            let (width, height) = svg.size();
+            // Fine enough for paper, short of a picture too large to draw.
+            let scale =
+                crate::print::DOTS_PER_PIXEL.min(PRINTED_SVG_SIDE / width.max(height).max(1.0));
+            let drawn = spawn(move || svg.render(scale).map_err(|error| error.describe()));
+            return Task::perform(
+                async move {
+                    let frame = drawn
+                        .await
+                        .unwrap_or_else(|_| Err(crate::fl!("print-stopped")))?;
+                    let page = crate::print::picture_page(frame, width, height);
+                    crate::print::print_page(page, title).await
+                },
+                Message::PrintFinished,
+            );
+        }
+        let Some(frame) = self.printed_frame() else {
+            return Task::none();
+        };
+        let (width, height) = (frame.width as f32, frame.height as f32);
+        let marked = self.marked_frame(
+            self.current,
+            Arc::clone(&frame),
+            crate::fl!("print-stopped"),
+        );
+        Task::perform(
+            async move {
+                let frame = match marked {
+                    Some(marked) => marked.await?,
+                    None => Arc::unwrap_or_clone(frame),
+                };
+                let page = crate::print::picture_page(frame, width, height);
+                crate::print::print_page(page, title).await
+            },
+            Message::PrintFinished,
+        )
+    }
+
+    /// The image shown, with its edits; for an animation, the frame shown.
+    fn printed_frame(&self) -> Option<Arc<Frame>> {
+        let shown = self.shown()?;
+        if shown.image.frames.len() > 1
+            && let Some((
+                Handle::Rgba {
+                    width,
+                    height,
+                    pixels,
+                    ..
+                },
+                _,
+            )) = shown.image.frames.get(self.frame)
+        {
+            return Some(Arc::new(Frame {
+                width: *width,
+                height: *height,
+                pixels: pixels.to_vec(),
+                delay: Duration::ZERO,
+            }));
+        }
+        shown.current_frame()
+    }
+
     /// Whether the image shown can be edited: not an SVG drawing or an
     /// animation.
     fn editable(&self) -> bool {
@@ -1961,6 +2056,10 @@ impl ImageWindow {
         }
         if action == Action::ShowMarkup {
             return Some(self.toggle_markup());
+        }
+        // The image prints with its markup, not the markup's page.
+        if action == Action::Print {
+            return Some(self.print());
         }
         if action == Action::Paste && self.items[self.current].markup.is_none() {
             return Some(self.paste_into_new_markup());
@@ -2139,6 +2238,7 @@ impl ImageWindow {
         content = content.push(canvas);
         let shown = self.pointer_inside
             || self.overflow_open
+            || self.export_menu
             || self.pending_export.is_some()
             || self.export_dialog_open()
             || self.close_prompt
@@ -2547,11 +2647,12 @@ impl ImageWindow {
             true,
         ));
         slots.push((
-            component::tip(
-                ui::icon_button(Icon::FileExport)
-                    .kind(Kind::Tonal)
-                    .on_press_maybe((markable || is_svg).then_some(Message::Export)),
+            ui::export::menu(
                 crate::fl!("image-export"),
+                (markable || is_svg).then_some(Message::Export),
+                shown.is_some().then_some(Message::Print),
+                self.export_menu,
+                Message::ExportMenu,
             ),
             component::TOOL_WIDTH,
             Some(6),

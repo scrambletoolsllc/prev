@@ -428,6 +428,11 @@ print-dialog-failed = 无法显示打印对话框：{ $error }
 print-job-not-started = 打印机未开始打印任务
 # Shown after "Could not print:".
 print-printer-stopped = 打印机已停止
+print-no-dialog = 打印需要桌面的打印对话框，它随 xdg-desktop-portal-gtk 等 XDG 桌面门户提供。
+print-no-cups = 只能打印到文件：打印机需要 CUPS，但它未安装。
+print-cups-stopped = 打印服务 CUPS 未运行，只能打印到文件。
+print-no-printer = 尚未设置打印机，只能打印到文件。请在打印机设置中或在 localhost:631 添加一台。
+print-not-set-up = 已在网络上找到 { $printer }，但尚未设置，打印对话框可能无法连接到它。请在打印机设置中或在 localhost:631 添加。
 
 ## File dialogs
 
@@ -516,6 +521,8 @@ export-quality = 质量
 export-size = 大小
 # Button that goes on to choose where to save the export.
 export-choose = 导出…
+export-menu-export = 导出…
+export-menu-print = 打印…
 # Format choice; the format name stays as it is.
 export-format-webp = WebP（无损）
 # Stands in for a format name in a sentence when the format is unknown.

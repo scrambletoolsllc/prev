@@ -392,6 +392,11 @@ print-no-window = Nu s-a putut tipări: nu există nicio fereastră peste care s
 print-dialog-failed = Dialogul de tipărire nu a putut fi afișat: { $error }
 print-job-not-started = imprimanta nu a pornit lucrarea
 print-printer-stopped = imprimanta s-a oprit
+print-no-dialog = Tipărirea are nevoie de dialogul de tipărire al desktopului, care vine cu un portal de desktop XDG precum xdg-desktop-portal-gtk.
+print-no-cups = Funcționează doar tipărirea într-un fișier: imprimantele au nevoie de CUPS, care nu este instalat.
+print-cups-stopped = Funcționează doar tipărirea într-un fișier cât timp CUPS, serviciul de tipărire, nu rulează.
+print-no-printer = Nu este configurată nicio imprimantă, așa că funcționează doar tipărirea într-un fișier. Adaugă una în setările imprimantelor sau la localhost:631.
+print-not-set-up = { $printer } a fost găsită în rețea, dar nu este configurată, așa că dialogul de tipărire s-ar putea să n-o găsească. Adaug-o în setările imprimantelor sau la localhost:631.
 
 ## File dialogs
 
@@ -468,6 +473,8 @@ export-format = Format
 export-quality = Calitate
 export-size = Dimensiune
 export-choose = Exportă…
+export-menu-export = Exportă…
+export-menu-print = Tipărește…
 export-format-webp = WebP (fără pierderi)
 export-format-unknown = imagine
 export-quality-low = Scăzută

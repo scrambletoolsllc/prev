@@ -455,6 +455,11 @@ print-dialog-failed = نمایش پنجرهٔ گفتگوی چاپ ممکن نش�
 print-job-not-started = چاپگر کار را شروع نکرد
 # Shown after "Could not print:".
 print-printer-stopped = چاپگر متوقف شد
+print-no-dialog = برای چاپ، پنجرهٔ چاپ میز کار لازم است که همراه یک درگاه میز کار XDG مانند xdg-desktop-portal-gtk می‌آید.
+print-no-cups = فقط چاپ در فایل کار می‌کند: چاپگرها به CUPS نیاز دارند که نصب نیست.
+print-cups-stopped = تا وقتی CUPS، سرویس چاپ، اجرا نشود، فقط چاپ در فایل کار می‌کند.
+print-no-printer = هیچ چاپگری راه‌اندازی نشده است، پس فقط چاپ در فایل کار می‌کند. یکی را در تنظیمات چاپگر یا در localhost:631 اضافه کنید.
+print-not-set-up = { $printer } در شبکه پیدا شد اما راه‌اندازی نشده است، پس ممکن است پنجرهٔ چاپ به آن نرسد. آن را در تنظیمات چاپگر یا در localhost:631 اضافه کنید.
 
 ## File dialogs
 
@@ -543,6 +548,8 @@ export-quality = کیفیت
 export-size = اندازه
 # Button that goes on to choose where to save the export.
 export-choose = صادر کردن…
+export-menu-export = صادر کردن…
+export-menu-print = چاپ…
 # Format choice; the format name stays as it is.
 export-format-webp = WebP (بدون افت کیفیت)
 # Stands in for a format name in a sentence when the format is unknown.

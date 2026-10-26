@@ -377,6 +377,11 @@ print-no-window = Nem sikerült nyomtatni: nincs ablak, amely fölött a nyomtat
 print-dialog-failed = Nem sikerült megjeleníteni a nyomtatási párbeszédpanelt: { $error }
 print-job-not-started = a nyomtató nem indította el a feladatot
 print-printer-stopped = a nyomtató leállt
+print-no-dialog = A nyomtatáshoz az asztali környezet nyomtatási párbeszédablaka kell, amely egy XDG asztali portállal érkezik, például az xdg-desktop-portal-gtk csomaggal.
+print-no-cups = Csak fájlba nyomtatás működik: a nyomtatókhoz CUPS kell, amely nincs telepítve.
+print-cups-stopped = Csak fájlba nyomtatás működik, amíg a CUPS nyomtatási szolgáltatás nem fut.
+print-no-printer = Nincs beállított nyomtató, így csak fájlba nyomtatás működik. Adjon hozzá egyet a nyomtatóbeállításokban vagy a localhost:631 címen.
+print-not-set-up = A(z) { $printer } nyomtató megtalálható a hálózaton, de nincs beállítva, így a nyomtatási párbeszédablak talán nem éri el. Adja hozzá a nyomtatóbeállításokban vagy a localhost:631 címen.
 
 ## File dialogs
 
@@ -453,6 +458,8 @@ export-format = Formátum
 export-quality = Minőség
 export-size = Méret
 export-choose = Exportálás…
+export-menu-export = Exportálás…
+export-menu-print = Nyomtatás…
 export-format-webp = WebP (veszteségmentes)
 export-format-unknown = kép
 export-quality-low = Alacsony

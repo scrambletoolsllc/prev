@@ -374,6 +374,11 @@ print-no-window = Kunne ikke skrive ut: det finnes ikke noe vindu å vise utskri
 print-dialog-failed = Kunne ikke vise utskriftsdialogen: { $error }
 print-job-not-started = skriveren startet ikke jobben
 print-printer-stopped = skriveren stoppet
+print-no-dialog = Utskrift krever skrivebordets utskriftsdialog, som følger med en XDG-skrivebordsportal som xdg-desktop-portal-gtk.
+print-no-cups = Bare utskrift til fil virker: skrivere trenger CUPS, som ikke er installert.
+print-cups-stopped = Bare utskrift til fil virker så lenge utskriftstjenesten CUPS ikke kjører.
+print-no-printer = Ingen skriver er satt opp, så bare utskrift til fil virker. Legg til en i skriverinnstillingene eller på localhost:631.
+print-not-set-up = { $printer } ble funnet på nettverket, men er ikke satt opp, så utskriftsdialogen når den kanskje ikke. Legg den til i skriverinnstillingene eller på localhost:631.
 
 ## File dialogs
 
@@ -450,6 +455,8 @@ export-format = Filformat
 export-quality = Kvalitet
 export-size = Størrelse
 export-choose = Eksporter…
+export-menu-export = Eksporter…
+export-menu-print = Skriv ut…
 export-format-webp = WebP (tapsfri)
 export-format-unknown = bilde
 export-quality-low = Lav

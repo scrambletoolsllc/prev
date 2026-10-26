@@ -53,6 +53,10 @@ smithay-clipboard = "0.7"
 # vendor/PATCHES.md).
 winit = { version = "0.30", default-features = false, features = ["wayland", "x11"] }
 
+# A print portal of the tests' own, on a bus of their own.
+[target.'cfg(target_os = "linux")'.dev-dependencies]
+zbus = { version = "5", default-features = false, features = ["async-io"] }
+
 # The pasteboard, and later the app delegate and printing.
 [target.'cfg(target_os = "macos")'.dependencies]
 # iced's own winit, for the files Finder opens (patched, see
