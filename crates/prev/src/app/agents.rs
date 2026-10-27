@@ -366,6 +366,7 @@ impl Prev {
             tools::Kind::Sign => prev::fl!("agent-ask-sign", agent = agent),
             tools::Kind::Redact => prev::fl!("agent-ask-redact", agent = agent),
             tools::Kind::Export => prev::fl!("agent-ask-export", agent = agent),
+            tools::Kind::Print => prev::fl!("agent-ask-print", agent = agent),
         };
         let mut body = prev::fl!("agent-ask-body", agent = agent, tool = asked.tool.title);
         if asked.tool.kind.is_final() {

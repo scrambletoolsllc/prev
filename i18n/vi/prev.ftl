@@ -743,6 +743,7 @@ settings-ask-editing = Sửa tệp
 settings-ask-signing = Ký tệp
 settings-ask-redacting = Áp dụng vùng che
 settings-ask-exporting = Xuất tệp
+settings-ask-printing = In tệp
 # The prompt before an agent's tool runs; $agent is the agent's name,
 # such as Claude Code.
 agent-ask-read = Cho phép { $agent } đọc tệp này?
@@ -752,6 +753,7 @@ agent-ask-edit = Cho phép { $agent } sửa tệp này?
 agent-ask-sign = Cho phép { $agent } ký tệp này?
 agent-ask-redact = Cho phép { $agent } áp dụng vùng che?
 agent-ask-export = Cho phép { $agent } xuất tệp này?
+agent-ask-print = Cho phép { $agent } in tệp này?
 # $tool is the name of what the agent asks to do, such as Highlight text.
 agent-ask-body = { $agent } yêu cầu dùng “{ $tool }”. Bạn có thể chọn những gì prev sẽ hỏi trong Cài đặt.
 agent-ask-final = Không thể hoàn tác thao tác này.

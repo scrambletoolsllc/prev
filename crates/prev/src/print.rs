@@ -155,7 +155,7 @@ fn plain(row: &[u8]) -> bool {
 /// as they come, so they need not all be held at once.
 pub struct Printout {
     pages: mpsc::Sender<Page>,
-    written: iced::futures::channel::oneshot::Receiver<Result<tempfile::NamedTempFile, String>>,
+    written: iced::futures::channel::oneshot::Receiver<Result<(Vec<u8>, usize), String>>,
 }
 
 impl Default for Printout {
@@ -170,21 +170,17 @@ impl Printout {
         let written = spawn(move || {
             let failed = |error: String| crate::fl!("print-failed", error = error);
             let mut document = PictureDocument::new();
+            let mut count = 0;
             for page in received {
                 document
                     .add(&page.picture, page.size, page.place)
                     .map_err(|error| failed(error.describe()))?;
+                count += 1;
             }
             let bytes = document
                 .finish()
                 .map_err(|error| failed(error.describe()))?;
-            let file = tempfile::Builder::new()
-                .prefix("prev-print-")
-                .suffix(".pdf")
-                .tempfile()
-                .map_err(|error| failed(error.to_string()))?;
-            std::fs::write(file.path(), bytes).map_err(|error| failed(error.to_string()))?;
-            Ok(file)
+            Ok((bytes, count))
         });
         Self { pages, written }
     }
@@ -194,23 +190,45 @@ impl Printout {
         let _ = self.pages.send(page);
     }
 
-    /// Shows the print dialog for the pages added, named `title` in the
-    /// print queue. The file is gone once the dialog is done with it.
-    pub fn print(self, title: String) -> impl Future<Output = Result<(), String>> + Send + 'static {
+    /// The printout's PDF and how many pages it has, once every page is
+    /// added.
+    async fn finish(self) -> Result<(Vec<u8>, usize), String> {
         let Self { pages, written } = self;
         drop(pages);
-        async move {
-            let file = written
+        written
+            .await
+            .unwrap_or_else(|_| Err(crate::fl!("print-stopped")))
+    }
+
+    /// Shows the print dialog for the pages added, named `title` in the
+    /// print queue. The file is gone once the dialog is done with it.
+    pub async fn print(self, title: String) -> Result<(), String> {
+        let (bytes, _) = self.finish().await?;
+        let file = temporary(bytes).await?;
+        let result = crate::portal::print(file.path().to_owned(), title).await;
+        drop(file);
+        result
+    }
+
+    /// Prints the pages added without the dialog: `job`'s pages and
+    /// copies, to its printer.
+    pub async fn send(self, title: String, job: Job) -> Result<crate::portal::Sent, String> {
+        let (bytes, count) = self.finish().await?;
+        let sheets = sheets(count, job.pages.as_deref(), job.copies)?;
+        let bytes = if sheets.iter().copied().eq(0..count) {
+            bytes
+        } else {
+            spawn(move || prev_pdf::select_pages(&bytes, &sheets))
                 .await
-                .unwrap_or_else(|_| Err(crate::fl!("print-stopped")))?;
-            let result = crate::portal::print(file.path().to_owned(), title).await;
-            drop(file);
-            result
-        }
+                .unwrap_or(Err(prev_pdf::engine::Error::NoPages))
+                .map_err(|error| error.describe())?
+        };
+        send_pdf(bytes, title, job.printer).await
     }
 }
 
-/// Prints `page` alone, named `title` in the print queue.
+/// Prints `page` alone through the dialog, named `title` in the print
+/// queue.
 pub fn print_page(
     page: Page,
     title: String,
@@ -218,6 +236,68 @@ pub fn print_page(
     let printout = Printout::new();
     printout.add(page);
     printout.print(title)
+}
+
+/// What a print without the dialog prints: some pages, from 1, or all;
+/// how many copies; and the printer, or the default one.
+#[derive(Debug, Clone, Default)]
+pub struct Job {
+    pub pages: Option<Vec<usize>>,
+    pub copies: u32,
+    pub printer: Option<String>,
+}
+
+/// The pages a print sends, from 0: `pages`, from 1, in their order, or
+/// all `count`; the lot `copies` times over, so copies come collated.
+pub fn sheets(count: usize, pages: Option<&[usize]>, copies: u32) -> Result<Vec<usize>, String> {
+    if count == 0 {
+        return Err("There is nothing to print.".to_owned());
+    }
+    let chosen: Vec<usize> = match pages {
+        Some([]) => return Err("Give at least one page.".to_owned()),
+        Some(pages) => pages
+            .iter()
+            .map(|&page| {
+                (1..=count)
+                    .contains(&page)
+                    .then(|| page - 1)
+                    .ok_or_else(|| {
+                        format!("Page {page} is not in the document, which has {count} pages.")
+                    })
+            })
+            .collect::<Result<_, _>>()?,
+        None => (0..count).collect(),
+    };
+    Ok(chosen.repeat(copies.max(1) as usize))
+}
+
+/// Prints PDF `bytes` without the dialog, named `title` in the print
+/// queue, to `printer` or the default one.
+pub async fn send_pdf(
+    bytes: Vec<u8>,
+    title: String,
+    printer: Option<String>,
+) -> Result<crate::portal::Sent, String> {
+    let file = temporary(bytes).await?;
+    let sent = crate::portal::send(file.path().to_owned(), title, printer).await;
+    drop(file);
+    sent
+}
+
+/// `bytes` in a private temporary PDF, deleted when dropped.
+async fn temporary(bytes: Vec<u8>) -> Result<tempfile::NamedTempFile, String> {
+    spawn(move || {
+        let failed = |error: std::io::Error| crate::fl!("print-failed", error = error.to_string());
+        let file = tempfile::Builder::new()
+            .prefix("prev-print-")
+            .suffix(".pdf")
+            .tempfile()
+            .map_err(failed)?;
+        std::fs::write(file.path(), bytes).map_err(failed)?;
+        Ok(file)
+    })
+    .await
+    .unwrap_or_else(|_| Err(crate::fl!("print-stopped")))
 }
 
 #[cfg(test)]
@@ -305,6 +385,15 @@ mod tests {
         let pixels = rows(b"\xff\xffxx\xff", 3);
         assert_eq!(plain_rows(&pixels, 3, 4), 2);
         assert_eq!(plain_rows(&pixels, 3, 1), 1);
+    }
+
+    #[test]
+    fn prints_send_the_pages_chosen_once_a_copy() {
+        assert_eq!(sheets(3, None, 1).unwrap(), [0, 1, 2]);
+        assert_eq!(sheets(3, Some(&[3, 1]), 2).unwrap(), [2, 0, 2, 0]);
+        assert!(sheets(3, Some(&[4]), 1).is_err());
+        assert!(sheets(3, Some(&[]), 1).is_err());
+        assert!(sheets(0, None, 1).is_err());
     }
 
     #[test]

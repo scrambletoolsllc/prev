@@ -779,6 +779,7 @@ settings-ask-editing = Upraví soubor
 settings-ask-signing = Podepíše soubor
 settings-ask-redacting = Použije začernění
 settings-ask-exporting = Exportuje soubor
+settings-ask-printing = Vytiskne soubor
 # The prompt before an agent's tool runs; $agent is the agent's name,
 # such as Claude Code.
 agent-ask-read = Povolit agentovi { $agent } přečíst tento soubor?
@@ -788,6 +789,7 @@ agent-ask-edit = Povolit agentovi { $agent } upravit tento soubor?
 agent-ask-sign = Povolit agentovi { $agent } podepsat tento soubor?
 agent-ask-redact = Povolit agentovi { $agent } použít začernění?
 agent-ask-export = Povolit agentovi { $agent } exportovat tento soubor?
+agent-ask-print = Povolit agentovi { $agent } vytisknout tento soubor?
 # $tool is the name of what the agent asks to do, such as Highlight text.
 agent-ask-body = { $agent } žádá o použití nástroje „{ $tool }“. V Nastavení zvolíte, na co se prev ptá.
 agent-ask-final = Tuto akci nelze vrátit zpět.

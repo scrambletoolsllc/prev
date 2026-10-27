@@ -751,6 +751,7 @@ settings-ask-editing = Redigerar en fil
 settings-ask-signing = Signerar en fil
 settings-ask-redacting = Verkställer svärtningar
 settings-ask-exporting = Exporterar en fil
+settings-ask-printing = Skriver ut en fil
 # The prompt before an agent's tool runs; $agent is the agent's name,
 # such as Claude Code.
 agent-ask-read = Vill du låta { $agent } läsa den här filen?
@@ -760,6 +761,7 @@ agent-ask-edit = Vill du låta { $agent } redigera den här filen?
 agent-ask-sign = Vill du låta { $agent } signera den här filen?
 agent-ask-redact = Vill du låta { $agent } verkställa svärtningar?
 agent-ask-export = Vill du låta { $agent } exportera den här filen?
+agent-ask-print = Vill du låta { $agent } skriva ut den här filen?
 # $tool is the name of what the agent asks to do, such as Highlight text.
 agent-ask-body = { $agent } ber om att få använda ”{ $tool }”. I Inställningar väljer du vad prev frågar om.
 agent-ask-final = Det här kan inte ångras.

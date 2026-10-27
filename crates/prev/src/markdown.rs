@@ -699,18 +699,24 @@ impl MarkdownWindow {
         if self.items.is_empty() {
             return Task::none();
         }
-        let title = self
-            .path
-            .file_name()
-            .map(|name| name.to_string_lossy().into_owned())
-            .unwrap_or_default();
-        match self.draw_printout() {
-            Ok(printout) => Task::perform(printout.print(title), Message::PrintFinished),
+        match self.printout() {
+            Ok((printout, title)) => Task::perform(printout.print(title), Message::PrintFinished),
             Err(error) => {
                 self.notice = Some(error);
                 Task::none()
             }
         }
+    }
+
+    /// The document drawn on pages of paper, with the name the print
+    /// queue shows.
+    pub fn printout(&self) -> Result<(print::Printout, String), String> {
+        let title = self
+            .path
+            .file_name()
+            .map(|name| name.to_string_lossy().into_owned())
+            .unwrap_or_default();
+        Ok((self.draw_printout()?, title))
     }
 
     /// The document as printed: `width` pixels wide on the paper's white,

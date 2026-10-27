@@ -865,6 +865,7 @@ settings-ask-editing = ファイルの編集
 settings-ask-signing = ファイルへの署名
 settings-ask-redacting = 墨消しの適用
 settings-ask-exporting = ファイルの書き出し
+settings-ask-printing = ファイルのプリント
 # The prompt before an agent's tool runs; $agent is the agent's name,
 # such as Claude Code.
 agent-ask-read = { $agent }にこのファイルの読み取りを許可しますか？
@@ -874,6 +875,7 @@ agent-ask-edit = { $agent }にこのファイルの編集を許可しますか�
 agent-ask-sign = { $agent }にこのファイルへの署名を許可しますか？
 agent-ask-redact = { $agent }に墨消しの適用を許可しますか？
 agent-ask-export = { $agent }にこのファイルの書き出しを許可しますか？
+agent-ask-print = { $agent }にこのファイルのプリントを許可しますか？
 # $tool is the name of what the agent asks to do, such as Highlight text.
 agent-ask-body = { $agent }が「{ $tool }」を使おうとしています。prevが確認する操作は「設定」で選べます。
 agent-ask-final = この操作は取り消せません。

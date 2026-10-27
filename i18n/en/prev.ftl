@@ -957,6 +957,7 @@ settings-ask-editing = Edits a file
 settings-ask-signing = Signs a file
 settings-ask-redacting = Applies redactions
 settings-ask-exporting = Exports a file
+settings-ask-printing = Prints a file
 # The prompt before an agent's tool runs; $agent is the agent's name,
 # such as Claude Code.
 agent-ask-read = Let { $agent } read this file?
@@ -966,6 +967,7 @@ agent-ask-edit = Let { $agent } edit this file?
 agent-ask-sign = Let { $agent } sign this file?
 agent-ask-redact = Let { $agent } apply redactions?
 agent-ask-export = Let { $agent } export this file?
+agent-ask-print = Let { $agent } print this file?
 # $tool is the name of what the agent asks to do, such as Highlight text.
 agent-ask-body = { $agent } asks to use “{ $tool }”. Settings chooses what prev asks about.
 agent-ask-final = Undo cannot take this back.

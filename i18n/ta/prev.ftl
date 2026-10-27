@@ -756,6 +756,7 @@ settings-ask-editing = கோப்பைத் திருத்துதல�
 settings-ask-signing = கோப்பில் கையொப்பமிடுதல்
 settings-ask-redacting = மறைப்புகளைப் பயன்படுத்துதல்
 settings-ask-exporting = கோப்பை ஏற்றுமதி செய்தல்
+settings-ask-printing = கோப்பை அச்சிடுதல்
 # The prompt before an agent's tool runs; $agent is the agent's name,
 # such as Claude Code.
 agent-ask-read = இந்தக் கோப்பைப் படிக்க { $agent } முகவரை அனுமதிக்கவா?
@@ -765,6 +766,7 @@ agent-ask-edit = இந்தக் கோப்பைத் திருத்�
 agent-ask-sign = இந்தக் கோப்பில் கையொப்பமிட { $agent } முகவரை அனுமதிக்கவா?
 agent-ask-redact = மறைப்புகளைப் பயன்படுத்த { $agent } முகவரை அனுமதிக்கவா?
 agent-ask-export = இந்தக் கோப்பை ஏற்றுமதி செய்ய { $agent } முகவரை அனுமதிக்கவா?
+agent-ask-print = இந்தக் கோப்பை அச்சிட { $agent } முகவரை அனுமதிக்கவா?
 # $tool is the name of what the agent asks to do, such as Highlight text.
 agent-ask-body = “{ $tool }” என்பதைப் பயன்படுத்த { $agent } கேட்கிறது. prev எவற்றைப் பற்றிக் கேட்கும் என்பதை அமைப்புகளில் தேர்ந்தெடுக்கலாம்.
 agent-ask-final = இதைச் செயல்தவிர்க்க முடியாது.

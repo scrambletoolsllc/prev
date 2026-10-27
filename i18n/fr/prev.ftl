@@ -898,6 +898,7 @@ settings-ask-editing = Modifie un fichier
 settings-ask-signing = Signe un fichier
 settings-ask-redacting = Applique des caviardages
 settings-ask-exporting = Exporte un fichier
+settings-ask-printing = Imprime un fichier
 # The prompt before an agent's tool runs; $agent is the agent's name,
 # such as Claude Code.
 agent-ask-read = Autoriser { $agent } à lire ce fichier ?
@@ -907,6 +908,7 @@ agent-ask-edit = Autoriser { $agent } à modifier ce fichier ?
 agent-ask-sign = Autoriser { $agent } à signer ce fichier ?
 agent-ask-redact = Autoriser { $agent } à appliquer des caviardages ?
 agent-ask-export = Autoriser { $agent } à exporter ce fichier ?
+agent-ask-print = Autoriser { $agent } à imprimer ce fichier ?
 # $tool is the name of what the agent asks to do, such as Highlight text.
 agent-ask-body = { $agent } demande à utiliser « { $tool } ». Dans les Réglages, vous choisissez ce que prev demande.
 agent-ask-final = Cette action ne peut pas être annulée.

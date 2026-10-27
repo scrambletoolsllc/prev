@@ -895,6 +895,7 @@ settings-ask-editing = Dosya düzenleme
 settings-ask-signing = Dosya imzalama
 settings-ask-redacting = Karartmaları uygulama
 settings-ask-exporting = Dosyayı dışa aktarma
+settings-ask-printing = Dosyayı yazdırma
 # The prompt before an agent's tool runs; $agent is the agent's name,
 # such as Claude Code.
 agent-ask-read = { $agent } bu dosyayı okuyabilsin mi?
@@ -904,6 +905,7 @@ agent-ask-edit = { $agent } bu dosyayı düzenleyebilsin mi?
 agent-ask-sign = { $agent } bu dosyayı imzalayabilsin mi?
 agent-ask-redact = { $agent } karartmaları uygulayabilsin mi?
 agent-ask-export = { $agent } bu dosyayı dışa aktarabilsin mi?
+agent-ask-print = { $agent } bu dosyayı yazdırabilsin mi?
 # $tool is the name of what the agent asks to do, such as Highlight text.
 agent-ask-body = { $agent }, “{ $tool }” aracını kullanmak istiyor. prev'in neleri soracağını Ayarlar'dan seçebilirsiniz.
 agent-ask-final = Bu işlem geri alınamaz.

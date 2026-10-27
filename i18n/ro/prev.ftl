@@ -769,6 +769,7 @@ settings-ask-editing = Editeze un fișier
 settings-ask-signing = Semneze un fișier
 settings-ask-redacting = Aplice înnegriri
 settings-ask-exporting = Exporte un fișier
+settings-ask-printing = Tipărească un fișier
 # The prompt before an agent's tool runs; $agent is the agent's name,
 # such as Claude Code.
 agent-ask-read = Permiți ca { $agent } să citească acest fișier?
@@ -778,6 +779,7 @@ agent-ask-edit = Permiți ca { $agent } să editeze acest fișier?
 agent-ask-sign = Permiți ca { $agent } să semneze acest fișier?
 agent-ask-redact = Permiți ca { $agent } să aplice înnegriri?
 agent-ask-export = Permiți ca { $agent } să exporte acest fișier?
+agent-ask-print = Permiți ca { $agent } să tipărească acest fișier?
 # $tool is the name of what the agent asks to do, such as Highlight text.
 agent-ask-body = { $agent } cere să folosească „{ $tool }”. În Configurări alegi despre ce întreabă prev.
 agent-ask-final = Acest lucru nu poate fi anulat.

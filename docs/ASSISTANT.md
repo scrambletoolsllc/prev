@@ -200,6 +200,8 @@ through the tools alone, from an outside agent and from the panel.
 - **Sign**: `place_signature`.
 - **Redact**: `apply_redactions`.
 - **Export**: `export`.
+- **Print**: `print`, which prints without the print dialog, some pages
+  or copies if asked, and `list_printers`.
 
 Positions are in page points, with the page size given; anything tied
 to text is placed from its position in `page_text` or `search`. Pictures
@@ -213,18 +215,21 @@ side and handed to prev through the tools (`place_image`,
 ### Approval
 
 Settings has a switch for each kind of tool, which makes prev ask before
-a tool of that kind runs, for outside agents and the panel alike:
+an outside agent's tool of that kind runs. The panel acts on what you ask
+it and does not ask, except before printing:
 
 - **Ask before reading**, **Ask before changing the view**, **Ask
   before marking up**, **Ask before editing** and **Ask before
   exporting** (`export`): off at first.
 - **Ask before signing** (`place_signature`) and **Ask before applying
   redactions** (`apply_redactions`): on at first.
+- **Ask before printing** (`print`): on at first, and for the panel too,
+  as a print spends paper.
 
-Signing, redacting and exporting are left out of editing, as prev's
-Undo cannot take them back: redactions remove the content under them and
-the file's version history, a signature commits you, and an export
-writes a file, possibly over another.
+Signing, redacting, exporting and printing are left out of editing, as
+prev's Undo cannot take them back: redactions remove the content under
+them and the file's version history, a signature commits you, an export
+writes a file, possibly over another, and a print is on paper.
 
 When a switch is on, prev shows what the tool is about to do in the
 window it acts on, with Allow and Don't Allow, before it runs. With it

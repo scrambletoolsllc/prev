@@ -13,8 +13,8 @@ use objc2::{
     AllocAnyThread, DefinedClass, MainThreadMarker, MainThreadOnly, define_class, msg_send,
 };
 use objc2_app_kit::{
-    NSBitmapImageRep, NSCompositingOperation, NSDeviceRGBColorSpace, NSPrintOperation,
-    NSPrintPanelOptions, NSView,
+    NSBitmapImageRep, NSCompositingOperation, NSDeviceRGBColorSpace, NSPrintInfo, NSPrintOperation,
+    NSPrintPanelOptions, NSPrinter, NSView,
 };
 use objc2_foundation::{NSInteger, NSPoint, NSRange, NSRect, NSSize, NSString};
 use prev_pdf::engine::{Document, Engine};
@@ -189,25 +189,9 @@ fn printable_area(mtm: MainThreadMarker) -> Option<NSSize> {
 /// print queue, and prints what the user chooses. Runs on the main
 /// thread, where AppKit's printing must; blocks until the panel closes.
 pub fn print_on_main(mtm: MainThreadMarker, path: &Path, title: &str) -> Result<(), String> {
-    let document = MupdfEngine
-        .open(path)
-        .map_err(|error| crate::fl!("print-failed", error = error.describe()))?;
-    let count = document
-        .page_count()
-        .map_err(|error| crate::fl!("print-failed", error = error.describe()))?;
-    if count == 0 {
+    let Some(operation) = operation(mtm, path, title)? else {
         return Ok(());
-    }
-    let view = PrintView::new(
-        mtm,
-        Pages {
-            document,
-            count,
-            area: RefCell::new(NSSize::ZERO),
-        },
-    );
-    let operation = NSPrintOperation::printOperationWithView(&view);
-    operation.setJobTitle(Some(&NSString::from_str(title)));
+    };
     operation.setShowsPrintPanel(true);
     operation.setShowsProgressPanel(true);
     let panel = operation.printPanel();
@@ -221,6 +205,83 @@ pub fn print_on_main(mtm: MainThreadMarker, path: &Path, title: &str) -> Result<
     // Cancelling is not a failure.
     operation.runOperation();
     Ok(())
+}
+
+/// A print operation for every page of the PDF at `path`, named `title`
+/// in the print queue; none for a PDF without pages.
+fn operation(
+    mtm: MainThreadMarker,
+    path: &Path,
+    title: &str,
+) -> Result<Option<Retained<NSPrintOperation>>, String> {
+    let document = MupdfEngine
+        .open(path)
+        .map_err(|error| crate::fl!("print-failed", error = error.describe()))?;
+    let count = document
+        .page_count()
+        .map_err(|error| crate::fl!("print-failed", error = error.describe()))?;
+    if count == 0 {
+        return Ok(None);
+    }
+    let view = PrintView::new(
+        mtm,
+        Pages {
+            document,
+            count,
+            area: RefCell::new(NSSize::ZERO),
+        },
+    );
+    let operation = NSPrintOperation::printOperationWithView(&view);
+    operation.setJobTitle(Some(&NSString::from_str(title)));
+    Ok(Some(operation))
+}
+
+/// Prints every page of the PDF at `path` on `printer`, or the default
+/// one, without the panel, named `title` in the print queue. Gives the
+/// printer's name; why not, for agents, in English. Runs on the main
+/// thread; blocks until the pages are handed to the printer.
+pub fn print_to_on_main(
+    mtm: MainThreadMarker,
+    path: &Path,
+    title: &str,
+    printer: Option<&str>,
+) -> Result<String, String> {
+    let chosen = match printer {
+        Some(wanted) => {
+            NSPrinter::printerWithName(&NSString::from_str(wanted)).ok_or_else(|| {
+                format!(
+                    "There is no printer {wanted}; there are: {}.",
+                    printers_on_main(mtm).names.join(", ")
+                )
+            })?
+        }
+        None => NSPrintInfo::defaultPrinter()
+            .ok_or("There is no default printer; name one from list_printers.")?,
+    };
+    let name = chosen.name().to_string();
+    let Some(operation) = operation(mtm, path, title)? else {
+        return Ok(name);
+    };
+    operation.printInfo().setPrinter(&chosen);
+    operation.setShowsPrintPanel(false);
+    operation.setShowsProgressPanel(false);
+    if operation.runOperation() {
+        Ok(name)
+    } else {
+        Err(format!("{name} did not take the print."))
+    }
+}
+
+/// The printers macOS knows of, and its default one.
+pub fn printers_on_main(_mtm: MainThreadMarker) -> crate::portal::Printers {
+    let known = NSPrinter::printerNames();
+    crate::portal::Printers {
+        names: (0..known.count())
+            .map(|index| known.objectAtIndex(index).to_string())
+            .collect(),
+        default: NSPrintInfo::defaultPrinter().map(|printer| printer.name().to_string()),
+        dialog_only: false,
+    }
 }
 
 /// Runs `work` on the main thread, soon, from any thread.

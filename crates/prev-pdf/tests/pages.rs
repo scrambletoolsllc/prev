@@ -800,3 +800,42 @@ fn picture_documents_get_a_page_per_picture() {
     assert_eq!(pixel(1, 15, 5), [0, 0, 255]);
     assert_eq!(pixel(1, 15, 25), [255, 255, 255]);
 }
+
+#[test]
+fn chosen_pages_repeat_for_copies() {
+    // Page 2 of a red, a blue page, then page 1: twice over, as two
+    // collated copies.
+    let picture = |color: [u8; 4]| prev_pdf::engine::Bitmap {
+        width: 1,
+        height: 1,
+        pixels: color.to_vec(),
+    };
+    let mut document = prev_pdf::PictureDocument::new();
+    for color in [[255, 0, 0, 255], [0, 0, 255, 255]] {
+        document
+            .add(
+                &picture(color),
+                Size::new(20.0, 20.0),
+                Rect::new(0.0, 0.0, 20.0, 20.0),
+            )
+            .unwrap();
+    }
+    let bytes = prev_pdf::select_pages(&document.finish().unwrap(), &[1, 0, 1, 0]).unwrap();
+    let dir = tempfile::tempdir().unwrap();
+    let (handle, info, _) = open(&dir, &bytes);
+    assert_eq!(info.page_sizes.len(), 4);
+    let red = |page: usize| {
+        let display = flatten(block_on(handle.display(page))).unwrap();
+        let rect = prev_pdf::geometry::PixelRect {
+            x: 10,
+            y: 10,
+            width: 1,
+            height: 1,
+        };
+        display.render(1.0, rect).unwrap().pixels[0] == 255
+    };
+    assert_eq!(
+        (0..4).map(red).collect::<Vec<_>>(),
+        [false, true, false, true]
+    );
+}

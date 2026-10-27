@@ -760,6 +760,7 @@ settings-ask-editing = Editi un fitxer
 settings-ask-signing = Signi un fitxer
 settings-ask-redacting = Apliqui censures
 settings-ask-exporting = Exporti un fitxer
+settings-ask-printing = Imprimeixi un fitxer
 # The prompt before an agent's tool runs; $agent is the agent's name,
 # such as Claude Code.
 agent-ask-read = Vols permetre que { $agent } llegeixi aquest fitxer?
@@ -769,6 +770,7 @@ agent-ask-edit = Vols permetre que { $agent } editi aquest fitxer?
 agent-ask-sign = Vols permetre que { $agent } signi aquest fitxer?
 agent-ask-redact = Vols permetre que { $agent } apliqui censures?
 agent-ask-export = Vols permetre que { $agent } exporti aquest fitxer?
+agent-ask-print = Vols permetre que { $agent } imprimeixi aquest fitxer?
 # $tool is the name of what the agent asks to do, such as Highlight text.
 agent-ask-body = { $agent } demana fer servir «{ $tool }». A Configuració pots triar què pregunta el prev.
 agent-ask-final = Aquesta acció no es pot desfer.

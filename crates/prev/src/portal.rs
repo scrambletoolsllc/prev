@@ -10,6 +10,26 @@ pub use scramble_ui::desktop::{accent_changes, accent_color, animations_enabled}
 #[cfg(target_os = "linux")]
 pub use linux::*;
 
+/// Where a print without the dialog went.
+#[derive(Debug, Clone, PartialEq)]
+pub struct Sent {
+    /// The printer, when the system says which.
+    pub printer: Option<String>,
+    /// Whether the print dialog showed instead, as in Flatpak, whose
+    /// sandbox can only print through it.
+    pub dialog: bool,
+}
+
+/// The printers a print without the dialog can go to.
+#[derive(Debug, Clone, Default, PartialEq)]
+pub struct Printers {
+    pub names: Vec<String>,
+    pub default: Option<String>,
+    /// Whether prints can only go through the print dialog, as in
+    /// Flatpak, which lists none.
+    pub dialog_only: bool,
+}
+
 #[cfg(not(target_os = "linux"))]
 pub use other::*;
 
@@ -233,24 +253,131 @@ mod linux {
         }
     }
 
+    /// Prints the PDF at `path` without the dialog, named `title` in the
+    /// print queue, to `printer` or CUPS's default, with lp. In Flatpak,
+    /// whose sandbox has no CUPS, the print dialog shows instead.
+    pub async fn send(
+        path: PathBuf,
+        title: String,
+        printer: Option<String>,
+    ) -> Result<super::Sent, String> {
+        if in_flatpak() {
+            let connection = Connection::session().await.map_err(dialog_error)?;
+            return match print_with(&connection, &path, &title).await? {
+                Printed::Sent => Ok(super::Sent {
+                    printer: None,
+                    dialog: true,
+                }),
+                Printed::Cancelled => Err("The user cancelled the print dialog.".to_owned()),
+            };
+        }
+        crate::image::editor::spawn(move || lp(&path, &title, printer.as_deref()))
+            .await
+            .unwrap_or_else(|_| Err(crate::fl!("print-stopped")))
+    }
+
+    /// The printers CUPS knows of, and its default one.
+    pub async fn printers() -> Result<super::Printers, String> {
+        if in_flatpak() {
+            return Ok(super::Printers {
+                dialog_only: true,
+                ..super::Printers::default()
+            });
+        }
+        crate::image::editor::spawn(|| {
+            let Some(known) = lpstat("-e") else {
+                return Err(Problem::NoCups.describe());
+            };
+            Ok(super::Printers {
+                names: known
+                    .lines()
+                    .map(str::trim)
+                    .filter(|name| !name.is_empty())
+                    .map(str::to_owned)
+                    .collect(),
+                default: lpstat("-d").as_deref().and_then(default_printer),
+                dialog_only: false,
+            })
+        })
+        .await
+        .unwrap_or_else(|_| Err(crate::fl!("print-stopped")))
+    }
+
+    fn in_flatpak() -> bool {
+        std::env::var_os("FLATPAK_ID").is_some()
+    }
+
+    /// Hands the PDF at `path` to CUPS. Its answers, for agents, are in
+    /// English, as lp gives them with LC_ALL=C.
+    fn lp(path: &Path, title: &str, printer: Option<&str>) -> Result<super::Sent, String> {
+        let mut command = Command::new("lp");
+        if let Some(printer) = printer {
+            command.args(["-d", printer]);
+        }
+        let output = command
+            .args(["-t", title, "--"])
+            .arg(path)
+            .env("LC_ALL", "C")
+            .stdin(Stdio::null())
+            .output()
+            .map_err(|_| Problem::NoCups.describe())?;
+        if !output.status.success() {
+            let said = String::from_utf8_lossy(&output.stderr);
+            let said = said.trim().trim_start_matches("lp: ");
+            return Err(if said.contains("No default destination") {
+                "There is no default printer; name one from list_printers.".to_owned()
+            } else {
+                said.to_owned()
+            });
+        }
+        Ok(super::Sent {
+            printer: queued_on(&String::from_utf8_lossy(&output.stdout))
+                .or_else(|| printer.map(str::to_owned)),
+            dialog: false,
+        })
+    }
+
+    /// The printer in lp's answer, such as "request id is
+    /// EPSON_ET-4800-12 (1 file(s))".
+    fn queued_on(answer: &str) -> Option<String> {
+        let id = answer
+            .trim()
+            .strip_prefix("request id is ")?
+            .split_whitespace()
+            .next()?;
+        id.rsplit_once('-').map(|(printer, _)| printer.to_owned())
+    }
+
+    /// The default printer in lpstat -d's answer, such as "system default
+    /// destination: EPSON_ET-4800".
+    fn default_printer(answer: &str) -> Option<String> {
+        let name = answer
+            .trim()
+            .strip_prefix("system default destination:")?
+            .trim();
+        (!name.is_empty()).then(|| name.to_owned())
+    }
+
+    /// What lpstat answers to `option`, read in English; nothing where it
+    /// is not installed.
+    fn lpstat(option: &str) -> Option<String> {
+        let output = Command::new("lpstat")
+            .arg(option)
+            .env("LC_ALL", "C")
+            .stdin(Stdio::null())
+            .stderr(Stdio::null())
+            .output()
+            .ok()?;
+        Some(String::from_utf8_lossy(&output.stdout).into_owned())
+    }
+
     /// What keeps printers from being used, as CUPS's lpstat tells it;
     /// nothing in Flatpak, whose sandbox does not see CUPS, though its
     /// print dialog does.
     fn printer_problem() -> Option<Problem> {
-        if std::env::var_os("FLATPAK_ID").is_some() {
+        if in_flatpak() {
             return None;
         }
-        let lpstat = |option: &str| {
-            let output = Command::new("lpstat")
-                .arg(option)
-                // Its answers are read in English.
-                .env("LC_ALL", "C")
-                .stdin(Stdio::null())
-                .stderr(Stdio::null())
-                .output()
-                .ok()?;
-            Some(String::from_utf8_lossy(&output.stdout).into_owned())
-        };
         let Some(scheduler) = lpstat("-r") else {
             return Some(Problem::NoCups);
         };
@@ -302,6 +429,20 @@ mod linux {
                 problem("scheduler is not running\n", "", ""),
                 Some(Problem::CupsStopped)
             );
+        }
+
+        #[test]
+        fn lp_and_lpstat_name_the_printer() {
+            assert_eq!(
+                queued_on("request id is EPSON_ET-4800-12 (1 file(s))\n").as_deref(),
+                Some("EPSON_ET-4800")
+            );
+            assert_eq!(queued_on(""), None);
+            assert_eq!(
+                default_printer("system default destination: EPSON_ET-4800\n").as_deref(),
+                Some("EPSON_ET-4800")
+            );
+            assert_eq!(default_printer("no system default destination\n"), None);
         }
 
         #[test]
@@ -607,6 +748,87 @@ mod other {
 
     #[cfg(not(any(windows, target_os = "macos")))]
     pub async fn print(_path: PathBuf, _title: String) -> Result<(), String> {
+        Err(crate::fl!("print-unavailable"))
+    }
+
+    /// Prints the PDF at `path` without the dialog, named `title` in the
+    /// print queue, to `printer` or the system's default.
+    #[cfg(windows)]
+    pub async fn send(
+        path: PathBuf,
+        title: String,
+        printer: Option<String>,
+    ) -> Result<super::Sent, String> {
+        let (sender, receiver) = iced::futures::channel::oneshot::channel();
+        std::thread::Builder::new()
+            .name("prev-print".into())
+            .spawn(move || {
+                let _ = sender.send(crate::print_windows::print_to(
+                    &path,
+                    &title,
+                    printer.as_deref(),
+                ));
+            })
+            .map_err(|error| crate::fl!("print-failed", error = error.to_string()))?;
+        let printer = receiver
+            .await
+            .unwrap_or_else(|_| Err(crate::fl!("print-stopped")))?;
+        Ok(super::Sent {
+            printer: Some(printer),
+            dialog: false,
+        })
+    }
+
+    #[cfg(target_os = "macos")]
+    pub async fn send(
+        path: PathBuf,
+        title: String,
+        printer: Option<String>,
+    ) -> Result<super::Sent, String> {
+        let (sender, receiver) = iced::futures::channel::oneshot::channel();
+        crate::print_macos::on_main(move |mtm| {
+            let _ = sender.send(crate::print_macos::print_to_on_main(
+                mtm,
+                &path,
+                &title,
+                printer.as_deref(),
+            ));
+        });
+        let printer = receiver
+            .await
+            .unwrap_or_else(|_| Err(crate::fl!("print-unavailable")))?;
+        Ok(super::Sent {
+            printer: Some(printer),
+            dialog: false,
+        })
+    }
+
+    #[cfg(not(any(windows, target_os = "macos")))]
+    pub async fn send(
+        _path: PathBuf,
+        _title: String,
+        _printer: Option<String>,
+    ) -> Result<super::Sent, String> {
+        Err(crate::fl!("print-unavailable"))
+    }
+
+    /// The system's printers and its default one.
+    #[cfg(windows)]
+    pub async fn printers() -> Result<super::Printers, String> {
+        Ok(crate::print_windows::printers())
+    }
+
+    #[cfg(target_os = "macos")]
+    pub async fn printers() -> Result<super::Printers, String> {
+        let (sender, receiver) = iced::futures::channel::oneshot::channel();
+        crate::print_macos::on_main(move |mtm| {
+            let _ = sender.send(crate::print_macos::printers_on_main(mtm));
+        });
+        receiver.await.map_err(|_| crate::fl!("print-unavailable"))
+    }
+
+    #[cfg(not(any(windows, target_os = "macos")))]
+    pub async fn printers() -> Result<super::Printers, String> {
         Err(crate::fl!("print-unavailable"))
     }
 }

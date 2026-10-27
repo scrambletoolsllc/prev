@@ -742,6 +742,7 @@ settings-ask-editing = แก้ไขไฟล์
 settings-ask-signing = ลงชื่อในไฟล์
 settings-ask-redacting = ใช้การปกปิดข้อมูล
 settings-ask-exporting = ส่งออกไฟล์
+settings-ask-printing = พิมพ์ไฟล์
 # The prompt before an agent's tool runs; $agent is the agent's name,
 # such as Claude Code.
 agent-ask-read = อนุญาตให้ { $agent } อ่านไฟล์นี้หรือไม่
@@ -751,6 +752,7 @@ agent-ask-edit = อนุญาตให้ { $agent } แก้ไขไฟล
 agent-ask-sign = อนุญาตให้ { $agent } ลงชื่อในไฟล์นี้หรือไม่
 agent-ask-redact = อนุญาตให้ { $agent } ใช้การปกปิดข้อมูลหรือไม่
 agent-ask-export = อนุญาตให้ { $agent } ส่งออกไฟล์นี้หรือไม่
+agent-ask-print = อนุญาตให้ { $agent } พิมพ์ไฟล์นี้หรือไม่
 # $tool is the name of what the agent asks to do, such as Highlight text.
 agent-ask-body = { $agent } ขอใช้ “{ $tool }” คุณเลือกได้ในการตั้งค่าว่าจะให้ prev ถามเรื่องใดบ้าง
 agent-ask-final = เลิกทำสิ่งนี้ไม่ได้

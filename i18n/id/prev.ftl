@@ -743,6 +743,7 @@ settings-ask-editing = Mengedit berkas
 settings-ask-signing = Menandatangani berkas
 settings-ask-redacting = Menerapkan sensor
 settings-ask-exporting = Mengekspor berkas
+settings-ask-printing = Mencetak berkas
 # The prompt before an agent's tool runs; $agent is the agent's name,
 # such as Claude Code.
 agent-ask-read = Izinkan { $agent } membaca berkas ini?
@@ -752,6 +753,7 @@ agent-ask-edit = Izinkan { $agent } mengedit berkas ini?
 agent-ask-sign = Izinkan { $agent } menandatangani berkas ini?
 agent-ask-redact = Izinkan { $agent } menerapkan sensor?
 agent-ask-export = Izinkan { $agent } mengekspor berkas ini?
+agent-ask-print = Izinkan { $agent } mencetak berkas ini?
 # $tool is the name of what the agent asks to do, such as Highlight text.
 agent-ask-body = { $agent } meminta untuk memakai “{ $tool }”. Pengaturan menentukan apa saja yang ditanyakan prev.
 agent-ask-final = Ini tidak dapat diurungkan.

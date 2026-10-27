@@ -757,6 +757,7 @@ settings-ask-editing = فائل میں ترمیم کرنا
 settings-ask-signing = فائل پر دستخط کرنا
 settings-ask-redacting = پوشیدگیاں لاگو کرنا
 settings-ask-exporting = فائل برآمد کرنا
+settings-ask-printing = فائل پرنٹ کرنا
 # The prompt before an agent's tool runs; $agent is the agent's name,
 # such as Claude Code.
 agent-ask-read = کیا { $agent } کو یہ فائل پڑھنے دیں؟
@@ -766,6 +767,7 @@ agent-ask-edit = کیا { $agent } کو اس فائل میں ترمیم کرنے
 agent-ask-sign = کیا { $agent } کو اس فائل پر دستخط کرنے دیں؟
 agent-ask-redact = کیا { $agent } کو پوشیدگیاں لاگو کرنے دیں؟
 agent-ask-export = کیا { $agent } کو یہ فائل برآمد کرنے دیں؟
+agent-ask-print = کیا { $agent } کو یہ فائل پرنٹ کرنے دیں؟
 # $tool is the name of what the agent asks to do, such as Highlight text.
 agent-ask-body = { $agent } “{ $tool }” استعمال کرنا چاہتا ہے۔ prev کن باتوں پر پوچھے، یہ ترتیبات میں منتخب کیا جاتا ہے۔
 agent-ask-final = اسے کالعدم نہیں کیا جا سکتا۔

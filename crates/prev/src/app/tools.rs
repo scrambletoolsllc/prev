@@ -31,10 +31,11 @@ pub(crate) enum Kind {
     Sign,
     Redact,
     Export,
+    Print,
 }
 
 impl Kind {
-    pub(super) const ALL: [Kind; 7] = [
+    pub(super) const ALL: [Kind; 8] = [
         Kind::Read,
         Kind::View,
         Kind::Markup,
@@ -42,6 +43,7 @@ impl Kind {
         Kind::Sign,
         Kind::Redact,
         Kind::Export,
+        Kind::Print,
     ];
 
     /// Its switch in Settings: whether prev asks before a tool of this
@@ -55,6 +57,7 @@ impl Kind {
             Kind::Sign => ask.signing,
             Kind::Redact => ask.redacting,
             Kind::Export => ask.exporting,
+            Kind::Print => ask.printing,
         }
     }
 
@@ -67,12 +70,13 @@ impl Kind {
             Kind::Sign => &mut ask.signing,
             Kind::Redact => &mut ask.redacting,
             Kind::Export => &mut ask.exporting,
+            Kind::Print => &mut ask.printing,
         } = asks;
     }
 
     /// Whether Undo cannot take a tool of this kind back.
     pub(super) fn is_final(self) -> bool {
-        matches!(self, Kind::Sign | Kind::Redact | Kind::Export)
+        matches!(self, Kind::Sign | Kind::Redact | Kind::Export | Kind::Print)
     }
 }
 
@@ -442,7 +446,12 @@ pub(super) fn specs(ask: &settings::AskBefore) -> Vec<prev_assist::ToolSpec> {
 pub(super) fn assistant_specs(app: &Prev, id: window::Id) -> Vec<prev_assist::ToolSpec> {
     let shows = read::shows(app, id);
     let several = app.windows.len() > 1;
-    specs(&settings::AskBefore::never())
+    // Only printing asks the assistant first, so only its tool says so.
+    let ask = settings::AskBefore {
+        printing: app.settings.ask_before.printing,
+        ..settings::AskBefore::never()
+    };
+    specs(&ask)
         .into_iter()
         .filter(|tool| fits(&tool.name, shows, several))
         .map(|mut tool| {
@@ -498,6 +507,8 @@ fn fits(name: &str, shows: read::Shows, several: bool) -> bool {
         "show_panel",
         "hide_panel",
         "export",
+        "print",
+        "list_printers",
         "open_file",
         "set_window",
         "close_window",
@@ -539,6 +550,12 @@ fn annotations(kind: Kind) -> Value {
         Kind::Sign | Kind::Redact | Kind::Export => {
             json!({ "readOnlyHint": false, "destructiveHint": true })
         }
+        // Paper is spent, though no file changes.
+        Kind::Print => json!({
+            "readOnlyHint": false,
+            "destructiveHint": false,
+            "openWorldHint": true,
+        }),
     }
 }
 
@@ -575,7 +592,8 @@ impl Prev {
     }
 
     /// Runs the tool for the assistant, which acts on what the user asks
-    /// it in the chat: the switches for outside agents do not apply.
+    /// it in the chat: the switches for outside agents do not apply, but
+    /// printing's, as paper is spent.
     pub(super) fn run_tool_for_user(&mut self, call: Call, agent: String) -> Task<Message> {
         self.run_tool_asking(call, agent, false)
     }
@@ -587,7 +605,10 @@ impl Prev {
             arguments => arguments.clone(),
         };
         match find(&name) {
-            Some(tool) if outside && tool.kind.asks(&self.settings.ask_before) => {
+            Some(tool)
+                if (outside || tool.kind == Kind::Print)
+                    && tool.kind.asks(&self.settings.ask_before) =>
+            {
                 // A window that cannot be found is the tool's to report.
                 match self.tool_window(arguments["window"].as_u64()) {
                     Ok(id) => self.ask_to_run(id, agent, tool, arguments, Answer(call)),

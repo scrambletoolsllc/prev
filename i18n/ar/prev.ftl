@@ -935,6 +935,7 @@ settings-ask-editing = تحرير ملف
 settings-ask-signing = توقيع ملف
 settings-ask-redacting = تطبيق التنقيحات
 settings-ask-exporting = تصدير ملف
+settings-ask-printing = طباعة ملف
 # The prompt before an agent's tool runs; $agent is the agent's name,
 # such as Claude Code.
 agent-ask-read = هل تسمح لـ { $agent } بقراءة هذا الملف؟
@@ -944,6 +945,7 @@ agent-ask-edit = هل تسمح لـ { $agent } بتحرير هذا الملف؟
 agent-ask-sign = هل تسمح لـ { $agent } بتوقيع هذا الملف؟
 agent-ask-redact = هل تسمح لـ { $agent } بتطبيق التنقيحات؟
 agent-ask-export = هل تسمح لـ { $agent } بتصدير هذا الملف؟
+agent-ask-print = هل تسمح لـ { $agent } بطباعة هذا الملف؟
 # $tool is the name of what the agent asks to do, such as Highlight text.
 agent-ask-body = يطلب { $agent } استخدام “{ $tool }”. تحدد الإعدادات ما يسأل عنه prev.
 agent-ask-final = لا يمكن التراجع عن هذا.

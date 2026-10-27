@@ -161,9 +161,10 @@ For a walkthrough of every feature with more screenshots, see
 - **Assistant**: a chat panel beside the document (the robot head on
   the toolbar) that answers about the file and works in it with the
   same tools as an outside agent: finding and pointing at things,
-  marking up, editing, signing, redacting and exporting, as you ask
-  it, without asking again. It talks to a model you add in
-  Settings: a local model, such as Ollama's, that stays on your
+  marking up, editing, signing, redacting, exporting and printing, as
+  you ask it, without asking again, except before it prints. It talks
+  to a model you add in Settings: a local model, such as Ollama's, that
+  stays on your
   computer, or a cloud model from Anthropic, OpenAI or Google with your
   API key,
   kept in the system's keychain. Each window has its own chat, and the
@@ -360,9 +361,10 @@ for local models take the same command, often as
 
 The first time an agent connects, prev asks whether to let it in. Settings
 turns outside control off, lists the agents allowed, and has a switch for
-each kind of tool (reading, the view, markup, edits, signing, redacting
-and exporting) that makes prev ask before an agent's call runs; signing
-and redacting ask at first. What the agent reads goes to its model. The
+each kind of tool (reading, the view, markup, edits, signing, redacting,
+exporting and printing) that makes prev ask before an agent's call runs;
+signing, redacting and printing ask at first. Printing goes to a printer
+without the dialog, except in Flatpak, where the dialog shows. What the agent reads goes to its model. The
 [guide](https://prev.run/guide.html#ai-agents) has more.
 
 ### Assistant and agents at a glance

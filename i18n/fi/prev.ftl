@@ -752,6 +752,7 @@ settings-ask-editing = Muokkaa tiedostoa
 settings-ask-signing = Allekirjoittaa tiedoston
 settings-ask-redacting = Toteuttaa mustaukset
 settings-ask-exporting = Vie tiedoston
+settings-ask-printing = Tulostaa tiedoston
 # The prompt before an agent's tool runs; $agent is the agent's name,
 # such as Claude Code.
 agent-ask-read = Saako { $agent } lukea tämän tiedoston?
@@ -761,6 +762,7 @@ agent-ask-edit = Saako { $agent } muokata tätä tiedostoa?
 agent-ask-sign = Saako { $agent } allekirjoittaa tämän tiedoston?
 agent-ask-redact = Saako { $agent } toteuttaa mustaukset?
 agent-ask-export = Saako { $agent } viedä tämän tiedoston?
+agent-ask-print = Saako { $agent } tulostaa tämän tiedoston?
 # $tool is the name of what the agent asks to do, such as Highlight text.
 agent-ask-body = { $agent } pyytää käyttää toimintoa ”{ $tool }”. Asetuksissa valitset, mistä prev kysyy.
 agent-ask-final = Tätä ei voi kumota.

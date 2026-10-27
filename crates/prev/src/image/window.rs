@@ -1972,11 +1972,27 @@ impl ImageWindow {
     /// Prints the image shown as export would write it, with its edits
     /// and any markup; an animation prints the frame shown.
     fn print(&mut self) -> Task<Message> {
-        let Some(shown) = self.shown() else {
+        let Some((page, title)) = self.printed_page() else {
             return Task::none();
         };
-        let item = &self.items[self.current];
-        let title = item
+        Task::perform(
+            async move { crate::print::print_page(page.await?, title).await },
+            Message::PrintFinished,
+        )
+    }
+
+    /// The image shown as a printed page, as export would write it, with
+    /// its edits and any markup, and for an animation the frame shown;
+    /// with the name the print queue shows.
+    pub fn printed_page(
+        &self,
+    ) -> Option<(
+        iced::futures::future::BoxFuture<'static, Result<crate::print::Page, String>>,
+        String,
+    )> {
+        use iced::futures::FutureExt;
+        let shown = self.shown()?;
+        let title = self.items[self.current]
             .path
             .file_name()
             .map(|name| name.to_string_lossy().into_owned())
@@ -1987,37 +2003,29 @@ impl ImageWindow {
             let scale =
                 crate::print::DOTS_PER_PIXEL.min(PRINTED_SVG_SIDE / width.max(height).max(1.0));
             let drawn = spawn(move || svg.render(scale).map_err(|error| error.describe()));
-            return Task::perform(
-                async move {
-                    let frame = drawn
-                        .await
-                        .unwrap_or_else(|_| Err(crate::fl!("print-stopped")))?;
-                    let page = crate::print::picture_page(frame, width, height);
-                    crate::print::print_page(page, title).await
-                },
-                Message::PrintFinished,
-            );
+            let page = async move {
+                let frame = drawn
+                    .await
+                    .unwrap_or_else(|_| Err(crate::fl!("print-stopped")))?;
+                Ok(crate::print::picture_page(frame, width, height))
+            };
+            return Some((page.boxed(), title));
         }
-        let Some(frame) = self.printed_frame() else {
-            return Task::none();
-        };
+        let frame = self.printed_frame()?;
         let (width, height) = (frame.width as f32, frame.height as f32);
         let marked = self.marked_frame(
             self.current,
             Arc::clone(&frame),
             crate::fl!("print-stopped"),
         );
-        Task::perform(
-            async move {
-                let frame = match marked {
-                    Some(marked) => marked.await?,
-                    None => Arc::unwrap_or_clone(frame),
-                };
-                let page = crate::print::picture_page(frame, width, height);
-                crate::print::print_page(page, title).await
-            },
-            Message::PrintFinished,
-        )
+        let page = async move {
+            let frame = match marked {
+                Some(marked) => marked.await?,
+                None => Arc::unwrap_or_clone(frame),
+            };
+            Ok(crate::print::picture_page(frame, width, height))
+        };
+        Some((page.boxed(), title))
     }
 
     /// The image shown, with its edits; for an animation, the frame shown.

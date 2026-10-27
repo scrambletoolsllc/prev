@@ -898,6 +898,7 @@ settings-ask-editing = Bestand bewerken
 settings-ask-signing = Bestand ondertekenen
 settings-ask-redacting = Zwartlakkingen toepassen
 settings-ask-exporting = Bestand exporteren
+settings-ask-printing = Bestand afdrukken
 # The prompt before an agent's tool runs; $agent is the agent's name,
 # such as Claude Code.
 agent-ask-read = { $agent } toestaan dit bestand te lezen?
@@ -907,6 +908,7 @@ agent-ask-edit = { $agent } toestaan dit bestand te bewerken?
 agent-ask-sign = { $agent } toestaan dit bestand te ondertekenen?
 agent-ask-redact = { $agent } toestaan zwartlakkingen toe te passen?
 agent-ask-export = { $agent } toestaan dit bestand te exporteren?
+agent-ask-print = { $agent } toestaan dit bestand af te drukken?
 # $tool is the name of what the agent asks to do, such as Highlight text.
 agent-ask-body = { $agent } vraagt om ‘{ $tool }’ te gebruiken. In Instellingen kies je waarnaar prev vraagt.
 agent-ask-final = Dit kan niet ongedaan worden gemaakt.

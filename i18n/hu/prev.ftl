@@ -754,6 +754,7 @@ settings-ask-editing = Fájl szerkesztése
 settings-ask-signing = Fájl aláírása
 settings-ask-redacting = Kitakarások alkalmazása
 settings-ask-exporting = Fájl exportálása
+settings-ask-printing = Fájl nyomtatása
 # The prompt before an agent's tool runs; $agent is the agent's name,
 # such as Claude Code.
 agent-ask-read = Engedélyezi, hogy { $agent } beolvassa ezt a fájlt?
@@ -763,6 +764,7 @@ agent-ask-edit = Engedélyezi, hogy { $agent } szerkessze ezt a fájlt?
 agent-ask-sign = Engedélyezi, hogy { $agent } aláírja ezt a fájlt?
 agent-ask-redact = Engedélyezi, hogy { $agent } kitakarásokat alkalmazzon?
 agent-ask-export = Engedélyezi, hogy { $agent } exportálja ezt a fájlt?
+agent-ask-print = Engedélyezi, hogy { $agent } kinyomtassa ezt a fájlt?
 # $tool is the name of what the agent asks to do, such as Highlight text.
 agent-ask-body = { $agent } szeretné használni ezt: „{ $tool }”. A Beállításokban választhatja ki, mire kérdez rá a prev.
 agent-ask-final = Ez nem vonható vissza.

@@ -15,6 +15,12 @@ All notable changes to prev. Versions follow
   shown. A Markdown document prints light, on Letter or A4 pages as the
   system's region has it, each page ending between lines, and pictures
   that fit on a page kept whole.
+- Agents and the assistant can print: the print tool sends what a window
+  shows to a printer without the dialog, some pages or copies if asked,
+  and list_printers names the printers and the default one. prev asks
+  before it prints, the assistant too, as paper is spent; Settings has a
+  switch for it, on at first. In Flatpak, the print dialog shows
+  instead.
 - On Linux, a print that does not go through says what is missing: the
   desktop's print dialog, CUPS or CUPS running, or a printer set up,
   naming one found on the network that is not; a cancelled print says

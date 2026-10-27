@@ -903,6 +903,7 @@ settings-ask-editing = फ़ाइल संपादित करना
 settings-ask-signing = फ़ाइल पर हस्ताक्षर करना
 settings-ask-redacting = रिडैक्शन लागू करना
 settings-ask-exporting = फ़ाइल एक्सपोर्ट करना
+settings-ask-printing = फ़ाइल प्रिंट करना
 # The prompt before an agent's tool runs; $agent is the agent's name,
 # such as Claude Code.
 agent-ask-read = { $agent } को यह फ़ाइल पढ़ने दें?
@@ -912,6 +913,7 @@ agent-ask-edit = { $agent } को यह फ़ाइल संपादित 
 agent-ask-sign = { $agent } को इस फ़ाइल पर हस्ताक्षर करने दें?
 agent-ask-redact = { $agent } को रिडैक्शन लागू करने दें?
 agent-ask-export = { $agent } को यह फ़ाइल एक्सपोर्ट करने दें?
+agent-ask-print = { $agent } को यह फ़ाइल प्रिंट करने दें?
 # $tool is the name of what the agent asks to do, such as Highlight text.
 agent-ask-body = { $agent } “{ $tool }” का उपयोग करना चाहता है। prev किन बातों पर पूछे, यह सेटिंग्स में चुना जाता है।
 agent-ask-final = इसे पूर्ववत नहीं किया जा सकता।

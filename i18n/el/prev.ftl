@@ -754,6 +754,7 @@ settings-ask-editing = Επεξεργασία αρχείου
 settings-ask-signing = Υπογραφή αρχείου
 settings-ask-redacting = Εφαρμογή αποκρύψεων
 settings-ask-exporting = Εξαγωγή αρχείου
+settings-ask-printing = Εκτύπωση αρχείου
 # The prompt before an agent's tool runs; $agent is the agent's name,
 # such as Claude Code.
 agent-ask-read = Να επιτραπεί στο { $agent } να διαβάσει αυτό το αρχείο;
@@ -763,6 +764,7 @@ agent-ask-edit = Να επιτραπεί στο { $agent } να επεξεργα
 agent-ask-sign = Να επιτραπεί στο { $agent } να υπογράψει αυτό το αρχείο;
 agent-ask-redact = Να επιτραπεί στο { $agent } να εφαρμόσει αποκρύψεις;
 agent-ask-export = Να επιτραπεί στο { $agent } να εξαγάγει αυτό το αρχείο;
+agent-ask-print = Να επιτραπεί στο { $agent } να εκτυπώσει αυτό το αρχείο;
 # $tool is the name of what the agent asks to do, such as Highlight text.
 agent-ask-body = Το { $agent } ζητά να χρησιμοποιήσει το «{ $tool }». Στις Ρυθμίσεις επιλέγετε για τι ρωτά το prev.
 agent-ask-final = Αυτό δεν μπορεί να αναιρεθεί.

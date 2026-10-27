@@ -926,6 +926,7 @@ settings-ask-editing = Відредагує файл
 settings-ask-signing = Підпише файл
 settings-ask-redacting = Застосує зачорнення
 settings-ask-exporting = Експортує файл
+settings-ask-printing = Друкує файл
 # The prompt before an agent's tool runs; $agent is the agent's name,
 # such as Claude Code.
 agent-ask-read = Дозволити агентові { $agent } прочитати цей файл?
@@ -935,6 +936,7 @@ agent-ask-edit = Дозволити агентові { $agent } відредаг
 agent-ask-sign = Дозволити агентові { $agent } підписати цей файл?
 agent-ask-redact = Дозволити агентові { $agent } застосувати зачорнення?
 agent-ask-export = Дозволити агентові { $agent } експортувати цей файл?
+agent-ask-print = Дозволити агентові { $agent } надрукувати цей файл?
 # $tool is the name of what the agent asks to do, such as Highlight text.
 agent-ask-body = { $agent } просить використати «{ $tool }». У параметрах можна вибрати, про що питає prev.
 agent-ask-final = Цю дію не можна відмінити.

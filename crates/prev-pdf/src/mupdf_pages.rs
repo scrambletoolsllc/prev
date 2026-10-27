@@ -388,6 +388,14 @@ fn write(document: &PdfDocument, options: PdfWriteOptions) -> Result<Vec<u8>> {
     Ok(bytes)
 }
 
+/// The PDF `bytes` with only `pages`, from 0, in this order, a page as
+/// often as it is named: the pages and copies of a printout.
+pub fn select_pages(bytes: &[u8], pages: &[usize]) -> Result<Vec<u8>> {
+    let document =
+        PdfDocument::from_bytes(bytes).map_err(|error| Error::Open(error.to_string()))?;
+    extract_pages(&document, pages)
+}
+
 pub(crate) fn extract_pages(document: &PdfDocument, pages: &[usize]) -> Result<Vec<u8>> {
     if pages.is_empty() {
         return Err(Error::NoPages);

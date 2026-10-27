@@ -2009,6 +2009,7 @@ impl Prev {
                 tools::Kind::Sign => prev::fl!("settings-ask-signing"),
                 tools::Kind::Redact => prev::fl!("settings-ask-redacting"),
                 tools::Kind::Export => prev::fl!("settings-ask-exporting"),
+                tools::Kind::Print => prev::fl!("settings-ask-printing"),
             };
             rows = rows.push(
                 row![

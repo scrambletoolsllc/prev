@@ -1,5 +1,6 @@
 //! Tools whose results Undo cannot take back, each behind its own approval
-//! switch: placing a signature, applying redactions, and exporting.
+//! switch: placing a signature, applying redactions, exporting and
+//! printing.
 
 use std::path::{Path, PathBuf};
 use std::sync::Arc;
@@ -23,7 +24,7 @@ use serde_json::json;
 
 use super::markup::later_edits;
 use super::read::{Shown, answered, display, failed, invalid, off_thread};
-use super::{Answer, Kind, On, Output, Tool, number, reply, tool};
+use super::{Answer, Kind, Nothing, On, Output, Tool, number, reply, tool};
 use crate::app::{Message, Prev};
 
 /// How wide a signature goes on a page when no width is given, in points.
@@ -62,7 +63,40 @@ pub(super) fn tools() -> Vec<Tool> {
              overwrite.",
             export,
         ),
+        tool(
+            "print",
+            "Print",
+            Kind::Print,
+            "Prints what a window shows on a printer, without the print dialog: a PDF with \
+             its markup, an image as export would write it, or a Markdown document on light \
+             pages. It goes to the default printer unless one is named from list_printers. In \
+             Flatpak, prev can only print through the print dialog, which then shows for the \
+             user to finish.",
+            print,
+        ),
+        tool(
+            "list_printers",
+            "List printers",
+            Kind::Read,
+            "Lists the printers print can use and which one is the default. dialog_only means \
+             prev runs in a sandbox that prints only through the print dialog.",
+            list_printers,
+        ),
     ]
+}
+
+#[derive(Deserialize, JsonSchema)]
+#[serde(deny_unknown_fields)]
+struct Print {
+    /// The window's number from list_windows; the one in front if left out.
+    window: Option<u64>,
+    /// The printer's name from list_printers; the default one if left out.
+    printer: Option<String>,
+    /// How many copies, 1 to 99, collated; 1 if left out.
+    copies: Option<u32>,
+    /// The pages to print, from 1, in this order; all if left out. A
+    /// Markdown document's are its pages as printed.
+    pages: Option<Vec<usize>>,
 }
 
 #[derive(Deserialize, JsonSchema)]
@@ -521,6 +555,115 @@ fn export(app: &mut Prev, input: Export, answer: &Answer) -> Task<Message> {
             ))),
         ),
     }
+}
+
+fn print(app: &mut Prev, input: Print, answer: &Answer) -> Task<Message> {
+    let copies = input.copies.unwrap_or(1);
+    if !(1..=99).contains(&copies) {
+        return reply(answer, Err(invalid("Give 1 to 99 copies.")));
+    }
+    let (id, shown) = match app.shown(input.window) {
+        Ok(shown) => shown,
+        Err(error) => return reply(answer, Err(error)),
+    };
+    let job = prev::print::Job {
+        pages: input.pages,
+        copies,
+        printer: input.printer,
+    };
+    let printed: iced::futures::future::BoxFuture<'static, Result<prev::portal::Sent, String>> =
+        match shown {
+            Shown::Pdf(viewer) => {
+                let sheets =
+                    match prev::print::sheets(viewer.page_count(), job.pages.as_deref(), copies) {
+                        Ok(sheets) => sheets,
+                        Err(error) => return reply(answer, Err(invalid(error))),
+                    };
+                let title = app
+                    .shown_path(id)
+                    .and_then(|path| {
+                        path.file_name()
+                            .map(|name| name.to_string_lossy().into_owned())
+                    })
+                    .unwrap_or_default();
+                // The document as it is open, edits not yet saved and all.
+                let written = Arc::new(std::sync::Mutex::new(None));
+                let slot = Arc::clone(&written);
+                let receiver = viewer.handle.export(
+                    ExportOptions {
+                        password: None,
+                        reduce: None,
+                        pages: Some(sheets),
+                        flatten: false,
+                    },
+                    Box::new(move |bytes| {
+                        *slot
+                            .lock()
+                            .unwrap_or_else(std::sync::PoisonError::into_inner) =
+                            Some(bytes.to_vec());
+                        Ok(())
+                    }),
+                );
+                Box::pin(async move {
+                    flatten(receiver.await).map_err(|error| error.to_string())?;
+                    let bytes = written
+                        .lock()
+                        .unwrap_or_else(std::sync::PoisonError::into_inner)
+                        .take()
+                        .ok_or("the document did not export")?;
+                    prev::print::send_pdf(bytes, title, job.printer).await
+                })
+            }
+            Shown::Image(images) => {
+                let Some((page, title)) = images.printed_page() else {
+                    return reply(answer, Err(invalid("The image is not open yet.")));
+                };
+                Box::pin(async move {
+                    let printout = prev::print::Printout::new();
+                    printout.add(page.await?);
+                    printout.send(title, job).await
+                })
+            }
+            Shown::Markdown(markdown) => match markdown.printout() {
+                Ok((printout, title)) => Box::pin(printout.send(title, job)),
+                Err(error) => return reply(answer, Err(failed(error))),
+            },
+            Shown::Start => {
+                return reply(
+                    answer,
+                    Err(invalid(format!(
+                        "Window {} has no file to print.",
+                        number(id)
+                    ))),
+                );
+            }
+        };
+    answer.clone().later(Task::perform(
+        async move {
+            let sent = printed.await.map_err(failed)?;
+            Ok(Output::Json(json!({
+                "printed": true,
+                "printer": sent.printer,
+                "copies": copies,
+                "through_dialog": sent.dialog,
+            })))
+        },
+        |result| result,
+    ))
+}
+
+fn list_printers(_: &mut Prev, _: Nothing, answer: &Answer) -> Task<Message> {
+    answer.clone().later(Task::perform(
+        async {
+            let printers = prev::portal::printers().await.map_err(failed)?;
+            Ok(Output::Json(json!({
+                "printers": printers.names,
+                "default": printers.default,
+                "dialog_only": printers.dialog_only,
+            })))
+        },
+        |result| result,
+    ))
 }
 
 /// `frame` scaled to `width` by `height`.

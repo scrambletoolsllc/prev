@@ -108,8 +108,9 @@ impl Default for Settings {
     }
 }
 
-/// Whether prev asks before an agent's tool of each kind runs. Signing
-/// and applying redactions ask at first, as Undo cannot take them back.
+/// Whether prev asks before an agent's tool of each kind runs. Signing,
+/// applying redactions and printing ask at first, as Undo cannot take
+/// them back; printing asks for the assistant too, as paper is spent.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(default, rename_all = "kebab-case")]
 pub struct AskBefore {
@@ -120,6 +121,7 @@ pub struct AskBefore {
     pub signing: bool,
     pub redacting: bool,
     pub exporting: bool,
+    pub printing: bool,
 }
 
 impl AskBefore {
@@ -134,6 +136,7 @@ impl AskBefore {
             signing: false,
             redacting: false,
             exporting: false,
+            printing: false,
         }
     }
 }
@@ -148,6 +151,7 @@ impl Default for AskBefore {
             signing: true,
             redacting: true,
             exporting: false,
+            printing: true,
         }
     }
 }
@@ -341,6 +345,15 @@ mod tests {
         assert!(text.contains("versions = "), "{text}");
         assert!(text.contains("bookmarks = "), "{text}");
         assert_eq!(Settings::load_from(&path).unwrap(), settings);
+    }
+
+    #[test]
+    fn printing_asks_in_settings_saved_before_it_could() {
+        let dir = tempfile::tempdir().unwrap();
+        let path = dir.path().join("prev.toml");
+        std::fs::write(&path, "[ask-before]\nsigning = false\nexporting = true\n").unwrap();
+        let ask = Settings::load_from(&path).unwrap().ask_before;
+        assert!(!ask.signing && ask.exporting && ask.printing);
     }
 
     #[test]

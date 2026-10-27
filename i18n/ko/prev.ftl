@@ -886,6 +886,7 @@ settings-ask-editing = 파일 편집
 settings-ask-signing = 파일에 서명
 settings-ask-redacting = 가림 표시 적용
 settings-ask-exporting = 파일 내보내기
+settings-ask-printing = 파일 인쇄
 # The prompt before an agent's tool runs; $agent is the agent's name,
 # such as Claude Code.
 agent-ask-read = { $agent }이(가) 이 파일을 읽도록 허용하시겠습니까?
@@ -895,6 +896,7 @@ agent-ask-edit = { $agent }이(가) 이 파일을 편집하도록 허용하시�
 agent-ask-sign = { $agent }이(가) 이 파일에 서명하도록 허용하시겠습니까?
 agent-ask-redact = { $agent }이(가) 가림 표시를 적용하도록 허용하시겠습니까?
 agent-ask-export = { $agent }이(가) 이 파일을 내보내도록 허용하시겠습니까?
+agent-ask-print = { $agent }이(가) 이 파일을 인쇄하도록 허용하시겠습니까?
 # $tool is the name of what the agent asks to do, such as Highlight text.
 agent-ask-body = { $agent }이(가) “{ $tool }”을(를) 사용하려고 합니다. prev가 무엇을 물을지는 설정에서 선택합니다.
 agent-ask-final = 이 작업은 실행 취소할 수 없습니다.

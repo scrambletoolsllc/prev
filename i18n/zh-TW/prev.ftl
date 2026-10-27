@@ -865,6 +865,7 @@ settings-ask-editing = 編輯檔案
 settings-ask-signing = 為檔案簽名
 settings-ask-redacting = 套用塗黑
 settings-ask-exporting = 輸出檔案
+settings-ask-printing = 列印檔案
 # The prompt before an agent's tool runs; $agent is the agent's name,
 # such as Claude Code.
 agent-ask-read = 要允許 { $agent } 讀取這個檔案嗎？
@@ -874,6 +875,7 @@ agent-ask-edit = 要允許 { $agent } 編輯這個檔案嗎？
 agent-ask-sign = 要允許 { $agent } 為這個檔案簽名嗎？
 agent-ask-redact = 要允許 { $agent } 套用塗黑嗎？
 agent-ask-export = 要允許 { $agent } 輸出這個檔案嗎？
+agent-ask-print = 要允許 { $agent } 列印這個檔案嗎？
 # $tool is the name of what the agent asks to do, such as Highlight text.
 agent-ask-body = { $agent } 要求使用「{ $tool }」。你可以在「設定」中選擇 prev 要詢問哪些操作。
 agent-ask-final = 此操作無法還原。

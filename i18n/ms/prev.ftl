@@ -743,6 +743,7 @@ settings-ask-editing = Mengedit fail
 settings-ask-signing = Menandatangani fail
 settings-ask-redacting = Menggunakan penghitaman
 settings-ask-exporting = Mengeksport fail
+settings-ask-printing = Mencetak fail
 # The prompt before an agent's tool runs; $agent is the agent's name,
 # such as Claude Code.
 agent-ask-read = Benarkan { $agent } membaca fail ini?
@@ -752,6 +753,7 @@ agent-ask-edit = Benarkan { $agent } mengedit fail ini?
 agent-ask-sign = Benarkan { $agent } menandatangani fail ini?
 agent-ask-redact = Benarkan { $agent } menggunakan penghitaman?
 agent-ask-export = Benarkan { $agent } mengeksport fail ini?
+agent-ask-print = Benarkan { $agent } mencetak fail ini?
 # $tool is the name of what the agent asks to do, such as Highlight text.
 agent-ask-body = { $agent } meminta untuk menggunakan “{ $tool }”. Tetapan menentukan perkara yang ditanya oleh prev.
 agent-ask-final = Ini tidak boleh dibuat asal.

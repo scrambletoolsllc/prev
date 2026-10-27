@@ -865,6 +865,7 @@ settings-ask-editing = 编辑文件
 settings-ask-signing = 为文件签名
 settings-ask-redacting = 应用涂黑
 settings-ask-exporting = 导出文件
+settings-ask-printing = 打印文件
 # The prompt before an agent's tool runs; $agent is the agent's name,
 # such as Claude Code.
 agent-ask-read = 允许 { $agent } 读取此文件？
@@ -874,6 +875,7 @@ agent-ask-edit = 允许 { $agent } 编辑此文件？
 agent-ask-sign = 允许 { $agent } 为此文件签名？
 agent-ask-redact = 允许 { $agent } 应用涂黑？
 agent-ask-export = 允许 { $agent } 导出此文件？
+agent-ask-print = 允许 { $agent } 打印此文件？
 # $tool is the name of what the agent asks to do, such as Highlight text.
 agent-ask-body = { $agent } 请求使用“{ $tool }”。你可以在“设置”中选择 prev 询问哪些操作。
 agent-ask-final = 此操作无法撤销。

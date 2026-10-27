@@ -759,6 +759,7 @@ settings-ask-editing = Kuhariri faili
 settings-ask-signing = Kuweka sahihi kwenye faili
 settings-ask-redacting = Kutekeleza ufichaji
 settings-ask-exporting = Kuhamisha faili
+settings-ask-printing = Kuchapisha faili
 # The prompt before an agent's tool runs; $agent is the agent's name,
 # such as Claude Code.
 agent-ask-read = Ruhusu { $agent } kusoma faili hii?
@@ -768,6 +769,7 @@ agent-ask-edit = Ruhusu { $agent } kuhariri faili hii?
 agent-ask-sign = Ruhusu { $agent } kuweka sahihi kwenye faili hii?
 agent-ask-redact = Ruhusu { $agent } kutekeleza ufichaji?
 agent-ask-export = Ruhusu { $agent } kuhamisha faili hii?
+agent-ask-print = Ruhusu { $agent } kuchapisha faili hii?
 # $tool is the name of what the agent asks to do, such as Highlight text.
 agent-ask-body = { $agent } anaomba kutumia “{ $tool }”. Katika Mipangilio unachagua mambo ambayo prev huuliza.
 agent-ask-final = Hili haliwezi kutenduliwa.
