@@ -926,7 +926,7 @@ settings-ask-editing = Відредагує файл
 settings-ask-signing = Підпише файл
 settings-ask-redacting = Застосує зачорнення
 settings-ask-exporting = Експортує файл
-settings-ask-printing = Друкує файл
+settings-ask-printing = Надрукує файл
 # The prompt before an agent's tool runs; $agent is the agent's name,
 # such as Claude Code.
 agent-ask-read = Дозволити агентові { $agent } прочитати цей файл?
