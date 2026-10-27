@@ -91,17 +91,17 @@
   "page": "index.html",
   "text": "Photos"
  },
- "6d94e49a3888": {
+ "bfceeb33bdb3": {
   "page": "index.html",
-  "text": "PNG, JPEG, WebP, AVIF, HEIC, TIFF, camera RAW and more. Crop, rotate, resize and adjust color with undo, mark up, and export to nine formats. Edits keep EXIF and color profiles."
+  "text": "PNG, JPEG, WebP, AVIF, HEIC, TIFF, camera RAW and more. Crop, rotate, resize and adjust color with undo, mark up, print, and export to nine formats. Edits keep EXIF and color profiles."
  },
  "289e4f62f180": {
   "page": "index.html",
   "text": "SVG and Markdown"
  },
- "48b4f73dbe29": {
+ "fbba66108f24": {
   "page": "index.html",
-  "text": "SVG drawings stay sharp at any zoom. Markdown shows with tables, task lists and highlighted code, reloads as you edit, and exports as a picture."
+  "text": "SVG drawings stay sharp at any zoom. Markdown shows with tables, task lists and highlighted code, reloads as you edit, prints on pages and exports as a picture."
  },
  "e14b1f697a7d": {
   "page": "index.html",
@@ -115,9 +115,9 @@
   "page": "index.html",
   "text": "AI agents"
  },
- "5402e34714e4": {
+ "551904021adb": {
   "page": "index.html",
-  "text": "Agents such as Claude Code control the prev you are using over MCP, in your own windows, only once you allow them, and asking before the steps you choose."
+  "text": "Agents such as Claude Code control the prev you are using over MCP, in your own windows, only once you allow them, and asking before the steps you choose, such as printing."
  },
  "39e54d916f69": {
   "page": "index.html",
@@ -495,6 +495,10 @@
   "page": "guide.html",
   "text": "<a1>Exporting</a1>"
  },
+ "54111d266209": {
+  "page": "guide.html",
+  "text": "<a1>Printing</a1>"
+ },
  "95720fe773c9": {
   "page": "guide.html",
   "text": "<a1>Images</a1>"
@@ -563,13 +567,9 @@
   "page": "guide.html",
   "text": "In two-page mode pages sit in pairs, 1 and 2, 3 and 4, and the arrow keys move a pair at a time."
  },
- "b6458982a7d8": {
+ "64427bc24df9": {
   "page": "guide.html",
-  "text": "Search (Ctrl+F) highlights every match and counts them as it goes; Ctrl+G and Ctrl+Shift+G step through them. Text can be selected and copied across pages; double-click selects a word and triple-click a line. Links inside the document and to the web work, and Ctrl+Shift+F starts a full-screen slideshow. F11 makes the window full screen; on macOS the View menu's Enter Full Screen does too. The <a1>inspector</a1> (Ctrl+I) shows the file and the document's details."
- },
- "dbe90d055493": {
-  "page": "guide.html",
-  "text": "Print (Ctrl+P) opens the system's print dialog: the desktop's, through its portal, on Linux; Windows' print dialog; and on macOS the print panel, whose preview shows the pages as prev draws them."
+  "text": "Search (Ctrl+F) highlights every match and counts them as it goes; Ctrl+G and Ctrl+Shift+G step through them. Text can be selected and copied across pages; double-click selects a word and triple-click a line. Links inside the document and to the web work, and Ctrl+Shift+F starts a full-screen slideshow. F11 makes the window full screen; on macOS the View menu's Enter Full Screen does too. The <a1>inspector</a1> (Ctrl+I) shows the file and the document's details. Ctrl+P <a2>prints</a2>."
  },
  "0db3465628bf": {
   "page": "guide.html",
@@ -699,9 +699,9 @@
   "page": "guide.html",
   "text": "Exporting"
  },
- "2cd9bfc73394": {
+ "8cdf8313b4b7": {
   "page": "guide.html",
-  "text": "Export (the export button, a page with an arrow near the right of the toolbar, or Ctrl+Shift+S) writes a new file:"
+  "text": "Export (Export… in the export button's menu, a page with an arrow near the right of the toolbar, or Ctrl+Shift+S) writes a new file:"
  },
  "987925f7b975": {
   "page": "guide.html",
@@ -727,25 +727,53 @@
   "page": "guide.html",
   "text": "Tick \"Only the selected pages\" to export just the pages chosen in the sidebar."
  },
+ "f16eadab2a72": {
+  "page": "guide.html",
+  "text": "Printing"
+ },
+ "492dba75f810": {
+  "page": "guide.html",
+  "text": "The export button opens a menu with Export… and Print…, in document, image and Markdown windows alike. Print… (Ctrl+P) opens the system's print dialog: the desktop's on Linux, through its portal; Windows' print dialog; and on macOS the print panel, whose preview shows the pages as prev draws them."
+ },
+ "8cdc627a0c47": {
+  "page": "guide.html",
+  "text": "<strong>PDFs</strong> print with their markup and filled-in fields, including an edit made a moment before."
+ },
+ "7b3f59747f6f": {
+  "page": "guide.html",
+  "text": "<strong>Images</strong> print as Export would write them, with their edits and markup; an animation prints the frame shown."
+ },
+ "a3602fddba15": {
+  "page": "guide.html",
+  "text": "<strong>Markdown</strong> prints light, whatever the look, on Letter or A4 pages as your region has it. Each page ends between lines, and a picture that fits on a page is kept whole."
+ },
+ "aaf7a5443fd3": {
+  "page": "guide.html",
+  "text": "On Linux, printing needs CUPS and a print dialog portal, such as xdg-desktop-portal-gtk; the packages suggest both without installing them. prev checks nothing until you print. When a print does not go through, it says what is missing: the print dialog, CUPS, or a printer set up, naming one found on the network that is not yet. A printer the dialog only found on the network can stop at \"Getting printer information\" until it is added in the desktop's printer settings or at <code>localhost:631</code>."
+ },
+ "88d0397be83c": {
+  "page": "guide.html",
+  "text": "<a1>Agents</a1> and the <a2>assistant</a2> can print too, straight to a printer without the dialog, after asking you."
+ },
  "09e871c98fef": {
   "page": "guide.html",
   "text": "Images"
  },
- "f7b2dc834f59": {
+ "1e256b9d0946": {
   "page": "guide.html",
-  "text": "prev opens PNG, JPEG, GIF (animated too), WebP, AVIF, HEIC, TIFF, BMP, ICO, TGA, PNM, QOI, JPEG 2000, OpenEXR, Radiance HDR and camera RAW. RAW photos open looking like the JPEG the camera would have made: prev compares the RAW with the small JPEG preview the camera stores in the file and gives it the same brightness, contrast and color balance. The toolbar rotates, flips, crops and resizes (Adjust Size). Adjust Color (Ctrl+Shift+C) has exposure, contrast, saturation, temperature, tint, sepia, sharpness and levels. Undo and redo are on the toolbar. The <a1>inspector</a1> (Ctrl+I) shows the file and camera details and can remove location info and edit keywords and a description. Export asks for the format (PNG, JPEG, WebP, TIFF, BMP, TGA, QOI, PPM or OpenEXR) and, for JPEG, the quality, then where to save; the choices are kept for the next export from the window. Drop more image files on the window to add them to its thumbnail sidebar."
+  "text": "prev opens PNG, JPEG, GIF (animated too), WebP, AVIF, HEIC, TIFF, BMP, ICO, TGA, PNM, QOI, JPEG 2000, OpenEXR, Radiance HDR and camera RAW. RAW photos open looking like the JPEG the camera would have made: prev compares the RAW with the small JPEG preview the camera stores in the file and gives it the same brightness, contrast and color balance. The toolbar rotates, flips, crops and resizes (Adjust Size). Adjust Color (Ctrl+Shift+C) has exposure, contrast, saturation, temperature, tint, sepia, sharpness and levels. Undo and redo are on the toolbar. The <a1>inspector</a1> (Ctrl+I) shows the file and camera details and can remove location info and edit keywords and a description. Export asks for the format (PNG, JPEG, WebP, TIFF, BMP, TGA, QOI, PPM or OpenEXR) and, for JPEG, the quality, then where to save; the choices are kept for the next export from the window. Print… in the same menu, or Ctrl+P, <a2>prints</a2> the image. Drop more image files on the window to add them to its thumbnail sidebar."
  },
  "7f0b4404f7cb": {
   "page": "guide.html",
   "text": "Images take markup too: the Markup button (Ctrl+Shift+A) brings up the same markup bar as PDFs, with Sketch, Draw, shapes, text boxes, notes and signatures. Markup stays while the window is open and can be moved, restyled and undone; rotating, cropping and color changes wait until it is gone. Paste works on images too, and starts the markup if there is none yet. Export draws it into the pixels of the copy you save, at the image's full resolution. Closing the window, or quitting, with markup you haven't exported asks first, with a button to export."
  },
- "19902eef980a": {
+ "e251120481b3": {
   "page": "guide.html",
-  "text": "SVG drawings open sharp at any zoom, in the image window. They can't be edited, so the tools that change pixels are greyed out, but Export saves the drawing as a picture in any of the image formats, at its actual size or two or four times larger (Size in the Export dialog, which shows the picture's size in pixels)."
+  "text": "SVG drawings open sharp at any zoom, in the image window. They can't be edited, so the tools that change pixels are greyed out, but Export saves the drawing as a picture in any of the image formats, at its actual size or two or four times larger (Size in the Export dialog, which shows the picture's size in pixels), and it prints as a picture too."
  },
- "1f4ce983b6c4": {
+ "0fd544588366": {
   "page": "guide.html",
-  "text": "Markdown files show with tables, task lists, syntax highlighted code and images, and reload when the file changes on disk. The toolbar makes the text larger or smaller (Ctrl+= and Ctrl+-, Ctrl+0 for the normal size), searches the document (Ctrl+F, then Enter or the arrows for the next and previous match) and opens the <a1>inspector</a1> with the file's details and word count. Code is colored to suit the light or dark look, and pictures show at their own size, shrunk only to fit the page. Export saves the whole document as one picture, in any of the image formats, at its actual size or twice as sharp; very long documents are scaled down to fit the 16,383 pixel height some formats allow."
+  "text": "Markdown files show with tables, task lists, syntax highlighted code and images, and reload when the file changes on disk. The toolbar makes the text larger or smaller (Ctrl+= and Ctrl+-, Ctrl+0 for the normal size), searches the document (Ctrl+F, then Enter or the arrows for the next and previous match) and opens the <a1>inspector</a1> with the file's details and word count. Code is colored to suit the light or dark look, and pictures show at their own size, shrunk only to fit the page. Export saves the whole document as one picture, in any of the image formats, at its actual size or twice as sharp; very long documents are scaled down to fit the 16,383 pixel height some formats allow. Print (Ctrl+P) puts it on pages; see <a2>Printing</a2>."
  },
  "8222c902ae07": {
   "page": "guide.html",
@@ -1079,17 +1107,17 @@
   "page": "guide.html",
   "text": "Chatting"
  },
- "91a84bd0464a": {
+ "7a246cdf4b3a": {
   "page": "guide.html",
-  "text": "Type in the field and press Enter. The answer streams in as Markdown, with each tool the model uses as a line of its own, and a small picture for the tools that look at a page. Models that think before they answer show their reasoning faintly as it comes, folded under Thoughts once they answer. The assistant does what you ask it without asking again: the switches that make prev ask before an agent acts are for outside agents. A change it makes is one step of Undo, as yours are; signing and applying redactions cannot be undone, so it does them only when asked. A model that cannot see pictures gets the page's text instead."
+  "text": "Type in the field and press Enter. The answer streams in as Markdown, with each tool the model uses as a line of its own, and a small picture for the tools that look at a page. Models that think before they answer show their reasoning faintly as it comes, folded under Thoughts once they answer. The assistant does what you ask it without asking again: the switches that make prev ask before an agent acts are for outside agents, except the one for printing, which asks before the assistant prints too. A change it makes is one step of Undo, as yours are; signing and applying redactions cannot be undone, so it does them only when asked. A model that cannot see pictures gets the page's text instead."
  },
  "cc297c508457": {
   "page": "guide.html",
   "text": "Working with AI agents"
  },
- "e7973217e146": {
+ "b817f2742382": {
   "page": "guide.html",
-  "text": "An AI agent, such as Claude Code or a local model in an MCP client, can work in prev for you: read a document, show you something in it, mark it up, fill a form, sign, redact, rearrange pages, edit an image and export. prev runs an MCP server, <code>prev --mcp</code>, which the agent starts and talks to over standard input and output. It passes the agent's requests to the prev you are using, starting prev if it is not running, so you can watch the agent work in your own windows. Nothing listens on the network, and prev bundles no model: what the agent reads goes to the model the agent uses, so use one you trust with those files."
+  "text": "An AI agent, such as Claude Code or a local model in an MCP client, can work in prev for you: read a document, show you something in it, mark it up, fill a form, sign, redact, rearrange pages, edit an image, export and print. prev runs an MCP server, <code>prev --mcp</code>, which the agent starts and talks to over standard input and output. It passes the agent's requests to the prev you are using, starting prev if it is not running, so you can watch the agent work in your own windows. Nothing listens on the network, and prev bundles no model: what the agent reads goes to the model the agent uses, so use one you trust with those files."
  },
  "a056fd9ccb94": {
   "page": "guide.html",
@@ -1111,17 +1139,17 @@
   "page": "guide.html",
   "text": "Asking before an agent acts"
  },
- "c2d9a2ab49fa": {
+ "b9cb17c47c7d": {
   "page": "guide.html",
-  "text": "Settings has a switch for each kind of thing an agent can do: read a file, change the view or a window, mark up, edit, sign, apply redactions, and export. With a switch on, prev shows what the agent asks to do in the window it acts on, with Allow and Don't Allow, and the agent waits for your answer. Signing and applying redactions ask at first, as Undo cannot take them back; the others start off. The agent is told which tools ask, so it can tell you to look at prev. The switches are for outside agents; prev's own assistant acts on what you ask it without asking again."
+  "text": "Settings has a switch for each kind of thing an agent can do: read a file, change the view or a window, mark up, edit, sign, apply redactions, export and print. With a switch on, prev shows what the agent asks to do in the window it acts on, with Allow and Don't Allow, and the agent waits for your answer. Signing and applying redactions ask at first, as Undo cannot take them back, and so does printing, as it spends paper; the others start off. The agent is told which tools ask, so it can tell you to look at prev. The switches are for outside agents; prev's own assistant acts on what you ask it without asking again, except before it prints."
  },
  "b91c43fae1d8": {
   "page": "guide.html",
   "text": "What agents can do"
  },
- "502151c16da7": {
+ "91975e61f87e": {
   "page": "guide.html",
-  "text": "<strong>Read</strong>: the windows open, a document's pages, text with its positions, search, annotations, form fields, saved signatures, pictures of pages and images, and Markdown files."
+  "text": "<strong>Read</strong>: the windows open, a document's pages, text with its positions, search, annotations, form fields, saved signatures, pictures of pages and images, Markdown files, and the printers set up."
  },
  "4ca77485ebbb": {
   "page": "guide.html",
@@ -1135,9 +1163,9 @@
   "page": "guide.html",
   "text": "<strong>Edit</strong>: rotate, delete, move, insert and crop pages, fill form fields, place pictures, and crop, rotate, resize and adjust the color of images. A model that changes an image, such as to remove its background, takes it from prev and hands back the changed one, and prev keeps the image as it was among its versions."
  },
- "69c3bfab6597": {
+ "3e27a5e17d69": {
   "page": "guide.html",
-  "text": "<strong>Sign, redact and export</strong>: place one of your saved signatures, apply redaction marks, and export to a new file."
+  "text": "<strong>Sign, redact, export and print</strong>: place one of your saved signatures, apply redaction marks, export to a new file, and print without the dialog, on the default printer or another, some pages or copies if asked. In Flatpak, the print dialog shows for you to finish."
  },
  "5946181c36e9": {
   "page": "guide.html",
@@ -1315,9 +1343,9 @@
   "page": "guide.html",
   "text": "On Linux desktops that draw no title bar above a window, such as Hyprland, niri and river, the toolbar ends with a button that closes the window, and a window with no file open has one in its corner."
  },
- "e21ecfd28ed8": {
+ "26d9ac842665": {
   "page": "guide.html",
-  "text": "A walkthrough of everything prev does: reading and marking up PDFs, forms and signatures, page editing, redaction, images, drag and drop, AI agents and settings.",
+  "text": "A walkthrough of everything prev does: reading and marking up PDFs, forms and signatures, page editing, redaction, exporting and printing, images, drag and drop, AI agents and settings.",
   "attribute": true
  },
  "f5cbdf6bfb51": {
@@ -1365,6 +1393,11 @@
   "text": "The export dialog with reduce file size and flatten chosen",
   "attribute": true
  },
+ "53a23e5282c0": {
+  "page": "guide.html",
+  "text": "The export button's menu open over the annual report, with Export… and Print…",
+  "attribute": true
+ },
  "d28357d29bc2": {
   "page": "guide.html",
   "text": "A photo open with the Adjust Color panel",
@@ -1400,9 +1433,9 @@
   "text": "prev asking: Let Claude Code sign this file?, adding that Undo cannot take this back, over a filled-in membership form",
   "attribute": true
  },
- "7d7a03434b8f": {
+ "5ca073ac3d2f": {
   "page": "guide.html",
-  "text": "The Agents tab of Settings: Allow outside control on, Claude Code allowed, and the Ask before an agent switches, with signing and applying redactions on",
+  "text": "The Agents tab of Settings: Allow outside control on, Claude Code allowed, and the Ask before an agent switches, with signing, applying redactions and printing on",
   "attribute": true
  },
  "e33a7cf2935c": {
@@ -1694,13 +1727,9 @@
   "page": "specs.html",
   "text": "Automatic, in place, with the original kept as a version; annotations saved incrementally"
  },
- "f16eadab2a72": {
+ "d3d1708b2c71": {
   "page": "specs.html",
-  "text": "Printing"
- },
- "e50512ad7d75": {
-  "page": "specs.html",
-  "text": "The desktop's print dialog on Linux, Windows' print dialog, the macOS print panel"
+  "text": "The desktop's print dialog on Linux, through its XDG portal and CUPS; Windows' print dialog; the macOS print panel. PDFs print with their markup and fields, images as exported, Markdown on light Letter or A4 pages, by the system's region"
  },
  "db07be184479": {
   "page": "specs.html",
@@ -1822,9 +1851,9 @@
   "page": "specs.html",
   "text": "What it can do"
  },
- "f1696e6d365c": {
+ "f3b2c4f15180": {
   "page": "specs.html",
-  "text": "The same 44 tools agents use, below, without asking again, as you asked for them; each change it makes is one step of Undo"
+  "text": "The same 46 tools agents use, below, without asking again, as you asked for them, except before printing; each change it makes is one step of Undo"
  },
  "94cbffb24efc": {
   "page": "specs.html",
@@ -1842,13 +1871,13 @@
   "page": "specs.html",
   "text": "prev asks before letting a new agent in, and remembers Allow; Settings lists allowed agents, and Allow outside control turns agents off"
  },
- "861e57dc9cb3": {
+ "65e1294e71a1": {
   "page": "specs.html",
-  "text": "Read (11)"
+  "text": "Read (12)"
  },
- "54acc50e8ca7": {
+ "cfd8b6d7a103": {
   "page": "specs.html",
-  "text": "<code>list_windows</code>, <code>document_info</code>, <code>page_text</code>, <code>search</code>, <code>current_view</code>, <code>list_annotations</code>, <code>form_fields</code>, <code>list_signatures</code>, <code>render_page</code>, <code>render_image</code>, <code>get_image</code>"
+  "text": "<code>list_windows</code>, <code>document_info</code>, <code>page_text</code>, <code>search</code>, <code>current_view</code>, <code>list_annotations</code>, <code>form_fields</code>, <code>list_signatures</code>, <code>render_page</code>, <code>render_image</code>, <code>get_image</code>, <code>list_printers</code>"
  },
  "64bd682b0d7f": {
   "page": "specs.html",
@@ -1874,21 +1903,21 @@
   "page": "specs.html",
   "text": "<code>rotate_pages</code>, <code>delete_pages</code>, <code>move_pages</code>, <code>insert_blank_page</code>, <code>crop_pages</code>, <code>fill_field</code>, <code>place_image</code>, <code>crop</code>, <code>rotate</code>, <code>resize</code>, <code>adjust_color</code>, <code>replace_image</code>"
  },
- "38a5d33d9602": {
+ "3684949676d7": {
   "page": "specs.html",
-  "text": "Sign, redact, export (3)"
+  "text": "Sign, redact, export, print (4)"
  },
- "ba3447c4d4f8": {
+ "4f606d5cfb0a": {
   "page": "specs.html",
-  "text": "<code>place_signature</code>, <code>apply_redactions</code>, <code>export</code>"
+  "text": "<code>place_signature</code>, <code>apply_redactions</code>, <code>export</code>, <code>print</code>, which prints without the dialog, some pages or copies if asked"
  },
  "97fa19250695": {
   "page": "specs.html",
   "text": "Asking first"
  },
- "33c8cd977e6c": {
+ "d252b7fdbe17": {
   "page": "specs.html",
-  "text": "A switch for each kind above; signing and applying redactions ask at first, as Undo cannot take them back"
+  "text": "A switch for each kind above; signing and applying redactions ask at first, as Undo cannot take them back, and printing, as it spends paper, for the assistant too"
  },
  "d018b082e8a3": {
   "page": "specs.html",

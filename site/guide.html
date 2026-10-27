@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>A tour of prev</title>
-<meta name="description" content="A walkthrough of everything prev does: reading and marking up PDFs, forms and signatures, page editing, redaction, images, drag and drop, AI agents and settings.">
+<meta name="description" content="A walkthrough of everything prev does: reading and marking up PDFs, forms and signatures, page editing, redaction, exporting and printing, images, drag and drop, AI agents and settings.">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="style.css">
 </head>
@@ -32,6 +32,7 @@
 <li><a href="#editing-pages">Editing pages</a></li>
 <li><a href="#redacting">Redacting</a></li>
 <li><a href="#exporting">Exporting</a></li>
+<li><a href="#printing">Printing</a></li>
 <li><a href="#images">Images</a></li>
 <li><a href="#svg-and-markdown">SVG and Markdown</a></li>
 <li><a href="#inspector">Inspector</a></li>
@@ -86,10 +87,8 @@ copied across pages; double-click selects a word and triple-click a line.
 Links inside the document and to the web work, and Ctrl+Shift+F starts a
 full-screen slideshow. F11 makes the window full screen; on macOS the
 View menu's Enter Full Screen does too. The <a href="#inspector">inspector</a>
-(Ctrl+I) shows the file and the document's details.</p>
-<p>Print (Ctrl+P) opens the system's print dialog: the desktop's, through
-its portal, on Linux; Windows' print dialog; and on macOS the print panel,
-whose preview shows the pages as prev draws them.</p>
+(Ctrl+I) shows the file and the document's details. Ctrl+P
+<a href="#printing">prints</a>.</p>
 <h2 id="marking-up">Marking up</h2>
 <figure><img class="shot" src="screenshots/markup.png" alt="A form filled in, marked up with a highlight, shapes, a text box and a note, and signed" width="1360" height="796" loading="lazy"></figure>
 <p>The markup toolbar (the pen button on the right, or Ctrl+Shift+A) follows
@@ -171,8 +170,8 @@ kept. This cannot be undone.</p>
 <figure><img class="shot" src="screenshots/redaction-applied.png" alt="The same statement after applying: black boxes where the marked details were" width="1360" height="796" loading="lazy"></figure>
 <h2 id="exporting">Exporting</h2>
 <figure><img class="shot" src="screenshots/export.png" alt="The export dialog with reduce file size and flatten chosen" width="1360" height="796" loading="lazy"></figure>
-<p>Export (the export button, a page with an arrow near the right of the
-toolbar, or Ctrl+Shift+S) writes a new file:</p>
+<p>Export (Export… in the export button's menu, a page with an arrow near
+the right of the toolbar, or Ctrl+Shift+S) writes a new file:</p>
 <ul>
 <li><strong>PDF</strong>, optionally:</li>
 <li><strong>Reduce file size</strong>: images are downsampled to 150 dpi and saved as
@@ -188,6 +187,33 @@ toolbar, or Ctrl+Shift+S) writes a new file:</p>
 </ul>
 <p>Tick "Only the selected pages" to export just the pages chosen in the
 sidebar.</p>
+<h2 id="printing">Printing</h2>
+<figure><img class="shot" src="screenshots/print.png" alt="The export button's menu open over the annual report, with Export… and Print…" width="1360" height="796" loading="lazy"></figure>
+<p>The export button opens a menu with Export… and Print…, in document,
+image and Markdown windows alike. Print… (Ctrl+P) opens the system's
+print dialog: the desktop's on Linux, through its portal; Windows' print
+dialog; and on macOS the print panel, whose preview shows the pages as
+prev draws them.</p>
+<ul>
+<li><strong>PDFs</strong> print with their markup and filled-in fields,
+  including an edit made a moment before.</li>
+<li><strong>Images</strong> print as Export would write them, with their edits
+  and markup; an animation prints the frame shown.</li>
+<li><strong>Markdown</strong> prints light, whatever the look, on Letter or A4
+  pages as your region has it. Each page ends between lines, and a
+  picture that fits on a page is kept whole.</li>
+</ul>
+<p>On Linux, printing needs CUPS and a print dialog portal, such as
+xdg-desktop-portal-gtk; the packages suggest both without installing
+them. prev checks nothing until you print. When a print does not go
+through, it says what is missing: the print dialog, CUPS, or a printer
+set up, naming one found on the network that is not yet. A printer the
+dialog only found on the network can stop at "Getting printer
+information" until it is added in the desktop's printer settings or at
+<code>localhost:631</code>.</p>
+<p><a href="#ai-agents">Agents</a> and the <a href="#assistant">assistant</a>
+can print too, straight to a printer without the dialog, after asking
+you.</p>
 <h2 id="images">Images</h2>
 <figure><img class="shot" src="screenshots/image-editing.png" alt="A photo open with the Adjust Color panel" width="1360" height="796" loading="lazy"></figure>
 <p>prev opens PNG, JPEG, GIF (animated too), WebP, AVIF, HEIC, TIFF, BMP,
@@ -202,7 +228,8 @@ sepia, sharpness and levels. Undo and redo are on the toolbar. The
 location info and edit keywords and a description. Export asks for the
 format (PNG, JPEG, WebP, TIFF, BMP, TGA, QOI, PPM or OpenEXR) and, for
 JPEG, the quality, then where to save; the choices are kept for the next
-export from the window. Drop more image files
+export from the window. Print… in the same menu, or Ctrl+P,
+<a href="#printing">prints</a> the image. Drop more image files
 on the window to add them to its thumbnail sidebar.</p>
 <figure><img class="shot" src="screenshots/image-markup.png" alt="A landscape photo marked up with an oval around the moon, an arrow and the word Moonrise" width="1360" height="796" loading="lazy"></figure>
 <p>Images take markup too: the Markup button (Ctrl+Shift+A) brings up the
@@ -218,7 +245,7 @@ you haven't exported asks first, with a button to export.</p>
 edited, so the tools that change pixels are greyed out, but Export saves
 the drawing as a picture in any of the image formats, at its actual size
 or two or four times larger (Size in the Export dialog, which shows the
-picture's size in pixels).</p>
+picture's size in pixels), and it prints as a picture too.</p>
 <p>Markdown files show with tables, task lists, syntax highlighted code and
 images, and reload when the file changes on disk. The toolbar makes the
 text larger or smaller (Ctrl+= and Ctrl+-, Ctrl+0 for the normal size),
@@ -228,7 +255,8 @@ file's details and word count. Code is colored to suit the light or dark look, a
 at their own size, shrunk only to fit the page. Export saves the whole
 document as one picture, in any of the image formats, at its actual size
 or twice as sharp; very long documents are scaled down to fit the
-16,383 pixel height some formats allow.</p>
+16,383 pixel height some formats allow. Print (Ctrl+P) puts it on
+pages; see <a href="#printing">Printing</a>.</p>
 <h2 id="inspector">Inspector</h2>
 <figure><img class="shot" src="screenshots/inspector.png" alt="A PDF with the inspector open on the right, listing its file name, folder, size and date, its title, author, subject, keywords, producing application, PDF version and security, and its page count and page size" width="1360" height="796" loading="lazy"></figure>
 <p>The inspector (the info button on the toolbar, or Ctrl+I) opens a panel
@@ -468,14 +496,16 @@ with each tool the model uses as a line of its own, and a small picture
 for the tools that look at a page. Models that think before they answer
 show their reasoning faintly as it comes, folded under Thoughts once they
 answer. The assistant does what you ask it without asking again: the
-switches that make prev ask before an agent acts are for outside agents.
+switches that make prev ask before an agent acts are for outside agents,
+except the one for printing, which asks before the assistant prints too.
 A change it makes is one step of Undo, as yours are; signing and
 applying redactions cannot be undone, so it does them only when asked.
 A model that cannot see pictures gets the page's text instead.</p>
 <h2 id="ai-agents">Working with AI agents</h2>
 <p>An AI agent, such as Claude Code or a local model in an MCP client, can
 work in prev for you: read a document, show you something in it, mark it
-up, fill a form, sign, redact, rearrange pages, edit an image and export.
+up, fill a form, sign, redact, rearrange pages, edit an image, export and
+print.
 prev runs an MCP server, <code>prev --mcp</code>, which the agent starts and
 talks to over standard input and output. It passes the agent's requests
 to the prev you are using, starting prev if it is not running, so you can
@@ -501,19 +531,21 @@ again, and <strong>Allow outside control</strong> turns all of it off.</p>
 <h3 id="agent-approval">Asking before an agent acts</h3>
 <p>Settings has a switch for each kind of thing an agent can do: read a
 file, change the view or a window, mark up, edit, sign, apply redactions,
-and export. With a switch on, prev shows what the agent asks to do in the
-window it acts on, with Allow and Don't Allow, and the agent waits for
-your answer. Signing and applying redactions ask at first, as Undo cannot
-take them back; the others start off. The agent is told which tools ask,
-so it can tell you to look at prev. The switches are for outside agents;
-prev's own assistant acts on what you ask it without asking again.</p>
+export and print. With a switch on, prev shows what the agent asks to do
+in the window it acts on, with Allow and Don't Allow, and the agent waits
+for your answer. Signing and applying redactions ask at first, as Undo
+cannot take them back, and so does printing, as it spends paper; the
+others start off. The agent is told which tools ask, so it can tell you
+to look at prev. The switches are for outside agents; prev's own
+assistant acts on what you ask it without asking again, except before it
+prints.</p>
 <figure class="portrait"><img class="shot" src="screenshots/agent-ask.png" alt="prev asking: Let Claude Code sign this file?, adding that Undo cannot take this back, over a filled-in membership form" width="900" height="995" loading="lazy"></figure>
-<figure><img class="shot" src="screenshots/settings-outside-control.png" alt="The Agents tab of Settings: Allow outside control on, Claude Code allowed, and the Ask before an agent switches, with signing and applying redactions on" width="1360" height="791" loading="lazy"></figure>
+<figure><img class="shot" src="screenshots/settings-outside-control.png" alt="The Agents tab of Settings: Allow outside control on, Claude Code allowed, and the Ask before an agent switches, with signing, applying redactions and printing on" width="1360" height="796" loading="lazy"></figure>
 <h3 id="agent-work">What agents can do</h3>
 <ul>
 <li><strong>Read</strong>: the windows open, a document's pages, text with its
   positions, search, annotations, form fields, saved signatures, pictures
-  of pages and images, and Markdown files.</li>
+  of pages and images, Markdown files, and the printers set up.</li>
 <li><strong>Show you</strong>: go to a page or a place on it, zoom, change the view
   mode, outline an area or some text for a few seconds, open and close
   the sidebar, inspector and other panels, and size, place, focus and
@@ -526,8 +558,11 @@ prev's own assistant acts on what you ask it without asking again.</p>
   images. A model that changes an image, such as to remove its background,
   takes it from prev and hands back the changed one, and prev keeps the
   image as it was among its versions.</li>
-<li><strong>Sign, redact and export</strong>: place one of your saved signatures,
-  apply redaction marks, and export to a new file.</li>
+<li><strong>Sign, redact, export and print</strong>: place one of your saved
+  signatures, apply redaction marks, export to a new file, and print
+  without the dialog, on the default printer or another, some pages or
+  copies if asked. In Flatpak, the print dialog shows for you to
+  finish.</li>
 </ul>
 <figure><img class="shot" src="screenshots/agent-point.png" alt="An agent pointing out the largest expense: the drip irrigation row of the budget's expenses table, outlined in the accent color" width="1360" height="791" loading="lazy"><figcaption>An agent showing you the largest expense as it tells you about it.</figcaption></figure>
 <p>Agents work as you do: each change saves by itself and is one step of
