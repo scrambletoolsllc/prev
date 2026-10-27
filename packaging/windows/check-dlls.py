@@ -34,7 +34,7 @@ SYSTEM = {
     "oleacc.dll", "oleaut32.dll", "opengl32.dll", "powrprof.dll", "propsys.dll", "psapi.dll",
     "rpcrt4.dll", "secur32.dll", "setupapi.dll", "shcore.dll", "shell32.dll", "shlwapi.dll",
     "ucrtbase.dll", "user32.dll", "userenv.dll", "uxtheme.dll", "version.dll", "winhttp.dll",
-    "winmm.dll", "ws2_32.dll", "wtsapi32.dll",
+    "winmm.dll", "winspool.drv", "ws2_32.dll", "wtsapi32.dll",
 }
 
 
