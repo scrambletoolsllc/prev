@@ -159,7 +159,7 @@ pages and Shift+click to select a range. Then:</p>
 Insert Blank Page, Insert from File, Copy and Paste, Crop to Selection,
 Select All Pages and Delete. Every page edit can be undone.</p>
 <h2 id="redacting">Redacting</h2>
-<figure><img class="shot" src="screenshots/redaction.png" alt="A statement with the name and address, account and routing numbers and tax ID marked for redaction, and Apply in the markup bar" width="1360" height="796" loading="lazy"></figure>
+<figure><img class="shot" src="screenshots/redaction.png" alt="The contacts page of an annual report with three phone numbers and email addresses marked for redaction, and Apply in the markup bar" width="1360" height="796" loading="lazy"></figure>
 <p>The Redact tool marks what should go: drag a box over it, or select text
 first and then pick the tool. Marks are ordinary annotations until you
 press <strong>Apply</strong> and confirm. Applying removes the text, image pixels and
@@ -167,7 +167,7 @@ drawings under each mark from the file and draws black boxes in their
 place. The next save rewrites the whole file, so no earlier revision
 keeps the content, and prev deletes the earlier versions of the file it
 kept. This cannot be undone.</p>
-<figure><img class="shot" src="screenshots/redaction-applied.png" alt="The same statement after applying: black boxes where the marked details were" width="1360" height="796" loading="lazy"></figure>
+<figure><img class="shot" src="screenshots/redaction-applied.png" alt="The same page after applying: black boxes where the marked details were" width="1360" height="796" loading="lazy"></figure>
 <h2 id="exporting">Exporting</h2>
 <figure><img class="shot" src="screenshots/export.png" alt="The export dialog with reduce file size and flatten chosen" width="1360" height="796" loading="lazy"></figure>
 <p>Export (Export… in the export button's menu, a page with an arrow near
@@ -489,7 +489,7 @@ it where there is one, such as billing. A model the list leaves out can be
 added by its name. The Assistant tab lists the models added, with the one
 in use; the panel's menu under the field switches model at any time, even
 mid-chat, grouped by provider.</p>
-<figure><img class="shot" src="screenshots/settings-assistant.png" alt="The Assistant tab of Settings, listing a cloud model and a local model, with Ollama found running and its models ready to add" width="1360" height="791" loading="lazy"></figure>
+<figure><img class="shot" src="screenshots/settings-assistant.png" alt="The Assistant tab of Settings, listing a cloud model and a local model, with Ollama found running and its models ready to add" width="1360" height="796" loading="lazy"></figure>
 <h3 id="assistant-chat">Chatting</h3>
 <p>Type in the field and press Enter. The answer streams in as Markdown,
 with each tool the model uses as a line of its own, and a small picture
@@ -527,7 +527,7 @@ most take a file like this:</p>
 prev, in the window in front. Allow is remembered; Don't Allow lasts until
 prev quits. Settings lists the agents you allowed, with Forget to be asked
 again, and <strong>Allow outside control</strong> turns all of it off.</p>
-<figure><img class="shot" src="screenshots/agent-connect.png" alt="prev asking: Allow Claude Code to control prev?, with Don't allow and Allow, over the annual report" width="1360" height="791" loading="lazy"></figure>
+<figure><img class="shot" src="screenshots/agent-connect.png" alt="prev asking: Allow Claude Code to control prev?, with Don't allow and Allow, over the annual report" width="1360" height="796" loading="lazy"></figure>
 <h3 id="agent-approval">Asking before an agent acts</h3>
 <p>Settings has a switch for each kind of thing an agent can do: read a
 file, change the view or a window, mark up, edit, sign, apply redactions,
@@ -564,7 +564,7 @@ prints.</p>
   copies if asked. In Flatpak, the print dialog shows for you to
   finish.</li>
 </ul>
-<figure><img class="shot" src="screenshots/agent-point.png" alt="An agent pointing out the largest expense: the drip irrigation row of the budget's expenses table, outlined in the accent color" width="1360" height="791" loading="lazy"><figcaption>An agent showing you the largest expense as it tells you about it.</figcaption></figure>
+<figure><img class="shot" src="screenshots/agent-point.png" alt="An agent pointing out the largest expense: the drip irrigation row of the budget's expenses table, outlined in the accent color" width="1360" height="796" loading="lazy"><figcaption>An agent showing you the largest expense as it tells you about it.</figcaption></figure>
 <p>Agents work as you do: each change saves by itself and is one step of
 Undo, so you can take back what an agent did.</p>
 <h2 id="saving-and-versions">Saving and versions</h2>
@@ -576,7 +576,7 @@ Windows; <code>~/Library/Application Support/prev/versions</code> on macOS),
 unless the settings say otherwise. For images, the inspector's Revert To
 list puts an earlier version back; Revert To for PDFs is still to come.</p>
 <h2 id="settings">Settings</h2>
-<figure><img class="shot" src="screenshots/settings.png" alt="The Appearance tab of Settings: light or dark, the accent color, and how windows look" width="1360" height="791" loading="lazy"></figure>
+<figure><img class="shot" src="screenshots/settings.png" alt="The Appearance tab of Settings: light or dark, the accent color, and how windows look" width="1360" height="796" loading="lazy"></figure>
 <p>Settings opens over the current window, from the gear button at the end
 of the toolbar or Ctrl+,. Close it with its close button, Escape or a
 click outside it. Changes apply to every window at once. Its five tabs
@@ -640,7 +640,7 @@ files:</p>
 <li><strong>Storage</strong>: where prev keeps signatures, version history and
   bookmarks.</li>
 </ul>
-<figure><img class="shot" src="screenshots/default-app.png" alt="The General tab of Settings, with the languages and Default app: a green dot beside Make Default and the line 41 of 41 file types open with prev" width="1360" height="791" loading="lazy"></figure>
+<figure><img class="shot" src="screenshots/default-app.png" alt="The General tab of Settings, with the languages and Default app: a green dot beside Make Default and the line 41 of 41 file types open with prev" width="1360" height="796" loading="lazy"></figure>
 <figure class="states"><img class="shot" src="screenshots/default-app-states.png" alt="The Default app row three times: a red dot with 0 of 41 file types, an amber dot with 3 of 41, and a green dot with 41 of 41" width="520" height="349" loading="lazy"><figcaption>None, some and all of prev's file types opening with prev.</figcaption></figure>
 <p>Keyboard shortcuts can be changed in the <code>[keys]</code> table of the settings
 file, <code>prev.toml</code>; the Settings dialog has no place for them. The
@@ -689,7 +689,7 @@ into whatever room the toolbar has left.</p>
 Hyprland, niri and river, the toolbar ends with a button that closes the
 window, and a window with no file open has one in its corner.</p>
 <figure><img class="shot plain" src="screenshots/platforms/windows-markup.png" alt="prev on Windows 11 with the garden plot application filled in and signed" width="1346" height="843" loading="lazy"></figure>
-<figure><img class="shot plain" src="screenshots/platforms/macos-image-markup.png" alt="prev on macOS, below its menu bar, with a landscape photo marked up" width="1212" height="913" loading="lazy"></figure>
+<figure><img class="shot plain" src="screenshots/platforms/macos-image-markup.png" alt="prev on macOS, below its menu bar, with a landscape photo marked up" width="1212" height="921" loading="lazy"></figure>
 </main>
 
 <footer>

@@ -1378,14 +1378,14 @@
   "text": "Signing &quot;Jordan Example&quot; in blue ink in the Create Signature dialog, then typing the description",
   "attribute": true
  },
- "3a61f7f17c38": {
+ "89285bded5e8": {
   "page": "guide.html",
-  "text": "A statement with the name and address, account and routing numbers and tax ID marked for redaction, and Apply in the markup bar",
+  "text": "The contacts page of an annual report with three phone numbers and email addresses marked for redaction, and Apply in the markup bar",
   "attribute": true
  },
- "82c4439be4b6": {
+ "9399aac556b6": {
   "page": "guide.html",
-  "text": "The same statement after applying: black boxes where the marked details were",
+  "text": "The same page after applying: black boxes where the marked details were",
   "attribute": true
  },
  "9b3ee442b3c9": {
