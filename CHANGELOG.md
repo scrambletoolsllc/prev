@@ -3,6 +3,13 @@
 All notable changes to prev. Versions follow
 [Semantic Versioning](https://semver.org).
 
+## Unreleased
+
+### Fixed
+
+- The set_zoom tool's width fit fills an image window's width, marked
+  up or not; it fitted the whole image and said it had fitted the width.
+
 ## [2.4.0] - 2026-10-26
 
 ### Added

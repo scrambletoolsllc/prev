@@ -326,6 +326,9 @@ pub enum Message {
     ZoomOut,
     ActualSize,
     FitToWindow,
+    /// Fill the window's width, as an agent asks; the toolbar has no
+    /// button for it.
+    FitWidth,
     /// A zoom, where 1.0 is actual size.
     ZoomTo(f32),
     /// Export the current image to a file, as an agent asks: the path,
@@ -890,10 +893,13 @@ impl ImageWindow {
                 self.sidebar = !self.sidebar;
                 Task::none()
             }
-            Message::ZoomIn | Message::ZoomOut | Message::FitToWindow if self.marked() => {
+            Message::ZoomIn | Message::ZoomOut | Message::FitToWindow | Message::FitWidth
+                if self.marked() =>
+            {
                 let zoom = match message {
                     Message::ZoomIn => Zoom::In,
                     Message::ZoomOut => Zoom::Out,
+                    Message::FitWidth => Zoom::FitWidth,
                     _ => Zoom::FitPage,
                 };
                 self.with_markup(|window, _| {
@@ -911,6 +917,7 @@ impl ImageWindow {
             Message::ZoomOut => self.zoom_to(self.zoom() / ZOOM_STEP, None),
             Message::ActualSize => self.zoom_to(1.0, None),
             Message::ZoomTo(zoom) => self.zoom_to(zoom, None),
+            Message::FitWidth => self.refit(Fit::Width, None),
             Message::Exporting(path, format, choice, scale) => {
                 self.export_to(path, format, &choice, scale)
             }
@@ -1402,13 +1409,21 @@ impl ImageWindow {
     /// Zooms keeping the image point under `anchor` (view coordinates, the
     /// view centre by default) in place.
     fn zoom_to(&mut self, zoom: f32, anchor: Option<(f32, f32)>) -> Task<Message> {
+        self.refit(
+            Fit::Zoom(zoom.clamp(view::MIN_ZOOM, view::MAX_ZOOM)),
+            anchor,
+        )
+    }
+
+    /// Changes the fit as `zoom_to` does, keeping the point under `anchor`.
+    fn refit(&mut self, fit: Fit, anchor: Option<(f32, f32)>) -> Task<Message> {
         let Some(before) = self.placement() else {
             return Task::none();
         };
         let anchor = anchor.unwrap_or((self.view.2 / 2.0, self.view.3 / 2.0));
         let fraction =
             view::image_fraction(&before, self.view.0 + anchor.0, self.view.1 + anchor.1);
-        self.fit = Fit::Zoom(zoom.clamp(view::MIN_ZOOM, view::MAX_ZOOM));
+        self.fit = fit;
         let Some(after) = self.placement() else {
             return Task::none();
         };
@@ -1426,7 +1441,7 @@ impl ImageWindow {
     /// The zoom and the point of the image in the middle of the view, as
     /// fractions of its size, unless the image is fitted to the window.
     fn zoomed_center(&self) -> Option<(f32, (f32, f32))> {
-        if !matches!(self.fit, Fit::Zoom(_)) {
+        if self.fit == Fit::Fit {
             return None;
         }
         let placement = self.placement()?;

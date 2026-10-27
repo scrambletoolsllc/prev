@@ -43,8 +43,8 @@ pub(super) fn tools() -> Vec<Tool> {
             "Set the zoom",
             Kind::View,
             "Zooms a PDF, image or Markdown window to a percentage, or fits the page or its \
-             width (an image fits the window either way), or shows actual size. Give percent \
-             or fit.",
+             width (for an image, the whole image or its width), or shows actual size. Give \
+             percent or fit.",
             set_zoom,
         ),
         tool(
@@ -464,8 +464,9 @@ fn set_zoom(app: &mut Prev, input: SetZoom, answer: &Answer) -> Task<Message> {
                 app.send_images(
                     id,
                     match fit {
+                        FitChoice::Page => image_window::Message::FitToWindow,
+                        FitChoice::Width => image_window::Message::FitWidth,
                         FitChoice::ActualSize => image_window::Message::ActualSize,
-                        FitChoice::Page | FitChoice::Width => image_window::Message::FitToWindow,
                     },
                 ),
                 fit_name(fit).to_owned(),

@@ -9,6 +9,8 @@ pub const ZOOM_STEP: f32 = 1.25;
 pub enum Fit {
     /// Fit in the view, never enlarging past actual size.
     Fit,
+    /// Fill the view's width, enlarging if need be, as an agent asks.
+    Width,
     Zoom(f32),
 }
 
@@ -41,6 +43,7 @@ pub fn resolve_zoom(fit: Fit, image: (f32, f32), view: (f32, f32)) -> f32 {
             let fit = (view.0 / image.0.max(1.0)).min(view.1 / image.1.max(1.0));
             fit.min(1.0)
         }
+        Fit::Width => view.0 / image.0.max(1.0),
         Fit::Zoom(zoom) => zoom,
     };
     zoom.clamp(MIN_ZOOM, MAX_ZOOM)
@@ -99,6 +102,10 @@ mod tests {
         assert_eq!(resolve_zoom(Fit::Fit, (100.0, 50.0), (800.0, 600.0)), 1.0);
         assert_eq!(resolve_zoom(Fit::Fit, (1600.0, 600.0), (800.0, 600.0)), 0.5);
         assert_eq!(resolve_zoom(Fit::Fit, (800.0, 1200.0), (800.0, 600.0)), 0.5);
+        assert_eq!(
+            resolve_zoom(Fit::Width, (400.0, 1200.0), (800.0, 600.0)),
+            2.0
+        );
         assert_eq!(
             resolve_zoom(Fit::Zoom(1000.0), (10.0, 10.0), (800.0, 600.0)),
             MAX_ZOOM
