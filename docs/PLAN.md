@@ -23,7 +23,7 @@ Material Design 3.
 | Area | Decision |
 |---|---|
 | License | AGPL-3.0-or-later, as MuPDF requires ([ADR 0001](decisions/0001-pdf-engine.md)) |
-| Platforms | Linux, Wayland first (Hyprland), X11 supported; Windows 10 and 11; macOS 11 and later. x86_64 and ARM64 on Linux and Windows, RISC-V on Linux, Apple Silicon on macOS |
+| Platforms | Linux, Wayland first (Hyprland), X11 supported; Windows 10 and 11; macOS 11 and later. x86_64 and ARM64 on Linux and Windows, RISC-V on Linux, Apple Silicon and Intel on macOS |
 | Language | Rust, stable toolchain, edition 2024, minimum Rust 1.95 |
 | GUI | iced 0.14: wgpu (Vulkan on Linux, DirectX 12 or Vulkan on Windows, Metal on macOS), tiny-skia on the CPU when no GPU backend starts |
 | PDF engine | MuPDF through the `mupdf` crate, behind an engine trait |
@@ -38,12 +38,12 @@ Material Design 3.
 | Fonts | Roboto Flex (OFL-1.1) and Material Symbols Rounded (Apache-2.0), bundled |
 | Assistant and agents | One tool registry for outside agents over MCP (`prev --mcp`, rmcp) and the assistant panel (rig-core, pinned, in `prev-assist`); no bundled model; API keys in the system keychain ([ASSISTANT.md](ASSISTANT.md)) |
 | Interface languages | Fluent files in `i18n/`, one per language, 38 languages; the layout mirrors inside panels, dialogs and menus for right to left languages ([TRANSLATING.md](TRANSLATING.md)) |
-| Distribution | GitHub releases: .deb, .rpm, AppImage, tarball, Flatpak bundle, PKGBUILD, Windows MSI and zip, macOS disk image; AUR once published; not on Flathub |
+| Distribution | GitHub releases: .deb, .rpm, AppImage, tarball, Flatpak bundle, PKGBUILD, Windows MSI and zip, macOS disk images; AUR once published; not on Flathub |
 
 ## Not in scope
 
 Audio and video, editing Markdown, math, Mermaid and raw HTML in
-Markdown, SVG scripting and animation, and Intel Macs.
+Markdown, and SVG scripting and animation.
 
 ## Not built yet
 
@@ -243,15 +243,17 @@ driver mappings.
 - Every push and pull request: `cargo fmt`, clippy with warnings as
   errors, the tests and the render regression on Linux, the same build,
   lint and tests on Windows (which also builds the MSI and zip) and on
-  macOS (which also builds prev.app),
+  macOS (which also builds prev.app), there for Intel Macs too,
+  cross-compiled and tested under Rosetta,
   `cargo deny`, the minimum Rust version, AppStream and desktop entry
   validation, and the Flatpak crate list check.
 - Tags build every package and draft the release ([RELEASING.md](RELEASING.md)):
   x86_64 and ARM64 on GitHub's runners for each, RISC-V cross-compiled
-  from x86_64 and started once under QEMU, and the macOS disk image on
-  Apple Silicon. Every build runs
-  `prev --version` before it is packaged; the ARM64 and RISC-V builds
-  are otherwise untested by hand.
+  from x86_64 and started once under QEMU, and the macOS disk images on
+  Apple Silicon, the Intel one cross-compiled and started under
+  Rosetta. Every build runs
+  `prev --version` before it is packaged; the ARM64, RISC-V and Intel
+  Mac builds are otherwise untested by hand.
 - The interface is tested by hand, on Hyprland, in a Windows 11 virtual
   machine and on a Mac mini.
 - A test renders every counted string in every language, and one checks

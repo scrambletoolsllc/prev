@@ -15,16 +15,17 @@ Everything a release ships is built from this repository:
 | `packaging/appimage/build.sh` | The AppImage |
 | `packaging/flatpak/` | Flatpak manifest and the crate sources it builds from |
 | `packaging/windows/` | Windows MSI (WiX 5) and zip, made by `build.ps1`; `check-dlls.py`, which copies in the Visual C++ runtime prev.exe and heif.dll load and fails if they load any other DLL that neither ships nor comes with Windows; `install-test.ps1`; the ARM64 patch for mupdf-sys; `msvc-toolset.ps1`, which builds MuPDF with the installed Visual Studio's toolset; `bindgen-headers.ps1`, which has MuPDF's bindings read clang's own headers; `vcpkg/`, the pinned, decode-only `heif.dll` (move its baseline to update libheif, libde265 and aom) |
-| `packaging/macos/bundle.sh` | prev.app and its disk image, with an Info.plist for the file types it opens |
-| `packaging/macos/build-libheif.sh` | The decode-only libheif prev.app carries, from pinned, checksummed sources; update its versions and checksums for new libheif, libde265 and aom releases |
+| `packaging/macos/bundle.sh` | prev.app and its disk image, with an Info.plist for the file types it opens, for Apple Silicon or, with `--arch x86_64`, Intel Macs |
+| `packaging/macos/build-libheif.sh` | The decode-only libheif prev.app carries, from pinned, checksummed sources, for either kind of Mac (the Intel one needs nasm); update its versions and checksums for new libheif, libde265 and aom releases |
 | `scripts/cross-setup.sh` | Prepares Ubuntu to cross-compile for RISC-V |
 | `.github/workflows/release.yml` | Builds all of them for a tag and drafts the GitHub release |
-| `.github/workflows/install-test.yml`, `scripts/install-test.sh` | Installs each package on a clean system and starts prev: the MSI and zip in a Windows Server container without the Visual C++ Redistributable, the .deb, .rpm, AppImage, tarball and Flatpak in containers of the distributions they are for (RISC-V emulated), the disk image on macOS, checking that it links nothing outside the app and the system |
+| `.github/workflows/install-test.yml`, `scripts/install-test.sh` | Installs each package on a clean system and starts prev: the MSI and zip in a Windows Server container without the Visual C++ Redistributable, the .deb, .rpm, AppImage, tarball and Flatpak in containers of the distributions they are for (RISC-V emulated), the disk images on macOS, the Intel one under Rosetta, checking that they link nothing outside the app and the system |
 
 Each package is built for x86_64 and ARM64 on GitHub's runners of that
 architecture; the Linux .deb, .rpm and tarball are also cross-compiled
-for RISC-V, which has no runners. The macOS disk image is built for
-Apple Silicon only.
+for RISC-V, which has no runners. Both macOS disk images are built on
+Apple Silicon: `prev-X.Y.Z-arm64.dmg`, and `prev-X.Y.Z-x86_64.dmg` for
+Intel Macs, cross-compiled and started under Rosetta.
 
 Packages are built with `PREV_PRODUCTION=1`, which makes the installed
 copy: settings in `prev.toml` (`~/.config` on Linux, `%APPDATA%\prev` on

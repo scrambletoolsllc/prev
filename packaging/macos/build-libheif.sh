@@ -4,14 +4,26 @@
 # the app has one library to bundle. Built for macOS 11, as prev is, and
 # without Homebrew's copies, so it runs on Macs that have neither.
 #
-#   packaging/macos/build-libheif.sh [OUT]
+#   packaging/macos/build-libheif.sh [--arch arm64|x86_64] [OUT]
 #
+# For Apple Silicon (arm64) or Intel Macs (x86_64), this Mac's kind by
+# default; either builds on the other. aom's x86_64 code needs nasm.
 # Leaves OUT/lib/libheif.1.dylib, which bundle.sh copies into the app.
-# OUT defaults to target/libheif.
+# OUT defaults to target/libheif/ARCH.
 set -euo pipefail
 
 root=$(cd "$(dirname "$0")/../.." && pwd)
-out=$(mkdir -p "${1:-$root/target/libheif}" && cd "${1:-$root/target/libheif}" && pwd)
+arch=$(uname -m)
+if [ "${1:-}" = --arch ]; then
+    arch=$2
+    shift 2
+fi
+case $arch in
+    arm64 | x86_64) ;;
+    *) echo "unknown architecture: $arch" >&2; exit 2 ;;
+esac
+out=${1:-$root/target/libheif/$arch}
+out=$(mkdir -p "$out" && cd "$out" && pwd)
 
 libheif=1.23.5
 libheif_sha=fd9036064c4432f0550d15072ddf34956a248279ee9aeaff0fba3fa0f77d8f1a
@@ -46,16 +58,21 @@ common=(
     -G Ninja
     -DCMAKE_BUILD_TYPE=Release
     -DCMAKE_OSX_DEPLOYMENT_TARGET=11.0
-    -DCMAKE_OSX_ARCHITECTURES=arm64
+    -DCMAKE_OSX_ARCHITECTURES="$arch"
     -DCMAKE_INSTALL_PREFIX="$prefix"
     -DCMAKE_PREFIX_PATH="$prefix"
     "-DCMAKE_IGNORE_PREFIX_PATH=/opt/homebrew;/usr/local"
 )
+# Built on the other kind of Mac, the parts that pick their processor's
+# own code would otherwise pick this Mac's.
+if [ "$arch" != "$(uname -m)" ]; then
+    common+=(-DCMAKE_SYSTEM_NAME=Darwin -DCMAKE_SYSTEM_PROCESSOR="$arch")
+fi
 export PKG_CONFIG_LIBDIR="$prefix/lib/pkgconfig"
 export PKG_CONFIG_PATH="$prefix/lib/pkgconfig"
 
 cmake -S "$work/libaom-$aom" -B "$work/aom-build" "${common[@]}" \
-    -DBUILD_SHARED_LIBS=OFF -DCONFIG_AV1_ENCODER=0 \
+    -DBUILD_SHARED_LIBS=OFF -DCONFIG_AV1_ENCODER=0 -DAOM_TARGET_CPU="$arch" \
     -DENABLE_DOCS=0 -DENABLE_EXAMPLES=0 -DENABLE_TESTS=0 -DENABLE_TOOLS=0
 cmake --build "$work/aom-build"
 cmake --install "$work/aom-build"
@@ -76,6 +93,10 @@ cmake --install "$work/heif-build"
 
 mkdir -p "$out/lib"
 cp -L "$prefix/lib/libheif.1.dylib" "$out/lib/libheif.1.dylib"
+if [ "$(lipo -archs "$out/lib/libheif.1.dylib")" != "$arch" ]; then
+    echo "libheif is not built for $arch alone" >&2
+    exit 1
+fi
 # Anything outside the system would be missing on other Macs.
 if otool -L "$out/lib/libheif.1.dylib" | awk 'NR > 2 {print $1}' | grep -v -E '^(/usr/lib/|/System/)'; then
     echo "libheif depends on libraries outside the system" >&2

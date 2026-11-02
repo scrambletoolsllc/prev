@@ -5,7 +5,11 @@
 # signed ad hoc, which Apple Silicon needs to run it at all, unless
 # given a Developer ID (docs/RELEASING.md).
 #
-#   packaging/macos/bundle.sh [--dmg] [--out DIR]
+#   packaging/macos/bundle.sh [--arch arm64|x86_64] [--dmg] [--out DIR]
+#
+# The app is for Apple Silicon (arm64) or Intel Macs (x86_64), this
+# Mac's kind by default; for the other kind it is cross-compiled, with
+# the Rust target added (rustup target add x86_64-apple-darwin).
 #
 # PREV_PRODUCTION=1 makes a release build, as in CI; without it the app
 # is the development build, with its own settings and data.
@@ -21,15 +25,22 @@ set -euo pipefail
 
 root=$(cd "$(dirname "$0")/../.." && pwd)
 out="$root/target/macos"
+arch=$(uname -m)
 dmg=false
 while [ $# -gt 0 ]; do
     case "$1" in
+        --arch) arch=$2; shift ;;
         --dmg) dmg=true ;;
         --out) out=$2; shift ;;
         *) echo "unknown option: $1" >&2; exit 2 ;;
     esac
     shift
 done
+case $arch in
+    arm64) triple=aarch64-apple-darwin ;;
+    x86_64) triple=x86_64-apple-darwin ;;
+    *) echo "unknown architecture: $arch" >&2; exit 2 ;;
+esac
 
 version=$(sed -n 's/^version = "\(.*\)"/\1/p' "$root/Cargo.toml" | head -1)
 if [ -n "${PREV_PRODUCTION:-}" ]; then
@@ -49,12 +60,18 @@ if [ -z "${LIBCLANG_PATH:-}" ]; then
         fi
     done
 fi
-cargo build --release --locked -p prev --manifest-path "$root/Cargo.toml"
+if [ "$arch" = "$(uname -m)" ]; then
+    cargo build --release --locked -p prev --manifest-path "$root/Cargo.toml"
+    binary="$root/target/release/prev"
+else
+    cargo build --release --locked -p prev --manifest-path "$root/Cargo.toml" --target "$triple"
+    binary="$root/target/$triple/release/prev"
+fi
 
 app="$out/$name.app"
 rm -rf "$app"
 mkdir -p "$app/Contents/MacOS" "$app/Contents/Resources" "$app/Contents/Frameworks"
-cp "$root/target/release/prev" "$app/Contents/MacOS/prev"
+cp "$binary" "$app/Contents/MacOS/prev"
 
 # The icon: each size an .iconset asks for, from the PNGs the Linux
 # packages use; 1024 is scaled up from 512.
@@ -135,17 +152,18 @@ EOF
 plutil -lint "$app/Contents/Info.plist" >/dev/null
 
 # HEIC and AVIF: the decode-only libheif build-libheif.sh makes, when it
-# has been built (the release does); else, for a build on this Mac only,
-# Homebrew's, with the libraries it needs.
+# has been built for this kind of Mac (the release does); else, for a
+# build on this Mac only, Homebrew's, with the libraries it needs.
 licenses="$app/Contents/Resources/licenses"
-if [ -e "$root/target/libheif/lib/libheif.1.dylib" ]; then
-    cp "$root/target/libheif/lib/libheif.1.dylib" "$app/Contents/Frameworks/"
+libheif="$root/target/libheif/$arch"
+if [ -e "$libheif/lib/libheif.1.dylib" ]; then
+    cp "$libheif/lib/libheif.1.dylib" "$app/Contents/Frameworks/"
     mkdir -p "$licenses"
-    cp "$root"/target/libheif/{COPYING-*,LICENSE-*,PATENTS-*} "$licenses/"
+    cp "$libheif"/{COPYING-*,LICENSE-*,PATENTS-*} "$licenses/"
 else
     for prefix in /opt/homebrew /usr/local; do
         heif="$prefix/lib/libheif.1.dylib"
-        [ -e "$heif" ] || continue
+        [ -e "$heif" ] && lipo "$heif" -verify_arch "$arch" 2>/dev/null || continue
         cp -L "$heif" "$app/Contents/Frameworks/"
         for dependency in $(otool -L "$heif" | awk 'NR > 1 {print $1}' | grep "^$prefix/"); do
             base=$(basename "$dependency")
@@ -222,7 +240,7 @@ if $dmg; then
     stage=$(mktemp -d)
     cp -R "$app" "$stage/"
     ln -s /Applications "$stage/Applications"
-    image="$out/$name-$version-$(uname -m).dmg"
+    image="$out/$name-$version-$arch.dmg"
     rm -f "$image"
     hdiutil create -volname "$name" -srcfolder "$stage" -ov -format UDZO "$image" >/dev/null
     if [ "$identity" != - ]; then

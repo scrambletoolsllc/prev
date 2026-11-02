@@ -5,6 +5,11 @@ All notable changes to prev. Versions follow
 
 ## Unreleased
 
+### Added
+
+- A disk image for Intel Macs, `prev-X.Y.Z-x86_64.dmg`, beside the one
+  for Apple Silicon, signed and notarized the same way.
+
 ### Fixed
 
 - The set_zoom tool's width fit fills an image window's width, marked

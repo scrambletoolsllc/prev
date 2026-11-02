@@ -3,7 +3,7 @@ name: Install test
 # Installs prev's packages on clean systems and checks that prev starts:
 # the Windows installer and zip in a Windows container without the Visual
 # C++ Redistributable, each Linux package in containers of the
-# distributions it is for, and the macOS disk image. The release workflow
+# distributions it is for, and the macOS disk images. The release workflow
 # runs it on the packages it has just built, before drafting the release;
 # run it by hand to test the files of a published release.
 on:
@@ -117,19 +117,26 @@ jobs:
   macos:
     # GitHub's macOS runners come with Homebrew, so the check is that prev
     # links nothing outside the app and the system, rather than a clean
-    # Mac.
+    # Mac. The Intel app starts under Rosetta.
     if: ${{ inputs.release || inputs.only == 'all' || inputs.only == 'macos' }}
+    strategy:
+      fail-fast: false
+      matrix:
+        arch: [arm64, x86_64]
     runs-on: macos-15
     steps:
       - if: ${{ !inputs.release }}
         uses: actions/download-artifact@v4
         with:
-          name: macos-arm64
+          name: macos-${{ matrix.arch }}
           path: packages
       - if: ${{ inputs.release }}
-        run: gh release download "${{ inputs.release }}" -R "${{ github.repository }}" -p "*.dmg" -D packages
+        run: gh release download "${{ inputs.release }}" -R "${{ github.repository }}" -p "*-${{ matrix.arch }}.dmg" -D packages
         env:
           GH_TOKEN: ${{ github.token }}
+      - if: matrix.arch == 'x86_64'
+        name: Rosetta, to start the Intel app
+        run: arch -x86_64 /usr/bin/true 2>/dev/null || sudo softwareupdate --install-rosetta --agree-to-license
       - name: Install from the disk image and start
         env:
           # The disk image this run built, once releases are signed.
@@ -152,6 +159,7 @@ jobs:
           if [ "$EXPECT_SIGNED" = true ]; then
             spctl --assess --type execute --verbose=2 "$app"
           fi
+          [ "$(lipo -archs "$app/Contents/MacOS/prev")" = ${{ matrix.arch }} ]
           version=$("$app/Contents/MacOS/prev" --version)
           echo "$version"
           [[ $version == prev\ [0-9]* ]]

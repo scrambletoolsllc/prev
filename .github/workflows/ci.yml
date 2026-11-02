@@ -42,25 +42,40 @@ jobs:
       - run: appstreamcli validate --no-net --override=cid-desktopapp-is-not-rdns=info data/*.metainfo.xml
 
   macos:
-    # Apple Silicon. The release job adds the decode-only libheif.
+    # Apple Silicon, and Intel Macs cross-compiled there, their tests and
+    # the app run under Rosetta. The release job adds the decode-only
+    # libheif.
+    strategy:
+      fail-fast: false
+      matrix:
+        arch: [arm64, x86_64]
     runs-on: macos-15
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
         with:
           components: clippy
+          targets: ${{ matrix.arch == 'x86_64' && 'x86_64-apple-darwin' || '' }}
       - uses: Swatinem/rust-cache@v2
+        with:
+          key: ${{ matrix.arch }}
       - name: libclang for bindgen
         run: echo "LIBCLANG_PATH=$(xcode-select -p)/Toolchains/XcodeDefault.xctoolchain/usr/lib" >>"$GITHUB_ENV"
-      - run: cargo clippy --workspace --all-targets -- -D warnings
-      - run: cargo test --workspace
+      - if: matrix.arch == 'x86_64'
+        name: Rosetta, to run the Intel build
+        run: arch -x86_64 /usr/bin/true 2>/dev/null || sudo softwareupdate --install-rosetta --agree-to-license
+      - if: matrix.arch == 'arm64'
+        run: cargo clippy --workspace --all-targets -- -D warnings
+      - run: cargo test --workspace ${{ matrix.arch == 'x86_64' && '--target x86_64-apple-darwin' || '' }}
       - name: App and disk image
-        run: packaging/macos/bundle.sh --dmg
+        run: packaging/macos/bundle.sh --arch ${{ matrix.arch }} --dmg
       - name: Check that it runs
-        run: target/macos/prev-dev.app/Contents/MacOS/prev --version
+        run: |
+          target/macos/prev-dev.app/Contents/MacOS/prev --version
+          [ "$(lipo -archs target/macos/prev-dev.app/Contents/MacOS/prev)" = ${{ matrix.arch }} ]
       - uses: actions/upload-artifact@v4
         with:
-          name: prev-macos
+          name: prev-macos-${{ matrix.arch }}
           path: target/macos/*.dmg
 
   windows:
