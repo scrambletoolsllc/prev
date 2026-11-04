@@ -3,7 +3,7 @@
 All notable changes to prev. Versions follow
 [Semantic Versioning](https://semver.org).
 
-## Unreleased
+## [2.4.1] - 2026-11-03
 
 ### Added
 
@@ -482,6 +482,7 @@ The first release.
 - Material 3 design, light and dark, with colors from the desktop theme,
   an optional floating toolbar, and reduced motion.
 
+[2.4.1]: https://github.com/scrambletools/prev/releases/tag/v2.4.1
 [2.4.0]: https://github.com/scrambletools/prev/releases/tag/v2.4.0
 [2.3.0]: https://github.com/scrambletools/prev/releases/tag/v2.3.0
 [2.2.3]: https://github.com/scrambletools/prev/releases/tag/v2.2.3

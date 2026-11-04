@@ -92,6 +92,11 @@
   <content_rating type="oars-1.1"/>
 
   <releases>
+    <release version="2.4.1" date="2026-11-03">
+      <description>
+        <p>prev comes for Intel Macs too, as a disk image signed and notarized like the one for Apple Silicon. When an agent asks to fit an image's width, prev fills the window's width instead of fitting the whole image.</p>
+      </description>
+    </release>
     <release version="2.4.0" date="2026-10-26">
       <description>
         <p>Documents, images and Markdown files print: the Export button opens a menu with Print, as Ctrl+P does, and Markdown prints on light pages that end between lines. Agents and the assistant can print without the print dialog, after asking. On Linux, a print that does not go through says what is missing. A selected area and redaction marks are framed like other annotations, with handles to resize them, and redaction marks show as see-through dark boxes. A panel on the right runs the window's whole height, and the assistant no longer repeats what it redacts.</p>
