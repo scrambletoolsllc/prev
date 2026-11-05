@@ -46,6 +46,16 @@ jobs:
           python packaging\windows\check-dlls.py files --system-list packages\system-dlls.txt
           Write-Host "check-dlls.py: exit $LASTEXITCODE (the clean install below decides)"
           exit 0
+      # Some runner images leave the Docker service stopped.
+      - name: Start Docker
+        shell: pwsh
+        run: |
+          $docker = Get-Service docker
+          if ($docker.Status -ne 'Running') {
+            Start-Service docker
+            $docker.WaitForStatus('Running', '00:02:00')
+          }
+          docker version
       - name: Install and start on a clean Windows
         shell: pwsh
         run: |
