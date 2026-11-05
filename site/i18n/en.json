@@ -203,9 +203,9 @@
   "page": "index.html",
   "text": "The same photo on macOS"
  },
- "b6638583de12": {
+ "8355af4e379e": {
   "page": "index.html",
-  "text": "prev {v} for Linux and Windows on x86_64 and ARM64, Linux on RISC-V, and macOS on Apple Silicon. Every file is on the <a1>release page</a1>, with checksums."
+  "text": "prev {v} for Linux and Windows on x86_64 and ARM64, Linux on RISC-V, and macOS on Apple Silicon and Intel. Every file is on the <a1>release page</a1>, with checksums."
  },
  "bc0792d8dc81": {
   "page": "index.html",
@@ -239,13 +239,13 @@
   "page": "index.html",
   "text": "Unpack it anywhere and run <code>prev.exe</code>"
  },
- "04f864a554e0": {
+ "403e41c81f60": {
   "page": "index.html",
-  "text": "macOS 11 and later, Apple Silicon"
+  "text": "macOS 11 and later"
  },
- "ba0e180a5701": {
+ "749c05da4dca": {
   "page": "index.html",
-  "text": "Disk image (.dmg): <a1>Apple Silicon</a1>"
+  "text": "Disk image (.dmg): <a1>Apple Silicon</a1> · <a2>Intel</a2>"
  },
  "ad7a6715d26d": {
   "page": "index.html",
@@ -1575,9 +1575,9 @@
   "page": "specs.html",
   "text": "macOS 11 or later"
  },
- "5b7657e40c32": {
+ "0e5a98cf3a70": {
   "page": "specs.html",
-  "text": "Apple Silicon"
+  "text": "Apple Silicon, Intel"
  },
  "e6268f54a076": {
   "page": "specs.html",
