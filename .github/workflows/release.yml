@@ -383,8 +383,15 @@ jobs:
             codesign -dvv "$library" 2>&1 | grep -Fqx "Authority=$PREV_SIGN_IDENTITY"
           done
           codesign -dvv dist/*.dmg 2>&1 | grep -Fx "Authority=$PREV_SIGN_IDENTITY"
-          xcrun stapler validate dist/prev.app
-          xcrun stapler validate dist/*.dmg
+          # Apple's ticket servers sometimes drop the connection, so a
+          # ticket is checked again before failing.
+          for target in dist/prev.app dist/*.dmg; do
+            for attempt in 1 2 3 4 5; do
+              xcrun stapler validate "$target" && break
+              [ "$attempt" = 5 ] && exit 1
+              sleep 30
+            done
+          done
           spctl --assess --type execute --verbose=2 dist/prev.app
           spctl --assess --type open --context context:primary-signature --verbose=2 dist/*.dmg
       - if: always() && env.SIGNING == 'true'
