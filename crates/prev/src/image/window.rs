@@ -374,6 +374,7 @@ pub enum Message {
     PrintFinished(Result<(), String>),
     DismissNotice,
     SidebarResized(Drag),
+    PanelResized(Drag),
     ToggleOverflow,
     CloseOverflow,
     ToggleMarkup,
@@ -439,6 +440,7 @@ pub struct ImageWindow {
     frame: usize,
     next_frame: Option<Instant>,
     panel: Option<Panel>,
+    panel_width: Width,
     selecting: bool,
     selection: Option<Selection>,
     color: ColorAdjust,
@@ -620,6 +622,7 @@ impl ImageWindow {
             frame: 0,
             next_frame: None,
             panel: None,
+            panel_width: component::SIDE_SHEET_RESIZE,
             selecting: false,
             selection: None,
             color: ColorAdjust::default(),
@@ -1193,6 +1196,10 @@ impl ImageWindow {
             }
             Message::SidebarResized(drag) => {
                 self.sidebar_width.drag(drag);
+                Task::none()
+            }
+            Message::PanelResized(drag) => {
+                self.panel_width.drag_left_edge(drag);
                 Task::none()
             }
             Message::DismissNotice => {
@@ -2746,7 +2753,13 @@ impl ImageWindow {
             Panel::AdjustSize => (crate::fl!("image-adjust-size"), self.size_panel()),
             Panel::Inspector => (crate::fl!("image-inspector"), self.inspector_panel()),
         };
-        component::side_sheet(title, Message::TogglePanel(panel), content)
+        component::side_sheet_resizable(
+            title,
+            Message::TogglePanel(panel),
+            content,
+            self.panel_width.value,
+            Message::PanelResized,
+        )
     }
 
     fn color_panel(&self) -> Element<'_, Message> {

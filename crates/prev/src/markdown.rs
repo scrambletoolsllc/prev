@@ -22,6 +22,7 @@ use iced::{Center, Element, Fill, Padding, Task, Theme, padding};
 use crate::filetype::{self, FileKind};
 use crate::info;
 use crate::shortcuts::Action;
+use crate::ui::resize::{Drag, Width};
 use crate::ui::{self, Icon, Type, button, component, style};
 use crate::{dialog, portal, print};
 
@@ -60,6 +61,7 @@ pub enum Message {
     /// How far to scroll to show the current match, if it is out of view.
     Reveal(Option<f32>),
     ToggleInspector,
+    InspectorResized(Drag),
     /// Handled by the app, as in the other windows.
     ToggleFloatingBars,
     OpenSettings,
@@ -124,6 +126,7 @@ pub struct MarkdownWindow {
     found: Cell<usize>,
     highlights: code::Highlights,
     inspector: bool,
+    inspector_width: Width,
     /// The text fills the window rather than keeping to `MAX_WIDTH`.
     full_width: bool,
     /// Whether the app shows its assistant panel beside this window.
@@ -313,6 +316,7 @@ impl MarkdownWindow {
             found: Cell::new(0),
             highlights: code::Highlights::default(),
             inspector: false,
+            inspector_width: component::SIDE_SHEET_RESIZE,
             full_width: false,
             assistant_shown: false,
             fullscreen: false,
@@ -423,6 +427,10 @@ impl MarkdownWindow {
             Message::Reveal(None) => Task::none(),
             Message::ToggleInspector => {
                 self.inspector = !self.inspector;
+                Task::none()
+            }
+            Message::InspectorResized(drag) => {
+                self.inspector_width.drag_left_edge(drag);
                 Task::none()
             }
             Message::ToggleFloatingBars
@@ -606,10 +614,12 @@ impl MarkdownWindow {
         // bars end where they begin. They keep their side in every language.
         let mut window = iced::widget::row![bars].height(Fill);
         if self.inspector {
-            window = window.push(component::side_sheet(
+            window = window.push(component::side_sheet_resizable(
                 crate::fl!("markdown-inspector"),
                 Message::ToggleInspector,
                 self.inspector_view(),
+                self.inspector_width.value,
+                Message::InspectorResized,
             ));
         }
         if let Some(side) = side {

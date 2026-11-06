@@ -116,6 +116,7 @@ pub enum Message {
     OpenUriFinished(Result<(), String>),
     DismissNotice,
     SidebarResized(Drag),
+    InspectorResized(Drag),
     AutosaveDue(u64),
     Saved(u64, Result<(), String>),
     ToggleMarkupBar,
@@ -280,6 +281,7 @@ pub struct PdfWindow {
     pointer_inside: bool,
     /// The inspector panel, with the document information once loaded.
     inspector: Option<Option<prev_pdf::engine::Metadata>>,
+    inspector_width: Width,
     /// Whether the app shows its assistant panel beside this window.
     assistant_shown: bool,
     /// Whether the window is full screen, for the toolbar's button.
@@ -365,6 +367,7 @@ impl PdfWindow {
             pointer_over_sidebar: None,
             pointer_inside: true,
             inspector: None,
+            inspector_width: component::SIDE_SHEET_RESIZE,
             assistant_shown: false,
             fullscreen: false,
             image_mode: false,
@@ -921,6 +924,10 @@ impl PdfWindow {
                 // Thumbnail heights follow the width, so the list moved.
                 let (offset, height) = self.thumbnails_view;
                 Task::batch([self.follow_thumbnail(), self.thumbnails_for(offset, height)])
+            }
+            Message::InspectorResized(drag) => {
+                self.inspector_width.drag_left_edge(drag);
+                Task::none()
             }
             Message::DismissNotice => {
                 self.notice = None;
@@ -1977,10 +1984,12 @@ impl PdfWindow {
                 ),
             ])
         };
-        component::side_sheet(
+        component::side_sheet_resizable(
             crate::i18n::lasting(crate::fl!("pdf-inspector")),
             Message::ToggleInspector,
             content,
+            self.inspector_width.value,
+            Message::InspectorResized,
         )
     }
 

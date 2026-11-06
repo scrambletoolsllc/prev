@@ -12,6 +12,7 @@ use iced::widget::{
 use iced::{Center, Element, Fill, Length, Padding, Task, window};
 use prev::control::{Call, Error};
 use prev::ui::button::Kind;
+use prev::ui::resize::{self, Drag, Width};
 use prev::ui::{self, Icon, Type, component, style};
 use prev_assist::{Chat, Content, Event, ToolCall, ToolResult};
 use serde_json::{Value, json};
@@ -20,8 +21,9 @@ use super::super::{Message, Prev, tools};
 use super::{AssistantModel, choice_of, key_of, shown_name};
 use crate::External;
 
-/// The panel's width.
-const WIDTH: f32 = 380.0;
+/// The panel's width, and the narrowest and widest its edge can be
+/// dragged to.
+const WIDTH: Width = Width::new(380.0, 320.0, 640.0);
 
 /// The widest a tool's picture shows in the panel.
 const PICTURE_WIDTH: f32 = 300.0;
@@ -69,6 +71,8 @@ pub(crate) enum PanelMessage {
     /// Unfold or fold the reasoning at this entry.
     ToggleReasoning(usize),
     OpenSettings,
+    /// The panel's edge was dragged.
+    Resized(Drag),
 }
 
 enum Entry {
@@ -128,6 +132,7 @@ pub(crate) struct Panel {
     calls: VecDeque<ToolCall>,
     results: Vec<ToolResult>,
     running: bool,
+    width: Width,
 }
 
 impl Panel {
@@ -147,6 +152,7 @@ impl Panel {
             calls: VecDeque::new(),
             results: Vec::new(),
             running: false,
+            width: WIDTH,
         }
     }
 }
@@ -280,6 +286,7 @@ impl Prev {
     ) -> Task<Message> {
         match message {
             PanelMessage::Input(text) => panel.input = text,
+            PanelMessage::Resized(drag) => panel.width.drag_left_edge(drag),
             PanelMessage::Send => {
                 let said = panel.input.trim().to_owned();
                 if said.is_empty() || panel.busy {
@@ -756,13 +763,16 @@ impl Prev {
             bottom: 8.0,
             left: 24.0,
         });
-        // It slides in from the right, as the inspector does.
-        Some(prev::ui::enter::from_right(
-            container(column![header, entries, input, model_row])
-                .width(WIDTH)
-                .height(Fill)
-                .style(style::chrome),
-        ))
+        // It slides in from the right, as the inspector does, and its
+        // left edge resizes it.
+        let sheet = container(column![header, entries, input, model_row])
+            .width(panel.width.value)
+            .height(Fill)
+            .style(style::chrome);
+        Some(prev::ui::enter::from_right(resize::on_left_edge(
+            sheet,
+            move |drag| message(PanelMessage::Resized(drag)),
+        )))
     }
 }
 

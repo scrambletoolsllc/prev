@@ -5,6 +5,12 @@ All notable changes to prev. Versions follow
 
 ## Unreleased
 
+### Added
+
+- The panels on the right, the inspectors, the image adjustments and
+  the assistant, resize by their left edge as the sidebar does by its
+  right, each between a narrowest and a widest width.
+
 ### Fixed
 
 - Zooming a PDF with the scroll wheel keeps the page sharp: the page as
