@@ -417,14 +417,36 @@ impl<Message> Widget<Message, Theme, iced::Renderer> for PageCanvas<'_, Message>
                     (rect, viewer.tile(&viewer.tile_key(page, &tile)))
                 })
                 .collect();
-            if tiles.iter().any(|(_, handle)| handle.is_none())
-                && let Some(preview) = viewer.previews.get(&page)
-            {
-                renderer.draw_image(
-                    Image::new(preview.clone()).filter_method(FilterMethod::Linear),
-                    page_rect,
-                    *viewport,
-                );
+            // While tiles render, as after a zoom, the page's tiles from the
+            // zooms before stand in, over its preview for what they miss.
+            if tiles.iter().any(|(_, handle)| handle.is_none()) {
+                if let Some(preview) = viewer.previews.get(&page) {
+                    renderer.draw_image(
+                        Image::new(preview.clone()).filter_method(FilterMethod::Linear),
+                        page_rect,
+                        *viewport,
+                    );
+                }
+                for (pixels, scale, handle) in viewer.stand_in_tiles(page) {
+                    let per_pixel = points_to_pixels / scale;
+                    let rect = Rectangle::new(
+                        iced::Point::new(
+                            page_rect.x + pixels.x as f32 * per_pixel,
+                            page_rect.y + pixels.y as f32 * per_pixel,
+                        ),
+                        Size::new(
+                            pixels.width as f32 * per_pixel,
+                            pixels.height as f32 * per_pixel,
+                        ),
+                    );
+                    if rect.intersects(viewport) {
+                        renderer.draw_image(
+                            Image::new(handle.clone()).filter_method(FilterMethod::Linear),
+                            rect,
+                            *viewport,
+                        );
+                    }
+                }
             }
             for (rect, handle) in tiles {
                 if let Some(handle) = handle {

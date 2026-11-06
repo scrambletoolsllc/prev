@@ -382,6 +382,39 @@ impl PdfViewer {
             .map(|(handle, _, _)| handle)
     }
 
+    /// Tiles of `page` drawn at other zooms, which stand in while the
+    /// current zoom's render: each with its pixels and its device pixels
+    /// per point, the nearest zoom last, to lie on top.
+    pub fn stand_in_tiles(&self, page: usize) -> Vec<(PixelRect, f32, &Handle)> {
+        let generation = self.generation(page);
+        let scale = scale_key(self.render_scale());
+        let distance = |key: &TileKey| (key.scale as f32 / scale as f32).ln().abs();
+        let mut tiles: Vec<_> = self
+            .tiles
+            .iter()
+            .filter(|(key, _)| {
+                key.page == page && key.generation == generation && key.scale != scale
+            })
+            .filter_map(|(key, (handle, _, _))| {
+                let Handle::Rgba { width, height, .. } = handle else {
+                    return None;
+                };
+                let pixels = PixelRect {
+                    x: key.x,
+                    y: key.y,
+                    width: *width,
+                    height: *height,
+                };
+                Some((distance(key), pixels, key.scale as f32 / 1000.0, handle))
+            })
+            .collect();
+        tiles.sort_by(|a, b| b.0.total_cmp(&a.0));
+        tiles
+            .into_iter()
+            .map(|(_, pixels, scale, handle)| (pixels, scale, handle))
+            .collect()
+    }
+
     pub fn tile_key(&self, page: usize, tile: &PixelRect) -> TileKey {
         TileKey {
             page,

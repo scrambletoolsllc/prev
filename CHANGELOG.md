@@ -3,6 +3,14 @@
 All notable changes to prev. Versions follow
 [Semantic Versioning](https://semver.org).
 
+## Unreleased
+
+### Fixed
+
+- Zooming a PDF with the scroll wheel keeps the page sharp: the page as
+  it was drawn stands in, scaled, until the new zoom renders, where a
+  blurry preview showed before.
+
 ## [2.4.1] - 2026-11-03
 
 ### Added
