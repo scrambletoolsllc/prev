@@ -92,6 +92,11 @@
   <content_rating type="oars-1.1"/>
 
   <releases>
+    <release version="2.4.2" date="2026-11-06">
+      <description>
+        <p>The panels on the right, the inspectors, the image adjustments and the assistant, resize by their left edge as the sidebar does by its right, each between a narrowest and a widest width. Zooming a PDF with the scroll wheel keeps the page sharp while the new zoom renders.</p>
+      </description>
+    </release>
     <release version="2.4.1" date="2026-11-03">
       <description>
         <p>prev comes for Intel Macs too, as a disk image signed and notarized like the one for Apple Silicon. When an agent asks to fit an image's width, prev fills the window's width instead of fitting the whole image.</p>
