@@ -6,7 +6,8 @@ pkgdesc='View, mark up and sign PDFs and images'
 arch=('x86_64' 'aarch64' 'riscv64')
 url='https://github.com/scrambletools/prev'
 license=('AGPL-3.0-or-later')
-depends=('fontconfig' 'gcc-libs' 'glibc' 'libxkbcommon' 'vulkan-icd-loader' 'wayland')
+depends=('fontconfig' 'gcc-libs' 'glibc' 'hicolor-icon-theme' 'libxkbcommon'
+         'vulkan-icd-loader' 'wayland')
 makedepends=('cargo' 'clang' 'pkgconf')
 optdepends=('wl-clipboard: copy and paste images'
             'libheif: HEIC and AVIF images'
