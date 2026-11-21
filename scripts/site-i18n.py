@@ -420,6 +420,20 @@ def page_version():
     return shown.group(1)
 
 
+def pkgbuild_processors():
+    """The processors the Arch PKGBUILD builds for, from its arch=(), as
+    the download table names them. Each release's PKGBUILD is this one,
+    with the source's checksum filled in."""
+    pkgbuild = (ROOT / "packaging/arch/prev/PKGBUILD").read_text()
+    found = re.search(r"^arch=\(([^)]*)\)", pkgbuild, re.M)
+    if not found:
+        sys.exit("packaging/arch/prev/PKGBUILD should have an arch=() line")
+    arches = re.findall(r"'([^']+)'", found.group(1))
+    arches.sort(key=lambda arch: PROCESSOR_ORDER.index(arch)
+                if arch in PROCESSOR_ORDER else len(PROCESSOR_ORDER))
+    return " · ".join(PROCESSORS.get(arch, arch) for arch in arches)
+
+
 def fill_release(out, release, shown, warn):
     """A built page with its download table filled in from the release,
     and the release number SHOWN in its text made the release's. WARN is
@@ -445,7 +459,9 @@ def fill_release(out, release, shown, warn):
         kind, body = match.group(1), match.group(2)
         if kind == "arch":
             if "PKGBUILD" in files:
-                return f"<tr>{body}</tr>"
+                # Built from source, so the processors are the PKGBUILD's.
+                found = pkgbuild_processors()
+                return "<tr>" + body.replace("<span data-release-links></span>", found) + "</tr>"
             warn(f"no PKGBUILD in {release['tag_name']}, so no Arch row")
             return ""
         if kind not in RELEASE_FILES:

@@ -70,7 +70,7 @@
  "cce5a375a053": ".rpm: <span1></span1>",
  "244e2efe390a": "<code>sudo dnf install ./prev-{v}-1.*.rpm</code>",
  "f96ddf323d80": "Arch",
- "fcc22e18802c": "<a1>PKGBUILD</a1> và <a2>prev.install</a2>",
+ "aab9a27d1857": "<a1>PKGBUILD</a1> và <a2>prev.install</a2>, để biên dịch từ mã nguồn trên <span1></span1>",
  "70a4bfafdc84": "<code>makepkg -si</code> trong thư mục chứa cả hai tệp",
  "89e71efde082": "Flatpak",
  "5e0fdc04c86e": "<code>flatpak install --user prev-*.flatpak</code>",

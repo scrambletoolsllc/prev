@@ -287,9 +287,9 @@
   "page": "index.html",
   "text": "Arch"
  },
- "fcc22e18802c": {
+ "aab9a27d1857": {
   "page": "index.html",
-  "text": "<a1>PKGBUILD</a1> and <a2>prev.install</a2>"
+  "text": "<a1>PKGBUILD</a1> and <a2>prev.install</a2>, to build from source on <span1></span1>"
  },
  "70a4bfafdc84": {
   "page": "index.html",
