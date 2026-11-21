@@ -219,6 +219,7 @@ packages:
 | Windows 10 and 11 | the `.msi` installer: open it; it installs for you alone, with no administrator prompt |
 | Windows, portable | the `-windows.zip`: unpack it anywhere and run `prev.exe` |
 | macOS 11 or later | `prev-*-arm64.dmg` for Apple Silicon or `prev-*-x86_64.dmg` for Intel: open it and drag prev to Applications |
+| macOS, with [Homebrew](https://brew.sh) | `brew install --cask scrambletools/tap/prev` |
 
 Each file is named for the machine it runs on: `x86_64` (`amd64` in
 Debian's names, `x64` on Windows), `aarch64` (`arm64` in Debian's and
@@ -274,6 +275,9 @@ Every package has every feature. Some depend on where prev runs:
   it from a terminal. It updates with `mise up`; mise waits a day after
   a release before offering it. Like the tarball, it does not install
   wl-clipboard, libheif or curl.
+- **Homebrew:** installs the same disk image's prev into Applications.
+  `brew upgrade` brings each release within a day, when the tap's
+  daily check moves to it.
 - **Windows:**
   - Installed from the MSI, prev is in the Start menu and under "Open
     with". To make it the default app for a file type, choose it in
