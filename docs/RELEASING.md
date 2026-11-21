@@ -59,10 +59,13 @@ Builds without it are development builds.
    checks that the tag matches `Cargo.toml`, builds the packages and
    drafts a release with them, `SHA256SUMS`, and a `PKGBUILD` with the
    source checksum filled in, beside its `prev.install`. Check the draft
-   and publish it. Then update the version and links on the website
-   (`site/index.html`), the version named on `site/specs.html`, and in
-   the README's install table; pushing
-   `site/` redeploys prev.run.
+   and publish it with `gh release edit vX.Y.Z --draft=false --latest`,
+   as yourself rather than from a workflow, whose publishing starts no
+   other workflow. Publishing rebuilds prev.run, whose pages show the
+   latest release's number and whose download table lists its files: a
+   row for each kind of package it has, and a row with none left out.
+   The pages and the README need a change only for what the files' names
+   don't say, such as a new macOS minimum or a new kind of package.
 6. AUR: in a clone of `ssh://aur@aur.archlinux.org/prev.git`, replace
    `PKGBUILD` with the one from the release and copy
    `packaging/arch/prev/prev.install`, run `makepkg --printsrcinfo >.SRCINFO`,

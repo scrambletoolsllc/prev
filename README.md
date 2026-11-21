@@ -8,8 +8,8 @@ macOS, similar to macOS Preview. Built in Rust with [iced](https://iced.rs) and
 
 Website and downloads: **[prev.run](https://prev.run)**
 
-> **Status:** [2.4.2](https://github.com/scrambletools/prev/releases/tag/v2.4.2)
-> is out, for Linux and Windows on x86_64 and ARM64, Linux on RISC-V, and
+> **Status:** [released](https://github.com/scrambletools/prev/releases/latest)
+> for Linux and Windows on x86_64 and ARM64, Linux on RISC-V, and
 > macOS on Apple Silicon and Intel, with the interface in 38 languages. PDF, image, SVG and Markdown viewing, image editing, PDF
 > markup, form filling, signatures, page editing, redaction and printing
 > all work, and an assistant and outside AI agents can do them for you.
@@ -210,15 +210,15 @@ packages:
 | System | How |
 |---|---|
 | Arch | Until prev is on the AUR, build it from the release's PKGBUILD (below) |
-| Debian and Ubuntu | `sudo apt install ./prev_2.4.2-1_amd64.deb` |
-| Fedora | `sudo dnf install ./prev-2.4.2-1.x86_64.rpm` |
+| Debian and Ubuntu | `sudo apt install ./prev_*_amd64.deb` |
+| Fedora | `sudo dnf install ./prev-*.x86_64.rpm` |
 | Flatpak | `flatpak install --user prev-x86_64.flatpak` (or `prev-aarch64.flatpak`) |
-| Any distribution | the AppImage: `chmod +x prev-2.4.2-x86_64.AppImage`, then run it |
-| Any distribution | `prev-2.4.2-x86_64-linux.tar.gz`, a plain binary and data files to unpack under `/usr` or `~/.local` |
+| Any distribution | the AppImage: `chmod +x prev-*-x86_64.AppImage`, then run it |
+| Any distribution | `prev-*-x86_64-linux.tar.gz`, a plain binary and data files to unpack under `/usr` or `~/.local` |
 | Any distribution, with [mise](https://mise.jdx.dev) | `mise use -g github:scrambletools/prev` |
 | Windows 10 and 11 | the `.msi` installer: open it; it installs for you alone, with no administrator prompt |
 | Windows, portable | the `-windows.zip`: unpack it anywhere and run `prev.exe` |
-| macOS 11 or later | `prev-2.4.2-arm64.dmg` for Apple Silicon or `prev-2.4.2-x86_64.dmg` for Intel: open it and drag prev to Applications |
+| macOS 11 or later | `prev-*-arm64.dmg` for Apple Silicon or `prev-*-x86_64.dmg` for Intel: open it and drag prev to Applications |
 
 Each file is named for the machine it runs on: `x86_64` (`amd64` in
 Debian's names, `x64` on Windows), `aarch64` (`arm64` in Debian's and
@@ -228,8 +228,8 @@ On Arch, until the AUR packages are published:
 
 ```sh
 mkdir prev && cd prev
-curl -LO https://github.com/scrambletools/prev/releases/download/v2.4.2/PKGBUILD
-curl -LO https://github.com/scrambletools/prev/releases/download/v2.4.2/prev.install
+curl -LO https://github.com/scrambletools/prev/releases/latest/download/PKGBUILD
+curl -LO https://github.com/scrambletools/prev/releases/latest/download/prev.install
 makepkg -si
 ```
 

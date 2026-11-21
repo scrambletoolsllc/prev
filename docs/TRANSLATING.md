@@ -106,4 +106,7 @@ release number as `{v}`, so translations only see the words.
 - `scripts/build-site.sh` writes English at the root and each language
   under its own folder, with a language menu and `hreflang` links. A
   reader who arrives at an English page from elsewhere, with a browser
-  that prefers one of the languages, is taken to it.
+  that prefers one of the languages, is taken to it. It fills in the
+  download table from the latest release, so it needs `gh` signed in.
+  A download cell's links stand as `<span1></span1>` in the catalog, so
+  a new release or processor leaves its translation as it is.

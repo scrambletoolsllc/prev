@@ -219,9 +219,9 @@
   "page": "index.html",
   "text": "Windows 10 and 11"
  },
- "304ebb08851b": {
+ "6c17be6fc87e": {
   "page": "index.html",
-  "text": "Installer (.msi): <a1>x64</a1> · <a2>ARM64</a2>"
+  "text": "Installer (.msi): <span1></span1>"
  },
  "266dca3640a2": {
   "page": "index.html",
@@ -231,9 +231,9 @@
   "page": "index.html",
   "text": "Windows, portable"
  },
- "c6562b548a86": {
+ "ac9e045e513d": {
   "page": "index.html",
-  "text": ".zip: <a1>x64</a1> · <a2>ARM64</a2>"
+  "text": ".zip: <span1></span1>"
  },
  "15ed64ecaf37": {
   "page": "index.html",
@@ -243,9 +243,9 @@
   "page": "index.html",
   "text": "macOS 11 and later"
  },
- "749c05da4dca": {
+ "83e56629d8e6": {
   "page": "index.html",
-  "text": "Disk image (.dmg): <a1>Apple Silicon</a1> · <a2>Intel</a2>"
+  "text": "Disk image (.dmg): <span1></span1>"
  },
  "ad7a6715d26d": {
   "page": "index.html",
@@ -255,9 +255,9 @@
   "page": "index.html",
   "text": "Debian, Ubuntu"
  },
- "d2d0a2426b0f": {
+ "5c2ceb011c6e": {
   "page": "index.html",
-  "text": ".deb: <a1>x86_64</a1> · <a2>ARM64</a2> · <a3>RISC-V</a3>"
+  "text": ".deb: <span1></span1>"
  },
  "8d302eb83a9f": {
   "page": "index.html",
@@ -267,9 +267,9 @@
   "page": "index.html",
   "text": "Fedora"
  },
- "c5cb99e1826e": {
+ "cce5a375a053": {
   "page": "index.html",
-  "text": ".rpm: <a1>x86_64</a1> · <a2>ARM64</a2> · <a3>RISC-V</a3>"
+  "text": ".rpm: <span1></span1>"
  },
  "244e2efe390a": {
   "page": "index.html",
@@ -291,10 +291,6 @@
   "page": "index.html",
   "text": "Flatpak"
  },
- "83ebc7ef6e57": {
-  "page": "index.html",
-  "text": "<a1>x86_64</a1> · <a2>ARM64</a2>"
- },
  "5e0fdc04c86e": {
   "page": "index.html",
   "text": "<code>flatpak install --user prev-*.flatpak</code>"
@@ -303,17 +299,17 @@
   "page": "index.html",
   "text": "Any distribution"
  },
- "73100a56499e": {
+ "4bd01e61d268": {
   "page": "index.html",
-  "text": "AppImage: <a1>x86_64</a1> · <a2>ARM64</a2>"
+  "text": "AppImage: <span1></span1>"
  },
  "c9e7912d2b61": {
   "page": "index.html",
   "text": "Make it executable, then run it"
  },
- "1702595f8b41": {
+ "899270b24cbc": {
   "page": "index.html",
-  "text": ".tar.gz: <a1>x86_64</a1> · <a2>ARM64</a2> · <a3>RISC-V</a3>"
+  "text": ".tar.gz: <span1></span1>"
  },
  "4eb39eb63bd1": {
   "page": "index.html",
