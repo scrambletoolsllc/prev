@@ -510,7 +510,7 @@
  "248440b65b16": "De specificaties van prev: de systemen en processors waarop het draait, de bestandsformaten die het opent en exporteert, de talen en invoer, de software waarop het is gebouwd, en de prestaties.",
  "extra:policy-note": "Deze vertaling is bedoeld voor het gemak; de Engelse versie van dit beleid is degene die geldt.",
  "8d302eb83a9f": "<code>sudo apt install ./prev_{v}-1_*.deb</code>",
- "b265a518f1ba": "Releases voor Windows zijn sinds {v} ondertekend door Scramble Tools LLC; releases voor macOS nog niet; zie het <a1>beleid voor codeondertekening</a1>",
+ "83b2d78cfeae": "Releases voor Windows zijn sinds {v} ondertekend door Scramble Tools LLC en releases voor macOS sinds {v}, genotariseerd door Apple; zie het <a1>beleid voor codeondertekening</a1>",
  "5710c4e352d8": "Op Linux-desktops die geen titelbalk boven een venster tekenen, zoals Hyprland, niri en river, eindigt de knoppenbalk met een knop die het venster sluit, en een venster zonder geopend bestand heeft er een in de bovenhoek.",
  "54111d266209": "<a1>Afdrukken</a1>",
  "8cdc627a0c47": "<strong>PDF's</strong> worden afgedrukt met hun annotaties en ingevulde velden, ook met een wijziging van een moment geleden.",

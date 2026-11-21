@@ -510,7 +510,7 @@
  "248440b65b16": "prev 的规格：它运行的系统和处理器、它打开和导出的文件格式、它的语言和输入、它所基于的软件，以及它的性能。",
  "extra:policy-note": "本译文仅为方便阅读而提供；适用的是本政策的英文版本。",
  "8d302eb83a9f": "<code>sudo apt install ./prev_{v}-1_*.deb</code>",
- "b265a518f1ba": "Windows 版本自 {v} 起由 Scramble Tools LLC 签名；macOS 版本尚未签名；请参阅<a1>代码签名政策</a1>",
+ "83b2d78cfeae": "Windows 版本自 {v} 起、macOS 版本自 {v} 起由 Scramble Tools LLC 签名，macOS 版本并经 Apple 公证；请参阅<a1>代码签名政策</a1>",
  "5710c4e352d8": "在 Hyprland、niri 和 river 等不在窗口上方显示标题栏的 Linux 桌面环境中，工具栏末尾会有一个关闭窗口的按钮，未打开文件的窗口则在顶部角落显示这个按钮。",
  "54111d266209": "<a1>打印</a1>",
  "8cdc627a0c47": "<strong>PDF</strong> 打印时会带上标记和已填写的表单域，包括刚刚做出的编辑。",

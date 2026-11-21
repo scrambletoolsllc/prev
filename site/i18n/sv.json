@@ -510,7 +510,7 @@
  "248440b65b16": "Specifikationer för prev: system och processorer det körs på, filformat det öppnar och exporterar, språk och inmatning, programvaran det bygger på och dess prestanda.",
  "extra:policy-note": "Den här översättningen tillhandahålls för enkelhetens skull; det är den engelska versionen av den här policyn som gäller.",
  "8d302eb83a9f": "<code>sudo apt install ./prev_{v}-1_*.deb</code>",
- "b265a518f1ba": "Versioner för Windows är signerade av Scramble Tools LLC sedan {v}; versioner för macOS ännu inte; se <a1>policyn för kodsignering</a1>",
+ "83b2d78cfeae": "Versioner för Windows är signerade av Scramble Tools LLC sedan {v}, och versioner för macOS sedan {v}, notariserade av Apple; se <a1>policyn för kodsignering</a1>",
  "5710c4e352d8": "I Linux-skrivbordsmiljöer som inte ritar någon namnlist ovanför fönstret, till exempel Hyprland, niri och river, slutar verktygsfältet med en knapp som stänger fönstret, och ett fönster utan öppen fil har en uppe i hörnet.",
  "54111d266209": "<a1>Utskrift</a1>",
  "8cdc627a0c47": "<strong>PDF-filer</strong> skrivs ut med sin märkning och sina ifyllda fält, även en ändring som gjordes alldeles nyss.",

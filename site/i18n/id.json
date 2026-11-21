@@ -510,7 +510,7 @@
  "248440b65b16": "Spesifikasi prev: sistem dan prosesor tempatnya berjalan, format berkas yang dibuka dan diekspornya, bahasa dan inputnya, perangkat lunak yang menjadi dasarnya, dan kinerjanya.",
  "extra:policy-note": "Terjemahan ini diberikan untuk kemudahan; versi bahasa Inggris dari kebijakan ini adalah yang berlaku.",
  "8d302eb83a9f": "<code>sudo apt install ./prev_{v}-1_*.deb</code>",
- "b265a518f1ba": "Rilis Windows ditandatangani oleh Scramble Tools LLC sejak {v}; rilis macOS belum; lihat <a1>kebijakan penandatanganan kode</a1>",
+ "83b2d78cfeae": "Rilis Windows ditandatangani oleh Scramble Tools LLC sejak {v}, dan rilis macOS sejak {v}, dinotarisasi oleh Apple; lihat <a1>kebijakan penandatanganan kode</a1>",
  "5710c4e352d8": "Di desktop Linux yang tidak menampilkan bilah judul di atas jendela, seperti Hyprland, niri, dan river, bilah alat diakhiri dengan tombol yang menutup jendela, dan jendela tanpa berkas yang terbuka memiliki tombol itu di sudut atasnya.",
  "54111d266209": "<a1>Pencetakan</a1>",
  "8cdc627a0c47": "<strong>PDF</strong> dicetak beserta markah dan kolom yang sudah diisi, termasuk perubahan yang baru saja dibuat.",

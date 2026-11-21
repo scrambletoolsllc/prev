@@ -510,7 +510,7 @@
  "248440b65b16": "Thông số kỹ thuật của prev: hệ thống và bộ xử lý nó chạy trên, các định dạng tệp nó mở và xuất, ngôn ngữ và nhập liệu, phần mềm nó được xây dựng trên, và hiệu năng.",
  "extra:policy-note": "Bản dịch này chỉ nhằm thuận tiện cho bạn; phiên bản tiếng Anh của chính sách này là bản có hiệu lực.",
  "8d302eb83a9f": "<code>sudo apt install ./prev_{v}-1_*.deb</code>",
- "b265a518f1ba": "Các bản phát hành cho Windows được Scramble Tools LLC ký từ {v}; bản cho macOS thì chưa; xem <a1>chính sách ký mã</a1>",
+ "83b2d78cfeae": "Các bản phát hành cho Windows được Scramble Tools LLC ký từ {v}, và bản cho macOS từ {v}, được Apple công chứng; xem <a1>chính sách ký mã</a1>",
  "5710c4e352d8": "Trên các môi trường desktop Linux không hiển thị thanh tiêu đề phía trên cửa sổ, như Hyprland, niri và river, thanh công cụ có một nút đóng cửa sổ ở cuối, và cửa sổ chưa mở tệp nào có nút này ở góc trên.",
  "54111d266209": "<a1>In</a1>",
  "8cdc627a0c47": "<strong>PDF</strong> được in cùng phần đánh dấu và các trường đã điền, kể cả chỉnh sửa vừa thực hiện.",

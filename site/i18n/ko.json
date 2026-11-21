@@ -510,7 +510,7 @@
  "248440b65b16": "prev 사양: 실행되는 시스템과 프로세서, 열고 내보내는 파일 형식, 언어와 입력, 기반 소프트웨어, 성능.",
  "extra:policy-note": "이 번역은 편의를 위해 제공됩니다. 적용되는 것은 이 정책의 영어판입니다.",
  "8d302eb83a9f": "<code>sudo apt install ./prev_{v}-1_*.deb</code>",
- "b265a518f1ba": "Windows 릴리스는 {v}부터 Scramble Tools LLC가 서명합니다. macOS 릴리스는 아직 서명되지 않았습니다. <a1>코드 서명 정책</a1>을 보세요",
+ "83b2d78cfeae": "Windows 릴리스는 {v}부터, macOS 릴리스는 {v}부터 Scramble Tools LLC가 서명하며, macOS 릴리스는 Apple의 공증을 받았습니다. <a1>코드 서명 정책</a1>을 보세요",
  "5710c4e352d8": "Hyprland, niri, river처럼 창 위에 제목 표시줄을 그리지 않는 Linux 데스크톱에서는 도구 막대 끝에 창을 닫는 버튼이 붙고, 파일이 열려 있지 않은 창에는 위쪽 모서리에 같은 버튼이 나타납니다.",
  "54111d266209": "<a1>인쇄</a1>",
  "8cdc627a0c47": "<strong>PDF</strong>는 마크업과 채운 필드와 함께 인쇄되며, 바로 전에 한 편집도 포함됩니다.",

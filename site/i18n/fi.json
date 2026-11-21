@@ -510,7 +510,7 @@
  "248440b65b16": "previn tekniset tiedot: järjestelmät ja suorittimet, joilla se toimii, tiedostomuodot, jotka se avaa ja vie, sen kielet ja syöte, ohjelmistot, joiden varaan se on rakennettu, sekä sen suorituskyky.",
  "extra:policy-note": "Tämä käännös on annettu käytön helpottamiseksi; sovellettava versio tästä käytännöstä on englanninkielinen.",
  "8d302eb83a9f": "<code>sudo apt install ./prev_{v}-1_*.deb</code>",
- "b265a518f1ba": "Scramble Tools LLC allekirjoittaa Windows-julkaisut versiosta {v} alkaen; macOS-julkaisuja ei vielä; katso <a1>koodin allekirjoituskäytäntö</a1>",
+ "83b2d78cfeae": "Scramble Tools LLC allekirjoittaa Windows-julkaisut versiosta {v} alkaen ja macOS-julkaisut versiosta {v} alkaen, Applen notarisoimina; katso <a1>koodin allekirjoituskäytäntö</a1>",
  "5710c4e352d8": "Linuxin työpöytäympäristöissä, jotka eivät piirrä ikkunan yläpuolelle otsikkopalkkia, kuten Hyprlandissa, nirissä ja riverissä, työkalupalkin lopussa on ikkunan sulkeva painike, ja ikkunassa, jossa ei ole tiedostoa auki, on sellainen yläkulmassa.",
  "54111d266209": "<a1>Tulostus</a1>",
  "8cdc627a0c47": "<strong>PDF-tiedostot</strong> tulostuvat merkintöineen ja täytettyine kenttineen, juuri äsken tehty muokkauskin mukana.",

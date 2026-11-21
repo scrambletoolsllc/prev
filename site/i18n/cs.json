@@ -507,7 +507,7 @@
  "248440b65b16": "Specifikace prev: systémy a procesory, na kterých běží, formáty souborů, které otevírá a exportuje, jeho jazyky a vstup, software, na kterém je postaven, a jeho výkon.",
  "extra:policy-note": "Tento překlad slouží pro usnadnění; platná je anglická verze těchto zásad.",
  "8d302eb83a9f": "<code>sudo apt install ./prev_{v}-1_*.deb</code>",
- "b265a518f1ba": "Vydání pro Windows podepisuje Scramble Tools LLC od verze {v}; vydání pro macOS zatím ne; viz <a1>zásady podepisování kódu</a1>",
+ "83b2d78cfeae": "Vydání pro Windows podepisuje Scramble Tools LLC od verze {v} a vydání pro macOS od verze {v}, notarizovaná společností Apple; viz <a1>zásady podepisování kódu</a1>",
  "499581862a15": "<strong>Textové pole</strong> a <strong>Poznámka</strong>, s písmy, velikostmi, barvami a zarovnáním. Když píšete do textového pole, lišta nad ním označený text ztuční (Ctrl+B), převede na kurzívu (Ctrl+I) nebo mu dá jinou barvu.",
  "ca87760a51b1": "Asistent je chat vedle vašeho dokumentu: zeptejte se na soubor a on si přečte, co potřebuje, ukáže vám, kde co je, a pracuje v souboru za vás se stejnými nástroji jako <a1>AI agent</a1>. Otevře ho vpravo hlava robota na panelu nástrojů, před tlačítkem Anotace. Každé okno má vlastní chat, který zůstává i při zavřeném panelu; Nová konverzace začne znovu a Zastavit ukončí rozpracovanou odpověď. Když je chat delší, než lokální model dokáže přečíst najednou, jeho dřívější část se shrne, aby chat mohl pokračovat, a panel na to upozorní.",
  "e93a54438d64": "Zvýraznění, podtržení, přeškrtnutí; skica, kreslení; obdélník, zaoblený obdélník, ovál, čára, šipka, hvězda, mnohoúhelník, bublina, lupa, maska; textová pole s tučnými, kurzivními a barevnými částmi a také poznámky. Ukládá se jako standardní anotace PDF",

@@ -2115,9 +2115,9 @@
   "page": "specs.html",
   "text": "Code signing"
  },
- "b265a518f1ba": {
+ "83b2d78cfeae": {
   "page": "specs.html",
-  "text": "Windows releases are signed by Scramble Tools LLC since {v}; macOS releases are not yet; see the <a1>code signing policy</a1>"
+  "text": "Windows releases are signed by Scramble Tools LLC since {v}, and macOS releases since {v}, notarized by Apple; see the <a1>code signing policy</a1>"
  },
  "248440b65b16": {
   "page": "specs.html",

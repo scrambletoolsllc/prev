@@ -510,7 +510,7 @@
  "248440b65b16": "prev 的規格：它執行的系統和處理器、能開啟和輸出的檔案格式、語言與輸入、所使用的軟體，以及效能。",
  "extra:policy-note": "本翻譯僅供參考；本政策以英文版為準。",
  "8d302eb83a9f": "<code>sudo apt install ./prev_{v}-1_*.deb</code>",
- "b265a518f1ba": "Windows 版本自 {v} 起由 Scramble Tools LLC 簽署；macOS 版本尚未簽署；請參閱<a1>程式碼簽署政策</a1>",
+ "83b2d78cfeae": "Windows 版本自 {v} 起、macOS 版本自 {v} 起由 Scramble Tools LLC 簽署，macOS 版本並經 Apple 公證；請參閱<a1>程式碼簽署政策</a1>",
  "5710c4e352d8": "在 Hyprland、niri 和 river 等不在視窗上方顯示標題列的 Linux 桌面環境中，工具列末端會有一個關閉視窗的按鈕，未開啟檔案的視窗則會在頂端角落顯示這個按鈕。",
  "54111d266209": "<a1>列印</a1>",
  "8cdc627a0c47": "<strong>PDF</strong> 會連同標示和已填寫的欄位一起列印，包括剛剛才做的編輯。",

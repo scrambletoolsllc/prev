@@ -510,7 +510,7 @@
  "248440b65b16": "Spesifikasjonene til prev: systemene og prosessorene det kjører på, filformatene det åpner og eksporterer, språk og inndata, programvaren det bygger på, og ytelsen.",
  "extra:policy-note": "Denne oversettelsen er gitt for enkelhets skyld; det er den engelske versjonen av disse retningslinjene som gjelder.",
  "8d302eb83a9f": "<code>sudo apt install ./prev_{v}-1_*.deb</code>",
- "b265a518f1ba": "Utgivelser for Windows er signert av Scramble Tools LLC siden {v}; utgivelser for macOS er ikke det ennå; se <a1>retningslinjene for kodesignering</a1>",
+ "83b2d78cfeae": "Utgivelser for Windows er signert av Scramble Tools LLC siden {v}, og utgivelser for macOS siden {v}, notarisert av Apple; se <a1>retningslinjene for kodesignering</a1>",
  "5710c4e352d8": "I Linux-skrivebordsmiljøer som ikke tegner noen tittellinje over vinduet, for eksempel Hyprland, niri og river, slutter verktøylinjen med en knapp som lukker vinduet, og et vindu uten åpen fil har en oppe i hjørnet.",
  "54111d266209": "<a1>Utskrift</a1>",
  "8cdc627a0c47": "<strong>PDF-er</strong> skrives ut med markeringer og utfylte felt, også en endring som ble gjort et øyeblikk før.",

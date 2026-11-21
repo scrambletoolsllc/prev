@@ -510,7 +510,7 @@
  "248440b65b16": "Les especificacions del prev: els sistemes i processadors en què funciona, els formats de fitxer que obre i exporta, les seves llengües i l’entrada, el programari en què es basa i el seu rendiment.",
  "extra:policy-note": "Aquesta traducció s’ofereix per comoditat; la versió en anglès d’aquesta política és la que s’aplica.",
  "8d302eb83a9f": "<code>sudo apt install ./prev_{v}-1_*.deb</code>",
- "b265a518f1ba": "Les versions per al Windows estan signades per Scramble Tools LLC des de la {v}; les del macOS encara no; consulta la <a1>política de signatura de codi</a1>",
+ "83b2d78cfeae": "Les versions per al Windows estan signades per Scramble Tools LLC des de la {v}, i les del macOS des de la {v}, notaritzades per Apple; consulta la <a1>política de signatura de codi</a1>",
  "5710c4e352d8": "Als escriptoris Linux que no dibuixen cap barra de títol a sobre de les finestres, com ara el Hyprland, el niri i el river, la barra d’eines acaba amb un botó que tanca la finestra, i una finestra sense cap fitxer obert en té un a la cantonada superior.",
  "54111d266209": "<a1>Impressió</a1>",
  "8cdc627a0c47": "Els <strong>PDF</strong> s’imprimeixen amb les seves marques i els camps emplenats, fins i tot un canvi fet un moment abans.",

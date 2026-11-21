@@ -510,7 +510,7 @@
  "248440b65b16": "Les caractéristiques de prev : les systèmes et processeurs sur lesquels il fonctionne, les formats de fichier qu’il ouvre et exporte, ses langues et sa saisie, les logiciels sur lesquels il repose et ses performances.",
  "extra:policy-note": "Cette traduction est fournie pour plus de commodité ; c’est la version anglaise de cette politique qui fait foi.",
  "8d302eb83a9f": "<code>sudo apt install ./prev_{v}-1_*.deb</code>",
- "b265a518f1ba": "Les versions Windows sont signées par Scramble Tools LLC depuis la {v} ; les versions macOS pas encore ; voir la <a1>politique de signature du code</a1>",
+ "83b2d78cfeae": "Les versions Windows sont signées par Scramble Tools LLC depuis la {v}, et les versions macOS depuis la {v}, notarisées par Apple ; voir la <a1>politique de signature du code</a1>",
  "5710c4e352d8": "Sur les bureaux Linux qui ne dessinent pas de barre de titre au-dessus des fenêtres, comme Hyprland, niri et river, la barre d’outils se termine par un bouton qui ferme la fenêtre, et une fenêtre sans fichier ouvert en a un dans son coin supérieur.",
  "54111d266209": "<a1>Impression</a1>",
  "8cdc627a0c47": "Les <strong>PDF</strong> s’impriment avec leurs annotations et leurs champs remplis, y compris une modification faite l’instant d’avant.",

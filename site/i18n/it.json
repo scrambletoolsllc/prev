@@ -510,7 +510,7 @@
  "248440b65b16": "Le specifiche di prev: i sistemi e i processori su cui funziona, i formati di file che apre ed esporta, le sue lingue e l’input, il software su cui si basa e le sue prestazioni.",
  "extra:policy-note": "Questa traduzione è fornita per comodità; la versione inglese di questi criteri è quella che fa fede.",
  "8d302eb83a9f": "<code>sudo apt install ./prev_{v}-1_*.deb</code>",
- "b265a518f1ba": "Le release per Windows sono firmate da Scramble Tools LLC dalla {v}; quelle per macOS non ancora; vedi i <a1>criteri di firma del codice</a1>",
+ "83b2d78cfeae": "Le release per Windows sono firmate da Scramble Tools LLC dalla {v}, e quelle per macOS dalla {v}, autenticate da Apple; vedi i <a1>criteri di firma del codice</a1>",
  "5710c4e352d8": "Sui desktop Linux che non disegnano una barra del titolo sopra le finestre, come Hyprland, niri e river, la barra degli strumenti termina con un pulsante che chiude la finestra, e una finestra senza file aperti ne ha uno nell’angolo in alto.",
  "54111d266209": "<a1>Stampa</a1>",
  "8cdc627a0c47": "I <strong>PDF</strong> si stampano con le loro annotazioni e i campi compilati, compresa una modifica fatta un attimo prima.",
