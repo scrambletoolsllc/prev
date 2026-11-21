@@ -55,6 +55,12 @@ wildcards = "deny"
 yanked = "deny"
 # Only fail on unmaintained crates we depend on directly.
 unmaintained = "workspace"
+ignore = [
+    # chrono, unmaintained: rawler, rmcp and schemars depend on it too, so
+    # it stays in the build whatever prev's own date code uses. Move off it
+    # once they have.
+    { id = "RUSTSEC-2026-0543", reason = "chrono is still needed by rawler, rmcp and schemars" },
+]
 
 [sources]
 unknown-registry = "deny"
